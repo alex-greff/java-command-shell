@@ -31,7 +31,7 @@ ______|_________________________________________________________________________
       |  As a third-party developer who is adding modifications to the system         |          |
       |  I should be able to easily create new commands and be provided with          |    8     |
   3   |  powerful and flexible internal tools to aid in developing the functionality  |          |
-      |  of my new command                                	                          |          |
+      |  of my new command                                                            |          |
 ______|_______________________________________________________________________________|__________|
   4a  |  Have a clear, flexible and well defined system for command documentation     |    7     |
 ______|_______________________________________________________________________________|__________|
