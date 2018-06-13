@@ -4,7 +4,7 @@ ______|_________________________________________________________________________
   1   |  to input commands into it and get descriptive feedback from both correct     |    8     |
       |  and incorrect inputs                                                         |          |
 ______|_______________________________________________________________________________|__________|
-  -   |  With the command-line I the user should be able to accomplish the following: |    -     |
+  -   |  With the command-line I should be able to accomplish the following:          |    -     |
 ______|_______________________________________________________________________________|__________|
   2a  |  - I am able to get descriptive help information for every command            |    7     |
 ______|_______________________________________________________________________________|__________|
@@ -31,14 +31,15 @@ ______|_________________________________________________________________________
       |  As a third-party developer who is adding modifications to the system         |          |
       |  I should be able to easily create new commands and be provided with          |    8     |
   3   |  powerful and flexible internal tools to aid in developing the functionality  |          |
-      |  of my new command                                                            |          |
+      |  of my new command                                	                          |          |
 ______|_______________________________________________________________________________|__________|
   4a  |  Have a clear, flexible and well defined system for command documentation     |    7     |
 ______|_______________________________________________________________________________|__________|
-  4b  |  Have a flexible system for outputting text to the console or files           |    9     |
+  4b  |  Have a flexible system for outputting text to the console / getting          |          |
+      |  information from the user via the console                                    |    9     |
 ______|_______________________________________________________________________________|__________|
-  4c  |  Have a system for getting information from the user or from files            |    9     |
+  4c  |  Have a system for reading/writing information from/to files                  |    8     |
 ______|_______________________________________________________________________________|__________|
       |  Have a system for parsing user input into an application-universal           |          |
   4d  |  data format                                                                  |    9     |
-______|_______________________________________________________________________________|__________|      
+______|_______________________________________________________________________________|__________| 
