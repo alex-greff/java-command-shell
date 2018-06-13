@@ -30,13 +30,13 @@ f-1. (Command) Write the base code for the commands
 These tasks are assigned as follows:
 
 User: Anton Kaminsky
-Tasks: a-0, ...
+Tasks: 
 
 User: Chedy Sankar
-Tasks: a-0, ...
+Tasks: 
 
 User: Alexander Ursu
-Tasks: a-0, ...
+Tasks: 
 
 User: Alexander Greff
-Tasks: a-0, ... 
+Tasks:  
