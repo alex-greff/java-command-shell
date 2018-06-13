@@ -1,1 +1,44 @@
-productBacklogFor2A.txt
+  ID  |  Backlog Items:                                                               | Estimate |
+______|_______________________________________________________________________________|__________|
+      |  As a product user I should be able run the command-line and be able          |          |
+  1   |  to input commands into it and get descriptive feedback from both correct     |    8     |
+      |  and incorrect inputs                                                         |          |
+______|_______________________________________________________________________________|__________|
+  -   |  With the command-line I the user should be able to accomplish the following: |    -     |
+______|_______________________________________________________________________________|__________|
+  2a  |  - I am able to get descriptive help information for every command            |    7     |
+______|_______________________________________________________________________________|__________|
+  2b  |  - I am able to change the current directory that my command-line is in       |    7     |
+______|_______________________________________________________________________________|__________|
+  2c  |  - I am able to see what directory I am in                                    |    4     |
+______|_______________________________________________________________________________|__________|
+  2d  |  - I am able to make directories                                              |    6     |
+______|_______________________________________________________________________________|__________|
+  2e  |  - I am able to list directories                                              |    4     |
+______|_______________________________________________________________________________|__________|
+  2f  |  - I am able to save my current working directory                             |    4     |
+______|_______________________________________________________________________________|__________|
+  2g  |  - I am able to retrieve past working directories                             |    4     |
+______|_______________________________________________________________________________|__________|
+  2h  |  - I am able to see past input that I have put into the command-line          |    3     |
+______|_______________________________________________________________________________|__________|
+  2i  |  - I am able to see the contents of files                                     |    6     |
+______|_______________________________________________________________________________|__________|
+  2j  |  - I am able to print strings to my command-line or to a file                 |    5     |
+______|_______________________________________________________________________________|__________|
+  2k  |  - And finally, I am able to shut down the command-line at any time           |    7     |
+______|_______________________________________________________________________________|__________|
+      |  As a third-party developer who is adding modifications to the system         |          |
+      |  I should be able to easily create new commands and be provided with          |    8     |
+  3   |  powerful and flexible internal tools to aid in developing the functionality  |          |
+      |  of my new command                                	                          |          |
+______|_______________________________________________________________________________|__________|
+  4a  |  Have a clear, flexible and well defined system for command documentation     |    7     |
+______|_______________________________________________________________________________|__________|
+  4b  |  Have a flexible system for outputting text to the console or files           |    9     |
+______|_______________________________________________________________________________|__________|
+  4c  |  Have a system for getting information from the user or from files            |    9     |
+______|_______________________________________________________________________________|__________|
+      |  Have a system for parsing user input into an application-universal           |          |
+  4d  |  data format                                                                  |    9     |
+______|_______________________________________________________________________________|__________|      
