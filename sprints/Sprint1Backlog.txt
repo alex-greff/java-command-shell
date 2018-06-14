@@ -14,7 +14,6 @@ d) ID #4c  "Have a system for reading/writing information from/to files"
 e) ID #4d  "Have a system for parsing user input into an application-universal data format"
 
 Specific tasks to be accomplished:
-a-0. Rough in the framework for the JShell, Parser, CmdLine_IO, File_IO, CommandArgs and Command
 a-1. (JShell) Begin coding the structure of the command line interpreter
 a-2. (JShell) Have the shell continually prompt the user for input
 a-3. (JShell) Parse the user input into the CommandArgs format
@@ -30,13 +29,13 @@ f-1. (Command) Write the base code for the commands
 These tasks are assigned as follows:
 
 User: Anton Kaminsky
-Tasks: 
+Tasks: c-1, c-2, d-1, d-2
 
 User: Chedy Sankar
-Tasks: 
+Tasks: a-1, a-2, a-3
 
 User: Alexander Ursu
-Tasks: 
+Tasks: e-1, f-1
 
 User: Alexander Greff
-Tasks:  
+Tasks: b-1
