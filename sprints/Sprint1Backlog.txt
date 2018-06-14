@@ -12,6 +12,7 @@ c) ID #4b  "Have a flexible system for outputting text to the console / getting 
    from the user via the console"
 d) ID #4c  "Have a system for reading/writing information from/to files"
 e) ID #4d  "Have a system for parsing user input into an application-universal data format"
+f) ID #4e  "Have a system that allows for managing the calling of commands"
 
 Specific tasks to be accomplished:
 a-1. (JShell) Begin coding the structure of the command line interpreter
