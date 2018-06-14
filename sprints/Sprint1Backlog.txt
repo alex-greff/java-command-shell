@@ -17,6 +17,7 @@ Specific tasks to be accomplished:
 a-1. (JShell) Begin coding the structure of the command line interpreter
 a-2. (JShell) Have the shell continually prompt the user for input
 a-3. (JShell) Parse the user input into the CommandArgs format
+a-4. (JShell) Implement the call to the CommandManager with the parsed input
 b-1. (Parser) Build the parser system that takes input and parses to CommandArgs format
 c-1. (CmdLine_IO) Build the command-line output system 
 c-2. (CmdLine_IO) Build the command-line input system
@@ -24,6 +25,7 @@ d-1. (File_IO) Build the file output system
 d-2. (File_IO) Build the file input system
 e-1. (CommandArgs) Implement the parsed command argument container class
 f-1. (Command) Write the base code for the commands
+g-1. (CommandManager) Implement a manager that takes a CommandArgs and runs corresponding the command
 
 
 These tasks are assigned as follows:
@@ -32,10 +34,10 @@ User: Anton Kaminsky
 Tasks: c-1, c-2, d-1, d-2
 
 User: Chedy Sankar
-Tasks: a-1, a-2, a-3
+Tasks: a-1, a-2, a-3, a-4
 
 User: Alexander Ursu
-Tasks: e-1, f-1
+Tasks: f-1, g-1
 
 User: Alexander Greff
-Tasks: b-1
+Tasks: b-1, e-1
