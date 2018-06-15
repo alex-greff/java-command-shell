@@ -3,7 +3,6 @@ Parent class:
 Subclasses:
 
 Responsibilities:
-* ???
+* Acts as a container to store parsed user input
 
 Collaborators:
-* ???
