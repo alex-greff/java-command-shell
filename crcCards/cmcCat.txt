@@ -1,8 +1,8 @@
-Class name: get
+Class name: cmdCat
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* get file(s) located at the URL argument
+* display the contents of a file
 Collaborators:
-*
+* File

@@ -1,8 +1,8 @@
-Class name: cd
+Class name: cmvMkdir
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* change the current directory that the JShell operates in
+* show the path of the current working directory
 Collaborators:
 * Directory

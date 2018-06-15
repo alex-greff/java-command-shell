@@ -1,4 +1,4 @@
-Class name: mkdir
+Class name: cmdMkdir
 Parent class: Command
 Subclasses:
 

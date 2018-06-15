@@ -1,8 +1,8 @@
-Class name: pwd
+Class name: cmdCd
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* show the path of the current working directory
+* change the current directory that the JShell operates in
 Collaborators:
 * Directory

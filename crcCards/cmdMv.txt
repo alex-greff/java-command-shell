@@ -1,4 +1,4 @@
-Class name: mv
+Class name: cmdMv
 Parent class: Command
 Subclasses:
 
