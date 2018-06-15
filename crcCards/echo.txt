@@ -1,0 +1,8 @@
+Class name: echo
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* print the contents of the arguments
+Collaborators:
+*

@@ -1,0 +1,9 @@
+Class name: mv
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* move or rename a file from a directory to any other accessible directory
+Collaborators:
+* File
+* Directory

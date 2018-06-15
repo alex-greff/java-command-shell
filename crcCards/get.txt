@@ -1,0 +1,8 @@
+Class name: get
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* get file(s) located at the URL argument
+Collaborators:
+*

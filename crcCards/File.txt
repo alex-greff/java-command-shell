@@ -1,0 +1,11 @@
+Class name: File
+Parent class:
+Subclasses:
+
+Responsibilities:
+* store file name
+* store file extension (.txt, or .py, etc.)
+* contain plaintext content
+* be read, be written to, append to.
+Collaborators:
+*

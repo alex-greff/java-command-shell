@@ -1,0 +1,10 @@
+Class name: Command
+Parent class:
+Subclasses: mkdir, cd, ls, pwd, mv, cp, cat, get, echo
+
+Responsibilities:
+* store command name
+* store potential command arguments
+* execute its abstract function
+Collaborators:
+*

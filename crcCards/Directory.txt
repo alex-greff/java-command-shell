@@ -1,0 +1,12 @@
+Class name: Directory
+Parent class:
+Subclasses:
+
+Responsibilities:
+* store directory name
+* store directory location (absolute path)
+* contain directories
+* contain files
+Collaborators:
+* Directory
+* File

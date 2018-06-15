@@ -1,0 +1,8 @@
+Class name: cd
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* change the current directory that the JShell operates in
+Collaborators:
+* Directory
