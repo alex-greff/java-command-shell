@@ -1,8 +1,9 @@
-Class name: echo
+Class name: cmdEcho
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* print the contents of the arguments
+* prints the given string argument to the console or to a file
+
 Collaborators:
 *

@@ -4,5 +4,6 @@ Subclasses:
 
 Responsibilities:
 * create a new directory at the given path, default is in the current directory
+
 Collaborators:
 * Directory

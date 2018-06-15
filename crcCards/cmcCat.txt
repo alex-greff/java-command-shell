@@ -4,5 +4,6 @@ Subclasses:
 
 Responsibilities:
 * display the contents of a file
+
 Collaborators:
 * File

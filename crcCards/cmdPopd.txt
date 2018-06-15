@@ -1,0 +1,10 @@
+Class name: cmdPopd
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* removes the top entry from the directory stack
+* changes the current working directory into it
+
+Collaborators:
+* File

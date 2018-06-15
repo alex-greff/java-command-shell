@@ -1,0 +1,10 @@
+Class name: cmdPushd
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* pushes the current working directory into the directory stack 
+* changes the current working directory to the given parameter 
+
+Collaborators:
+* ???

@@ -1,0 +1,9 @@
+Class name: CommandManager
+Parent class:
+Subclasses:
+
+Responsibilities:
+* ???
+
+Collaborators:
+* ???

@@ -1,0 +1,9 @@
+Class name: cmdMan
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* display help information for the given command
+
+Collaborators:
+* ???

@@ -1,8 +1,9 @@
-Class name: cmvMkdir
+Class name: cmvPwd
 Parent class: Command
 Subclasses:
 
 Responsibilities:
 * show the path of the current working directory
+
 Collaborators:
 * Directory

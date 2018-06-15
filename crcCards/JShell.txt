@@ -6,6 +6,7 @@ Responsibilities:
 * contain current directory
 * contain a set of known commands
 * receive and understand user input
+
 Collaborators:
 * Directory
 * Command

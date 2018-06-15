@@ -1,0 +1,9 @@
+Class name: cmdHistory
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* lists the most recent user command inputs
+
+Collaborators:
+* ???

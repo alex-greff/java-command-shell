@@ -1,10 +1,11 @@
 Class name: Command
 Parent class:
-Subclasses: mkdir, cd, ls, pwd, mv, cp, cat, get, echo
+Subclasses: cmdMkdir, cmdCd, cmdLs, cmdPwd, cmvMv, cmdCp, cmdCat, cmdGet, cmdEcho, cmdExit
 
 Responsibilities:
 * store command name
 * store potential command arguments
 * execute its abstract function
+
 Collaborators:
 *

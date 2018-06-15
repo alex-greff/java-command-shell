@@ -1,8 +1,9 @@
-Class name: ls
+Class name: cmdLs
 Parent class: Command
 Subclasses:
 
 Responsibilities:
 * list all of the contents within the given directory
+
 Collaborators:
 * Directory

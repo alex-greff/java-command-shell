@@ -4,5 +4,6 @@ Subclasses:
 
 Responsibilities:
 * change the current directory that the JShell operates in
+
 Collaborators:
 * Directory

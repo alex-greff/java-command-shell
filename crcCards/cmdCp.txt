@@ -1,9 +1,10 @@
-Class name: cmdEcho
+Class name: cmdCp
 Parent class: Command
 Subclasses:
 
 Responsibilities:
 * copies/renames a file from a directory to any other accessible directory
+
 Collaborators:
 * File
 * Directory
