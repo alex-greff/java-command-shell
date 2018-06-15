@@ -6,9 +6,9 @@
 // Author: Alexander Ursu
 //
 // Student2:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name: greffal1
+// UT Student #: 1004254497
+// Author: Alexander Greff
 //
 // Student3:
 // UTORID user_name:
