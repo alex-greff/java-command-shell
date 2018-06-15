@@ -11,9 +11,9 @@
 // Author: Alexander Greff
 //
 // Student3:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name: sankarch
+// UT Student #: 1004174895
+// Author: Chedy Sankar
 //
 // Student4:
 // UTORID user_name:
