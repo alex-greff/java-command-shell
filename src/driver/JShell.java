@@ -16,9 +16,9 @@
 // Author: Chedy Sankar
 //
 // Student4:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name: kamins42
+// UT Student #: 1004331992
+// Author: Anton Kaminsky
 //
 //
 // Honor Code: I pledge that this program represents my own
