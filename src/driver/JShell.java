@@ -29,10 +29,40 @@
 // *********************************************************
 package driver;
 
+import java.util.Scanner;
+import containers.*;
+import commands.*;
+import utilities.*;
+
 public class JShell {
+	//to be reimplemented with other directory solution
+	private static String defaultPath = "/#";
+	private static String addPath = "";
+	// probably wanna store path as some other object?
+
+	// rethink exitCondition object
+	private static boolean exitCond=true;
+
+	
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
+    // create means of attaining User Input (scanner may be replaced)
+    String rawInput;
+		Scanner scanIn = new Scanner(System.in);
+		// create while loop which only exits once the exit command is called
+		// send user input to parser, then validate, then execute
+    while(exitCond){
+    	System.out.print(defaultPath + addPath + " ");
+    	rawInput = scanIn.nextLine();
+    	CommandArgs parsedInput = Parser.parseUserInput(rawInput);
+    	if (parsedInput != null){
+				// execute that shit
+			}
+    	// find means of exiting shell
+		}
+
+    // use means of outputting to output data to the right destination
+    // which can be out to system or file
 
   }
 
