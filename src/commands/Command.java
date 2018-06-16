@@ -2,7 +2,7 @@ package commands;
 
 public interface Command {
 
-  String execute();
+  public String execute();
 
-  int getArgNum();
+  public int getArgNum();
 }
