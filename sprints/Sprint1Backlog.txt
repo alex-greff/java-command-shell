@@ -26,7 +26,7 @@ d-1. (File_IO) Build the file output system
 d-2. (File_IO) Build the file input system
 e-1. (CommandArgs) Implement the parsed command argument container class
 f-1. (Command) Write the base code for the commands
-g-1. (CommandManager) Implement a manager that takes a CommandArgs and runs corresponding the command
+g-1. (CommandManager) Implement a manager that takes a CommandArgs and runs the corresponding command
 
 
 These tasks are assigned as follows:
