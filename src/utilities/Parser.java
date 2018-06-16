@@ -1,11 +1,10 @@
 package utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import containers.*;
 
 public class Parser {
-  private static final String REWRITE_OPERATOR = ">";
+  private static final String OVERWRITE_OPERATOR = ">";
   private static final String APPEND_OPERATOR = ">>";
 
   /**
@@ -16,7 +15,7 @@ public class Parser {
    * @return Returns a CommandArgs instance with the parsed user input or null
    *         if the user input is incorrect
    */
-  public static CommandArgs ParseUserInput(String input) {
+  public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
     input = input.trim();
     
@@ -43,7 +42,7 @@ public class Parser {
     // Iterate through the items after index 0
     for (int i = 1; i < inputSplit.length; i++) {
       // If a redirect operator is found
-      if (inputSplit[i].equals(REWRITE_OPERATOR)
+      if (inputSplit[i].equals(OVERWRITE_OPERATOR)
           || inputSplit[i].equals(APPEND_OPERATOR)) {
 
         // If there is not only a single item after i then the input is invalid
@@ -65,13 +64,11 @@ public class Parser {
 
     // Convert the parameter arraylist to an array
     String[] cmdParams =
-        paramsArrayList.toArray(new String[paramsArrayList.size()]);
+        paramsArrayList.toArray(new String[0]);
 
     // Instantiate a CommandArgs instance with the parsed user input
-    CommandArgs ca =
-        new CommandArgs(cmdName, cmdParams, redirOperator, targetDest);
 
     // Return the CommandArgs instance
-    return ca;
+    return new CommandArgs(cmdName, cmdParams, redirOperator, targetDest);
   }
 }

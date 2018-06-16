@@ -29,7 +29,7 @@ public class CommandArgsTest {
   public void testEquals1() {
     CommandArgs ca1 = new CommandArgs("myCommand");
     CommandArgs ca2 = new CommandArgs("myCommand");
-    assertEquals(true, ca1.equals(ca2));
+    assertEquals(ca1, ca2);
   }
 
   @Test
@@ -38,7 +38,7 @@ public class CommandArgsTest {
         new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     CommandArgs ca2 =
         new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
-    assertEquals(true, ca1.equals(ca2));
+    assertEquals(ca1, ca2);
   }
 
   @Test
@@ -46,14 +46,14 @@ public class CommandArgsTest {
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     CommandArgs ca2 = new CommandArgs("myCommand");
-    assertEquals(false, ca1.equals(ca2));
+    assertNotEquals(ca1, ca2);
   }
 
   @Test
   public void testEquals4() {
     CommandArgs ca1 = new CommandArgs("myCommand", new String[0]);
     CommandArgs ca2 = new CommandArgs("myCommand");
-    assertEquals(true, ca1.equals(ca2));
+    assertEquals(ca1, ca2);
   }
 
   @Test
@@ -61,7 +61,7 @@ public class CommandArgsTest {
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
     CommandArgs ca2 = new CommandArgs("myCommand");
-    assertEquals(false, ca1.equals(ca2));
+    assertNotEquals(ca1, ca2);
   }
   
   @Test
@@ -70,6 +70,6 @@ public class CommandArgsTest {
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
     CommandArgs ca2 =
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
-    assertEquals(true, ca1.equals(ca2));
+    assertEquals(ca1, ca2);
   }
 }
