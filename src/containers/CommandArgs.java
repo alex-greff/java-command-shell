@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class CommandArgs {
   // Storage variables
   private String cmdName;
-  private String[] cmdArgs;
+  private String[] cmdParams;
   private String redirOperator;
   private String targetDest;
 
@@ -28,10 +28,10 @@ public class CommandArgs {
    * Constructor initializing with command name and command arguments
    * 
    * @param cmdName the name of the command
-   * @param cmdArgs the array of command arguments
+   * @param cmdParams the array of command parameters
    */
-  public CommandArgs(String cmdName, String[] cmdArgs) {
-    this(cmdName, cmdArgs, "", "");
+  public CommandArgs(String cmdName, String[] cmdParams) {
+    this(cmdName, cmdParams, "", "");
   }
 
   /**
@@ -40,7 +40,7 @@ public class CommandArgs {
    * 
    * @param cmdName the name of the command
    * @param redirOperator the redirect operator
-   * @param targetDest the target desination of the redirect
+   * @param targetDest the target destination of the redirect
    */
   public CommandArgs(String cmdName, String redirOperator, String targetDest) {
     this(cmdName, new String[0], redirOperator, targetDest);
@@ -51,14 +51,14 @@ public class CommandArgs {
    * operator and the target destination
    * 
    * @param cmdName the command name
-   * @param cmdArgs the command arguments
+   * @param cmdParams the command arguments
    * @param redirOperator the redirect operator
    * @param targetDest the target destination of the redirect
    */
-  public CommandArgs(String cmdName, String[] cmdArgs, String redirOperator,
+  public CommandArgs(String cmdName, String[] cmdParams, String redirOperator,
       String targetDest) {
     this.cmdName = cmdName;
-    this.cmdArgs = cmdArgs;
+    this.cmdParams = cmdParams;
     this.redirOperator = redirOperator;
     this.targetDest = targetDest;
   }
@@ -78,8 +78,8 @@ public class CommandArgs {
    * @return Returns the array of command arguments. Returns an empty array if
    *         there are none
    */
-  public String[] getCommandArguments() {
-    return cmdArgs;
+  public String[] getCommandParameters() {
+    return cmdParams;
   }
 
   /**
@@ -112,8 +112,8 @@ public class CommandArgs {
     String ret_str = "Cmd: " + cmdName;
 
     // If there are command arguments then add them to the string representation
-    if (cmdArgs.length != 0)
-      ret_str += " Args: " + cmdArgs.toString();
+    if (cmdParams.length != 0)
+      ret_str += " Params: " + Arrays.toString(this.cmdParams);
 
     // If there is a redirect then add that to the string representation as well
     if (redirOperator != "" && targetDest != "")
@@ -138,7 +138,7 @@ public class CommandArgs {
 
       // Return the result of if other == this
       return this.cmdName.equals(cmdArgs_other.getCommandName())
-          && Arrays.equals(this.cmdArgs, cmdArgs_other.cmdArgs)
+          && Arrays.equals(this.cmdParams, cmdArgs_other.cmdParams)
           && this.redirOperator.equals(cmdArgs_other.getRedirectOperator())
           && this.targetDest.equals(cmdArgs_other.getTargetDestination());
     } else
