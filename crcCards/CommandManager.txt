@@ -3,7 +3,8 @@ Parent class:
 Subclasses:
 
 Responsibilities:
-* ???
+* Given parsed user input, attempt to execute the command asked for
 
 Collaborators:
-* ???
+* CommandArgs
+* Command

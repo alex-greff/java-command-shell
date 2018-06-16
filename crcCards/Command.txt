@@ -3,9 +3,7 @@ Parent class:
 Subclasses: cmdMkdir, cmdCd, cmdLs, cmdPwd, cmvMv, cmdCp, cmdCat, cmdGet, cmdEcho, cmdExit
 
 Responsibilities:
-* store command name
-* store potential command arguments
-* execute its abstract function
+* Execute its abstract function given certain parameters
+* Show how many arguments it expects
 
 Collaborators:
-*
