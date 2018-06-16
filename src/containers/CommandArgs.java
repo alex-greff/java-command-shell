@@ -1,5 +1,7 @@
 package containers;
 
+import java.util.Arrays;
+
 /***
  * A container for storing parsed user input
  * 
@@ -33,6 +35,18 @@ public class CommandArgs {
   }
 
   /**
+   * Constructor initializing with command name, redirect operator and target
+   * destination
+   * 
+   * @param cmdName the name of the command
+   * @param redirOperator the redirect operator
+   * @param targetDest the target desination of the redirect
+   */
+  public CommandArgs(String cmdName, String redirOperator, String targetDest) {
+    this(cmdName, new String[0], redirOperator, targetDest);
+  }
+
+  /**
    * Constructor initializing with command name, command arguments, the redirect
    * operator and the target destination
    * 
@@ -50,37 +64,37 @@ public class CommandArgs {
   }
 
   /**
-   * Gets the command name or returns null if there is none
+   * Gets the command name or returns "" if there is none
    * 
-   * @return Returns the command name. Returns null if there are none
+   * @return Returns the command name. Returns "" if there are none
    */
   public String getCommandName() {
     return cmdName;
   }
 
   /**
-   * Gets the command arguments or returns null if there are none
+   * Gets the command arguments or returns an empty array if there are none
    * 
-   * @return Returns the array of command arguments. Returns null if there are
-   *         none
+   * @return Returns the array of command arguments. Returns an empty array if
+   *         there are none
    */
   public String[] getCommandArguments() {
     return cmdArgs;
   }
 
   /**
-   * Gets the redirect operator or returns null if there is none
+   * Gets the redirect operator or returns "" if there is none
    * 
-   * @return Returns the redirect operator. Returns null if there is none
+   * @return Returns the redirect operator. Returns "" if there is none
    */
   public String getRedirectOperator() {
     return redirOperator;
   }
 
   /**
-   * Gets the target redirect destination or returns null if there is none
+   * Gets the target redirect destination or returns "" if there is none
    * 
-   * @return Returns the target redirect destination. Returns null if there is
+   * @return Returns the target redirect destination. Returns "" if there is
    *         none
    */
   public String getTargetDestination() {
@@ -124,7 +138,7 @@ public class CommandArgs {
 
       // Return the result of if other == this
       return this.cmdName.equals(cmdArgs_other.getCommandName())
-          && this.cmdArgs.equals(cmdArgs_other.getCommandArguments())
+          && Arrays.equals(this.cmdArgs, cmdArgs_other.cmdArgs)
           && this.redirOperator.equals(cmdArgs_other.getRedirectOperator())
           && this.targetDest.equals(cmdArgs_other.getTargetDestination());
     } else
