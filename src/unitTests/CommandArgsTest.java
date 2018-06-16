@@ -9,7 +9,7 @@ public class CommandArgsTest {
   public void testGetters1() {
     CommandArgs ca = new CommandArgs("myCommand");
     assertEquals("myCommand", ca.getCommandName());
-    assertArrayEquals(new String[0], ca.getCommandArguments());
+    assertArrayEquals(new String[0], ca.getCommandParameters());
     assertEquals("", ca.getRedirectOperator());
     assertEquals("", ca.getTargetDestination());
   }
@@ -19,7 +19,7 @@ public class CommandArgsTest {
     CommandArgs ca = new CommandArgs("myCommand", new String[] {"arg1", "arg2"},
         ">", "hello.txt");
     assertEquals("myCommand", ca.getCommandName());
-    assertArrayEquals(new String[] {"arg1", "arg2"}, ca.getCommandArguments());
+    assertArrayEquals(new String[] {"arg1", "arg2"}, ca.getCommandParameters());
     assertEquals(">", ca.getRedirectOperator());
     assertEquals("hello.txt", ca.getTargetDestination());
   }

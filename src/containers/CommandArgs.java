@@ -113,11 +113,11 @@ public class CommandArgs {
 
     // If there are command arguments then add them to the string representation
     if (cmdParams.length != 0)
-      ret_str += " Params: " + Arrays.toString(this.cmdParams);
+      ret_str += "  Params: " + Arrays.toString(this.cmdParams);
 
     // If there is a redirect then add that to the string representation as well
     if (redirOperator != "" && targetDest != "")
-      ret_str += " Redirect: " + redirOperator + " " + targetDest;
+      ret_str += "  Redirect: " + redirOperator + " " + targetDest;
 
     // Return the constructed string representation
     return ret_str;
