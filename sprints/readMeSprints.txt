@@ -20,7 +20,7 @@ Sprint2Backlog.txt
 
 5) This backlog must be the very first thing you will do at start of sprint. You cannot begin with the implementation or any phase of your project without first creating a sprint backlog for that sprint. 
 
-6) Remember this is easy for me to  check by comparing SVN time stamps.
+6) Remember this is easy for me to check by comparing SVN time stamps.
 
 7) If you have certain tasks that did not get completed in the sprint. Make sure to mention these and enter them in the start of the next sprint backlog. 
 
