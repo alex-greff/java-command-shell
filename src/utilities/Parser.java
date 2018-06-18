@@ -18,13 +18,11 @@ public class Parser {
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
     input = input.trim();
-    
-    //System.out.println(input);
-    
+
     // Split the user input by spaces and/or tabs
     // Handles the cases were more than 1 consecutive spaces/tabs are used
     String[] inputSplit = input.split("\\s+");
-    
+
     // If no input parameters are found then return null
     if (inputSplit[0].equals("")) {
       return null;
@@ -63,12 +61,10 @@ public class Parser {
     }
 
     // Convert the parameter arraylist to an array
-    String[] cmdParams =
-        paramsArrayList.toArray(new String[0]);
+    String[] cmdParams = paramsArrayList.toArray(new String[0]);
 
-    // Instantiate a CommandArgs instance with the parsed user input
-
-    // Return the CommandArgs instance
+    // Instantiate a CommandArgs instance with the parsed user input and return
+    // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, redirOperator, targetDest);
   }
 }
