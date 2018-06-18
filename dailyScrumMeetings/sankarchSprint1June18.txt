@@ -1,0 +1,16 @@
+What did I do last time?
+    - Created the structure of the JShell program
+    - Commented the code needed to complete the JShell implementation
+    - Put in place temporary means of having the JShell function
+    - Brainstormed ideas on how to structure the commands
+    - Brainstormed ideas on how to create the exit condition for the JShell
+
+What do I plan to do now?
+    - Plan ahead to be able to smoothly integrate the needed components for JShell to work
+    - Finish the implementation of JShell
+    - Finalize the necessary instance and static variables of JShell
+    - Brainstorm ways to instantiate the root directory of the system
+
+Am I blocked on anything?
+    - Waiting on the completion of certain components that JShell depends on
+    - CommandManger being the main dependency, as well as the file and directory objects

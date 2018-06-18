@@ -33,13 +33,14 @@ import java.util.Scanner;
 import containers.*;
 import commands.*;
 import utilities.*;
+import io.*;
+import filesystem.*;
 
 public class JShell {
 	//to be reimplemented with other directory solution
-	private static String defaultPath = "/#";
-	private static String addPath = "";
+	private static String promptSymbol = "# ";
 	// probably wanna store path as some other object?
-
+	private static Directory root;
 	// rethink exitCondition object
 	private static boolean exitCond=true;
 
@@ -52,7 +53,8 @@ public class JShell {
 		// create while loop which only exits once the exit command is called
 		// send user input to parser, then validate, then execute
     while(exitCond){
-    	System.out.print(defaultPath + addPath + " ");
+    	// wanna be printing the rootDir + otherDir
+    	System.out.print("/# ");
     	rawInput = scanIn.nextLine();
     	CommandArgs parsedInput = Parser.parseUserInput(rawInput);
     	if (parsedInput != null){

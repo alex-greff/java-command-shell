@@ -2,7 +2,9 @@ package unitTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
 import containers.CommandArgs;
+import org.junit.jupiter.api.Test;
 
 public class CommandArgsTest {
   @Test
