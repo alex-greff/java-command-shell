@@ -1,0 +1,14 @@
+What did I do last time?
+    - Created the project backlog and populated it with user and developer stories
+    - Created sprint 1 backlog and organized roles 
+    - Worked on the CommandArgs container module
+    - Coded the Parser class
+    - Made updates to the CRC cards
+    - Brainstormed implementation ideas for the commands in general
+
+What do I plan to do now?
+    - Make any tweaks needed in CommandArgs and/or Parser
+    - Start working ahead on some items in sprint 2 when other dependences get completed 
+
+Am I blocked on anything?
+    - No blockage for sprint 1 assigned items
