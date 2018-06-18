@@ -1,0 +1,14 @@
+What did I do last time?
+    - Created Command interface which all commands will implement
+    - Created skeleton of the CommandManager class (HashMap and function signature)
+    - Updated CRC Cards to reflect the new design pattern and interactions between Command, CommandManager, and CommandArgs
+    - Brainstormed implementation details for certain commands
+
+What do I plan to do now?
+    - Begin implementing commands
+    - Update the CommandManager for the commands created
+    - Plan implementation details for CommandManager
+    - Plan out how to test commands created so far, with or without a working JShell (or any other necessary parts)
+
+Am I blocked on anything?
+    - Nothing blocked for assigned items in Sprint 1
