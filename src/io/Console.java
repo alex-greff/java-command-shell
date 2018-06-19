@@ -7,6 +7,9 @@ package io;
  */
 public class Console implements Writable {
 
+  public Console() {
+  }
+
   /**
    * Write text to the console
    *
