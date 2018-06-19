@@ -1,12 +1,13 @@
 package unitTests;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import containers.CommandArgs;
-import org.junit.jupiter.api.Test;
 
 public class CommandArgsTest {
+
   @Test
   public void testGetters1() {
     CommandArgs ca = new CommandArgs("myCommand");
@@ -18,10 +19,10 @@ public class CommandArgsTest {
 
   @Test
   public void testGetters2() {
-    CommandArgs ca = new CommandArgs("myCommand", new String[] {"arg1", "arg2"},
+    CommandArgs ca = new CommandArgs("myCommand", new String[]{"arg1", "arg2"},
         ">", "hello.txt");
     assertEquals("myCommand", ca.getCommandName());
-    assertArrayEquals(new String[] {"arg1", "arg2"}, ca.getCommandParameters());
+    assertArrayEquals(new String[]{"arg1", "arg2"}, ca.getCommandParameters());
     assertEquals(">", ca.getRedirectOperator());
     assertEquals("hello.txt", ca.getTargetDestination());
   }
@@ -37,16 +38,16 @@ public class CommandArgsTest {
   @Test
   public void testEquals2() {
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
     CommandArgs ca2 =
-        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
     assertEquals(ca1, ca2);
   }
 
   @Test
   public void testEquals3() {
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
     CommandArgs ca2 = new CommandArgs("myCommand");
     assertNotEquals(ca1, ca2);
   }
@@ -65,7 +66,7 @@ public class CommandArgsTest {
     CommandArgs ca2 = new CommandArgs("myCommand");
     assertNotEquals(ca1, ca2);
   }
-  
+
   @Test
   public void testEquals6() {
     CommandArgs ca1 =

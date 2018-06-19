@@ -31,9 +31,7 @@ package driver;
 
 import java.util.Scanner;
 import containers.*;
-import commands.*;
 import utilities.*;
-import io.*;
 import filesystem.*;
 
 public class JShell {

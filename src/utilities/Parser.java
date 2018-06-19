@@ -31,7 +31,7 @@ public class Parser {
     // Get command name
     String cmdName = inputSplit[0];
     // Initialize an array list for all the command parameter
-    ArrayList<String> paramsArrayList = new ArrayList<String>();
+    ArrayList<String> paramsArrayList = new ArrayList<>();
     // Initialize the redirect operator to its empty state
     String redirOperator = "";
     // Initialize the target destination
