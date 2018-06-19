@@ -6,7 +6,7 @@ package filesystem;
 public class FileSystem {
 
   private static FileSystem ourInstance = new FileSystem();
-  private Directory root = new Directory("root");
+  private Directory root = new Directory("/");
   private Directory workingDir = root;
 
   private FileSystem() {
