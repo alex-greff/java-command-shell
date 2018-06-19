@@ -20,10 +20,10 @@ a-2. (JShell) Have the shell continually prompt the user for input
 a-3. (JShell) Parse the user input into the CommandArgs format
 a-4. (JShell) Implement the call to the CommandManager with the parsed input
 b-1. (Parser) Build the parser system that takes input and parses to CommandArgs format
-c-1. (CmdLine_IO) Build the command-line output system 
-c-2. (CmdLine_IO) Build the command-line input system
-d-1. (File_IO) Build the file output system
-d-2. (File_IO) Build the file input system
+c-1. (Console) Build the command-line output system 
+c-2. (Console) Build the command-line input system
+d-1. (File, Directory, FileSystem) Build the file/directory output system
+d-2. (File, Directory, FileSystem) Build the file/directory input system
 e-1. (CommandArgs) Implement the parsed command argument container class
 f-1. (Command) Write the base code for the commands
 g-1. (CommandManager) Implement a manager that takes a CommandArgs and runs the corresponding command
