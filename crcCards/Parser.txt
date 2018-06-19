@@ -1,0 +1,9 @@
+Class name: Parser
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Parses user input into a more usable container-like format
+
+Collaborators:
+* CommandArgs

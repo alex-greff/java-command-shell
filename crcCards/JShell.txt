@@ -3,10 +3,10 @@ Parent class:
 Subclasses:
 
 Responsibilities:
-* contain current directory
-* contain a set of known commands
-* receive and understand user input
+* receive and get user input parsed
+* invoke the calling of a command
+* record user input
 
 Collaborators:
-* Directory
-* Command
+* Parser
+* CommandManager
