@@ -1,0 +1,11 @@
+Class name: FileSystem
+Parent class:
+
+Responsibilities:
+* structure, organization and hierarchy of files and directories
+* manages the current directory
+* manages retrieval and storage of files
+
+Collaborators:
+* File
+* Directory
