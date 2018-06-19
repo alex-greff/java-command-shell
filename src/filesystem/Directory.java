@@ -1,5 +1,6 @@
 package filesystem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -21,8 +22,8 @@ public class Directory {
   }
 
   /**
-   * Adds a given directory as a child of this directory if the directory does
-   * not already exist
+   * Adds a given directory as a child of this directory if the
+   * directory does not already exist
    *
    * @param newDir The child directory
    */
@@ -34,8 +35,8 @@ public class Directory {
   }
 
   /**
-   * Adds a given file as a child of this directory if the file does not already
-   * exist
+   * Adds a given file as a child of this directory if the file does
+   * not already exist
    *
    * @param newFile The child file
    */
@@ -73,7 +74,8 @@ public class Directory {
   }
 
   /**
-   * Checks if the directory with the given name exits in this directory
+   * Checks if the directory with the given name exits in this
+   * directory
    *
    * @param name The name of the directory to look for
    * @return True if the directory exists, False otherwise
@@ -102,6 +104,24 @@ public class Directory {
   public File getFileByName(String name) {
     // TODO: Throw if the file does not exist
     return files.get(name);
+  }
+
+  /**
+   * Lists all the directories inside of this directory
+   *
+   * @return A list of all the directories inside this directory
+   */
+  public ArrayList<Directory> listDirs() {
+    return new ArrayList<>(this.dirs.values());
+  }
+
+  /**
+   * Lists all the files inside of this directory
+   *
+   * @return A list of all the files inside this directory
+   */
+  public ArrayList<File> listFiles() {
+    return new ArrayList<>(this.files.values());
   }
 
   /**

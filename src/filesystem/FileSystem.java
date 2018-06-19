@@ -9,6 +9,9 @@ public class FileSystem {
   private Directory root = new Directory("root");
   private Directory workingDir = root;
 
+  private FileSystem() {
+  }
+
   /**
    * Get the singleton instance of the filesystem
    *
@@ -16,9 +19,6 @@ public class FileSystem {
    */
   public static FileSystem getInstance() {
     return ourInstance;
-  }
-
-  private FileSystem() {
   }
 
   /**
@@ -44,4 +44,38 @@ public class FileSystem {
    */
   public void addDir(Directory theDir) {
   }
+
+  /**
+   * Provides current working directory to the caller
+   *
+   * @return The current working directory object
+   */
+  public Directory getWorkingDir() {
+    return workingDir;
+  }
+
+  /**
+   * Provides file located at given path to the caller
+   *
+   * @param path The path of the wanted file, can be absolute or
+   * relative. Absolute path must start with / indicating root
+   * directory.
+   * @return The file located at the path
+   */
+  public File getFileByPath(String path) {
+    return new File("none", "Not implemented");
+  }
+
+  /**
+   * Provides directory located at given path to the caller
+   *
+   * @param path The path of the wanted file, can be absolute or
+   * relative. Absolute path must start with / indicating root
+   * directory.
+   * @return The directory located at the path
+   */
+  public Directory getDirByPath(String path) {
+    return new Directory("none");
+  }
+
 }
