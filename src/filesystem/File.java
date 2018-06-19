@@ -1,6 +1,5 @@
 package filesystem;
 
-import io.Readable;
 import io.Writable;
 
 /**
@@ -9,7 +8,7 @@ import io.Writable;
  * This class represents a file object in the JShell It's contents can
  * be read, and written
  */
-public class File implements Readable, Writable {
+public class File implements Writable {
 
   private String name;
   private String contents;
@@ -71,7 +70,6 @@ public class File implements Readable, Writable {
    *
    * @return The full contents of the file
    */
-  @Override
   public String read() {
     return this.contents;
   }
