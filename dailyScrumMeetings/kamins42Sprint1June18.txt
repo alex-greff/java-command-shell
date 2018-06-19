@@ -1,0 +1,14 @@
+What did I do last time?
+  - Create the file class
+  - Create the directory class
+  - Create readable and writable interfaces
+  - Start work on the file system
+  - Made updates to crc cards
+
+What do I plan to do now?
+  - Implements methods in the file system
+  - Add error handling to file and directory classes
+  - Start work on the Console class
+
+Am I blocked on anything?
+    - No blockage at the moment
