@@ -8,6 +8,7 @@ public class FileSystem {
   private static FileSystem ourInstance = new FileSystem();
   private Directory root = new Directory("/");
   private Directory workingDir = root;
+  private String workingDirPath = "/";
 
   private FileSystem() {
   }
@@ -78,4 +79,12 @@ public class FileSystem {
     return new Directory("none");
   }
 
+  /**
+   * Get the path of the current working directory
+   *
+   * @return Absolute path of the current working directory
+   */
+  public String getWorkingDirPath() {
+    return workingDirPath;
+  }
 }
