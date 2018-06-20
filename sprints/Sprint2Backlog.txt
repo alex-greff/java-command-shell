@@ -17,9 +17,27 @@ k) ID: #2k "...able to shut down the command-line at any time"
 l) ID: #4a "...Have a clear, flexible and well defined system for command documentation " 
 
 
-
 Specific tasks to be accomplished:
-a-1. 
+a-1. (CmdMan) code man command
+a-2. (ManMan.txt) write documentation for man
+b-1. (CmdCd) code cd command
+b-2. (ManCd.txt) write documentation for cd
+c-1. (CmdPwd) code pwd command
+c-2. (ManCd.txt) write documentation for pwd
+d-1. (CmdMkdir) code mkdir command
+d-2. (ManMkdir.txt) write documentation for mkdir
+e-1. (CmdLs) code ls command
+e-2. (ManLs.txt) write documentation for ls
+f-1. (CmdPushd) code pushd command
+f-2. (ManPushd.txt) write documentation for pushd
+g-1. (CmdPopd) code popd command
+g-2. (ManPopd.txt) write documentation for popd
+h-1. (CmdHistory) code history command
+h-2. (ManHistory.txt) write documentation for history
+i-1. (CmdCat) code cat command
+i-2. (ManCat.txt) write documentation for cat
+j-1. (CmdEcho) code echo command
+j-2. (ManEcho.txt) write documentation for echo
 
 
 These tasks are assigned as follows:
@@ -34,4 +52,4 @@ User: Alexander Ursu
 Tasks: 
 
 User: Alexander Greff
-Tasks: 
+Tasks: a-1, a-2, j-1, j-2
