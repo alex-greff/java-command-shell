@@ -67,6 +67,6 @@ public class JShell {
   }
 
   public static void exit() {
-    JShell.running = !running;
+    JShell.running = false;
   }
 }
