@@ -8,7 +8,9 @@ import org.junit.Test;
 import utilities.Parser;
 
 public class ParserTest {
-
+  /*
+   * Tests with simple input
+   */
   @Test
   public void testUserInput1() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2");
@@ -56,6 +58,9 @@ public class ParserTest {
     assertNull(p);
   }
 
+  /*
+   * Tests with extra whitespace and tabs
+   */
   @Test
   public void testUserInput7() {
     CommandArgs p = Parser.parseUserInput("");
@@ -113,6 +118,39 @@ public class ParserTest {
     CommandArgs c_wanted =
         new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>",
             "hi.txt");
+    assertEquals(p, c_wanted);
+  }
+  
+  /*
+   * Tests with string parameters
+   */
+  @Test
+  public void testUserInput15() {
+    CommandArgs p = Parser.parseUserInput("echo \"this is a string\"");
+    System.out.println(p.toString());
+    
+    CommandArgs c_wanted =
+        new CommandArgs("echo", new String[]{"this is a string"});
+    assertEquals(p, c_wanted);
+  }
+  
+  @Test
+  public void testUserInput16() {
+    CommandArgs p = Parser.parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
+    System.out.println(p.toString());
+    
+    CommandArgs c_wanted =
+        new CommandArgs("echo", new String[]{"this is a string"}, ">", "myFile.txt");
+    assertEquals(p, c_wanted);
+  }
+  
+  @Test
+  public void testUserInput17() {
+    CommandArgs p = Parser.parseUserInput("mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
+    System.out.println(p.toString());
+    
+    CommandArgs c_wanted =
+        new CommandArgs("mkdir", new String[]{"myFile1.txt", "myFile2.txt", "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
 }

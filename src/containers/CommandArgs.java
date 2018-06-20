@@ -116,8 +116,10 @@ public class CommandArgs {
       ret_str += "  Params: " + Arrays.toString(this.cmdParams);
 
     // If there is a redirect then add that to the string representation as well
-    if (!redirOperator.equals("") && !targetDest.equals(""))
-      ret_str += "  Redirect: " + redirOperator + " " + targetDest;
+    if (!redirOperator.equals("") && !targetDest.equals("")) {
+      ret_str += "  Redirect: " + redirOperator;
+      ret_str += "  Destination: " + targetDest;
+    }
 
     // Return the constructed string representation
     return ret_str;
