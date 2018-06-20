@@ -17,6 +17,10 @@ k) ID: #2k "...able to shut down the command-line at any time"
 l) ID: #4a "...Have a clear, flexible and well defined system for command documentation " 
 
 
+Tasks needed to be completed from Sprint 1
+- x-1 (FileSystem) finish coding the file system manager
+- x-2 (CommandManager) finish coding the command manager 
+
 Specific tasks to be accomplished:
 a-1. (CmdMan) code man command
 a-2. (ManMan.txt) write documentation for man
@@ -43,13 +47,13 @@ j-2. (ManEcho.txt) write documentation for echo
 These tasks are assigned as follows:
 
 User: Anton Kaminsky
-Tasks: 
+Tasks: x-1 
 
 User: Chedy Sankar
 Tasks: 
 
 User: Alexander Ursu
-Tasks: 
+Tasks: x-2
 
 User: Alexander Greff
 Tasks: a-1, a-2, j-1, j-2
