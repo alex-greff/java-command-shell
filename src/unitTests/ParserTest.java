@@ -127,7 +127,6 @@ public class ParserTest {
   @Test
   public void testUserInput15() {
     CommandArgs p = Parser.parseUserInput("echo \"this is a string\"");
-    System.out.println(p.toString());
     
     CommandArgs c_wanted =
         new CommandArgs("echo", new String[]{"this is a string"});
@@ -137,7 +136,6 @@ public class ParserTest {
   @Test
   public void testUserInput16() {
     CommandArgs p = Parser.parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
-    System.out.println(p.toString());
     
     CommandArgs c_wanted =
         new CommandArgs("echo", new String[]{"this is a string"}, ">", "myFile.txt");
@@ -147,10 +145,27 @@ public class ParserTest {
   @Test
   public void testUserInput17() {
     CommandArgs p = Parser.parseUserInput("mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
-    System.out.println(p.toString());
     
     CommandArgs c_wanted =
         new CommandArgs("mkdir", new String[]{"myFile1.txt", "myFile2.txt", "myFile3.txt"});
+    assertEquals(p, c_wanted);
+  }
+  
+  @Test
+  public void testUserInput18() {
+    CommandArgs p = Parser.parseUserInput("mkdir    \"myFile1.txt\" \t \"myFile2.txt\" \tmyFile3.txt");
+    
+    CommandArgs c_wanted =
+        new CommandArgs("mkdir", new String[]{"myFile1.txt", "myFile2.txt", "myFile3.txt"});
+    assertEquals(p, c_wanted);
+  }
+  
+  @Test
+  public void testUserInput19() {
+    CommandArgs p = Parser.parseUserInput("echo myString \">\" ");
+    
+    CommandArgs c_wanted =
+        new CommandArgs("echo", new String[]{"myString", ">"});
     assertEquals(p, c_wanted);
   }
 }
