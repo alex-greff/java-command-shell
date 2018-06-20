@@ -1,0 +1,37 @@
+//Sprint 3 Backlog.
+June 22 to June 28
+
+
+User Stories from Product Backlog that we will address in this sprint:
+a) ID: #2a "...get descriptive help information for every command"
+b) ID: #2b "...change the current directory that my command-line is in"
+c) ID: #2c "...able to see what directory I am in"
+d) ID: #2d "...able to make directories"
+e) ID: #2e "...able to list directories"
+f) ID: #2f "...able to save my current working directory"
+g) ID: #2g "...able to retrieve past working directories"
+h) ID: #2h "...able to see past input that I have put into the command-line"
+i) ID: #2i "...able to see the contents of files"
+j) ID: #2j "...able to print strings to my command-line or to a file"
+k) ID: #2k "...able to shut down the command-line at any time"
+l) ID: #4a "...Have a clear, flexible and well defined system for command documentation " 
+
+
+
+Specific tasks to be accomplished:
+a-1. 
+
+
+These tasks are assigned as follows:
+
+User: Anton Kaminsky
+Tasks: 
+
+User: Chedy Sankar
+Tasks: 
+
+User: Alexander Ursu
+Tasks: 
+
+User: Alexander Greff
+Tasks: 
