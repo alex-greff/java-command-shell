@@ -20,6 +20,7 @@ l) ID: #4a "...Have a clear, flexible and well defined system for command docume
 Tasks needed to be completed from Sprint 1
 - x-1 (FileSystem) finish coding the file system manager
 - x-2 (CommandManager) finish coding the command manager 
+- x-3 (JShell) add system to record user input
 
 Specific tasks to be accomplished:
 a-1. (CmdMan) code man command
@@ -50,7 +51,7 @@ User: Anton Kaminsky
 Tasks: x-1 
 
 User: Chedy Sankar
-Tasks: 
+Tasks: x-3
 
 User: Alexander Ursu
 Tasks: x-2
