@@ -32,6 +32,7 @@ package driver;
 import containers.CommandArgs;
 import filesystem.FileSystem;
 import io.Console;
+import java.util.ArrayList;
 import utilities.Parser;
 
 public class JShell {
@@ -40,6 +41,8 @@ public class JShell {
   private static boolean running = true;
   // this filesystem (singleton) is used by the JShell
   private static FileSystem fs = FileSystem.getInstance();
+  public static ArrayList<String> history; // will use as FIFO
+
 
   public static void main(String[] args) {
     // create means of attaining User Input (scanner may be replaced)
@@ -54,6 +57,9 @@ public class JShell {
       String prompt = workingDirPath + "#";
       console.write(prompt);
       rawInput = console.read();
+      // add input to history ()
+      history.add(rawInput);
+
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
       if (parsedInput != null) {
         // execute that shit
