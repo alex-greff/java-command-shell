@@ -1,0 +1,11 @@
+What did I do last time?
+    - Planned implementation details for CommandManager
+    - Planned implementation details for some commands
+
+What do I plan to do now?
+    - Get a working implementation of CommandManager
+    - Implement some commands for Sprint 2
+    - Test the interaction between CommandManager and Commands, and possibly CommandArgs
+
+Am I blocked on anything?
+    - Nothing blocked for assigned items in Sprint 1
