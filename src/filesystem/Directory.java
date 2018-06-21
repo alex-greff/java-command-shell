@@ -40,8 +40,8 @@ import java.util.HashMap;
 public class Directory {
 
   private String name;
-  private HashMap<String, Directory> dirs = new HashMap<>();
-  private HashMap<String, File> files = new HashMap<>();
+  private HashMap<String, Directory> childDirs = new HashMap<>();
+  private HashMap<String, File> childFiles = new HashMap<>();
 
   /**
    * Creates a new empty directory with the given name
@@ -58,8 +58,8 @@ public class Directory {
    */
   public void addDir(Directory newDir) {
     String dirName = newDir.getName();
-    if (!dirs.containsKey(dirName)) {
-      this.dirs.put(dirName, newDir);
+    if (!childDirs.containsKey(dirName)) {
+      this.childDirs.put(dirName, newDir);
     }
   }
 
@@ -71,8 +71,8 @@ public class Directory {
    */
   public void addFile(File newFile) {
     String fileName = newFile.getName();
-    if (!files.containsKey(fileName)) {
-      this.files.put(fileName, newFile);
+    if (!childFiles.containsKey(fileName)) {
+      this.childFiles.put(fileName, newFile);
     }
   }
 
@@ -81,7 +81,7 @@ public class Directory {
    */
   public void removeDirByName(String name) {
     // TODO: maybe throw if the dir does not exist?
-    dirs.remove(name);
+    childDirs.remove(name);
   }
 
   /**
@@ -89,7 +89,7 @@ public class Directory {
    */
   public void removeFileByName(String name) {
     // TODO: maybe throw if the file does not exist?
-    files.remove(name);
+    childFiles.remove(name);
   }
 
   /**
@@ -99,7 +99,7 @@ public class Directory {
    * @return True if the file exists, False otherwise
    */
   public boolean containsFile(String name) {
-    return this.files.containsKey(name);
+    return this.childFiles.containsKey(name);
   }
 
   /**
@@ -110,7 +110,7 @@ public class Directory {
    * @return True if the directory exists, False otherwise
    */
   public boolean containsDir(String name) {
-    return this.dirs.containsKey(name);
+    return this.childDirs.containsKey(name);
   }
 
   /**
@@ -121,7 +121,7 @@ public class Directory {
    */
   public Directory getDirByName(String name) {
     // TODO: Throw if the dir does not exist
-    return dirs.get(name);
+    return childDirs.get(name);
   }
 
   /**
@@ -132,7 +132,7 @@ public class Directory {
    */
   public File getFileByName(String name) {
     // TODO: Throw if the file does not exist
-    return files.get(name);
+    return childFiles.get(name);
   }
 
   /**
@@ -141,7 +141,7 @@ public class Directory {
    * @return A list of all the directories inside this directory
    */
   public ArrayList<Directory> listDirs() {
-    return new ArrayList<>(this.dirs.values());
+    return new ArrayList<>(this.childDirs.values());
   }
 
   /**
@@ -150,7 +150,7 @@ public class Directory {
    * @return A list of all the files inside this directory
    */
   public ArrayList<File> listFiles() {
-    return new ArrayList<>(this.files.values());
+    return new ArrayList<>(this.childFiles.values());
   }
 
   /**
