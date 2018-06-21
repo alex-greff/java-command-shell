@@ -38,7 +38,7 @@ public class CommandManager {
 
   private static HashMap<String, IExecutable> cmdList = new HashMap<>();
 
-  public static void attemptCommand(CommandArgs cArgs) {
+  public static void executeCommand(CommandArgs cArgs) {
 
   }
 }
