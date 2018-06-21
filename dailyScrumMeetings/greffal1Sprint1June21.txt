@@ -1,0 +1,11 @@
+What did I do last time?
+    - Made sprint 2 backlog
+    - Bug fixes to the Parser
+    - Small tweaks to the CommandArgs
+
+What do I plan to do now?
+    - Prepare to work on items assigned to me in sprint 2
+        - Echo and Man commands 
+
+Am I blocked on anything?
+    - FileSystem needs to be completed fully
