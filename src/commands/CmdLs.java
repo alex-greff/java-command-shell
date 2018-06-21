@@ -29,12 +29,18 @@
 // *********************************************************
 package commands;
 
-import interfaces.IExecutable;
+import utilities.Command;
 
-public class CmdLs implements IExecutable {
+public class CmdLs extends Command {
 
   @Override
   public String execute() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public String getName() {
     // TODO Auto-generated method stub
     return null;
   }

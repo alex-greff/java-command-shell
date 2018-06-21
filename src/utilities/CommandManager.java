@@ -30,13 +30,12 @@
 package utilities;
 
 import containers.*;
-import interfaces.IExecutable;
 import commands.*;
 import java.util.HashMap;
 
 public class CommandManager {
 
-  private static HashMap<String, IExecutable> cmdList = new HashMap<>();
+  private static HashMap<String, Command> cmdList = new HashMap<>();
 
   public static void executeCommand(CommandArgs cArgs) {
 

@@ -29,12 +29,18 @@
 // *********************************************************
 package commands;
 
-import interfaces.IExecutable;
+import utilities.Command;
 
-public class CmdCat implements IExecutable {
+public class CmdCat extends Command {
 
   @Override
   public String execute() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public String getName() {
     // TODO Auto-generated method stub
     return null;
   }

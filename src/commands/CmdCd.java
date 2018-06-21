@@ -29,14 +29,21 @@
 // *********************************************************
 package commands;
 
-import interfaces.IExecutable;
+import utilities.Command;
 
-public class CmdCd implements IExecutable {
+public class CmdCd extends Command {
 
   @Override
   public String execute() {
     // TODO Auto-generated method stub
     return null;
   }
+
+  @Override
+  public String getName() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 }
