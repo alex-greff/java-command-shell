@@ -27,11 +27,9 @@
 // I have also read the plagiarism section in the course info
 // sheet of CSC B07 and understand the consequences.
 // *********************************************************
-package commands;
+package interfaces;
 
-public interface Command {
+public interface IReadable {
 
-  String execute();
-
-  int getArgNum();
+  String read();
 }
