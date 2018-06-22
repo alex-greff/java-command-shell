@@ -37,5 +37,5 @@ public abstract class Command {
 
   public abstract String getName();
 
-  public abstract String getManPage();
+  public abstract String getDescription();
 }
