@@ -36,4 +36,6 @@ public abstract class Command {
   public abstract String execute(CommandArgs args);
 
   public abstract String getName();
+
+  public abstract String manPage();
 }
