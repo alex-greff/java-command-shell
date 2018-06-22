@@ -26,7 +26,11 @@ ______|_________________________________________________________________________
 ______|_______________________________________________________________________________|__________|
   2j  |  - I am able to print strings to my command-line or to a file                 |    5     |
 ______|_______________________________________________________________________________|__________|
-  2k  |  - And finally, I am able to shut down the command-line at any time           |    7     |
+  2k  |  - I am able to shut down the command-line at any time                        |    7     |
+______|_______________________________________________________________________________|__________|
+  2l  |  - I am able to find all instances of a file or directory                     |    6     |
+______|_______________________________________________________________________________|__________|
+  2m  |  - I am able to display a tree view of the entire file system                 |    5     |
 ______|_______________________________________________________________________________|__________|
       |  As a third-party developer who is adding modifications to the system         |          |
       |  I should be able to easily create new commands and be provided with          |    8     |

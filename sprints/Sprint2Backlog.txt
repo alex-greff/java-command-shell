@@ -15,6 +15,8 @@ i) ID: #2i "...able to see the contents of files"
 j) ID: #2j "...able to print strings to my command-line or to a file"
 k) ID: #2k "...able to shut down the command-line at any time"
 l) ID: #4a "...Have a clear, flexible and well defined system for command documentation" 
+m) ID: #2l "...able to find all instances of a file or directory"
+n) ID: #2m "...able to display a tree view of the entire file system"
 
 
 Tasks needed to be completed from Sprint 1
@@ -25,26 +27,29 @@ x-3. (JShell) add system to record user input
 
 Specific tasks to be accomplished:
 a-1. (CmdMan) code man command
-a-2. (ManMan.txt) write documentation for man
+a-2. Write documentation for man
 b-1. (CmdCd) code cd command
-b-2. (ManCd.txt) write documentation for cd
+b-2. Write documentation for cd
 c-1. (CmdPwd) code pwd command
-c-2. (ManCd.txt) write documentation for pwd
+c-2. Write documentation for pwd
 d-1. (CmdMkdir) code mkdir command
-d-2. (ManMkdir.txt) write documentation for mkdir
+d-2. Write documentation for mkdir
 e-1. (CmdLs) code ls command
-e-2. (ManLs.txt) write documentation for ls
+e-2. Write documentation for ls
 f-1. (CmdPushd) code pushd command
-f-2. (ManPushd.txt) write documentation for pushd
+f-2. Write documentation for pushd
 g-1. (CmdPopd) code popd command
-g-2. (ManPopd.txt) write documentation for popd
+g-2. Write documentation for popd
 h-1. (CmdHistory) code history command
-h-2. (ManHistory.txt) write documentation for history
+h-2. Write documentation for history
 i-1. (CmdCat) code cat command
-i-2. (ManCat.txt) write documentation for cat
+i-2. Write documentation for cat
 j-1. (CmdEcho) code echo command
-j-2. (ManEcho.txt) write documentation for echo
-
+j-2. Write documentation for echo
+k-1. (CmdFind) code find command
+k-2. Write documentation for find
+l-1. (CmdTree) code tree command
+l-2. Write documentation for tree
 
 These tasks are assigned as follows:
 
@@ -52,10 +57,10 @@ User: Anton Kaminsky
 Tasks: x-1, d-1, d-2, f-1, f-2, g-1, g-2
 
 User: Chedy Sankar
-Tasks: x-3, e-1, e-2, h-1, h-2
+Tasks: x-3, e-1, e-2, h-1, h-2, l-1, l-2
 
 User: Alexander Ursu
 Tasks: x-2, b-1, b-2, c-1, c-2, i-1, i-2
 
 User: Alexander Greff
-Tasks: a-1, a-2, j-1, j-2
+Tasks: a-1, a-2, j-1, j-2, k-1, k-2
