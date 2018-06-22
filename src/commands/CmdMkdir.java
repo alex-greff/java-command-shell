@@ -29,12 +29,13 @@
 // *********************************************************
 package commands;
 
+import containers.CommandArgs;
 import utilities.Command;
 
 public class CmdMkdir extends Command {
 
   @Override
-  public String execute() {
+  public String execute(CommandArgs args) {
     // TODO Auto-generated method stub
     return null;
   }
