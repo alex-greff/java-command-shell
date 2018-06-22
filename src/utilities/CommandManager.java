@@ -38,17 +38,17 @@ public class CommandManager {
   private HashMap<String, Command> cmdList = new HashMap<>();
 
   public CommandManager() {
-    cmdList.put("Cat", new CmdCat());
-    cmdList.put("Cd", new CmdCd());
-    cmdList.put("Echo", new CmdEcho());
-    cmdList.put("Exit", new CmdExit());
-    cmdList.put("History", new CmdHistory());
-    cmdList.put("Ls", new CmdLs());
-    cmdList.put("Man", new CmdMan());
-    cmdList.put("Mkdir", new CmdMkdir());
-    cmdList.put("Popd", new CmdPopd());
-    cmdList.put("Pushd", new CmdPushd());
-    cmdList.put("Pwd", new CmdPwd());
+    cmdList.put("cat", new CmdCat());
+    cmdList.put("cd", new CmdCd());
+    cmdList.put("echo", new CmdEcho());
+    cmdList.put("exit", new CmdExit());
+    cmdList.put("history", new CmdHistory());
+    cmdList.put("ls", new CmdLs());
+    cmdList.put("man", new CmdMan());
+    cmdList.put("mkdir", new CmdMkdir());
+    cmdList.put("popd", new CmdPopd());
+    cmdList.put("pushd", new CmdPushd());
+    cmdList.put("pwd", new CmdPwd());
   }
 
   public void executeCommand(CommandArgs cArgs) {
