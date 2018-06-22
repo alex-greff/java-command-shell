@@ -1,13 +1,14 @@
 package filesystem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Represents a path in the filesystem
  *
  * @author anton
  */
-public class Path {
+public class Path implements Iterable<String> {
 
   private ArrayList<String> tokens = new ArrayList<>();
 
@@ -32,19 +33,8 @@ public class Path {
     }
   }
 
-  /**
-   * Returns the next path token and removes it
-   * @return the next path token
-   */
-  public String getNextToken() {
-    return tokens.remove(0);
-  }
-
-  /**
-   * Query empty status of the tokens
-   * @return True if no more tokens false otherwise
-   */
-  public boolean isEmpty() {
-    return this.tokens.isEmpty();
+  @Override
+  public Iterator<String> iterator() {
+    return this.tokens.iterator();
   }
 }
