@@ -14,13 +14,14 @@ h) ID: #2h "...able to see past input that I have put into the command-line"
 i) ID: #2i "...able to see the contents of files"
 j) ID: #2j "...able to print strings to my command-line or to a file"
 k) ID: #2k "...able to shut down the command-line at any time"
-l) ID: #4a "...Have a clear, flexible and well defined system for command documentation " 
+l) ID: #4a "...Have a clear, flexible and well defined system for command documentation" 
 
 
 Tasks needed to be completed from Sprint 1
-- x-1 (FileSystem) finish coding the file system manager
-- x-2 (CommandManager) finish coding the command manager 
-- x-3 (JShell) add system to record user input
+x-1. (FileSystem) finish coding the file system manager
+x-2. (CommandManager) finish coding the command manager 
+x-3. (JShell) add system to record user input
+
 
 Specific tasks to be accomplished:
 a-1. (CmdMan) code man command
@@ -48,13 +49,13 @@ j-2. (ManEcho.txt) write documentation for echo
 These tasks are assigned as follows:
 
 User: Anton Kaminsky
-Tasks: x-1 
+Tasks: x-1, d-1, d-2, f-1, f-2, g-1, g-2
 
 User: Chedy Sankar
-Tasks: x-3
+Tasks: x-3, e-1, e-2, h-1, h-2
 
 User: Alexander Ursu
-Tasks: x-2
+Tasks: x-2, b-1, b-2, c-1, c-2, i-1, i-2
 
 User: Alexander Greff
 Tasks: a-1, a-2, j-1, j-2
