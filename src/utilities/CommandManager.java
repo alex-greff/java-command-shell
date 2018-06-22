@@ -35,9 +35,23 @@ import java.util.HashMap;
 
 public class CommandManager {
 
-  private static HashMap<String, Command> cmdList = new HashMap<>();
+  private HashMap<String, Command> cmdList = new HashMap<>();
 
-  public static void executeCommand(CommandArgs cArgs) {
+  public CommandManager() {
+    cmdList.put("Cat", new CmdCat());
+    cmdList.put("Cd", new CmdCd());
+    cmdList.put("Echo", new CmdEcho());
+    cmdList.put("Exit", new CmdExit());
+    cmdList.put("History", new CmdHistory());
+    cmdList.put("Ls", new CmdLs());
+    cmdList.put("Man", new CmdMan());
+    cmdList.put("Mkdir", new CmdMkdir());
+    cmdList.put("Popd", new CmdPopd());
+    cmdList.put("Pushd", new CmdPushd());
+    cmdList.put("Pwd", new CmdPwd());
+  }
+
+  public void executeCommand(CommandArgs cArgs) {
 
   }
 }
