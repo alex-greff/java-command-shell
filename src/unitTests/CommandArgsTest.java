@@ -30,9 +30,10 @@
 package unitTests;
 
 import static org.junit.Assert.*;
-
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Test;
-
 import containers.CommandArgs;
 
 public class CommandArgsTest {
@@ -44,16 +45,37 @@ public class CommandArgsTest {
     assertArrayEquals(new String[0], ca.getCommandParameters());
     assertEquals("", ca.getRedirectOperator());
     assertEquals("", ca.getTargetDestination());
+
+    Set<String> hs = new HashSet<String>();
+    HashMap<String, String> hm = new HashMap<String, String>();
+    assertEquals(hs, ca.getSetOfNamesCommandParameterKeys());
+    assertEquals(null, ca.getNamedCommandParameters("hi"));
+    assertEquals(hm, ca.getNamedCommandParametersMap());
   }
 
   @Test
   public void testGetters2() {
-    CommandArgs ca = new CommandArgs("myCommand", new String[]{"arg1", "arg2"},
-        ">", "hello.txt");
+    HashMap<String, String> hm_in = new HashMap<String, String>();
+    hm_in.put("type1", "value1");
+    hm_in.put("type2", "value2");
+    CommandArgs ca = new CommandArgs("myCommand", new String[] {"arg1", "arg2"},
+        hm_in, ">", "hello.txt");
     assertEquals("myCommand", ca.getCommandName());
-    assertArrayEquals(new String[]{"arg1", "arg2"}, ca.getCommandParameters());
+    assertArrayEquals(new String[] {"arg1", "arg2"}, ca.getCommandParameters());
     assertEquals(">", ca.getRedirectOperator());
     assertEquals("hello.txt", ca.getTargetDestination());
+
+    Set<String> hs = new HashSet<String>();
+    hs.add("type1");
+    hs.add("type2");
+    HashMap<String, String> hm = new HashMap<String, String>();
+    hm.put("type1", "value1");
+    hm.put("type2", "value2");
+    assertEquals(hs, ca.getSetOfNamesCommandParameterKeys());
+    assertEquals(null, ca.getNamedCommandParameters("hi"));
+    assertEquals("value1", ca.getNamedCommandParameters("type1"));
+    assertEquals("value2", ca.getNamedCommandParameters("type2"));
+    assertEquals(hm, ca.getNamedCommandParametersMap());
   }
 
 
@@ -67,16 +89,16 @@ public class CommandArgsTest {
   @Test
   public void testEquals2() {
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     CommandArgs ca2 =
-        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     assertEquals(ca1, ca2);
   }
 
   @Test
   public void testEquals3() {
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     CommandArgs ca2 = new CommandArgs("myCommand");
     assertNotEquals(ca1, ca2);
   }
@@ -102,6 +124,38 @@ public class CommandArgsTest {
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
     CommandArgs ca2 =
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
+    assertEquals(ca1, ca2);
+  }
+
+  @Test
+  public void testEquals7() {
+    HashMap<String, String> hm_1 = new HashMap<String, String>();
+    hm_1.put("type1", "value1");
+    hm_1.put("type2", "value2");
+
+    HashMap<String, String> hm_2 = new HashMap<String, String>();
+    hm_2.put("type2", "value2");
+    hm_2.put("type1", "value1");
+
+    CommandArgs ca1 =
+        new CommandArgs("myCommand", new String[0], hm_1, ">", "hello.txt");
+    CommandArgs ca2 =
+        new CommandArgs("myCommand", new String[0], hm_2, ">", "hello.txt");
+    assertEquals(ca1, ca2);
+  }
+
+  @Test
+  public void testEquals8() {
+    HashMap<String, String> hm_1 = new HashMap<String, String>();
+    hm_1.put("type1", "value1");
+    hm_1.put("type2", "value2");
+
+    HashMap<String, String> hm_2 = new HashMap<String, String>();
+    hm_2.put("type2", "value2");
+    hm_2.put("type1", "value1");
+
+    CommandArgs ca1 = new CommandArgs("myCommand", hm_1);
+    CommandArgs ca2 = new CommandArgs("myCommand", hm_2);
     assertEquals(ca1, ca2);
   }
 }
