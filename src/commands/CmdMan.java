@@ -40,22 +40,33 @@ import containers.CommandArgs;
 import utilities.Command;
 
 public class CmdMan extends Command {
+  // Setup constants
   private final String NAME = "man";
   private final String DOCUMENTATION_PATH = "../documentation";
+  private final String errorOutput = "Invalid command, please try again.";
 
-  private final String errorOutput = "Error invalid input, please try again.";
-
+  /**
+   * Executes the man command with the arguments args
+   * 
+   * @param args The command arguments
+   * @return Returns the output of the command
+   */
   @Override
   public String execute(CommandArgs args) {
+    // Check if the given args are valid for this command
     if (isValidArgs(args) == false) {
+      // If invalid then return the error string
       return errorOutput;
     }
 
+    // Initialize the reference to the command's man file
     File cmdManFile = null;
 
+    // Load the documentation directory
     URL url = getClass().getResource(DOCUMENTATION_PATH);
     File manDir = new File(url.getPath());
 
+    // Set up the filter that only accepts valid command manual text files
     FilenameFilter manFilter = new FilenameFilter() {
       @Override
       public boolean accept(File dir, String name) {
@@ -63,49 +74,71 @@ public class CmdMan extends Command {
       }
     };
 
+    // Get the expected name of the current command's man file
     String manCmdName = args.getCommandParameters()[0];
     String targetName = "Man" + manCmdName.substring(0, 1).toUpperCase()
         + manCmdName.substring(1) + ".txt";
-    
+
+    // Iterate through each man file
     for (File manFile : manDir.listFiles(manFilter)) {
+      // If we find the man file for the wanted command
       if (manFile.getName().equals(targetName)) {
+        // Store the file and break out of the loop
         cmdManFile = manFile;
         break;
       }
     }
 
+    // If we've actually found the file
     if (cmdManFile != null) {
       try {
+        // Open a buffered reader
         BufferedReader br = new BufferedReader(new FileReader(cmdManFile));
 
-        String st = "";
+        String line = "";
         String output = "";
 
-        while ((st = br.readLine()) != null) {
-          output += st + "\n";
+        // Iterate through each line of the file and append it to the output
+        while ((line = br.readLine()) != null) {
+          output += line + "\n";
         }
 
+        // Trim any unnecessary new lines and return the output string
         return output.trim();
 
       } catch (FileNotFoundException e) {
+        // Do nothing
       } catch (IOException e) {
+        // Do nothing
       }
     }
 
+    // If we get here then that implies something threw and error / went wrong
+    // So return the error message
     return errorOutput;
   }
 
+  /**
+   * A helper checking if args is a valid CommandArgs instance for this command
+   * 
+   * @param args The command arguments
+   * @return Returns true iff args is a valid for this command
+   */
   private boolean isValidArgs(CommandArgs args) {
-    return args.getCommandName().equals("man")
+    return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
 
 
+  /**
+   * Gets the name of the command
+   * 
+   * @return Returns the name of the command
+   */
   @Override
   public String getName() {
     return NAME;
   }
-
 }

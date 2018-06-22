@@ -15,7 +15,7 @@ public class CmdManTest {
     Command cmd = new CmdMan();
     String out_actual = cmd.execute(args);
     
-    String out_expected = "TODO";
+    String out_expected = "TODO"; // TODO:
     
     System.out.println(out_actual);
     
