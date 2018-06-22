@@ -63,4 +63,10 @@ public class CmdLs extends Command {
     return name;
   }
 
+  @Override
+  public String getDescription() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

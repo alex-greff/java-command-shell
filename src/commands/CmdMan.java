@@ -53,69 +53,7 @@ public class CmdMan extends Command {
    */
   @Override
   public String execute(CommandArgs args) {
-    // Check if the given args are valid for this command
-    if (isValidArgs(args) == false) {
-      // If invalid then return the error string
-      return errorOutput;
-    }
-
-    // Initialize the reference to the command's man file
-    File cmdManFile = null;
-
-    // Load the documentation directory
-    URL url = getClass().getResource(DOCUMENTATION_PATH);
-    File manDir = new File(url.getPath());
-
-    // Set up the filter that only accepts valid command manual text files
-    FilenameFilter manFilter = new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String name) {
-        return name.startsWith("Man") && name.endsWith(".txt");
-      }
-    };
-
-    // Get the expected name of the current command's man file
-    String manCmdName = args.getCommandParameters()[0];
-    String targetName = "Man" + manCmdName.substring(0, 1).toUpperCase()
-        + manCmdName.substring(1) + ".txt";
-
-    // Iterate through each man file
-    for (File manFile : manDir.listFiles(manFilter)) {
-      // If we find the man file for the wanted command
-      if (manFile.getName().equals(targetName)) {
-        // Store the file and break out of the loop
-        cmdManFile = manFile;
-        break;
-      }
-    }
-
-    // If we've actually found the file
-    if (cmdManFile != null) {
-      try {
-        // Open a buffered reader
-        BufferedReader br = new BufferedReader(new FileReader(cmdManFile));
-
-        String line = "";
-        String output = "";
-
-        // Iterate through each line of the file and append it to the output
-        while ((line = br.readLine()) != null) {
-          output += line + "\n";
-        }
-
-        // Trim any unnecessary new lines and return the output string
-        return output.trim();
-
-      } catch (FileNotFoundException e) {
-        // Do nothing
-      } catch (IOException e) {
-        // Do nothing
-      }
-    }
-
-    // If we get here then that implies something threw and error / went wrong
-    // So return the error message
-    return errorOutput;
+    return null;
   }
 
   /**
@@ -140,5 +78,11 @@ public class CmdMan extends Command {
   @Override
   public String getName() {
     return NAME;
+  }
+
+  @Override
+  public String getDescription() {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

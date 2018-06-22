@@ -46,4 +46,10 @@ public class CmdMkdir extends Command {
     return null;
   }
 
+  @Override
+  public String getDescription() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
