@@ -1,0 +1,10 @@
+What did I do last time?
+    - Kept on modifiying JShell to be compatible with new additions
+    - Set up history tracking in JShell
+
+What do I plan to do now?
+    - Prepare for Sprint2
+    - Revise the CRC cards and revise the current code
+
+Am I blocked on anything?
+    - nah we gucci

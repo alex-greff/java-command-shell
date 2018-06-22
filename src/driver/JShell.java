@@ -54,7 +54,7 @@ public class JShell {
       // get working directory string, to be printed along with prompt
       // default prompt symbol
       String workingDirPath = fs.getWorkingDirPath();
-      String prompt = workingDirPath + "#";
+      String prompt = workingDirPath + "# ";
       console.write(prompt);
       rawInput = console.read();
       // add input to history ()
