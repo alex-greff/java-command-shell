@@ -57,4 +57,11 @@ public class CommandManager {
       cmd.execute(cArgs);
     }
   }
+
+  public String getDescription(CommandArgs cArgs) {
+    Command cmd = cmdList.get(cArgs.getCommandName());
+    if (cmd != null) {
+      cmd.getDescription();
+    }
+  }
 }
