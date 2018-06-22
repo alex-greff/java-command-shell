@@ -60,8 +60,10 @@ public class CommandManager {
 
   public String getDescription(CommandArgs cArgs) {
     Command cmd = cmdList.get(cArgs.getCommandName());
+    String desc = null;
     if (cmd != null) {
-      cmd.getDescription();
+      desc = cmd.getDescription();
     }
+    return desc;
   }
 }
