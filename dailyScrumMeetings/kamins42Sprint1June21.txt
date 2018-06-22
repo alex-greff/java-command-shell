@@ -1,0 +1,14 @@
+What did I do last time?
+  - Created the console
+  - Integrated my work into the JShell
+  - Added honor code to all java files
+  - Designed API for the FileSystem
+
+What do I plan to do now?
+  - Complete the FileSystem
+  - Implement the directory stack
+  - Work on pushd and popd commands
+  - Write tests
+
+Am I blocked on anything?
+  - No

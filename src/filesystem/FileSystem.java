@@ -76,15 +76,6 @@ public class FileSystem {
   }
 
   /**
-   * Provides current working directory to the caller
-   *
-   * @return The current working directory object
-   */
-  public Directory getWorkingDir() {
-    return workingDir;
-  }
-
-  /**
    * Provides file located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or
