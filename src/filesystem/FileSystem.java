@@ -57,23 +57,30 @@ public class FileSystem {
    *
    * @param path A path to the dir to change to
    */
-  public void changeWorkingDir(Path path) {
+  public void changeWorkingDir(Path path)
+      throws MalformedPathException {
+    Directory newWorkingDir = getDirByPath(path);
+    workingDirPath = getAbsolutePathOfDir(newWorkingDir);
   }
 
   /**
-   * Add a new file to the working directory
+   * Given a directory returns its absolute path
    *
-   * @param theFile The file to add to the working directory
+   * @param theDir The directory for which the path is wanted
+   * @return The absolute path to the directory
    */
-  public void addFile(File theFile) {
-  }
-
-  /**
-   * Add a new directory to the working directory
-   *
-   * @param theDir The directory to add to the working directory
-   */
-  public void addDir(Directory theDir) {
+  private String getAbsolutePathOfDir(Directory theDir) {
+    StringBuilder path = new StringBuilder();
+    Directory curDir = theDir;
+    while (!curDir.getName().equals("/")) {
+      String segment = new StringBuilder("/" + curDir.getName())
+          .reverse()
+          .toString();
+      path.append(segment);
+      curDir = curDir.getParent();
+    }
+    path.append("/");
+    return path.reverse().toString();
   }
 
   /**
@@ -84,8 +91,10 @@ public class FileSystem {
    * directory.
    * @return The file located at the path
    */
-  public File getFileByPath(Path path) {
-    return new File("none", "Not implemented");
+  public File getFileByPath(Path path) throws MalformedPathException {
+    String fileName = path.removeLast();
+    Directory parent = getDirByPath(path);
+    return parent.getFileByName(fileName);
   }
 
   /**
@@ -96,8 +105,22 @@ public class FileSystem {
    * directory.
    * @return The directory located at the path
    */
-  public Directory getDirByPath(Path path) {
-    return new Directory("none", null);
+  public Directory getDirByPath(Path path)
+      throws MalformedPathException {
+    Directory curr = workingDir;
+    for (String segment : path) {
+      if (segment.equals("/")) {
+        curr = root;
+      } else if (segment.equals("..")) {
+        curr = curr.getParent();
+        if (curr == null) {
+          throw new MalformedPathException();
+        }
+      } else if (!segment.equals(".")) {
+        curr = curr.getDirByName(segment);
+      }
+    }
+    return curr;
   }
 
   /**

@@ -33,6 +33,14 @@ public class Path implements Iterable<String> {
     }
   }
 
+  /**
+   * Removes the last token from the path and returns it
+   * @return The last token from the path
+   */
+  public String removeLast() {
+    return this.tokens.remove(this.tokens.size() - 1);
+  }
+
   @Override
   public Iterator<String> iterator() {
     return this.tokens.iterator();
