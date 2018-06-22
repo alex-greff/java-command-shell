@@ -30,20 +30,37 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.FileSystem;
+import java.util.ArrayList;
 import utilities.Command;
+import filesystem.Directory;
 
 public class CmdLs extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
-    return null;
+    // get lists of files and dirs of the current working path
+    Directory dir = FileSystem.getInstance().getWorkingDir();
+    ArrayList<String> dirs = dir.listDirNames();
+    ArrayList<String> files= dir.listFiles();
+    String result="";
+    // now append the each string from the arraylists with a newline to result
+    for (String name : dirs){
+      result += name+"\n";
+    }
+    for (String name : files){
+      result += name+"\n";
+    }
+    // trim the final newline
+    result = result.substring(0, result.length()-2);
+    return result;
   }
 
   @Override
   public String getName() {
     // TODO Auto-generated method stub
-    return null;
+    String name = "ls";
+    return name;
   }
 
 }

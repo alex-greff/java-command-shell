@@ -124,6 +124,14 @@ public class FileSystem {
   }
 
   /**
+   * Getter for the working directory
+   * @return the working directory object
+   */
+  public Directory getWorkingDir(){
+    return workingDir;
+  }
+
+  /**
    * Get the path of the current working directory
    *
    * @return Absolute path of the current working directory

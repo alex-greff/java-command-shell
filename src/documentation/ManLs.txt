@@ -1,9 +1,10 @@
 Description:
-    - <cmd name>: <short description>
+    - ls: lists all of the directories and files in the current working
+          directory, separated by newlines
 	
 Usage:
-    - <cmd name> <parameters>
-	- <alternate command overload(s)>
+    - ls
 	
 Additional Comments:
-    - <some stuff here>
+    - No parameters are needed for this command. Lists the directories first,
+      and then the files.
