@@ -30,15 +30,13 @@
 package io;
 
 import java.util.Scanner;
-import interfaces.IReadable;
-import interfaces.IWritable;
 
 /**
  * Class representing the JShell console
  *
  * @author anton
  */
-public class Console implements IWritable, IReadable {
+public class Console implements Writable, Readable {
 
   private Scanner input = new Scanner(System.in);
 

@@ -29,8 +29,8 @@
 // *********************************************************
 package filesystem;
 
-import interfaces.IReadable;
-import interfaces.IWritable;
+import io.Readable;
+import io.Writable;
 
 /**
  * @author anton
@@ -38,7 +38,7 @@ import interfaces.IWritable;
  * This class represents a file object in the JShell It's contents can
  * be read, and written
  */
-public class File implements IWritable, IReadable {
+public class File implements Writable, Readable {
 
   private String name;
   private String contents;

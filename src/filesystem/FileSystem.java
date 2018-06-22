@@ -35,7 +35,8 @@ package filesystem;
 public class FileSystem {
 
   private static FileSystem ourInstance = new FileSystem();
-  private Directory root = new Directory("/");
+  // the root dir has no parent
+  private Directory root = new Directory("/", null);
   private Directory workingDir = root;
   private String workingDirPath = "/";
 
@@ -56,7 +57,7 @@ public class FileSystem {
    *
    * @param path A path to the dir to change to
    */
-  public void changeWorkingDir(String path) {
+  public void changeWorkingDir(Path path) {
   }
 
   /**
@@ -83,7 +84,7 @@ public class FileSystem {
    * directory.
    * @return The file located at the path
    */
-  public File getFileByPath(String path) {
+  public File getFileByPath(Path path) {
     return new File("none", "Not implemented");
   }
 
@@ -95,8 +96,8 @@ public class FileSystem {
    * directory.
    * @return The directory located at the path
    */
-  public Directory getDirByPath(String path) {
-    return new Directory("none");
+  public Directory getDirByPath(Path path) {
+    return new Directory("none", null);
   }
 
   /**

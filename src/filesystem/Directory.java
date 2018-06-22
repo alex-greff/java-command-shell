@@ -40,14 +40,20 @@ import java.util.HashMap;
 public class Directory {
 
   private String name;
+  private Directory parent;
   private HashMap<String, Directory> childDirs = new HashMap<>();
   private HashMap<String, File> childFiles = new HashMap<>();
 
   /**
-   * Creates a new empty directory with the given name
+   * Creates a new directory given the name of the directory and its
+   * parent
+   *
+   * @param name The name of the new directory
+   * @param parent The parent of this directory
    */
-  public Directory(String name) {
+  public Directory(String name, Directory parent) {
     this.name = name;
+    this.parent = parent;
   }
 
   /**
@@ -78,6 +84,8 @@ public class Directory {
 
   /**
    * Removes a child directory with the given name if it exists
+   *
+   * @param name The name of the directory to remove
    */
   public void removeDirByName(String name) {
     // TODO: maybe throw if the dir does not exist?
@@ -86,6 +94,8 @@ public class Directory {
 
   /**
    * Removes a child file with the given name if it exists
+   *
+   * @param name The name of the file to remove
    */
   public void removeFileByName(String name) {
     // TODO: maybe throw if the file does not exist?
@@ -136,21 +146,21 @@ public class Directory {
   }
 
   /**
-   * Lists all the directories inside of this directory
+   * Lists all the directory names inside of this directory
    *
-   * @return A list of all the directories inside this directory
+   * @return A list of all the directory names inside this directory
    */
-  public ArrayList<Directory> listDirs() {
-    return new ArrayList<>(this.childDirs.values());
+  public ArrayList<String> listDirNames() {
+    return new ArrayList<>(this.childDirs.keySet());
   }
 
   /**
-   * Lists all the files inside of this directory
+   * Lists all the file names inside of this directory
    *
-   * @return A list of all the files inside this directory
+   * @return A list of all the file names inside this directory
    */
-  public ArrayList<File> listFiles() {
-    return new ArrayList<>(this.childFiles.values());
+  public ArrayList<String> listFiles() {
+    return new ArrayList<>(this.childFiles.keySet());
   }
 
   /**
@@ -160,5 +170,14 @@ public class Directory {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Gets the parent of this directory
+   *
+   * @return The parent of this directory
+   */
+  public Directory getParent() {
+    return parent;
   }
 }

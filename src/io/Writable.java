@@ -27,9 +27,9 @@
 // I have also read the plagiarism section in the course info
 // sheet of CSC B07 and understand the consequences.
 // *********************************************************
-package interfaces;
+package io;
 
-public interface IWritable {
+public interface Writable {
 
   void write(String contents);
 }
