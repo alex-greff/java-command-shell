@@ -1,0 +1,12 @@
+Class name: cmdTree
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* Displays a tree of the entire file system
+
+Collaborators:
+* CommandArgs
+* File
+* Directory
+* FileSystem

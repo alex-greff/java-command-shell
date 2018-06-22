@@ -6,4 +6,7 @@ Responsibilities:
 * change the current directory that the JShell operates in
 
 Collaborators:
+* CommandArgs
+* File
 * Directory
+* FileSystem

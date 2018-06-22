@@ -6,5 +6,7 @@ Responsibilities:
 * copies/renames a file from a directory to any other accessible directory
 
 Collaborators:
+* CommandArgs
 * File
 * Directory
+* FileSystem

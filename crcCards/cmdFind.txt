@@ -1,0 +1,12 @@
+Class name: cmdFind
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* Finds the files/directories of the inputed name
+
+Collaborators:
+* CommandArgs
+* File
+* Directory
+* FileSystem

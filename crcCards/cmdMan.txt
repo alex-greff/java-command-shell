@@ -6,4 +6,5 @@ Responsibilities:
 * display help information for the given command
 
 Collaborators:
-* ???
+* CommandArgs
+* CommandManager

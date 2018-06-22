@@ -6,4 +6,7 @@ Responsibilities:
 * show the path of the current working directory
 
 Collaborators:
+* CommandArgs
+* File
 * Directory
+* FileSystem

@@ -1,9 +1,0 @@
-Class name: CmdLine_IO
-Parent class:
-Subclasses:
-
-Responsibilities:
-* ???
-
-Collaborators:
-* ???

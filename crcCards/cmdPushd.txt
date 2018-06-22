@@ -7,4 +7,5 @@ Responsibilities:
 * changes the current working directory to the given parameter 
 
 Collaborators:
+* CommandArgs
 * ???

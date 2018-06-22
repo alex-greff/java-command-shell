@@ -6,4 +6,7 @@ Responsibilities:
 * prints the given string argument to the console or to a file
 
 Collaborators:
-*
+* CommandArgs
+* File
+* Directory
+* FileSystem

@@ -6,4 +6,7 @@ Responsibilities:
 * display the contents of a file
 
 Collaborators:
+* CommandArgs
 * File
+* Directory
+* FileSystem

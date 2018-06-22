@@ -6,4 +6,5 @@ Responsibilities:
 * closes the running JShell
 
 Collaborators:
+* CommandArgs
 * JShell
