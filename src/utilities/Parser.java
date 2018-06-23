@@ -36,6 +36,7 @@ import containers.*;
 public class Parser {
   private static final String OVERWRITE_OPERATOR = ">";
   private static final String APPEND_OPERATOR = ">>";
+  private static final String TYPE_ARG_OPERATOR = "-";
 
   /**
    * Parses the given input and returns a CommandArgs instance with the parsed
@@ -49,11 +50,13 @@ public class Parser {
     // Trim any leading/trailing whitespaces/tabs from the input
     input = input.trim();
 
-    // Split the user input by quotes, spaces and/or tabs 
-    // Handles the cases were more than 1 consecutive spaces/tabs are used    
+    // Split the user input by quotes, spaces and/or tabs
+    // Handles the cases were more than 1 consecutive spaces/tabs are used
     List<String> inputSplit = new ArrayList<String>();
+
     // Apply the regex expression to the input string
     Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(input);
+
     // Add the items from the matcher to the input split list
     while (m.find())
       inputSplit.add(m.group(1));
@@ -67,6 +70,8 @@ public class Parser {
     String cmdName = inputSplit.get(0);
     // Initialize an array list for all the command parameter
     List<String> paramsArrayList = new ArrayList<>();
+    // Initialize the hash map for the named type parameters
+    HashMap<String, String> namedParamsMap = new HashMap<String, String>();
     // Initialize the redirect operator to its empty state
     String redirOperator = "";
     // Initialize the target destination
@@ -91,8 +96,33 @@ public class Parser {
         break;
       }
 
-      // Add the parameters to the array list (without any quotes
-      paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
+      // If the item at index i is a type parameter
+      if (inputSplit.size() > 0
+          && inputSplit.get(i).startsWith(TYPE_ARG_OPERATOR)) {
+        // If there is no item after i then return invalid 
+        if (i + 1 >= inputSplit.size()) {
+          return null;
+        }
+
+        // If the item after is another type parameter then return invalid
+        if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR)) {
+          return null;
+        }
+
+        // Remove the - and set the key value
+        String key = inputSplit.get(i).replaceFirst("-", "");
+        // Remove any quoutes and set the value's value
+        String val = inputSplit.get(i + 1).replace("\"", "");
+
+        // Add to the hashmap
+        namedParamsMap.put(key, val);
+
+        // Force increment i by 1 (since we already dealt with index i + 1)
+        i += 1;
+      } else {
+        // Add the parameters to the array list (without any quotes
+        paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
+      }
     }
 
     // Convert the parameter arraylist to an array
@@ -100,6 +130,7 @@ public class Parser {
 
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
-    return new CommandArgs(cmdName, cmdParams, redirOperator, targetDest);
+    return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,
+        targetDest);
   }
 }

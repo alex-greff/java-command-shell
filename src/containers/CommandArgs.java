@@ -65,7 +65,7 @@ public class CommandArgs {
   public CommandArgs(String cmdName, String[] cmdParams) {
     this(cmdName, cmdParams, new HashMap<String, String>(), "", "");
   }
-  
+
   /**
    * Constructor initializing with command name and named command arguments
    * 
@@ -230,6 +230,20 @@ public class CommandArgs {
     // If there are command arguments then add them to the string representation
     if (cmdParams.length != 0)
       ret_str += "  Params: " + Arrays.toString(this.cmdParams);
+
+    // If there are named command arguments then add them to the string
+    // representation
+    if (namedCmdParams.keySet().size() > 0) {
+      ret_str += "  Named Params: [";
+
+      for (String name : namedCmdParams.keySet()) {
+        ret_str += "(" + name + " -> " + namedCmdParams.get(name) + "), ";
+      }
+
+      ret_str = ret_str.substring(0, ret_str.length() - 2);
+      ret_str += "]";
+    }
+
 
     // If there is a redirect then add that to the string representation as well
     if (!redirOperator.equals("") && !targetDest.equals("")) {
