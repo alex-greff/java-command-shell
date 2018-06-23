@@ -41,7 +41,7 @@ public class JShell {
   private static boolean running = true;
   // this filesystem (singleton) is used by the JShell
   private static FileSystem fs = FileSystem.getInstance();
-  public static ArrayList<String> history; // will use as FIFO
+  private static ArrayList<String> history; // will use as FIFO
 
 
   public static void main(String[] args) {
@@ -74,5 +74,8 @@ public class JShell {
 
   public static void exit() {
     JShell.running = false;
+  }
+  public static ArrayList<String> getHistory(){
+    return history;
   }
 }
