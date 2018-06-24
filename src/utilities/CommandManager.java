@@ -36,7 +36,6 @@ import java.util.HashMap;
 public class CommandManager {
 
   private static CommandManager ourInstance = new CommandManager();
-  
   private HashMap<String, Command> cmdList = new HashMap<>();
 
   private CommandManager() {
@@ -61,7 +60,7 @@ public class CommandManager {
   public static CommandManager getInstance() {
     return ourInstance;
   }
-  
+
   public void executeCommand(CommandArgs cArgs) {
     Command cmd = cmdList.get(cArgs.getCommandName());
     if (cmd != null) {
