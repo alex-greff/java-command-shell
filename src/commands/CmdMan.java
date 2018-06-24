@@ -34,19 +34,19 @@ import utilities.Command;
 import utilities.CommandManager;
 
 public class CmdMan extends Command {
+  // Command information constants
+  private final String NAME = "man";
   private final String DESCRIPTION = ""
       + "Description:\n" + 
       "    - man: gets documentation for commands\n" + 
       "    \n" + 
       "Usage:\r\n" + 
-      "    - man [command name]\n" +  
+      "    - man COMMAND\n" +  
       "    \n" + 
       "Additional Comments:\n" +
-      "    - For some fun try \"man man\".";
-  
+      "    - For some fun try \"man man\".\n";
   
   // Setup constants
-  private final String NAME = "man";
   private final String DOCUMENTATION_PATH = "../documentation";
   private final String errorOutput = "Invalid command, please try again.";
 
@@ -59,7 +59,7 @@ public class CmdMan extends Command {
   @Override
   public String execute(CommandArgs args) {
     if (isValidArgs(args) == false) {
-      return null;
+      return null; // TODO: figure out what to return here
     }
     
     String cmdName = args.getCommandParameters()[0];
