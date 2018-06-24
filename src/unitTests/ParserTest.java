@@ -197,4 +197,6 @@ public class ParserTest {
         new CommandArgs("echo", new String[]{"myString", ">"});
     assertEquals(p, c_wanted);
   }
+  
+  // TODO: make some tests for the named parameters
 }

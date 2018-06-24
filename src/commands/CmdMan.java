@@ -35,13 +35,13 @@ import utilities.CommandManager;
 
 public class CmdMan extends Command {
   private final String DESCRIPTION = ""
-      + "Description:\r\n" + 
-      "    - man: gets documentation for commands\r\n" + 
-      "    \r\n" + 
+      + "Description:\n" + 
+      "    - man: gets documentation for commands\n" + 
+      "    \n" + 
       "Usage:\r\n" + 
-      "    - man [command name]\r\n" +  
-      "    \r\n" + 
-      "Additional Comments:\r\n" +
+      "    - man [command name]\n" +  
+      "    \n" + 
+      "Additional Comments:\n" +
       "    - For some fun try \"man man\".";
   
   

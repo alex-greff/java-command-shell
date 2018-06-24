@@ -33,7 +33,17 @@ import containers.CommandArgs;
 import utilities.Command;
 
 public class CmdEcho extends Command {
-
+  private final String DESCRIPTION = ""
+      + "Description:\r\n" + 
+      "    - echo: appends or writes a string to a file. \n" + 
+      "\n" + 
+      "Usage:\n" + 
+      "    - man [command name]\n" +  
+      "    \n" + 
+      "Additional Comments:\n" +
+      "    - For some fun try \"man man\".";
+  
+  
   @Override
   public String execute(CommandArgs args) {
     // TODO Auto-generated method stub
