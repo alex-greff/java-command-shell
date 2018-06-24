@@ -38,10 +38,10 @@ import utilities.Command;
 
 public class CmdEcho extends Command {
   private final String NAME = "echo";
-  private final String DESCRIPTION = "" + "Description:\r\n"
-      + "    - echo: appends or writes a string to a file.\n"
-      + "            If no file is given then the string is written to console.\n"
-      + "\n" + "Usage:\n" + "    - echo STRING\n"
+  private final String DESCRIPTION = "" + "Echo Command Documentation\n"
+      + "Description:\n" + "    - echo: appends or writes a string to a file.\n"
+      + "            If no file is given then the string is written to console."
+      + "\n\n" + "Usage:\n" + "    - echo STRING\n"
       + "    - echo STRING [> OUTFILE]\n" + "    - echo STRING [>> OUTFILE]\n"
       + "    \n" + "Additional Comments:\n"
       + "    - The \">\" characer signals to overwrite the file contents.\n"
@@ -70,11 +70,11 @@ public class CmdEcho extends Command {
       // Set the string parameter to the ouput
       output = args.getCommandParameters()[0];
     }
-    
+
     // Return the output
     return output;
   }
-  
+
   /**
    * A helper function that writes the given command args to a file
    * 
@@ -85,26 +85,26 @@ public class CmdEcho extends Command {
     FileSystem fs = FileSystem.getInstance();
     String redirOper = args.getRedirectOperator();
     String strContents = args.getCommandParameters()[0];
-    
+
     try {
       // Get the path of the file
       Path path = new Path(args.getTargetDestination());
-      
+
       // Get the File
       File file = fs.getFileByPath(path);
-      
+
       // Check if file exists
       if (file == null)
         return;
-      
-      // Wipe the file contents if the overwrite operator is given in the args 
+
+      // Wipe the file contents if the overwrite operator is given in the args
       if (redirOper.equals(OVERWRITE_OPERATOR)) {
         file.clear();
       }
-      
+
       // Add the string contents to the file
       file.write(strContents);
-      
+
     } catch (MalformedPathException e) {
       // TODO: do something
     }
