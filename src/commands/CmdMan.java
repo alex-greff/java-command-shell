@@ -29,17 +29,22 @@
 // *********************************************************
 package commands;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.net.URL;
 import containers.CommandArgs;
 import utilities.Command;
+import utilities.CommandManager;
 
 public class CmdMan extends Command {
+  private final String DESCRIPTION = ""
+      + "Description:\r\n" + 
+      "    - man: gets documentation for commands\r\n" + 
+      "    \r\n" + 
+      "Usage:\r\n" + 
+      "    - man [command name]\r\n" +  
+      "    \r\n" + 
+      "Additional Comments:\r\n" +
+      "    - For some fun try \"man man\".";
+  
+  
   // Setup constants
   private final String NAME = "man";
   private final String DOCUMENTATION_PATH = "../documentation";
@@ -53,7 +58,15 @@ public class CmdMan extends Command {
    */
   @Override
   public String execute(CommandArgs args) {
-    return null;
+    if (isValidArgs(args) == false) {
+      return null;
+    }
+    
+    String cmdName = args.getCommandParameters()[0];
+    CommandManager cmdMgrInstance = CommandManager.getInstance(); 
+    String cmdDesc = cmdMgrInstance.getCommandDescription(cmdName);
+    
+    return cmdDesc;
   }
 
   /**
@@ -80,9 +93,13 @@ public class CmdMan extends Command {
     return NAME;
   }
 
+  /**
+   * Gets the documentation for this command
+   * 
+   * @return The command description
+   */
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    return DESCRIPTION;
   }
 }
