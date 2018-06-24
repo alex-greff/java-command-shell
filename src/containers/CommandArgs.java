@@ -197,6 +197,15 @@ public class CommandArgs {
   public Set<String> getSetOfNamesCommandParameterKeys() {
     return this.namedCmdParams.keySet();
   }
+  
+  /**
+   * Gets the number of named command parameters
+   * 
+   * @return Returns the number of named command parameters
+   */
+  public int getNumberOfNamedCommandParameters() {
+    return this.namedCmdParams.keySet().size();
+  }
 
   /**
    * Gets the redirect operator or returns "" if there is none

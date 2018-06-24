@@ -78,6 +78,7 @@ public class CmdMan extends Command {
   private boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
+        && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }

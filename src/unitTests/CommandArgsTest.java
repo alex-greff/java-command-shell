@@ -51,6 +51,7 @@ public class CommandArgsTest {
     assertEquals(hs, ca.getSetOfNamesCommandParameterKeys());
     assertEquals(null, ca.getNamedCommandParameters("hi"));
     assertEquals(hm, ca.getNamedCommandParametersMap());
+    assertEquals(0, ca.getNumberOfNamedCommandParameters());
   }
 
   @Test
@@ -76,6 +77,7 @@ public class CommandArgsTest {
     assertEquals("value1", ca.getNamedCommandParameters("type1"));
     assertEquals("value2", ca.getNamedCommandParameters("type2"));
     assertEquals(hm, ca.getNamedCommandParametersMap());
+    assertEquals(2, ca.getNumberOfNamedCommandParameters());
   }
 
 
