@@ -35,9 +35,11 @@ import java.util.HashMap;
 
 public class CommandManager {
 
+  private static CommandManager ourInstance = new CommandManager();
+  
   private HashMap<String, Command> cmdList = new HashMap<>();
 
-  public CommandManager() {
+  private CommandManager() {
     cmdList.put("cat", new CmdCat());
     cmdList.put("cd", new CmdCd());
     cmdList.put("echo", new CmdEcho());
@@ -51,6 +53,15 @@ public class CommandManager {
     cmdList.put("pwd", new CmdPwd());
   }
 
+  /**
+   * Get the singleton instance of the command manager
+   *
+   * @return This command manager instance
+   */
+  public static CommandManager getInstance() {
+    return ourInstance;
+  }
+  
   public void executeCommand(CommandArgs cArgs) {
     Command cmd = cmdList.get(cArgs.getCommandName());
     if (cmd != null) {
