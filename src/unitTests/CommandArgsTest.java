@@ -49,7 +49,7 @@ public class CommandArgsTest {
     Set<String> hs = new HashSet<String>();
     HashMap<String, String> hm = new HashMap<String, String>();
     assertEquals(hs, ca.getSetOfNamesCommandParameterKeys());
-    assertEquals(null, ca.getNamedCommandParameters("hi"));
+    assertEquals(null, ca.getNamedCommandParameter("hi"));
     assertEquals(hm, ca.getNamedCommandParametersMap());
     assertEquals(0, ca.getNumberOfNamedCommandParameters());
   }
@@ -73,9 +73,9 @@ public class CommandArgsTest {
     hm.put("type1", "value1");
     hm.put("type2", "value2");
     assertEquals(hs, ca.getSetOfNamesCommandParameterKeys());
-    assertEquals(null, ca.getNamedCommandParameters("hi"));
-    assertEquals("value1", ca.getNamedCommandParameters("type1"));
-    assertEquals("value2", ca.getNamedCommandParameters("type2"));
+    assertEquals(null, ca.getNamedCommandParameter("hi"));
+    assertEquals("value1", ca.getNamedCommandParameter("type1"));
+    assertEquals("value2", ca.getNamedCommandParameter("type2"));
     assertEquals(hm, ca.getNamedCommandParametersMap());
     assertEquals(2, ca.getNumberOfNamedCommandParameters());
   }
