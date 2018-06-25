@@ -68,6 +68,8 @@ public class CommandManager {
       Command cmd = cmdList.get(cArgs.getCommandName());
       if (cmd != null) {
         String result = cmd.execute(cArgs);
+        Console C = Console.getInstance();
+        C.write(result);
       }
     }
   }
