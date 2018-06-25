@@ -1,0 +1,13 @@
+What did I do last time?
+    - Got a working implementation of the CommandManager
+    - Helped make some tweaks to CommandManager as our ideas changed
+    - Studied the implementation of other classes, to know how to use them when implementing commands
+    - Planned out and have a good idea of the implementation of my assigned commands
+
+What do I plan to do now?
+    - Implement my assigned commands
+    - Complete documentation for my assigned commands
+    - Brainstorm some test cases for my assigned commands, and possible others
+
+Am I blocked on anything?
+    - No
