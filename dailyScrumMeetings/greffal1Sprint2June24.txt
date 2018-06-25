@@ -1,0 +1,11 @@
+What did I do last time?
+    - More small tweaks to the CommandArgs
+    - Coded echo command
+    - Coded man command
+
+What do I plan to do now?
+    - Work on file command
+    - Work on error console system
+
+Am I blocked on anything?
+    - Nope
