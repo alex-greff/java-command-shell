@@ -180,4 +180,6 @@ public class Directory {
   public Directory getParent() {
     return parent;
   }
+
+  public HashMap<String, Directory> getChildDirs(){return childDirs;}
 }

@@ -139,4 +139,11 @@ public class FileSystem {
   public String getWorkingDirPath() {
     return workingDirPath;
   }
+
+  /**
+   * Getter for the root directory
+   * @return the root directory object
+   */
+  public Directory getRoot(){return root;}
+
 }
