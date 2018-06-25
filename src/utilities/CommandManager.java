@@ -68,10 +68,15 @@ public class CommandManager {
       Command cmd = cmdList.get(cArgs.getCommandName());
       if (cmd != null) {
         String result = cmd.execute(cArgs);
-        Console C = Console.getInstance();
-        C.write(result);
+        if(result != null) {
+          Console C = Console.getInstance();
+          C.write(result);
+          return;
+        }
       }
     }
+    ErrorConsole EC = ErrorConsole.getInstance();
+    EC.write("Invalid Command");
   }
 
   public String getCommandDescription(String commandName) {
