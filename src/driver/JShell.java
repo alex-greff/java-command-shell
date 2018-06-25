@@ -49,7 +49,7 @@ public class JShell {
   public static void main(String[] args) {
     // create means of attaining User Input (scanner may be replaced)
     String rawInput;
-    Console console = new Console();
+    Console console = Console.getInstance();
     // create while loop which only exits once the exit command is called
     // send user input to parser, then validate, then execute
     while (running) {

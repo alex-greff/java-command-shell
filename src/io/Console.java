@@ -37,10 +37,20 @@ import java.util.Scanner;
  * @author anton
  */
 public class Console implements Writable, Readable {
-
+  private static Console ourInstance = new Console();
+  
   private Scanner input = new Scanner(System.in);
 
-  public Console() {
+  private Console() {
+  }
+  
+  /**
+   * Gets the singleton instance of Console
+   * 
+   * @return The Console instance
+   */
+  public static Console getInstance() {
+    return ourInstance;
   }
 
   /**
