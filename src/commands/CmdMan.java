@@ -41,10 +41,6 @@ public class CmdMan extends Command {
       + "    \n" + "Usage:\r\n" + "    - man COMMAND\n" + "    \n"
       + "Additional Comments:\n" + "    - For some fun try \"man man\".\n";
 
-  // Setup constants
-  private final String DOCUMENTATION_PATH = "../documentation";
-  private final String errorOutput = "Invalid command, please try again.";
-
   /**
    * Executes the man command with the arguments args
    * 
@@ -57,10 +53,14 @@ public class CmdMan extends Command {
       return null; // TODO: figure out what to return here
     }
 
+    // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
+    // Get the command manager instance
     CommandManager cmdMgrInstance = CommandManager.getInstance();
+    // Get the description of the command
     String cmdDesc = cmdMgrInstance.getCommandDescription(cmdName);
 
+    // Return the command description
     return cmdDesc;
   }
 
