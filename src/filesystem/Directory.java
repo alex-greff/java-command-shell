@@ -41,7 +41,9 @@ public class Directory {
 
   private String name;
   private Directory parent;
+  // Maps: <name of child directory> to <Directory object>
   private HashMap<String, Directory> childDirs = new HashMap<>();
+  // Maps: <name of child file> to <File object>
   private HashMap<String, File> childFiles = new HashMap<>();
 
   /**

@@ -69,7 +69,7 @@ public class FileSystem {
    * @param theDir The directory for which the path is wanted
    * @return The absolute path to the directory
    */
-  private String getAbsolutePathOfDir(Directory theDir) {
+  public String getAbsolutePathOfDir(Directory theDir) {
     StringBuilder path = new StringBuilder();
     Directory curDir = theDir;
     while (!curDir.getName().equals("/")) {
