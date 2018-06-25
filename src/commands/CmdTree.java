@@ -69,10 +69,12 @@ public class CmdTree extends Command {
       }
     }
     // now finally get all of the subdirectories
-    HashMap<String, Directory> childs = curr.getChildDirs();
-    for (String key : childs.keySet()){
+    //HashMap<String, Directory> childs = curr.getChildDirs();
+    ArrayList<String> childs = curr.listDirNames();
+    for (String key : childs){
       result+=spacing+key+"\n";
-      result+=addon(childs.get(key), tabs+1);
+      //result+=addon(childs.get(key), tabs+1);
+      result+=addon(curr.getDirByName(key), tabs+1);
     }
     return result;
   }
