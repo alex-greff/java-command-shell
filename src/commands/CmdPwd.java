@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import utilities.Command;
+import filesystem.FileSystem;
 
 public class CmdPwd extends Command {
 
@@ -39,8 +40,20 @@ public class CmdPwd extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
-    return null;
+    if(!isValidArgs(args)) {
+      return null;
+    }
+
+    FileSystem FS = FileSystem.getInstance(); // Obtain FileSystem
+    return FS.getWorkingDirPath(); // And return the working directory
+  }
+
+  private boolean isValidArgs(CommandArgs args) {
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length == 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
