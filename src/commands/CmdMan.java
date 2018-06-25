@@ -49,7 +49,7 @@ public class CmdMan extends Command {
    */
   @Override
   public String execute(CommandArgs args) {
-    if (isValidArgs(args) == false) {
+    if (!isValidArgs(args)) {
       return null; // TODO: figure out what to return here
     }
 
