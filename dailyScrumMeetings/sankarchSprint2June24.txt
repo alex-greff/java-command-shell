@@ -1,0 +1,12 @@
+What did I do last time?
+    - Implemented tree command
+    - Added system to record user input in JShell
+    - Implemented history command
+    - Implemented ls command
+
+What do I plan to do now?
+    - Debug and revise past classes
+    - Discuss with team about design and modularity
+
+Am I blocked on anything?
+    - nope

@@ -58,7 +58,6 @@ public class CmdLs extends Command {
 
   @Override
   public String getName() {
-    // TODO Auto-generated method stub
     String name = "ls";
     return name;
   }

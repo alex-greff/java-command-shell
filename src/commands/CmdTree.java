@@ -49,7 +49,7 @@ public class CmdTree extends Command {
     result+=(addon(root,0));
     // strip away the trailing newline
     int length = result.length();
-    result = result.substring(length-2, length);
+    result = result.substring(0, length-2);
     return result;
   }
 
@@ -79,13 +79,13 @@ public class CmdTree extends Command {
 
   @Override
   public String getName() {
-    // TODO Auto-generated method stub
     return NAME;
   }
 
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
+    String manDoc = "This command prints a tree representation of the entire"
+        + "filesystem, starting from the root. Takes in no parameters";
     return null;
   }
 
