@@ -49,8 +49,9 @@ public class CmdMan extends Command {
    */
   @Override
   public String execute(CommandArgs args) {
+    // If the command args is invalid then return the failure condition
     if (!isValidArgs(args)) {
-      return null; // TODO: figure out what to return here
+      return null; 
     }
 
     // Get the command name from the parameters

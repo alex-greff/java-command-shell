@@ -34,6 +34,7 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.ErrorConsole;
 import utilities.Command;
 
 public class CmdEcho extends Command {
@@ -50,11 +51,13 @@ public class CmdEcho extends Command {
   private final String OVERWRITE_OPERATOR = ">";
   private final String APPEND_OPERATOR = ">>";
 
+  private ErrorConsole errorConsole = ErrorConsole.getInstance();
+  
   @Override
   public String execute(CommandArgs args) {
     // Check validity of args
     if (isValidArgs(args) == false) {
-      return null; // TODO: figure out what to return here
+      return null; 
     }
 
     // Initialize default command output
@@ -85,28 +88,36 @@ public class CmdEcho extends Command {
     FileSystem fs = FileSystem.getInstance();
     String redirOper = args.getRedirectOperator();
     String strContents = args.getCommandParameters()[0];
-
+    String filePath = args.getTargetDestination();
+    
     try {
       // Get the path of the file
-      Path path = new Path(args.getTargetDestination());
+      Path path = new Path(filePath);
 
       // Get the File
       File file = fs.getFileByPath(path);
 
       // Check if file exists
-      if (file == null)
+      if (file == null) {
+        errorConsole.write("Error: Invalid file \"" + filePath + "\"");
         return;
+      }
 
       // Wipe the file contents if the overwrite operator is given in the args
       if (redirOper.equals(OVERWRITE_OPERATOR)) {
         file.clear();
       }
-
+      // Add a new line to the beginning of the string contents of the redirect
+      // operator is given
+      else if (redirOper.equals(APPEND_OPERATOR)) {
+          strContents = "\n" + strContents; 
+      }
+      
       // Add the string contents to the file
       file.write(strContents);
 
     } catch (MalformedPathException e) {
-      // TODO: do something
+      errorConsole.write("Error: Invalid path \"" + filePath + "\"");
     }
   }
 

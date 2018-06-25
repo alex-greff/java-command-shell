@@ -26,8 +26,9 @@ public class CmdFind extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    if (isValidArgs(args) == false) {
-      return null; // TODO: figure out what to return here
+    // If the command args is invalid then return the failure condition
+    if (!isValidArgs(args)) {
+      return null; 
     }
 
     // Store the values of the named parameters
