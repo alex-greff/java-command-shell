@@ -39,7 +39,7 @@ public class CmdPwd extends Command {
   private final String DESCRIPTION = "" + "Pwd Command Documentation\n"
       + "Description:\n" + "    - pwd: print working directory\n"
       + "   \n" + "Usage:\r\n" + "    - pwd\n" + "    \n"
-      + "Additional Comments:\n" + "    - None";
+      + "Additional Comments:\n" + "    - None\n";
 
   @Override
   public String execute(CommandArgs args) {

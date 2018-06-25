@@ -92,7 +92,7 @@ public class CmdTree extends Command {
     String manDoc = "This command prints a tree representation of the entire"
         + "filesystem, starting from the root. Takes in no parameters."
         + "Files and subdirectories within a directory appear on tab ahead,"
-        + "listed below the directory name.";
+        + "listed below the directory name.\n";
     return manDoc;
   }
 

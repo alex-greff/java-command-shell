@@ -40,6 +40,8 @@ public class CommandManager {
   private static CommandManager ourInstance = new CommandManager();
   private HashMap<String, Command> cmdList = new HashMap<>();
 
+  private ErrorConsole EC = ErrorConsole.getInstance();
+  
   private CommandManager() {
     cmdList.put("cat", new CmdCat());
     cmdList.put("cd", new CmdCd());
@@ -52,6 +54,8 @@ public class CommandManager {
     cmdList.put("popd", new CmdPopd());
     cmdList.put("pushd", new CmdPushd());
     cmdList.put("pwd", new CmdPwd());
+    cmdList.put("tree", new CmdTree());
+    cmdList.put("find", new CmdFind());
   }
 
   /**
@@ -75,8 +79,7 @@ public class CommandManager {
         }
       }
     }
-    ErrorConsole EC = ErrorConsole.getInstance();
-    EC.write("Invalid Command");
+    EC.write("Error: Invalid command, please try again");
   }
 
   public String getCommandDescription(String commandName) {

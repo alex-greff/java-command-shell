@@ -112,7 +112,7 @@ public class CmdLs extends Command {
   public String getDescription() {
     String result="This command lists all of the directories and files in"
         + "the current working directory. No arguments are needed for this "
-        + "command.";
+        + "command.\n";
     return result;
   }
 
