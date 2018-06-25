@@ -32,8 +32,6 @@ package commands;
 import filesystem.*;
 import containers.CommandArgs;
 import utilities.Command;
-
-import java.util.HashMap;
 import java.util.ArrayList;
 
 
@@ -45,6 +43,11 @@ public class CmdTree extends Command {
 
   @Override
   public String execute(CommandArgs args){
+    //currently, tree takes in no parameters
+    if (args.getCommandParameters().length >0){
+      return null;
+    }
+
     String result = root.getName()+"\n";
     result+=(addon(root,0));
     // strip away the trailing newline
@@ -87,8 +90,10 @@ public class CmdTree extends Command {
   @Override
   public String getDescription() {
     String manDoc = "This command prints a tree representation of the entire"
-        + "filesystem, starting from the root. Takes in no parameters";
-    return null;
+        + "filesystem, starting from the root. Takes in no parameters."
+        + "Files and subdirectories within a directory appear on tab ahead,"
+        + "listed below the directory name.";
+    return manDoc;
   }
 
 }

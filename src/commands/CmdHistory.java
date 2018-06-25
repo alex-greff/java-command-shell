@@ -52,9 +52,14 @@ public class CmdHistory extends Command {
     }
     // the case where they want a specific amount of history
     else if (params.length==1){
+      // check if the parameter is an int
+      if (!params[0].matches("\\d+")){
+        return null;
+      }
       int paramInt = Integer.parseInt(params[0]);
       if (paramInt < 0){
-        //throw error here
+        // error if a negative integer is passed as an argument
+        return null;
       }
       int index = history.size()-paramInt;
       // in the case that the parameter int is bigger than the size of history
@@ -67,6 +72,11 @@ public class CmdHistory extends Command {
       }
       // if the parameter was 0, an empty string is returned
     }
+    // this command currently does not accept more than one parameter
+    else if (params.length>1){
+      return null;
+    }
+
     return result;
   }
 
@@ -77,8 +87,11 @@ public class CmdHistory extends Command {
 
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    String result="This command lists all of the past lines of user entry by"
+        + "default, but if given a positive integer argument x, the last x "
+        + "user entries will be listed. Note that the history command itself"
+        + "will always take place as the latest user entry.";
+    return result;
   }
 
 }
