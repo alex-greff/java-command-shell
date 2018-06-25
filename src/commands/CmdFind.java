@@ -94,10 +94,10 @@ public class CmdFind extends Command {
     }
 
     // Iterate through each child directory
-    Set<String> childDirNames = dir.getChildDirs().keySet();
+    ArrayList<String> childDirNames = dir.listDirNames();
     for (String childDirName : childDirNames) {
       // Get the child directory object
-      Directory childDir = dir.getChildDirs().get(childDirName);
+      Directory childDir = dir.getDirByName(childDirName);
 
       // Call the function recursively again on the child directory and add any
       // instances of the file to the current return set
@@ -129,10 +129,10 @@ public class CmdFind extends Command {
     }
 
     // Iterate through each child directory
-    Set<String> childDirNames = dir.getChildDirs().keySet();
+    ArrayList<String> childDirNames = dir.listDirNames();
     for (String childDirName : childDirNames) {
       // Get the child directory object
-      Directory childDir = dir.getChildDirs().get(childDirName);
+      Directory childDir = dir.getDirByName(childDirName);
 
       // Call the function recursively again on the child directory and add any
       // instances of the directory to the current return set
