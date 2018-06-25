@@ -34,6 +34,9 @@ import utilities.Command;
 
 public class CmdPwd extends Command {
 
+  private final String NAME = "pwd";
+  private final String DESCRIPTION = "";
+
   @Override
   public String execute(CommandArgs args) {
     // TODO Auto-generated method stub
@@ -41,15 +44,9 @@ public class CmdPwd extends Command {
   }
 
   @Override
-  public String getName() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+  public String getName() { return NAME; }
 
   @Override
-  public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+  public String getDescription() { return DESCRIPTION; }
 
 }
