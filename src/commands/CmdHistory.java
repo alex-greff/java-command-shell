@@ -90,7 +90,7 @@ public class CmdHistory extends Command {
     String result="This command lists all of the past lines of user entry by"
         + "default, but if given a positive integer argument x, the last x "
         + "user entries will be listed. Note that the history command itself"
-        + "will always take place as the latest user entry.";
+        + "will always take place as the latest user entry.\n";
     return result;
   }
 
