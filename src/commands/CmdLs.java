@@ -44,6 +44,10 @@ public class CmdLs extends Command {
 
   @Override
   public String execute(CommandArgs args) {
+    if(!isValidArgs(args)) {
+      return null;
+    }
+    
     String result ="";
     Directory curr=FileSystem.getInstance().getWorkingDir();
     Path path;
@@ -83,6 +87,20 @@ public class CmdLs extends Command {
     }
     // add extra newline to separate text block from other parameters
     return result+"\n";
+  }
+  
+  /**
+   * A helper checking if args is a valid CommandArgs instance for this command
+   * 
+   * @param args The command arguments
+   * @return Returns true iff args is a valid for this command
+   */
+  private boolean isValidArgs(CommandArgs args) {
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length > 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
