@@ -176,7 +176,7 @@ public class CommandArgs {
    * @param name The name of the type.
    * @return Returns the parameter mapped to name or null it is it not mapped.
    */
-  public String getNamedCommandParameters(String name) {
+  public String getNamedCommandParameter(String name) {
     return this.namedCmdParams.get(name);
   }
 
