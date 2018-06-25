@@ -33,6 +33,7 @@ import containers.CommandArgs;
 import filesystem.FileSystem;
 import io.Console;
 import java.util.ArrayList;
+import utilities.CommandManager;
 import utilities.Parser;
 
 public class JShell {
@@ -63,7 +64,8 @@ public class JShell {
 
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
       if (parsedInput != null) {
-        // execute that shit
+        // execute the command
+        CommandManager.getInstance().executeCommand(parsedInput);
       }
       // find means of exiting shell
     }
