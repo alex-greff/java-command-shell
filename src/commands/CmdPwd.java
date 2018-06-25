@@ -36,7 +36,10 @@ import filesystem.FileSystem;
 public class CmdPwd extends Command {
 
   private final String NAME = "pwd";
-  private final String DESCRIPTION = "";
+  private final String DESCRIPTION = "" + "Pwd Command Documentation\n"
+      + "Description:\n" + "    - pwd: print working directory\n"
+      + "   \n" + "Usage:\r\n" + "    - pwd\n" + "    \n"
+      + "Additional Comments:\n" + "    - None";
 
   @Override
   public String execute(CommandArgs args) {
