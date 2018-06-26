@@ -32,6 +32,7 @@ package driver;
 import containers.CommandArgs;
 import filesystem.FileSystem;
 import io.Console;
+import io.ErrorConsole;
 import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
@@ -50,6 +51,7 @@ public class JShell {
     // create means of attaining User Input (scanner may be replaced)
     String rawInput;
     Console console = Console.getInstance();
+    ErrorConsole errorConsole = ErrorConsole.getInstance();
     // create while loop which only exits once the exit command is called
     // send user input to parser, then validate, then execute
     while (running) {
@@ -67,7 +69,6 @@ public class JShell {
         // execute the command
         CommandManager.getInstance().executeCommand(parsedInput);
       }
-      // find means of exiting shell
     }
 
     // use means of outputting to output data to the right destination
