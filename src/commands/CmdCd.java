@@ -56,9 +56,10 @@ public class CmdCd extends Command {
     } catch (MalformedPathException e) {
       ErrorConsole EC = ErrorConsole.getInstance();
       EC.write("Error: Invalid Path");
+      return null;
     }
 
-    return null;
+    return "";
   }
 
   private boolean isValidArgs(CommandArgs args) {
