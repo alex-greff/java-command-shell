@@ -48,11 +48,8 @@ public class CmdTree extends Command {
       return null;
     }
 
-    String result = root.getName()+"\n";
+    String result = (root.getName()+"\n");
     result+=(addon(root,0));
-    // strip away the trailing newline
-    int length = result.length();
-    result = result.substring(0, length-2);
     return result;
   }
 

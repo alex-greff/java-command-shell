@@ -69,7 +69,9 @@ public class CmdLs extends Command {
       result=addon(curr);
     }
     // trim the final newline
-    result = result.substring(0, result.length()-2);
+    if (result.length() >=2) {
+      result = result.substring(0, result.length() - 2);
+    }
     return result;
   }
 
@@ -86,7 +88,7 @@ public class CmdLs extends Command {
       result += name+"\n";
     }
     // add extra newline to separate text block from other parameters
-    return result+"\n";
+    return (result+"\n");
   }
   
   /**
@@ -97,7 +99,7 @@ public class CmdLs extends Command {
    */
   private boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length > 0
+        && args.getCommandParameters().length >= 0
         && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
