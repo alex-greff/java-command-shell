@@ -20,6 +20,6 @@ public class CmdPwdTest {
 
     System.out.println(out_actual);
 
-    assertEquals(FS.getWorkingDirPath(), out_actual);
+    assertEquals(FS.getWorkingDirPath() + "\n", out_actual);
   }
 }
