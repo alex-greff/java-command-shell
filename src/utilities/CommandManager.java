@@ -40,6 +40,7 @@ public class CommandManager {
   private static CommandManager ourInstance = new CommandManager();
   private HashMap<String, Command> cmdList = new HashMap<>();
 
+  private Console C = Console.getInstance();
   private ErrorConsole EC = ErrorConsole.getInstance();
   
   private CommandManager() {
@@ -73,7 +74,6 @@ public class CommandManager {
       if (cmd != null) {
         String result = cmd.execute(cArgs);
         if(result != null) {
-          Console C = Console.getInstance();
           C.write(result);
           return;
         }
