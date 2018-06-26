@@ -48,7 +48,7 @@ public class CmdPwd extends Command {
     }
 
     FileSystem FS = FileSystem.getInstance(); // Obtain FileSystem
-    return FS.getWorkingDirPath(); // And return the working directory
+    return FS.getWorkingDirPath() + "\n"; // And return the working directory
   }
 
   private boolean isValidArgs(CommandArgs args) {
