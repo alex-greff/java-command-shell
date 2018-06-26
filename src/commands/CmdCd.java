@@ -31,26 +31,49 @@ package commands;
 
 import containers.CommandArgs;
 import utilities.Command;
+import filesystem.FileSystem;
+import filesystem.MalformedPathException;
+import filesystem.Path;
+import io.ErrorConsole;
 
 public class CmdCd extends Command {
 
+  private final String NAME = "cd";
+  private final String DESCRIPTION = "";
+
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
+    if(!isValidArgs(args)) {
+      return null;
+    }
+
+    FileSystem FS = FileSystem.getInstance();
+    String location = args.getCommandParameters()[0];
+
+    try {
+      Path new_dir = new Path(location);
+      FS.changeWorkingDir(new_dir);
+    } catch (MalformedPathException e) {
+      ErrorConsole EC = ErrorConsole.getInstance();
+      EC.write("Error: Invalid Path");
+    }
+
     return null;
   }
 
-  @Override
-  public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+  private boolean isValidArgs(CommandArgs args) {
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length == 1
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
-  public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+  public String getName() { return NAME; }
+
+  @Override
+  public String getDescription() { return DESCRIPTION; }
 
 
 }
