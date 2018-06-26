@@ -48,6 +48,7 @@ public class CmdHistory extends Command {
     if (params.length==0){
       for (String item : history){
         result+=Integer.toString(i)+". "+item+"\n";
+        i++;
       }
     }
     // the case where they want a specific amount of history
@@ -69,6 +70,7 @@ public class CmdHistory extends Command {
 
       for (String item : newList){
         result += Integer.toString(i)+". "+item+"\n";
+        i++;
       }
       // if the parameter was 0, an empty string is returned
     }
