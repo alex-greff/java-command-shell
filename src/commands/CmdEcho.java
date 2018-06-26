@@ -30,6 +30,7 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.Directory;
 import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
@@ -75,7 +76,7 @@ public class CmdEcho extends Command {
     }
 
     // Return the output
-    return output;
+    return output + "\n";
   }
 
   /**
@@ -88,19 +89,33 @@ public class CmdEcho extends Command {
     FileSystem fs = FileSystem.getInstance();
     String redirOper = args.getRedirectOperator();
     String strContents = args.getCommandParameters()[0];
-    String filePath = args.getTargetDestination();
+    String filePathStr = args.getTargetDestination();
     
     try {
       // Get the path of the file
-      Path path = new Path(filePath);
+      Path filePath = new Path(filePathStr);
 
       // Get the File
-      File file = fs.getFileByPath(path);
+      File file = fs.getFileByPath(filePath);
 
-      // Check if file exists
+      // If the file does not exist
       if (file == null) {
-        errorConsole.write("Error: Invalid file \"" + filePath + "\"");
-        return;
+        // Make the new file
+        String[] fileSplit = filePathStr.split("/");
+        String fileName = fileSplit[fileSplit.length - 1];
+        file = new File(fileName);
+        
+        // Get the directory that the file is in
+        String dirPathStr = filePathStr.substring(0, filePathStr.lastIndexOf('/'));
+        if (dirPathStr.equals("")) {
+          dirPathStr = "/";
+        }
+        
+        Path dirPath = new Path(dirPathStr);
+        Directory dirOfFile = getDirOfFile(dirPath);
+        
+        // Add the file to the directory
+        dirOfFile.addFile(file);
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
@@ -110,15 +125,47 @@ public class CmdEcho extends Command {
       // Add a new line to the beginning of the string contents of the redirect
       // operator is given
       else if (redirOper.equals(APPEND_OPERATOR)) {
-          strContents = "\n" + strContents; 
       }
       
       // Add the string contents to the file
       file.write(strContents);
 
     } catch (MalformedPathException e) {
-      errorConsole.write("Error: Invalid path \"" + filePath + "\"");
+      errorConsole.write("Error: Invalid path \"" + filePathStr + "\"");
     }
+  }
+  
+  /**
+   * Returns the directory at the path and creates it, and any other directories
+   * that it needs along the way.
+   * 
+   * @param path The path 
+   * @return Returns the directory at path
+   * @throws MalformedPathException
+   */
+  private Directory getDirOfFile(Path path) throws MalformedPathException {
+    FileSystem fs = FileSystem.getInstance();
+    
+    Directory curr = fs.getWorkingDir();
+    
+    for (String segment : path) {
+      if (segment.equals("/")) {
+        curr = fs.getRoot();
+      } else if (segment.equals("..")) {
+        curr = curr.getParent();
+        if (curr == null) {
+          throw new MalformedPathException();
+        }
+      } else if (!segment.equals(".")) {
+        Directory prev = curr;
+        curr = curr.getDirByName(segment);
+        if (curr == null) {
+          curr = new Directory(segment, prev);
+          prev.addDir(curr);
+        }
+      }
+    }
+    return curr;
   }
 
 

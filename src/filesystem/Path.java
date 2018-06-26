@@ -19,7 +19,10 @@ public class Path implements Iterable<String> {
    */
   public Path(String pathString) throws MalformedPathException {
     // if it's an absolute path add the root dir to the token list
-    if (pathString.startsWith("/")) {
+    if (pathString.equals("/")) {
+      tokens.add("/");
+    }
+    else if (pathString.startsWith("/")) {
       tokens.add("/");
       pathString = pathString.substring(1);
     }
