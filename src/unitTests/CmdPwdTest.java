@@ -11,7 +11,7 @@ import utilities.Command;
 public class CmdPwdTest {
 
   @Test
-  public void textExecute1() {
+  public void testRootDir() {
     CommandArgs args = new CommandArgs("pwd");
 
     Command cmd = new CmdPwd();

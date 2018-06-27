@@ -38,7 +38,8 @@ import utilities.Command;
 public class CmdCd extends Command {
 
   private final String NAME = "cd";
-  private final String DESCRIPTION = "" + "Cd Command Documentation\n"
+  private final String DESCRIPTION =
+      "" + "Cd Command Documentation\n"
       + "Description:\n" + "    - cd: change directory\n"
       + "   \n" + "Usage:\r\n" + "    - cd DIRECTORY\n" + "    \n"
       + "Additional Comments:\n" + "    - Path of DIRECTORY can be"
