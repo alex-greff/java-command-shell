@@ -59,7 +59,12 @@ public class ErrorConsole implements Writable {
   @Override
   public void write(String contents) {
     //System.err.println(contents);
-    System.out.println(contents);
+    System.out.print(contents);
+  }
+
+  @Override
+  public void writeln(String contents) {
+    System.out.print(contents);
   }
 
 }

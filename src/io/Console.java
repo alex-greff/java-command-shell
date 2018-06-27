@@ -64,6 +64,11 @@ public class Console implements Writable, Readable {
     System.out.print(contents);
   }
 
+  @Override
+  public void writeln(String contents) {
+    System.out.print(contents);
+  }
+  
   /**
    * Read text from the console
    *
@@ -73,4 +78,6 @@ public class Console implements Writable, Readable {
   public String read() {
     return input.nextLine();
   }
+
+  
 }

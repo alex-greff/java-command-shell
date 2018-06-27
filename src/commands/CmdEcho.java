@@ -74,8 +74,10 @@ public class CmdEcho extends Command {
       output = args.getCommandParameters()[0];
     }
 
+    output = (!output.equals("")) ? output + "\n" : output;
+    
     // Return the output
-    return output + "\n";
+    return output;
   }
 
   /**

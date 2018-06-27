@@ -94,6 +94,17 @@ public class File implements Writable, Readable {
   public void write(String contents) {
     this.contents += contents;
   }
+  
+  /**
+   * Writes a line to the contents to the file. Does not change the old
+   * contents.
+   *
+   * @param contents The data to be added to the file.
+   */
+  @Override
+  public void writeln(String contents) {
+    this.contents += contents + "\n";
+  }
 
   /**
    * Allows for reading of data from the file.
