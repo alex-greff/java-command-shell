@@ -99,6 +99,7 @@ public class CmdLs extends Command {
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
         && args.getNumberOfNamedCommandParameters() == 0
+        && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }

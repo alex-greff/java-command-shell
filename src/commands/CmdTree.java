@@ -48,8 +48,11 @@ public class CmdTree extends Command {
 
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    //currently, tree takes in no parameters
-    return args.getCommandParameters().length == 0;
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length == 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   private String addon(Directory curr, int tabs) {

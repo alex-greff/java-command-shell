@@ -34,7 +34,7 @@ import filesystem.DirectoryStack;
 import utilities.Command;
 
 public class CmdPopd extends Command {
-
+  private final String NAME = "popd";
 
   @Override
   public String execute(CommandArgs args) {
@@ -59,12 +59,16 @@ public class CmdPopd extends Command {
   @Override
   public boolean isValidArgs(CommandArgs args) {
     // this command does not take any arguments
-    return args.getCommandParameters().length == 0;
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length == 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
   public String getName() {
-    return "popd";
+    return NAME;
   }
 
   @Override
