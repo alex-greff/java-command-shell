@@ -30,11 +30,11 @@
 package commands;
 
 import containers.CommandArgs;
-import utilities.Command;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.ErrorConsole;
+import utilities.Command;
 
 public class CmdCd extends Command {
 
@@ -47,10 +47,6 @@ public class CmdCd extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    if(!isValidArgs(args)) {
-      return null;
-    }
-
     FileSystem FS = FileSystem.getInstance();
     String location = args.getCommandParameters()[0];
 
@@ -66,7 +62,7 @@ public class CmdCd extends Command {
     return "";
   }
 
-  private boolean isValidArgs(CommandArgs args) {
+  public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && args.getNumberOfNamedCommandParameters() == 0
@@ -75,9 +71,13 @@ public class CmdCd extends Command {
   }
 
   @Override
-  public String getName() { return NAME; }
+  public String getName() {
+    return NAME;
+  }
 
   @Override
-  public String getDescription() { return DESCRIPTION; }
+  public String getDescription() {
+    return DESCRIPTION;
+  }
 
 }

@@ -30,78 +30,76 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.Directory;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
+import filesystem.Path;
 import java.util.ArrayList;
 import utilities.Command;
-import filesystem.Directory;
-import filesystem.Path;
 
 public class CmdLs extends Command {
-  private final String NAME="ls";
-  private static final FileSystem filesys=FileSystem.getInstance();
+
+  private final String NAME = "ls";
+  private static final FileSystem filesys = FileSystem.getInstance();
   private static Directory rootDir = filesys.getRoot();
 
   @Override
   public String execute(CommandArgs args) {
-    if(!isValidArgs(args)) {
-      return null;
-    }
-    
-    String result ="";
-    Directory curr=FileSystem.getInstance().getWorkingDir();
+    StringBuilder result = new StringBuilder();
+    Directory curr = FileSystem.getInstance().getWorkingDir();
     Path path;
     // check parameters
 
-    String[] params= args.getCommandParameters();
-    if (params.length > 0){
-      for (String name : params){
+    String[] params = args.getCommandParameters();
+    if (params.length > 0) {
+      for (String name : params) {
         try {
           path = new Path(name);
           curr = filesys.getDirByPath(path);
-        }catch(MalformedPathException m){
-          result += "Error: Path "+name+ " was not found.\n";
+        } catch (MalformedPathException m) {
+          result.append("Error: Path ").append(name)
+              .append(" was not found.\n");
         }//end try-catch for absolute pathing errors
         //check if curr is null for relative pathing errors
-        if (curr==null){
-          result+= "Error: Path "+name+" was not found.\n";
-        }
-        else {
-          result += addon(curr);
+        if (curr == null) {
+          result.append("Error: Path ").append(name)
+              .append(" was not found.\n");
+        } else {
+          result.append(addon(curr));
         }
       }
     }
     // if no parameters are given, perform command on current working dir
-    else{
-      result=addon(curr);
+    else {
+      result = new StringBuilder(addon(curr));
     }
-    return result;
+    return result.toString();
   }
 
-  private String addon(Directory dir){
-    String result="";
+  private String addon(Directory dir) {
+    StringBuilder result = new StringBuilder();
     // get lists of files and dirs of the current working path
     ArrayList<String> dirs = dir.listDirNames();
-    ArrayList<String> files= dir.listFiles();
+    ArrayList<String> files = dir.listFiles();
     // now append the each string from the arraylists with a newline to result
-    for (String name : dirs){
-      result += name+"\n";
+    for (String name : dirs) {
+      result.append(name).append("\n");
     }
-    for (String name : files){
-      result += name+"\n";
+    for (String name : files) {
+      result.append(name).append("\n");
     }
-    return (result);
+    return (result.toString());
   }
-  
+
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
-   * 
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
+   *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
    */
-  private boolean isValidArgs(CommandArgs args) {
+  public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length >= 0
         && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
@@ -114,10 +112,9 @@ public class CmdLs extends Command {
 
   @Override
   public String getDescription() {
-    String result="This command lists all of the directories and files in"
+    return "This command lists all of the directories and files in"
         + "the current working directory. No arguments are needed for this "
         + "command.\n";
-    return result;
   }
 
 }

@@ -1,14 +1,15 @@
 package unitTests;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import filesystem.FileSystem;
-import org.junit.Test;
+
 import commands.CmdPwd;
 import containers.CommandArgs;
+import filesystem.FileSystem;
+import org.junit.Test;
 import utilities.Command;
 
 public class CmdPwdTest {
+
   @Test
   public void textExecute1() {
     CommandArgs args = new CommandArgs("pwd");

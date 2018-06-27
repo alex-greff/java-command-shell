@@ -34,44 +34,42 @@ import utilities.Command;
 import utilities.CommandManager;
 
 public class CmdMan extends Command {
+
   // Command information constants
   private final String NAME = "man";
-  private final String DESCRIPTION = "" + "Man Command Documentation\n"
-      + "Description:\n" + "    - man: gets documentation for commands\n"
-      + "    \n" + "Usage:\r\n" + "    - man COMMAND\n" + "    \n"
-      + "Additional Comments:\n" + "    - For some fun try \"man man\".\n";
+  private final String DESCRIPTION =
+      "" + "Man Command Documentation\n"
+          + "Description:\n"
+          + "    - man: gets documentation for commands\n"
+          + "    \n" + "Usage:\r\n" + "    - man COMMAND\n" + "    \n"
+          + "Additional Comments:\n"
+          + "    - For some fun try \"man man\".\n";
 
   /**
    * Executes the man command with the arguments args
-   * 
+   *
    * @param args The command arguments
    * @return Returns the output of the command
    */
   @Override
   public String execute(CommandArgs args) {
-    // If the command args is invalid then return the failure condition
-    if (!isValidArgs(args)) {
-      return null; 
-    }
-
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the command manager instance
     CommandManager cmdMgrInstance = CommandManager.getInstance();
     // Get the description of the command
-    String cmdDesc = cmdMgrInstance.getCommandDescription(cmdName);
-
     // Return the command description
-    return cmdDesc;
+    return cmdMgrInstance.getCommandDescription(cmdName);
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
-   * 
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
+   *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
    */
-  private boolean isValidArgs(CommandArgs args) {
+  public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && args.getNumberOfNamedCommandParameters() == 0
@@ -82,7 +80,7 @@ public class CmdMan extends Command {
 
   /**
    * Gets the name of the command
-   * 
+   *
    * @return Returns the name of the command
    */
   @Override
@@ -92,7 +90,7 @@ public class CmdMan extends Command {
 
   /**
    * Gets the documentation for this command
-   * 
+   *
    * @return The command description
    */
   @Override

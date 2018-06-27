@@ -21,8 +21,7 @@ public class Path implements Iterable<String> {
     // if it's an absolute path add the root dir to the token list
     if (pathString.equals("/")) {
       tokens.add("/");
-    }
-    else if (pathString.startsWith("/")) {
+    } else if (pathString.startsWith("/")) {
       tokens.add("/");
       pathString = pathString.substring(1);
     }
@@ -38,6 +37,7 @@ public class Path implements Iterable<String> {
 
   /**
    * Removes the last token from the path and returns it
+   *
    * @return The last token from the path
    */
   public String removeLast() {

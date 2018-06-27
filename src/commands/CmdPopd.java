@@ -34,22 +34,31 @@ import utilities.Command;
 
 public class CmdPopd extends Command {
 
+  private final String NAME = "popd";
+
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  protected boolean isValidArgs(CommandArgs args) {
+    return false;
   }
 
   @Override
   public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+    return NAME;
   }
 
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    return "popd Command Documentation\n"
+        + "Description:\n"
+        + "    - popd: removes the directory at the top of the "
+        + "directory stack and changes the current working "
+        + "directory to the removed directory.\n"
+        + "\n Usage: popd";
   }
 
 }

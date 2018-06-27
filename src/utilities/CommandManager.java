@@ -29,8 +29,20 @@
 // *********************************************************
 package utilities;
 
-import containers.*;
-import commands.*;
+import commands.CmdCat;
+import commands.CmdCd;
+import commands.CmdEcho;
+import commands.CmdExit;
+import commands.CmdFind;
+import commands.CmdHistory;
+import commands.CmdLs;
+import commands.CmdMan;
+import commands.CmdMkdir;
+import commands.CmdPopd;
+import commands.CmdPushd;
+import commands.CmdPwd;
+import commands.CmdTree;
+import containers.CommandArgs;
 import io.Console;
 import io.ErrorConsole;
 import java.util.HashMap;
@@ -38,25 +50,25 @@ import java.util.HashMap;
 public class CommandManager {
 
   private static CommandManager ourInstance = new CommandManager();
-  private HashMap<String, Command> cmdList = new HashMap<>();
+  private HashMap<String, Command> cmdMap = new HashMap<>();
 
-  private Console C = Console.getInstance();
-  private ErrorConsole EC = ErrorConsole.getInstance();
-  
+  private Console out = Console.getInstance();
+  private ErrorConsole errorOut = ErrorConsole.getInstance();
+
   private CommandManager() {
-    cmdList.put("cat", new CmdCat());
-    cmdList.put("cd", new CmdCd());
-    cmdList.put("echo", new CmdEcho());
-    cmdList.put("exit", new CmdExit());
-    cmdList.put("history", new CmdHistory());
-    cmdList.put("ls", new CmdLs());
-    cmdList.put("man", new CmdMan());
-    cmdList.put("mkdir", new CmdMkdir());
-    cmdList.put("popd", new CmdPopd());
-    cmdList.put("pushd", new CmdPushd());
-    cmdList.put("pwd", new CmdPwd());
-    cmdList.put("tree", new CmdTree());
-    cmdList.put("find", new CmdFind());
+    cmdMap.put("cat", new CmdCat());
+    cmdMap.put("cd", new CmdCd());
+    cmdMap.put("echo", new CmdEcho());
+    cmdMap.put("exit", new CmdExit());
+    cmdMap.put("history", new CmdHistory());
+    cmdMap.put("ls", new CmdLs());
+    cmdMap.put("man", new CmdMan());
+    cmdMap.put("mkdir", new CmdMkdir());
+    cmdMap.put("popd", new CmdPopd());
+    cmdMap.put("pushd", new CmdPushd());
+    cmdMap.put("pwd", new CmdPwd());
+    cmdMap.put("tree", new CmdTree());
+    cmdMap.put("find", new CmdFind());
   }
 
   /**
@@ -69,21 +81,28 @@ public class CommandManager {
   }
 
   public void executeCommand(CommandArgs cArgs) {
-    if(cArgs != null) {
-      Command cmd = cmdList.get(cArgs.getCommandName());
-      if (cmd != null) {
-        String result = cmd.execute(cArgs);
-        if(result != null) {
-          C.write(result);
-          return;
+    // make sure the command args parsed properly
+    if (cArgs != null) {
+      // get the name of the command the user inputted
+      String cmdName = cArgs.getCommandName();
+      // if the command exists
+      if (cmdMap.containsKey(cmdName)) {
+        // then get the instance of the command
+        Command cmd = cmdMap.get(cmdName);
+        // make sure the args are valid for the command
+        if (cmd.isValidArgs(cArgs)) {
+          String result = cmd.execute(cArgs);
+          out.write(result);
         }
       }
+    } else {
+      // TODO: better error handling
+      errorOut.write("Error: Invalid command, please try again");
     }
-    EC.write("Error: Invalid command, please try again");
   }
 
   public String getCommandDescription(String commandName) {
-    Command cmd = cmdList.get(commandName);
+    Command cmd = cmdMap.get(commandName);
     String desc = null;
     if (cmd != null) {
       desc = cmd.getDescription();

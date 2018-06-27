@@ -30,28 +30,26 @@
 package commands;
 
 import containers.CommandArgs;
-import utilities.Command;
 import filesystem.FileSystem;
+import utilities.Command;
 
 public class CmdPwd extends Command {
 
   private final String NAME = "pwd";
-  private final String DESCRIPTION = "" + "Pwd Command Documentation\n"
-      + "Description:\n" + "    - pwd: print working directory\n"
-      + "   \n" + "Usage:\r\n" + "    - pwd\n" + "    \n"
-      + "Additional Comments:\n" + "    - None\n";
+  private final String DESCRIPTION =
+      "" + "Pwd Command Documentation\n"
+          + "Description:\n" + "    - pwd: print working directory\n"
+          + "   \n" + "Usage:\r\n" + "    - pwd\n" + "    \n"
+          + "Additional Comments:\n" + "    - None\n";
 
   @Override
   public String execute(CommandArgs args) {
-    if(!isValidArgs(args)) {
-      return null;
-    }
-
     FileSystem FS = FileSystem.getInstance(); // Obtain FileSystem
-    return FS.getWorkingDirPath() + "\n"; // And return the working directory
+    return FS.getWorkingDirPath()
+        + "\n"; // And return the working directory
   }
 
-  private boolean isValidArgs(CommandArgs args) {
+  public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 0
         && args.getNumberOfNamedCommandParameters() == 0
@@ -60,9 +58,13 @@ public class CmdPwd extends Command {
   }
 
   @Override
-  public String getName() { return NAME; }
+  public String getName() {
+    return NAME;
+  }
 
   @Override
-  public String getDescription() { return DESCRIPTION; }
+  public String getDescription() {
+    return DESCRIPTION;
+  }
 
 }

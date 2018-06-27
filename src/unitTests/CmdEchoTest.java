@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -13,10 +11,13 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import org.junit.Before;
+import org.junit.Test;
 import utilities.Command;
 import utilities.Parser;
 
 public class CmdEchoTest {
+
   @Before
   public void Setup() {
     FileSystem fs = FileSystem.getInstance();
@@ -27,7 +28,7 @@ public class CmdEchoTest {
     Directory dir2 = root.createAndAddNewDir("dir2");
     File file1 = new File("file1", "file1's contents\n");
     root.addFile(file1);
-    Directory dir3 = dir2.createAndAddNewDir("dir3");
+    dir2.createAndAddNewDir("dir3");
     File file2 = new File("file2", "file2's contents\n");
     dir2.addFile(file2);
     Directory dir4 = dir1.createAndAddNewDir("dir4");
@@ -41,7 +42,8 @@ public class CmdEchoTest {
   @Test
   public void testExecute1() {
     CommandArgs args =
-        new CommandArgs("echo", new String[] {"nice sentence you got there"});
+        new CommandArgs("echo",
+            new String[]{"nice sentence you got there"});
 
     Command cmd = new CmdEcho();
     String out_actual = cmd.execute(args);
@@ -52,7 +54,8 @@ public class CmdEchoTest {
   @Test
   public void testExecute2() throws MalformedPathException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
+        Parser.parseUserInput(
+            "echo \"some string\" > /dir1/dir4/file4");
 
     Command cmd = new CmdEcho();
     String out_actual = cmd.execute(args);
@@ -61,13 +64,14 @@ public class CmdEchoTest {
 
     Path filePath = new Path("/dir1/dir4/file4");
     File file = fs.getFileByPath(filePath);
-    
+
     assertEquals("some string", file.read());
   }
 
   @Test
   public void testExecute3() throws MalformedPathException {
-    CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
+    CommandArgs args = Parser
+        .parseUserInput("echo \"some string\" >> /file1");
 
     Command cmd = new CmdEcho();
     String out_actual = cmd.execute(args);
@@ -83,22 +87,24 @@ public class CmdEchoTest {
   @Test
   public void testExecute4() throws MalformedPathException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
+        Parser.parseUserInput(
+            "echo \"some string\" >> /fileBlahBlahBlah");
 
     Command cmd = new CmdEcho();
     String out_actual = cmd.execute(args);
 
     FileSystem fs = FileSystem.getInstance();
-    
+
     File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
-    
+
     assertEquals("some string", file.read());
   }
 
   @Test
   public void testExecute5() {
     CommandArgs args =
-        Parser.parseUserInput("notEcho \"some string\" >> /fileBlahBlahBlah");
+        Parser.parseUserInput(
+            "notEcho \"some string\" >> /fileBlahBlahBlah");
 
     Command cmd = new CmdEcho();
     String out_actual = cmd.execute(args);

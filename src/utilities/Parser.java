@@ -29,22 +29,26 @@
 // *********************************************************
 package utilities;
 
-import java.util.*;
-import java.util.regex.*;
-import containers.*;
+import containers.CommandArgs;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
+
   private static final String OVERWRITE_OPERATOR = ">";
   private static final String APPEND_OPERATOR = ">>";
   private static final String TYPE_ARG_OPERATOR = "-";
 
   /**
-   * Parses the given input and returns a CommandArgs instance with the parsed
-   * information
-   * 
+   * Parses the given input and returns a CommandArgs instance with
+   * the parsed information
+   *
    * @param input The user input string
-   * @return Returns a CommandArgs instance with the parsed user input or null
-   *         if the user input is incorrect
+   * @return Returns a CommandArgs instance with the parsed user input
+   * or null if the user input is incorrect
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
@@ -52,15 +56,17 @@ public class Parser {
 
     // Split the user input by quotes, spaces and/or tabs
     // Handles the cases were more than 1 consecutive spaces/tabs are used
-    List<String> inputSplit = new ArrayList<String>();
+    List<String> inputSplit = new ArrayList<>();
 
     // Apply the regex expression to the input string
-    Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(input);
+    Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*")
+        .matcher(input);
 
     // Add the items from the matcher to the input split list
-    while (m.find())
+    while (m.find()) {
       inputSplit.add(m.group(1));
-    
+    }
+
     // If no input parameters are found then return null
     if (inputSplit.size() == 0 || inputSplit.get(0).equals("")) {
       return null;
@@ -71,7 +77,7 @@ public class Parser {
     // Initialize an array list for all the command parameter
     List<String> paramsArrayList = new ArrayList<>();
     // Initialize the hash map for the named type parameters
-    HashMap<String, String> namedParamsMap = new HashMap<String, String>();
+    HashMap<String, String> namedParamsMap = new HashMap<>();
     // Initialize the redirect operator to its empty state
     String redirOperator = "";
     // Initialize the target destination
@@ -130,7 +136,8 @@ public class Parser {
 
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
-    return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,
+    return new CommandArgs(cmdName, cmdParams, namedParamsMap,
+        redirOperator,
         targetDest);
   }
 }

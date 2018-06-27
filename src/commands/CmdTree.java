@@ -29,54 +29,57 @@
 // *********************************************************
 package commands;
 
-import filesystem.*;
 import containers.CommandArgs;
-import utilities.Command;
+import filesystem.Directory;
+import filesystem.FileSystem;
 import java.util.ArrayList;
+import utilities.Command;
 
 
 public class CmdTree extends Command {
+
   private final String NAME = "tree";
   private static FileSystem filesys = FileSystem.getInstance();
   private static Directory root = filesys.getRoot();
 
 
   @Override
-  public String execute(CommandArgs args){
-    //currently, tree takes in no parameters
-    if (args.getCommandParameters().length >0){
-      return null;
-    }
-
-    String result = (root.getName()+"\n");
-    result+=(addon(root,0));
+  public String execute(CommandArgs args) {
+    String result = (root.getName() + "\n");
+    result += (addon(root, 0));
     return result;
   }
 
-  private String addon(Directory curr, int tabs){
+  @Override
+  public boolean isValidArgs(CommandArgs args) {
+    //currently, tree takes in no parameters
+    return args.getCommandParameters().length == 0;
+  }
+
+  private String addon(Directory curr, int tabs) {
     // get proper amount of tabs
-    String spacing = "";
-    for (int i=0; i<tabs; i++){
-      spacing+="\t";
+    StringBuilder spacing = new StringBuilder();
+    for (int i = 0; i < tabs; i++) {
+      spacing.append("\t");
     }
     // the name of the curr dir gets inserted in the parent recursive call.
-    String result="";
+    StringBuilder result = new StringBuilder();
     // get the names of all the files in the directory
     ArrayList<String> files = curr.listFiles();
     if (files.size() > 0) {
-      for (String name:files) {
-        result += spacing+name +"\n";
+      for (String name : files) {
+        result.append(spacing).append(name).append("\n");
       }
     }
     // now finally get all of the subdirectories
     //HashMap<String, Directory> childs = curr.getChildDirs();
     ArrayList<String> childs = curr.listDirNames();
-    for (String key : childs){
-      result+=spacing+key+"\n";
+    for (String key : childs) {
+      result.append(spacing).append(key).append("\n");
       //result+=addon(childs.get(key), tabs+1);
-      result+=addon(curr.getDirByName(key), tabs+1);
+      result.append(addon(curr.getDirByName(key), tabs + 1));
     }
-    return result;
+    return result.toString();
   }
 
   @Override
@@ -86,11 +89,10 @@ public class CmdTree extends Command {
 
   @Override
   public String getDescription() {
-    String manDoc = "This command prints a tree representation of the entire"
+    return "This command prints a tree representation of the entire"
         + "filesystem, starting from the root. Takes in no parameters."
         + "Files and subdirectories within a directory appear on tab ahead,"
         + "listed below the directory name.\n";
-    return manDoc;
   }
 
 }

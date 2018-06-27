@@ -41,6 +41,11 @@ public class CmdExit extends Command {
   }
 
   @Override
+  public boolean isValidArgs(CommandArgs args) {
+    return false;
+  }
+
+  @Override
   public String getName() {
     // TODO Auto-generated method stub
     return null;

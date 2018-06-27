@@ -37,6 +37,7 @@ import org.junit.Test;
 import utilities.Parser;
 
 public class ParserTest {
+
   /*
    * Tests with simple input
    */
@@ -149,54 +150,63 @@ public class ParserTest {
             "hi.txt");
     assertEquals(p, c_wanted);
   }
-  
+
   /*
    * Tests with string parameters
    */
   @Test
   public void testUserInput15() {
-    CommandArgs p = Parser.parseUserInput("echo \"this is a string\"");
-    
+    CommandArgs p = Parser
+        .parseUserInput("echo \"this is a string\"");
+
     CommandArgs c_wanted =
         new CommandArgs("echo", new String[]{"this is a string"});
     assertEquals(p, c_wanted);
   }
-  
+
   @Test
   public void testUserInput16() {
-    CommandArgs p = Parser.parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
-    
+    CommandArgs p = Parser
+        .parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
+
     CommandArgs c_wanted =
-        new CommandArgs("echo", new String[]{"this is a string"}, ">", "myFile.txt");
+        new CommandArgs("echo", new String[]{"this is a string"}, ">",
+            "myFile.txt");
     assertEquals(p, c_wanted);
   }
-  
+
   @Test
   public void testUserInput17() {
-    CommandArgs p = Parser.parseUserInput("mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
-    
+    CommandArgs p = Parser.parseUserInput(
+        "mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
+
     CommandArgs c_wanted =
-        new CommandArgs("mkdir", new String[]{"myFile1.txt", "myFile2.txt", "myFile3.txt"});
+        new CommandArgs("mkdir",
+            new String[]{"myFile1.txt", "myFile2.txt",
+                "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
-  
+
   @Test
   public void testUserInput18() {
-    CommandArgs p = Parser.parseUserInput("mkdir    \"myFile1.txt\" \t \"myFile2.txt\" \tmyFile3.txt");
-    
+    CommandArgs p = Parser.parseUserInput(
+        "mkdir    \"myFile1.txt\" \t \"myFile2.txt\" \tmyFile3.txt");
+
     CommandArgs c_wanted =
-        new CommandArgs("mkdir", new String[]{"myFile1.txt", "myFile2.txt", "myFile3.txt"});
+        new CommandArgs("mkdir",
+            new String[]{"myFile1.txt", "myFile2.txt",
+                "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
-  
+
   @Test
   public void testUserInput19() {
     CommandArgs p = Parser.parseUserInput("echo myString \">\" ");
-    
+
     CommandArgs c_wanted =
         new CommandArgs("echo", new String[]{"myString", ">"});
     assertEquals(p, c_wanted);
   }
-  
+
   // TODO: make some tests for the named parameters
 }
