@@ -35,10 +35,10 @@ import utilities.Command;
 
 public class CmdPopd extends Command {
 
-  private DirectoryStack dirStack = DirectoryStack.getInstance();
 
   @Override
   public String execute(CommandArgs args) {
+    DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {
       // get the path of the most recent directory

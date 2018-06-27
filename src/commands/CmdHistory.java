@@ -38,11 +38,11 @@ import utilities.Command;
 public class CmdHistory extends Command {
 
   private final String NAME = "history";
-  private ArrayList<String> history = JShell.getHistory();
 
   @Override
   public String execute(CommandArgs args) {
     String[] params = args.getCommandParameters();
+    ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history
     StringBuilder result = new StringBuilder();
     int i = 1;
