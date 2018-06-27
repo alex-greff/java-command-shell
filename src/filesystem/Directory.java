@@ -62,13 +62,14 @@ public class Directory {
    * Adds a given directory as a child of this directory if the
    * directory does not already exist
    *
-   * @param newDir The child directory
+   * @param name The name of the new child directory
    */
-  public void addDir(Directory newDir) {
-    String dirName = newDir.getName();
-    if (!childDirs.containsKey(dirName)) {
-      this.childDirs.put(dirName, newDir);
+  public Directory createAndAddNewDir(String name) {
+    Directory newDir = new Directory(name, this);
+    if (!childDirs.containsKey(name)) {
+      this.childDirs.put(name, newDir);
     }
+    return newDir;
   }
 
   /**

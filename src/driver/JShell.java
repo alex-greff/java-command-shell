@@ -79,7 +79,8 @@ public class JShell {
   public static void exit() {
     JShell.running = false;
   }
-  public static ArrayList<String> getHistory(){
+
+  public static ArrayList<String> getHistory() {
     return history;
   }
 }

@@ -57,7 +57,7 @@ public class CmdEcho extends Command {
   @Override
   public String execute(CommandArgs args) {
     // Check validity of args
-    if (isValidArgs(args) == false) {
+    if (!isValidArgs(args)) {
       return null; 
     }
 
@@ -160,8 +160,7 @@ public class CmdEcho extends Command {
         Directory prev = curr;
         curr = curr.getDirByName(segment);
         if (curr == null) {
-          curr = new Directory(segment, prev);
-          prev.addDir(curr);
+          curr = prev.createAndAddNewDir(segment);
         }
       }
     }

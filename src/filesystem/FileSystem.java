@@ -72,15 +72,18 @@ public class FileSystem {
   public String getAbsolutePathOfDir(Directory theDir) {
     StringBuilder path = new StringBuilder();
     Directory curDir = theDir;
-    while (!curDir.getName().equals("/")) {
-      String segment = new StringBuilder("/" + curDir.getName())
-          .reverse()
-          .toString();
-      path.append(segment);
-      curDir = curDir.getParent();
+    if (curDir.getName().equals("/")) {
+      return "/";
+    } else {
+      while (!curDir.getName().equals("/")) {
+        String segment = new StringBuilder("/" + curDir.getName())
+            .reverse()
+            .toString();
+        path.append(segment);
+        curDir = curDir.getParent();
+      }
+      return path.reverse().toString();
     }
-    path.append("/");
-    return path.reverse().toString();
   }
 
   /**
@@ -125,9 +128,10 @@ public class FileSystem {
 
   /**
    * Getter for the working directory
+   *
    * @return the working directory object
    */
-  public Directory getWorkingDir(){
+  public Directory getWorkingDir() {
     return workingDir;
   }
 
@@ -142,8 +146,11 @@ public class FileSystem {
 
   /**
    * Getter for the root directory
+   *
    * @return the root directory object
    */
-  public Directory getRoot(){return root;}
+  public Directory getRoot() {
+    return root;
+  }
 
 }
