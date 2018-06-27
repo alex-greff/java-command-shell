@@ -52,6 +52,7 @@ public class CmdLs extends Command {
     Directory curr=FileSystem.getInstance().getWorkingDir();
     Path path;
     // check parameters
+
     String[] params= args.getCommandParameters();
     if (params.length > 0){
       for (String name : params){
@@ -59,18 +60,20 @@ public class CmdLs extends Command {
           path = new Path(name);
           curr = filesys.getDirByPath(path);
         }catch(MalformedPathException m){
-          result += "Error: Path "+name+ " was not found.\n\n";
-        }//end try-catch
-        result+=addon(curr);
+          result += "Error: Path "+name+ " was not found.\n";
+        }//end try-catch for absolute pathing errors
+        //check if curr is null for relative pathing errors
+        if (curr==null){
+          result+= "Error: Path "+name+" was not found.\n";
+        }
+        else {
+          result += addon(curr);
+        }
       }
     }
     // if no parameters are given, perform command on current working dir
     else{
       result=addon(curr);
-    }
-    // trim the final newline
-    if (result.length() >=2) {
-      result = result.substring(0, result.length() - 2);
     }
     return result;
   }
@@ -87,8 +90,7 @@ public class CmdLs extends Command {
     for (String name : files){
       result += name+"\n";
     }
-    // add extra newline to separate text block from other parameters
-    return (result+"\n");
+    return (result);
   }
   
   /**
