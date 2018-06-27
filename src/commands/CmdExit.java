@@ -30,31 +30,40 @@
 package commands;
 
 import containers.CommandArgs;
+import driver.JShell;
 import utilities.Command;
 
 public class CmdExit extends Command {
-
+  private final String NAME = "exit";
+  private final String DESCRIPTION =
+      "" + "Exit Command Documentation\n"
+          + "Description:\n"
+          + "    - man: exits the currently running JShell\n"
+          + "    \n" + "Usage:\r\n" + "    - exit\n" + "    \n";
+  
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
-    return null;
+    JShell.exit();
+    return "";
   }
 
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return false;
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length == 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
   public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+    return NAME;
   }
 
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    return DESCRIPTION;
   }
 
 }
