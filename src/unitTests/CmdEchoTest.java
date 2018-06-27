@@ -47,7 +47,6 @@ public class CmdEchoTest {
 
     Command cmd = new CmdEcho();
     String out_actual = cmd.execute(args);
-
     assertTrue(out_actual.length() > 0);
   }
 
