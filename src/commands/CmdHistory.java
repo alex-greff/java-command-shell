@@ -83,7 +83,7 @@ public class CmdHistory extends Command {
   @Override
   public boolean isValidArgs(CommandArgs args) {
     // this command currently does not accept more than one parameter
-    return args.getCommandParameters().length == 0;
+    return args.getCommandParameters().length <= 1;
   }
 
   @Override
