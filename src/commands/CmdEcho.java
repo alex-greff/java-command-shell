@@ -41,17 +41,14 @@ import utilities.Command;
 public class CmdEcho extends Command {
 
   private final String NAME = "echo";
-  private final String DESCRIPTION =
-      "" + "Echo Command Documentation\n"
-          + "Description:\n"
-          + "    - echo: appends or writes a string to a file.\n"
-          + "            If no file is given then the string is written to console."
-          + "\n\n" + "Usage:\n" + "    - echo STRING\n"
-          + "    - echo STRING [> OUTFILE]\n"
-          + "    - echo STRING [>> OUTFILE]\n"
-          + "    \n" + "Additional Comments:\n"
-          + "    - The \">\" characer signals to overwrite the file contents.\n"
-          + "    - The \">>\" characer signals to append to the file contents.\n";
+  private final String DESCRIPTION = "" + "Echo Command Documentation\n"
+      + "Description:\n" + "    - echo: appends or writes a string to a file.\n"
+      + "            If no file is given then the string is written to console."
+      + "\n\n" + "Usage:\n" + "    - echo STRING\n"
+      + "    - echo STRING [> OUTFILE]\n" + "    - echo STRING [>> OUTFILE]\n"
+      + "    \n" + "Additional Comments:\n"
+      + "    - The \">\" characer signals to overwrite the file contents.\n"
+      + "    - The \">>\" characer signals to append to the file contents.\n";
 
   private final String OVERWRITE_OPERATOR = ">";
   private final String APPEND_OPERATOR = ">>";
@@ -75,7 +72,7 @@ public class CmdEcho extends Command {
     }
 
     output = (!output.equals("")) ? output + "\n" : output;
-    
+
     // Return the output
     return output;
   }
@@ -105,9 +102,12 @@ public class CmdEcho extends Command {
         String fileName = fileSplit[fileSplit.length - 1];
         file = new File(fileName);
 
+        int lastSlash = filePathStr.lastIndexOf('/');
+
         // Get the directory that the file is in
-        String dirPathStr = filePathStr
-            .substring(0, filePathStr.lastIndexOf('/'));
+        String dirPathStr =
+            (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
+
         if (dirPathStr.equals("")) {
           dirPathStr = "/";
         }
@@ -134,21 +134,19 @@ public class CmdEcho extends Command {
       file.write(strContents);
 
     } catch (MalformedPathException e) {
-      errorConsole
-          .write("Error: Invalid path \"" + filePathStr + "\"");
+      errorConsole.write("Error: Invalid path \"" + filePathStr + "\"");
     }
   }
 
   /**
-   * Returns the directory at the path and creates it, and any other
-   * directories that it needs along the way.
+   * Returns the directory at the path and creates it, and any other directories
+   * that it needs along the way.
    *
    * @param path The path
    * @return Returns the directory at path
    * @throws MalformedPathException if the path is not proper
    */
-  private Directory getDirOfFile(Path path)
-      throws MalformedPathException {
+  private Directory getDirOfFile(Path path) throws MalformedPathException {
     FileSystem fs = FileSystem.getInstance();
 
     Directory curr = fs.getWorkingDir();
@@ -174,8 +172,7 @@ public class CmdEcho extends Command {
 
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * A helper checking if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
@@ -185,8 +182,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR))
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 

@@ -29,6 +29,8 @@
 // *********************************************************
 package filesystem;
 
+import utilities.CommandManager;
+
 /**
  * Manages files, directories and the current working directory.
  */

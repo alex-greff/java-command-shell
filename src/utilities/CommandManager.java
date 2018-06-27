@@ -55,6 +55,9 @@ public class CommandManager {
   private Console out = Console.getInstance();
   private ErrorConsole errorOut = ErrorConsole.getInstance();
 
+  private final String DEFAULT_ERROR_MESSAGE =
+      "Error: Invalid command, please try again";
+
   private CommandManager() {
     cmdMap.put("cat", new CmdCat());
     cmdMap.put("cd", new CmdCd());
@@ -93,12 +96,13 @@ public class CommandManager {
         if (cmd.isValidArgs(cArgs)) {
           String result = cmd.execute(cArgs);
           out.write(result);
+          return;
         }
       }
-    } else {
-      // TODO: better error handling
-      errorOut.write("Error: Invalid command, please try again");
     }
+
+    // Getting here means there was an error so print the error message
+    errorOut.writeln(DEFAULT_ERROR_MESSAGE);
   }
 
   public String getCommandDescription(String commandName) {

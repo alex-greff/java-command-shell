@@ -30,6 +30,7 @@
 package io;
 
 import java.util.Scanner;
+import utilities.CommandManager;
 
 /**
  * Class representing the JShell console
