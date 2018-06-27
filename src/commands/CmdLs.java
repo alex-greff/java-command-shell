@@ -40,8 +40,6 @@ import utilities.Command;
 public class CmdLs extends Command {
 
   private final String NAME = "ls";
-  private static final FileSystem filesys = FileSystem.getInstance();
-  private static Directory rootDir = filesys.getRoot();
 
   @Override
   public String execute(CommandArgs args) {
@@ -55,7 +53,7 @@ public class CmdLs extends Command {
       for (String name : params) {
         try {
           path = new Path(name);
-          curr = filesys.getDirByPath(path);
+          curr = fileSystem.getDirByPath(path);
         } catch (MalformedPathException m) {
           result.append("Error: Path ").append(name)
               .append(" was not found.\n");

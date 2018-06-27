@@ -30,8 +30,13 @@
 package utilities;
 
 import containers.CommandArgs;
+import filesystem.FileSystem;
 
 public abstract class Command {
+
+  protected CommandManager commandManager = CommandManager
+      .getInstance();
+  protected FileSystem fileSystem = FileSystem.getInstance();
 
   public abstract String execute(CommandArgs args);
 

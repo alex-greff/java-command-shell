@@ -31,7 +31,6 @@ package commands;
 
 import containers.CommandArgs;
 import utilities.Command;
-import utilities.CommandManager;
 
 public class CmdMan extends Command {
 
@@ -56,10 +55,9 @@ public class CmdMan extends Command {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the command manager instance
-    CommandManager cmdMgrInstance = CommandManager.getInstance();
     // Get the description of the command
     // Return the command description
-    return cmdMgrInstance.getCommandDescription(cmdName);
+    return commandManager.getCommandDescription(cmdName);
   }
 
   /**

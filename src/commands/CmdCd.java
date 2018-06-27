@@ -30,7 +30,6 @@
 package commands;
 
 import containers.CommandArgs;
-import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.ErrorConsole;
@@ -47,12 +46,11 @@ public class CmdCd extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    FileSystem FS = FileSystem.getInstance();
     String location = args.getCommandParameters()[0];
 
     try {
       Path new_dir = new Path(location);
-      FS.changeWorkingDir(new_dir);
+      fileSystem.changeWorkingDir(new_dir);
     } catch (MalformedPathException e) {
       ErrorConsole EC = ErrorConsole.getInstance();
       EC.write("Error: Invalid Path");

@@ -85,7 +85,6 @@ public class CmdEcho extends Command {
    */
   private void writeToFile(CommandArgs args) {
     // Setup references
-    FileSystem fs = FileSystem.getInstance();
     String redirOper = args.getRedirectOperator();
     String strContents = args.getCommandParameters()[0];
     String filePathStr = args.getTargetDestination();
@@ -95,7 +94,7 @@ public class CmdEcho extends Command {
       Path filePath = new Path(filePathStr);
 
       // Get the File
-      File file = fs.getFileByPath(filePath);
+      File file = fileSystem.getFileByPath(filePath);
 
       // If the file does not exist
       if (file == null) {

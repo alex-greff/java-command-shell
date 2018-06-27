@@ -30,25 +30,41 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.DirectoryStack;
 import utilities.Command;
 
 public class CmdPopd extends Command {
 
-  private final String NAME = "popd";
+  private DirectoryStack dirStack = DirectoryStack.getInstance();
 
   @Override
   public String execute(CommandArgs args) {
-    return null;
+    // get the most recently added directory off the stack
+    if (!dirStack.empty()) {
+      // get the path of the most recent directory
+      String mostRecent = dirStack.pop();
+      String[] arg = {mostRecent};
+      // make command args to call the cd command with
+      CommandArgs cdArgs = new CommandArgs("cd", arg);
+      // execute the cd command to go to the directory popped off
+      // the stack
+      commandManager.executeCommand(cdArgs);
+      // the command does not need to print anything
+      return "";
+    } else {
+      return "The directory stack is empty.";
+    }
   }
 
   @Override
-  protected boolean isValidArgs(CommandArgs args) {
-    return false;
+  public boolean isValidArgs(CommandArgs args) {
+    // this command does not take any arguments
+    return args.getCommandParameters().length == 0;
   }
 
   @Override
   public String getName() {
-    return NAME;
+    return "popd";
   }
 
   @Override

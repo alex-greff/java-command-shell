@@ -30,7 +30,6 @@
 package commands;
 
 import containers.CommandArgs;
-import filesystem.FileSystem;
 import utilities.Command;
 
 public class CmdPwd extends Command {
@@ -44,9 +43,7 @@ public class CmdPwd extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    FileSystem FS = FileSystem.getInstance(); // Obtain FileSystem
-    return FS.getWorkingDirPath()
-        + "\n"; // And return the working directory
+    return fileSystem.getWorkingDirPath() + "\n";
   }
 
   public boolean isValidArgs(CommandArgs args) {

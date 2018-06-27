@@ -31,7 +31,6 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.FileSystem;
 import java.util.ArrayList;
 import utilities.Command;
 
@@ -39,8 +38,7 @@ import utilities.Command;
 public class CmdTree extends Command {
 
   private final String NAME = "tree";
-  private static FileSystem filesys = FileSystem.getInstance();
-  private static Directory root = filesys.getRoot();
+  private Directory root = fileSystem.getRoot();
 
 
   @Override

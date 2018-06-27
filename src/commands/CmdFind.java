@@ -37,8 +37,6 @@ public class CmdFind extends Command {
 
     StringBuilder output = new StringBuilder();
 
-    FileSystem fs = FileSystem.getInstance();
-
     // Get all the directory paths to be explored
     String[] dirStrPaths = args.getCommandParameters();
 
@@ -46,7 +44,7 @@ public class CmdFind extends Command {
       try {
         // Get the current directory
         Path dirPath = new Path(dirStrPath);
-        Directory currDir = fs.getDirByPath(dirPath);
+        Directory currDir = fileSystem.getDirByPath(dirPath);
 
         // Initialize the set of paths of the occurrences of <expression>
         Set<String> outputPaths = new HashSet<>();
