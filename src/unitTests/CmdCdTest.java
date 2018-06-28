@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdCd;
 import containers.CommandArgs;
+import filesystem.DirectoryAlreadyExistsException;
 import filesystem.FileSystem;
 import org.junit.Test;
 import utilities.Command;
@@ -11,7 +12,7 @@ import utilities.Command;
 public class CmdCdTest {
 
   @Test
-  public void testDirInWorkingDir() {
+  public void testDirInWorkingDir() throws DirectoryAlreadyExistsException {
     String argParam[] = {"testDir"};
     CommandArgs args = new CommandArgs("cd", argParam);
 

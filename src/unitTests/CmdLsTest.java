@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
@@ -16,7 +17,8 @@ import utilities.Command;
 public class CmdLsTest {
 
   @Before
-  public void setup() throws FileAlreadyExistsException {
+  public void setup()
+      throws FileAlreadyExistsException, DirectoryAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     Directory root = fs.getRoot();
     Directory dir1 = root.createAndAddNewDir("dir1");

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
@@ -21,7 +22,8 @@ import utilities.Parser;
 public class CmdEchoTest {
 
   @Before
-  public void Setup() throws FileAlreadyExistsException {
+  public void Setup()
+      throws FileAlreadyExistsException, DirectoryAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();

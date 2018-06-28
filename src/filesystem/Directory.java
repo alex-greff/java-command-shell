@@ -63,10 +63,13 @@ public class Directory {
    *
    * @param name The name of the new child directory
    */
-  public Directory createAndAddNewDir(String name) {
+  public Directory createAndAddNewDir(String name)
+      throws DirectoryAlreadyExistsException {
     Directory newDir = new Directory(name, this);
     if (!childDirs.containsKey(name)) {
       this.childDirs.put(name, newDir);
+    } else {
+      throw new DirectoryAlreadyExistsException();
     }
     return newDir;
   }

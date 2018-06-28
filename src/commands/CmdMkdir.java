@@ -30,31 +30,56 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.Directory;
+import filesystem.DirectoryAlreadyExistsException;
+import filesystem.FileNotFoundException;
+import filesystem.MalformedPathException;
+import filesystem.Path;
+import io.ErrorConsole;
 import utilities.Command;
 
 public class CmdMkdir extends Command {
 
+  private final String NAME = "mkdir";
+  private ErrorConsole errorConsole = ErrorConsole.getInstance();
+
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
-    return null;
+    for (String pathString : args.getCommandParameters()) {
+      try {
+        Path path = new Path(pathString);
+        String newDirName = path.removeLast();
+        Directory parent = fileSystem.getDirByPath(path);
+        parent.createAndAddNewDir(newDirName);
+      } catch (MalformedPathException e) {
+        errorConsole.writeln("Invalid path" + pathString);
+      } catch (FileNotFoundException e) {
+        errorConsole.writeln("Parent directory not found");
+      } catch (DirectoryAlreadyExistsException e) {
+        errorConsole.writeln("Directory already exists");
+      }
+    }
+    return "";
   }
 
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return false;
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length > 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
   public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+    return NAME;
   }
 
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    // TODO: The description
+    return "Not done yet";
   }
 
 }

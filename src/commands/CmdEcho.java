@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
@@ -176,7 +177,11 @@ public class CmdEcho extends Command {
         try {
           curr = curr.getDirByName(segment);
         } catch (FileNotFoundException e) {
-          curr = prev.createAndAddNewDir(segment);
+          try {
+            curr = prev.createAndAddNewDir(segment);
+          } catch (DirectoryAlreadyExistsException e1) {
+            e1.printStackTrace();
+          }
         }
       }
     }
