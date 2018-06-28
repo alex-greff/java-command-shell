@@ -42,7 +42,7 @@ public class CmdTree extends Command {
   public String execute(CommandArgs args) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
-    result += (addon(root, 0));
+    result += (addon(root, 1));
     return result;
   }
 
