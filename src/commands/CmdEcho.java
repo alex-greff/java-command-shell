@@ -139,7 +139,7 @@ public class CmdEcho extends Command {
       // operator is given
       else if (redirOper.equals(APPEND_OPERATOR)) {
         // write a new line to the file
-        file.write("/n");
+        file.write("\n");
       }
 
       // Add the string contents to the file
