@@ -1,0 +1,13 @@
+What did I work on last time?
+  - Added the directory stack
+  - Altered design of command manager
+  - Completed popd command
+
+What do I plan to work on now?
+  - Finish pushd
+  - Finish mkdir
+  - Add more tests
+  - Work on exceptions and error handling
+
+Am I blocked on anything?
+  - Nay

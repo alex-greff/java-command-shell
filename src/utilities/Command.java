@@ -40,7 +40,7 @@ public abstract class Command {
 
   public abstract String execute(CommandArgs args);
 
-  protected abstract boolean isValidArgs(CommandArgs args);
+  public abstract boolean isValidArgs(CommandArgs args);
 
   public abstract String getName();
 
