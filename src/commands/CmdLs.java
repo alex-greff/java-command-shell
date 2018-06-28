@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -54,17 +55,11 @@ public class CmdLs extends Command {
         try {
           path = new Path(name);
           curr = fileSystem.getDirByPath(path);
-        } catch (MalformedPathException m) {
+        } catch (MalformedPathException | FileNotFoundException m) {
           result.append("Error: Path ").append(name)
               .append(" was not found.\n");
         } // end try-catch for absolute pathing errors
-        // check if curr is null for relative pathing errors
-        if (curr == null) {
-          result.append("Error: Directory ").append(name)
-              .append(" was not found.\n");
-        } else {
-          result.append(addon(curr));
-        }
+        result.append(addon(curr));
       }
     }
     // if no parameters are given, perform command on current working dir

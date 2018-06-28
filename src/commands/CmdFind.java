@@ -2,6 +2,7 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -67,7 +68,7 @@ public class CmdFind extends Command {
           output.append(outputPath).append("\n");
         }
 
-      } catch (MalformedPathException e) {
+      } catch (MalformedPathException | FileNotFoundException e) {
         // TODO: print the error out
       }
     }
@@ -85,7 +86,7 @@ public class CmdFind extends Command {
    * @return Returns the set
    */
   private Set<String> findFileInDirectoryStructure(Directory dir,
-      String name) {
+      String name) throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
     Set<String> ret_set = new HashSet<>();
@@ -111,6 +112,7 @@ public class CmdFind extends Command {
     for (String childDirName : childDirNames) {
       // Get the child directory object
       Directory childDir = dir.getDirByName(childDirName);
+      // TODO: make sure this is fine
 
       // Call the function recursively again on the child directory and add any
       // instances of the file to the current return set
@@ -130,7 +132,7 @@ public class CmdFind extends Command {
    * @return Returns the set
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-      String name) {
+      String name) throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
     Set<String> ret_set = new HashSet<>();
@@ -146,7 +148,7 @@ public class CmdFind extends Command {
     for (String childDirName : childDirNames) {
       // Get the child directory object
       Directory childDir = dir.getDirByName(childDirName);
-
+      // TODO: make sure this is ok not to error
       // Call the function recursively again on the child directory and add any
       // instances of the directory to the current return set
       ret_set

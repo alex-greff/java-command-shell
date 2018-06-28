@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.FileNotFoundException;
 import java.util.ArrayList;
 import utilities.Command;
 
@@ -43,7 +44,11 @@ public class CmdTree extends Command {
   public String execute(CommandArgs args) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
-    result += (addon(root, 1));
+    try {
+      result += (addon(root, 1));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
     return result;
   }
 
@@ -56,7 +61,7 @@ public class CmdTree extends Command {
         && args.getTargetDestination().equals("");
   }
 
-  private String addon(Directory curr, int tabs) {
+  private String addon(Directory curr, int tabs) throws FileNotFoundException {
     // get proper amount of tabs
     StringBuilder spacing = new StringBuilder();
     for (int i = 0; i < tabs; i++) {
