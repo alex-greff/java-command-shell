@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import filesystem.Directory;
+import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -23,7 +24,8 @@ public class FileSystemTest {
   }
 
   @Test
-  public void testGettingAbsolutePathOfDirectory() {
+  public void testGettingAbsolutePathOfDirectory()
+      throws FileNotFoundException {
     FileSystem fs = FileSystem.getInstance();
     // the filesystem should now contain a directory called "test"
     Directory testDir = fs.getWorkingDir().getDirByName("test");
@@ -34,7 +36,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingRootDirectoryByPath()
-      throws MalformedPathException {
+      throws MalformedPathException, FileNotFoundException {
     FileSystem fs = FileSystem.getInstance();
     // make a path for root
     Path root = new Path("/");
@@ -45,7 +47,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingRootDirectoryWithConvolutedPath()
-      throws MalformedPathException {
+      throws MalformedPathException, FileNotFoundException {
     FileSystem fs = FileSystem.getInstance();
     // make a convoluted path
     Path spooky = new Path("/./././././././");
@@ -55,7 +57,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingNonRootDirectoryByPath()
-      throws MalformedPathException {
+      throws MalformedPathException, FileNotFoundException {
     FileSystem fs = FileSystem.getInstance();
     Path dirPath = new Path("/test/");
     Directory expected = fs.getRoot().getDirByName("test");

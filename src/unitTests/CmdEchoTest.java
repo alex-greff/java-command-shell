@@ -8,6 +8,8 @@ import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.File;
+import filesystem.FileAlreadyExistsException;
+import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -19,7 +21,7 @@ import utilities.Parser;
 public class CmdEchoTest {
 
   @Before
-  public void Setup() {
+  public void Setup() throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -51,7 +53,8 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void testExecute2() throws MalformedPathException {
+  public void testExecute2()
+      throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
         Parser.parseUserInput(
             "echo \"some string\" > /dir1/dir4/file4");
@@ -68,7 +71,8 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void testExecute3() throws MalformedPathException {
+  public void testExecute3()
+      throws MalformedPathException, FileNotFoundException {
     CommandArgs args = Parser
         .parseUserInput("echo \"some string\" >> /file1");
 
@@ -84,7 +88,8 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void testExecute4() throws MalformedPathException {
+  public void testExecute4()
+      throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
         Parser.parseUserInput(
             "echo \"some string\" >> /fileBlahBlahBlah");
