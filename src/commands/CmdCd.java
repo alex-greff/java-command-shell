@@ -53,8 +53,8 @@ public class CmdCd extends Command {
       Path new_dir = new Path(location);
       fileSystem.changeWorkingDir(new_dir);
     } catch (MalformedPathException e) {
-      ErrorConsole EC = ErrorConsole.getInstance();
-      EC.write("Error: Invalid Path");
+      ErrorConsole errorOut = ErrorConsole.getInstance();
+      errorOut.write("Error: Invalid Path");
       return null;
     }
 

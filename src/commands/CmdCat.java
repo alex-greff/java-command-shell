@@ -30,6 +30,10 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.MalformedPathException;
+import filesystem.File;
+import filesystem.Path;
+import io.ErrorConsole;
 import utilities.Command;
 
 public class CmdCat extends Command {
@@ -39,13 +43,32 @@ public class CmdCat extends Command {
 
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
-    return null;
+    String[] files = args.getCommandParameters();
+    StringBuilder result = new StringBuilder();
+    ErrorConsole errorOut = ErrorConsole.getInstance();
+
+    for(String filePathStr: files) {
+
+      try {
+        Path filePath = new Path(filePathStr);
+        File file = fileSystem.getFileByPath(filePath);
+        result.append(file.read()).append("\n");
+      } catch (MalformedPathException e) {
+        errorOut.writeln("Error: File Does Not Exist");
+      }
+
+    }
+
+    return result.toString();
   }
 
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return false;
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length > 0
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
