@@ -6,6 +6,7 @@ import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.ErrorConsole;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -69,7 +70,7 @@ public class CmdFind extends Command {
         }
 
       } catch (MalformedPathException | FileNotFoundException e) {
-        // TODO: print the error out
+        ErrorConsole.getInstance().writeln("Erorr: invalid file/path");
       }
     }
     // Return the output
@@ -112,7 +113,6 @@ public class CmdFind extends Command {
     for (String childDirName : childDirNames) {
       // Get the child directory object
       Directory childDir = dir.getDirByName(childDirName);
-      // TODO: make sure this is fine
 
       // Call the function recursively again on the child directory and add any
       // instances of the file to the current return set
