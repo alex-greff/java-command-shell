@@ -1,20 +1,22 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import commands.CmdLs;
+import containers.CommandArgs;
+import filesystem.Directory;
+import filesystem.File;
+import filesystem.FileAlreadyExistsException;
+import filesystem.FileSystem;
 import org.junit.Before;
 import org.junit.Test;
-
 import utilities.Command;
-import containers.CommandArgs;
-import commands.CmdLs;
-import filesystem.*;
 
 public class CmdLsTest {
+
   @Before
-  public void setup(){
+  public void setup() throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     Directory root = fs.getRoot();
     Directory dir1 = root.createAndAddNewDir("dir1");
@@ -27,33 +29,35 @@ public class CmdLsTest {
     dir2.addFile(file3);
 
   }
+
   @Test
   // test the root dir, which contains both files and directories
-  public void testDirsAndFiles(){
+  public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
     Command cmd = new CmdLs();
     String out_actual = cmd.execute(args);
     String[] names = out_actual.split("\n");
-    assertTrue(names.length==4);
+    assertEquals(4, names.length);
   }
 
   @Test
-  public void testEmptyDir(){
+  public void testEmptyDir() {
     String[] params = new String[1];
-    params[0]="/dir1";
+    params[0] = "/dir1";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
     String out_actual = cmd.execute(args);
-    assertTrue(out_actual.length() == 0);
+    assertEquals(0, out_actual.length());
   }
+
   @Test
-  public void testDirFilesOnly(){
+  public void testDirFilesOnly() {
     String[] params = new String[1];
-    params[0]="/dir2";
+    params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
     String out_actual = cmd.execute(args);
-    assertTrue(out_actual.equals("file3\n"));
+    assertEquals("file3\n", out_actual);
   }
 
 }

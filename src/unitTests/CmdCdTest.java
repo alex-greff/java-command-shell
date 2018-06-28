@@ -11,7 +11,7 @@ import utilities.Command;
 public class CmdCdTest {
 
   @Test
-  public void testDirInWorkingDir(){
+  public void testDirInWorkingDir() {
     String argParam[] = {"testDir"};
     CommandArgs args = new CommandArgs("cd", argParam);
 

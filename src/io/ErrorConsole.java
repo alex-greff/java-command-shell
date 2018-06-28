@@ -29,8 +29,6 @@
 // *********************************************************
 package io;
 
-import utilities.CommandManager;
-
 /**
  * A class representing the JShell error console
  *

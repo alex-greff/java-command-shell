@@ -30,7 +30,6 @@
 package io;
 
 import java.util.Scanner;
-import utilities.CommandManager;
 
 /**
  * Class representing the JShell console
@@ -72,7 +71,7 @@ public class Console implements Writable, Readable {
   public void writeln(String contents) {
     System.out.print(contents);
   }
-  
+
   /**
    * Read text from the console
    *
@@ -83,5 +82,5 @@ public class Console implements Writable, Readable {
     return input.nextLine();
   }
 
-  
+
 }

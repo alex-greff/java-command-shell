@@ -65,7 +65,7 @@ public class JShell {
       history.add(rawInput);
 
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
-      
+
       CommandManager.getInstance().executeCommand(parsedInput);
     }
 

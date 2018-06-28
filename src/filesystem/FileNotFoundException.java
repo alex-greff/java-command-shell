@@ -2,10 +2,9 @@ package filesystem;
 
 /**
  * Thrown when a path with a non-existent file is called.
- * 
- * @author ajg
  *
+ * @author anton
  */
-public class NonExistentFileException extends Throwable {
+public class FileNotFoundException extends Throwable {
 
 }

@@ -58,7 +58,7 @@ public class CmdLs extends Command {
           result.append("Error: Path ").append(name)
               .append(" was not found.\n");
         } // end try-catch for absolute pathing errors
-          // check if curr is null for relative pathing errors
+        // check if curr is null for relative pathing errors
         if (curr == null) {
           result.append("Error: Directory ").append(name)
               .append(" was not found.\n");
@@ -97,10 +97,9 @@ public class CmdLs extends Command {
    */
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length >= 0
-        && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && args.getNumberOfNamedCommandParameters() == 0 && args
+        .getRedirectOperator().equals("") && args.getTargetDestination()
+        .equals("");
   }
 
   @Override

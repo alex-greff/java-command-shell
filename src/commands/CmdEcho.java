@@ -32,6 +32,8 @@ package commands;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.File;
+import filesystem.FileAlreadyExistsException;
+import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -63,7 +65,11 @@ public class CmdEcho extends Command {
     // If there is a redirect operator provided
     if (args.getRedirectOperator().length() > 0) {
       // Write to the file
-      writeToFile(args);
+      try {
+        writeToFile(args);
+      } catch (FileAlreadyExistsException e) {
+        e.printStackTrace();
+      }
     }
     // If not
     else {
@@ -82,7 +88,7 @@ public class CmdEcho extends Command {
    *
    * @param args The command args
    */
-  private void writeToFile(CommandArgs args) {
+  private void writeToFile(CommandArgs args) throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();
     String strContents = args.getCommandParameters()[0];
@@ -90,15 +96,16 @@ public class CmdEcho extends Command {
 
     try {
       FileSystem fs = FileSystem.getInstance();
-      
+
       // Get the path of the file
       Path filePath = new Path(filePathStr);
 
       // Get the File
-      File file = fs.getFileByPath(filePath);
-
-      // If the file does not exist
-      if (file == null) {
+      File file;
+      try {
+        file = fs.getFileByPath(filePath);
+        // If the file does not exist
+      } catch (FileNotFoundException e) {
         // Make the new file
         String[] fileSplit = filePathStr.split("/");
         String fileName = fileSplit[fileSplit.length - 1];
@@ -119,6 +126,9 @@ public class CmdEcho extends Command {
 
         // Add the file to the directory
         dirOfFile.addFile(file);
+      } catch (MalformedPathException e1) {
+        errorConsole.writeln("Not a valid file path");
+        return;
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
@@ -163,8 +173,9 @@ public class CmdEcho extends Command {
         }
       } else if (!segment.equals(".")) {
         Directory prev = curr;
-        curr = curr.getDirByName(segment);
-        if (curr == null) {
+        try {
+          curr = curr.getDirByName(segment);
+        } catch (FileNotFoundException e) {
           curr = prev.createAndAddNewDir(segment);
         }
       }
@@ -184,8 +195,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR))
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 

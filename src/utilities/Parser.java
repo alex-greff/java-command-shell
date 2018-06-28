@@ -43,12 +43,12 @@ public class Parser {
   private static final String TYPE_ARG_OPERATOR = "-";
 
   /**
-   * Parses the given input and returns a CommandArgs instance with
-   * the parsed information
+   * Parses the given input and returns a CommandArgs instance with the parsed
+   * information
    *
    * @param input The user input string
-   * @return Returns a CommandArgs instance with the parsed user input
-   * or null if the user input is incorrect
+   * @return Returns a CommandArgs instance with the parsed user input or null
+   * if the user input is incorrect
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input

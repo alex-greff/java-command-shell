@@ -31,7 +31,6 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.MalformedPathException;
-import filesystem.NonExistentDirectoryException;
 import filesystem.Path;
 import io.ErrorConsole;
 import utilities.Command;
@@ -41,10 +40,10 @@ public class CmdCd extends Command {
   private final String NAME = "cd";
   private final String DESCRIPTION =
       "" + "Cd Command Documentation\n"
-      + "Description:\n" + "    - cd: change directory\n"
-      + "    \n" + "Usage:\r\n" + "    - cd DIRECTORY\n" + "    \n"
-      + "Additional Comments:\n" + "    - Path of DIRECTORY can be"
-      + "relative or absolute\n";
+          + "Description:\n" + "    - cd: change directory\n"
+          + "    \n" + "Usage:\r\n" + "    - cd DIRECTORY\n" + "    \n"
+          + "Additional Comments:\n" + "    - Path of DIRECTORY can be"
+          + "relative or absolute\n";
 
   @Override
   public String execute(CommandArgs args) {
@@ -53,7 +52,7 @@ public class CmdCd extends Command {
     try {
       Path new_dir = new Path(location);
       fileSystem.changeWorkingDir(new_dir);
-    } catch (MalformedPathException | NonExistentDirectoryException e) {
+    } catch (MalformedPathException | DirectoryNotFoundException e) {
       ErrorConsole errorOut = ErrorConsole.getInstance();
       errorOut.writeln("Error: Invalid Path");
       return null;

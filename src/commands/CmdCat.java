@@ -30,8 +30,9 @@
 package commands;
 
 import containers.CommandArgs;
-import filesystem.MalformedPathException;
 import filesystem.File;
+import filesystem.FileNotFoundException;
+import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.ErrorConsole;
 import utilities.Command;
@@ -41,10 +42,10 @@ public class CmdCat extends Command {
   private final String NAME = "cat";
   private final String DESCRIPTION =
       "" + "Cat Command Documentation\n"
-      + "Description:\n" + "    - cat: print contents of file(s)\n"
-      + "    \n" + "Usage:\r\n" + "    - cat FILES\n" + "    \n"
-      + "Additional Comments:\n" + "    - Path of FILE can be relative or"
-      + "absolute\n" + "    - Can take more than one FILE as arguments\n";
+          + "Description:\n" + "    - cat: print contents of file(s)\n"
+          + "    \n" + "Usage:\r\n" + "    - cat FILES\n" + "    \n"
+          + "Additional Comments:\n" + "    - Path of FILE can be relative or"
+          + "absolute\n" + "    - Can take more than one FILE as arguments\n";
 
   @Override
   public String execute(CommandArgs args) {
@@ -52,17 +53,19 @@ public class CmdCat extends Command {
     StringBuilder result = new StringBuilder();
     ErrorConsole errorOut = ErrorConsole.getInstance();
 
-    for(String filePathStr: files) {
+    for (String filePathStr : files) {
 
       try {
         Path filePath = new Path(filePathStr);
         File file = fileSystem.getFileByPath(filePath);
-        
+
         if (file != null) {
           result.append(file.read()).append('\n');
         }
       } catch (MalformedPathException e) {
-        errorOut.writeln("Error: File Does Not Exist");
+        errorOut.writeln("Invalid file path");
+      } catch (FileNotFoundException e) {
+        errorOut.writeln("File does not exist");
       }
 
     }
@@ -80,9 +83,13 @@ public class CmdCat extends Command {
   }
 
   @Override
-  public String getName() { return NAME; }
+  public String getName() {
+    return NAME;
+  }
 
   @Override
-  public String getDescription() { return DESCRIPTION; }
+  public String getDescription() {
+    return DESCRIPTION;
+  }
 
 }

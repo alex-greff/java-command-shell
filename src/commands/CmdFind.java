@@ -77,8 +77,8 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the
-   * name "name"
+   * Gets a set of all absolute paths to instances of files with the name
+   * "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
@@ -94,14 +94,14 @@ public class CmdFind extends Command {
     // path of the file to the return set
     if (dir.containsFile(name)) {
       // Get the absolute path of the direcory
-      String dirAbsPath = fs.getAbsolutePathOfDir(dir); 
-      
+      String dirAbsPath = fs.getAbsolutePathOfDir(dir);
+
       // If the directory is the root directory
       if (dirAbsPath.equals("/")) {
         // Remove the extra "/" character
         dirAbsPath = "";
       }
-      
+
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name);
     }
@@ -122,8 +122,8 @@ public class CmdFind extends Command {
   }
 
   /**
-   * Gets a set of all absolute paths to instances of directories with
-   * the name "name"
+   * Gets a set of all absolute paths to instances of directories with the name
+   * "name"
    *
    * @param dir The current directory
    * @param name The wanted directory name
@@ -158,8 +158,7 @@ public class CmdFind extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * A helper checking if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command

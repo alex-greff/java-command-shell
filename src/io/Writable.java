@@ -32,6 +32,6 @@ package io;
 public interface Writable {
 
   void write(String contents);
-  
+
   void writeln(String contents);
 }

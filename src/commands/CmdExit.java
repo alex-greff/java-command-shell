@@ -34,13 +34,14 @@ import driver.JShell;
 import utilities.Command;
 
 public class CmdExit extends Command {
+
   private final String NAME = "exit";
   private final String DESCRIPTION =
       "" + "Exit Command Documentation\n"
           + "Description:\n"
           + "    - man: exits the currently running JShell\n"
           + "    \n" + "Usage:\r\n" + "    - exit\n" + "    \n";
-  
+
   @Override
   public String execute(CommandArgs args) {
     JShell.exit();

@@ -31,10 +31,9 @@ package commands;
 
 import containers.CommandArgs;
 import utilities.Command;
-import utilities.CommandManager;
 
 public class CmdMan extends Command {
-  
+
   // Command information constants
   private final String NAME = "man";
   private final String DESCRIPTION =
@@ -61,8 +60,7 @@ public class CmdMan extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * A helper checking if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command

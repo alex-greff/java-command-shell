@@ -6,6 +6,7 @@ import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.File;
+import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ import utilities.Parser;
 public class CmdFindTest {
 
   @Before
-  public void Setup() {
+  public void Setup() throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
