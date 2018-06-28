@@ -41,7 +41,7 @@ public class CmdCd extends Command {
   private final String DESCRIPTION =
       "" + "Cd Command Documentation\n"
       + "Description:\n" + "    - cd: change directory\n"
-      + "   \n" + "Usage:\r\n" + "    - cd DIRECTORY\n" + "    \n"
+      + "    \n" + "Usage:\r\n" + "    - cd DIRECTORY\n" + "    \n"
       + "Additional Comments:\n" + "    - Path of DIRECTORY can be"
       + "relative or absolute\n";
 

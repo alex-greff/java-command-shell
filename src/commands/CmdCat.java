@@ -39,7 +39,12 @@ import utilities.Command;
 public class CmdCat extends Command {
 
   private final String NAME = "cat";
-  private final String DESCRIPTION = "";
+  private final String DESCRIPTION =
+      "" + "Cat Command Documentation\n"
+      + "Description:\n" + "    - cat: print contents of file(s)\n"
+      + "    \n" + "Usage:\r\n" + "    - cat FILES\n" + "    \n"
+      + "Additional Comments:\n" + "    - Path of FILE can be relative or"
+      + "absolute\n" + "    - Can take more than one FILE as arguments\n";
 
   @Override
   public String execute(CommandArgs args) {
