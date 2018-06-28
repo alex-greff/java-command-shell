@@ -49,13 +49,16 @@ public class CmdCd extends Command {
   @Override
   public String execute(CommandArgs args) {
     String location = args.getCommandParameters()[0];
+    ErrorConsole errorOut = ErrorConsole.getInstance();
 
     try {
       Path new_dir = new Path(location);
       fileSystem.changeWorkingDir(new_dir);
-    } catch (MalformedPathException | FileNotFoundException e) {
-      ErrorConsole errorOut = ErrorConsole.getInstance();
-      errorOut.writeln("Error: Invalid Path");
+    } catch (MalformedPathException e) {
+      errorOut.writeln("Error: Invalid file path");
+      return null;
+    } catch (FileNotFoundException e){
+      errorOut.writeln("Error: File does not exist");
       return null;
     }
 
