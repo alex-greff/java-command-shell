@@ -38,7 +38,7 @@ import utilities.CommandManager;
  */
 public class ErrorConsole implements Writable {
 
-  private static ErrorConsole ourInstance = new ErrorConsole();
+  private static ErrorConsole ourInstance = null;
 
   private ErrorConsole() {
 
@@ -50,6 +50,9 @@ public class ErrorConsole implements Writable {
    * @return The Console instance
    */
   public static ErrorConsole getInstance() {
+    if (ourInstance == null) {
+      ourInstance = new ErrorConsole();
+    }
     return ourInstance;
   }
 

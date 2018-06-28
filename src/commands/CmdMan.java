@@ -55,11 +55,9 @@ public class CmdMan extends Command {
   public String execute(CommandArgs args) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
-    // Get the command manager instance
-    CommandManager cm = CommandManager.getInstance();
     // Get the description of the command
     // Return the command description
-    return cm.getCommandDescription(cmdName);
+    return commandManager.getCommandDescription(cmdName);
   }
 
   /**

@@ -49,7 +49,7 @@ import java.util.HashMap;
 
 public class CommandManager {
 
-  private static CommandManager ourInstance = new CommandManager();
+  private static CommandManager ourInstance = null;
   private HashMap<String, Command> cmdMap = new HashMap<>();
 
   private Console out = Console.getInstance();
@@ -80,6 +80,9 @@ public class CommandManager {
    * @return This command manager instance
    */
   public static CommandManager getInstance() {
+    if (ourInstance == null) {
+      ourInstance = new CommandManager();
+    }
     return ourInstance;
   }
 

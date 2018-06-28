@@ -30,31 +30,50 @@
 package commands;
 
 import containers.CommandArgs;
+import filesystem.DirectoryStack;
 import utilities.Command;
 
 public class CmdPushd extends Command {
 
+  private final String NAME = "pushd";
+  private DirectoryStack dirStack = DirectoryStack.getInstance();
+
   @Override
   public String execute(CommandArgs args) {
-    // TODO Auto-generated method stub
-    return null;
+    String curPath = fileSystem.getWorkingDirPath();
+    dirStack.push(curPath);
+    // make command args to call the cd command with
+    String[] fileNameArg = args.getCommandParameters();
+    CommandArgs cdArgs = new CommandArgs("cd", fileNameArg);
+    // execute the cd command to go to the given directory
+    commandManager.executeCommand(cdArgs);
+    // this command does not print anything
+    return "";
   }
 
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return false;
+    return args.getCommandName().equals(NAME)
+        && args.getCommandParameters().length == 1
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
   public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+    return NAME;
   }
 
   @Override
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    return "Pushd command description:\n"
+        + "Description:\n"
+        + "    - pushd: pushes the current directory to the top of the directory"
+        + " stack and changes the current working directory to the"
+        + " given directory\n"
+        + "\n\nUsage:\n"
+        + "    - pushd DIRECTORY";
   }
 
 }

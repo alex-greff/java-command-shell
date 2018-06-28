@@ -39,7 +39,7 @@ import utilities.CommandManager;
  */
 public class Console implements Writable, Readable {
 
-  private static Console ourInstance = new Console();
+  private static Console ourInstance = null;
 
   private Scanner input = new Scanner(System.in);
 
@@ -52,6 +52,9 @@ public class Console implements Writable, Readable {
    * @return The Console instance
    */
   public static Console getInstance() {
+    if (ourInstance == null) {
+      ourInstance = new Console();
+    }
     return ourInstance;
   }
 

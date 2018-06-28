@@ -36,7 +36,7 @@ import utilities.CommandManager;
  */
 public class FileSystem {
 
-  private static FileSystem ourInstance = new FileSystem();
+  private static FileSystem ourInstance = null;
   // the root dir has no parent
   private Directory root = new Directory("/", null);
   private Directory workingDir = root;
@@ -50,6 +50,9 @@ public class FileSystem {
    * @return This filesystem instance
    */
   public static FileSystem getInstance() {
+    if (ourInstance == null) {
+      ourInstance = new FileSystem();
+    }
     return ourInstance;
   }
 
