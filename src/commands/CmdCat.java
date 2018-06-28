@@ -58,10 +58,7 @@ public class CmdCat extends Command {
       try {
         Path filePath = new Path(filePathStr);
         File file = fileSystem.getFileByPath(filePath);
-
-        if (file != null) {
-          result.append(file.read()).append('\n');
-        }
+        result.append(file.read()).append('\n');
       } catch (MalformedPathException e) {
         errorOut.writeln("Invalid file path");
       } catch (FileNotFoundException e) {
