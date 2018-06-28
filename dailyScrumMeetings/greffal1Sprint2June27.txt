@@ -1,0 +1,13 @@
+What did I do last time?
+    - Worked on bug fixes for CmdEcho, CmdFind and CmdMan
+    - Communicating with team and making changes to CommandManager as well as
+      the general command process
+    - Coded CmdExit
+
+What do I plan to do now?
+    - Add more tests for my assigned commands
+    - Test the whole project in general
+
+Am I blocked on anything?
+    - CmdMkdir and CmdCat need to be implemented in order for me to test the
+      functionality of JShell fully
