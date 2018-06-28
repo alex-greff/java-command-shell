@@ -42,8 +42,7 @@ public class FileSystem {
   private Directory workingDir = root;
   private String workingDirPath = "/";
 
-  private FileSystem() {
-  }
+  private FileSystem() {}
 
   /**
    * Get the singleton instance of the filesystem
@@ -58,11 +57,17 @@ public class FileSystem {
    * Change the working dir to the dir given by the path
    *
    * @param path A path to the dir to change to
+   * @throws NonExistentDirectoryException Thrown when a directory does not
+   *         exist
    */
   public void changeWorkingDir(Path path)
-      throws MalformedPathException {
+      throws MalformedPathException, NonExistentDirectoryException {
     Directory newWorkingDir = getDirByPath(path);
+    if (newWorkingDir == null) {
+      throw new NonExistentDirectoryException();
+    }
     workingDirPath = getAbsolutePathOfDir(newWorkingDir);
+    workingDir = newWorkingDir;
   }
 
   /**
@@ -78,9 +83,8 @@ public class FileSystem {
       return "/";
     } else {
       while (!curDir.getName().equals("/")) {
-        String segment = new StringBuilder("/" + curDir.getName())
-            .reverse()
-            .toString();
+        String segment =
+            new StringBuilder("/" + curDir.getName()).reverse().toString();
         path.append(segment);
         curDir = curDir.getParent();
       }
@@ -91,27 +95,29 @@ public class FileSystem {
   /**
    * Provides file located at given path to the caller
    *
-   * @param path The path of the wanted file, can be absolute or
-   * relative. Absolute path must start with / indicating root
-   * directory.
+   * @param path The path of the wanted file, can be absolute or relative.
+   *        Absolute path must start with / indicating root directory.
    * @return The file located at the path
    */
   public File getFileByPath(Path path) throws MalformedPathException {
     String fileName = path.removeLast();
     Directory parent = getDirByPath(path);
+
+    if (parent == null) {
+      return null;
+    }
+
     return parent.getFileByName(fileName);
   }
 
   /**
    * Provides directory located at given path to the caller
    *
-   * @param path The path of the wanted file, can be absolute or
-   * relative. Absolute path must start with / indicating root
-   * directory.
+   * @param path The path of the wanted file, can be absolute or relative.
+   *        Absolute path must start with / indicating root directory.
    * @return The directory located at the path
    */
-  public Directory getDirByPath(Path path)
-      throws MalformedPathException {
+  public Directory getDirByPath(Path path) throws MalformedPathException {
     Directory curr = workingDir;
     for (String segment : path) {
       if (segment.equals("/")) {
@@ -122,7 +128,9 @@ public class FileSystem {
           throw new MalformedPathException();
         }
       } else if (!segment.equals(".")) {
-        curr = curr.getDirByName(segment);
+        if (curr != null) {
+          curr = curr.getDirByName(segment);
+        }
       }
     }
     return curr;

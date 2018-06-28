@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.DirectoryStack;
+import io.ErrorConsole;
 import utilities.Command;
 
 public class CmdPopd extends Command {
@@ -52,7 +53,9 @@ public class CmdPopd extends Command {
       // the command does not need to print anything
       return "";
     } else {
-      return "The directory stack is empty.";
+      ErrorConsole.getInstance()
+          .writeln("Error: The directory stack is empty.");
+      return "";
     }
   }
 
@@ -73,12 +76,10 @@ public class CmdPopd extends Command {
 
   @Override
   public String getDescription() {
-    return "popd Command Documentation\n"
-        + "Description:\n"
+    return "popd Command Documentation\n" + "Description:\n"
         + "    - popd: removes the directory at the top of the "
         + "directory stack and changes the current working "
-        + "directory to the removed directory.\n"
-        + "\n Usage: popd";
+        + "directory to the removed directory.\n" + "\n Usage: popd";
   }
 
 }

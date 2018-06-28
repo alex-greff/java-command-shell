@@ -65,10 +65,8 @@ public class JShell {
       history.add(rawInput);
 
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
-      if (parsedInput != null) {
-        // execute the command
-        CommandManager.getInstance().executeCommand(parsedInput);
-      }
+      
+      CommandManager.getInstance().executeCommand(parsedInput);
     }
 
     // use means of outputting to output data to the right destination

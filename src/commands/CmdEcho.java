@@ -89,11 +89,13 @@ public class CmdEcho extends Command {
     String filePathStr = args.getTargetDestination();
 
     try {
+      FileSystem fs = FileSystem.getInstance();
+      
       // Get the path of the file
       Path filePath = new Path(filePathStr);
 
       // Get the File
-      File file = fileSystem.getFileByPath(filePath);
+      File file = fs.getFileByPath(filePath);
 
       // If the file does not exist
       if (file == null) {

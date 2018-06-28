@@ -95,8 +95,10 @@ public class CommandManager {
         // make sure the args are valid for the command
         if (cmd.isValidArgs(cArgs)) {
           String result = cmd.execute(cArgs);
-          out.write(result);
-          return;
+          if (result != null) {
+            out.write(result);
+            return;
+          }
         }
       }
     }

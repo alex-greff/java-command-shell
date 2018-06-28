@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import filesystem.MalformedPathException;
+import filesystem.NonExistentDirectoryException;
 import filesystem.Path;
 import io.ErrorConsole;
 import utilities.Command;
@@ -52,9 +53,9 @@ public class CmdCd extends Command {
     try {
       Path new_dir = new Path(location);
       fileSystem.changeWorkingDir(new_dir);
-    } catch (MalformedPathException e) {
+    } catch (MalformedPathException | NonExistentDirectoryException e) {
       ErrorConsole errorOut = ErrorConsole.getInstance();
-      errorOut.write("Error: Invalid Path");
+      errorOut.writeln("Error: Invalid Path");
       return null;
     }
 

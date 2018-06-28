@@ -57,7 +57,10 @@ public class CmdCat extends Command {
       try {
         Path filePath = new Path(filePathStr);
         File file = fileSystem.getFileByPath(filePath);
-        result.append(file.read()).append("\n");
+        
+        if (file != null) {
+          result.append(file.read()).append('\n');
+        }
       } catch (MalformedPathException e) {
         errorOut.writeln("Error: File Does Not Exist");
       }

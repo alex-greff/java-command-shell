@@ -57,10 +57,10 @@ public class CmdLs extends Command {
         } catch (MalformedPathException m) {
           result.append("Error: Path ").append(name)
               .append(" was not found.\n");
-        }//end try-catch for absolute pathing errors
-        //check if curr is null for relative pathing errors
+        } // end try-catch for absolute pathing errors
+          // check if curr is null for relative pathing errors
         if (curr == null) {
-          result.append("Error: Path ").append(name)
+          result.append("Error: Directory ").append(name)
               .append(" was not found.\n");
         } else {
           result.append(addon(curr));
@@ -90,15 +90,14 @@ public class CmdLs extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * A helper checking if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
    */
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getCommandParameters().length >= 0
         && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");

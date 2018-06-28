@@ -20,7 +20,7 @@ public class CmdFind extends Command {
           + "            Outputs the found file/directory paths to them."
           + "\n\n"
           + "Usage:\n"
-          + "    - find PATH... -type [f|d] - name EXPRESSION\n"
+          + "    - find PATH... -type [f|d] -name EXPRESSION\n"
           + "    \n" + "Additional Comments:\n"
           + "    - A blank string is returned if no files are found.\n";
   private final String TYPE_IDENTIFIER = "type";
@@ -93,7 +93,17 @@ public class CmdFind extends Command {
     // If the current directory contains the wanted file then add the absolute
     // path of the file to the return set
     if (dir.containsFile(name)) {
-      ret_set.add(fs.getAbsolutePathOfDir(dir) + "/" + name);
+      // Get the absolute path of the direcory
+      String dirAbsPath = fs.getAbsolutePathOfDir(dir); 
+      
+      // If the directory is the root directory
+      if (dirAbsPath.equals("/")) {
+        // Remove the extra "/" character
+        dirAbsPath = "";
+      }
+      
+      // Add the file's path to the return set
+      ret_set.add(dirAbsPath + "/" + name);
     }
 
     // Iterate through each child directory
