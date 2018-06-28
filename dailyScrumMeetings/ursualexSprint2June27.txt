@@ -1,0 +1,14 @@
+What did I do last time?
+    - Small changes to CommandManager
+    - Implemented and Documented pwd
+    - Implemented and Documented cd
+    - Implemented and Documented cat
+    - Made very basic test cases for pwd and cd
+    - Some error handling done
+
+What do I plan to do now?
+    - Create more extensive test cases for implemented commands
+    - Improve error handling in certain areas, some based off of testing
+
+Am I blocked on anything?
+    - No
