@@ -59,6 +59,9 @@ public class CommandManager {
       "Error: Invalid command, please try again";
 
   private CommandManager() {
+  }
+
+  public void initializeCommands() {
     cmdMap.put("cat", new CmdCat());
     cmdMap.put("cd", new CmdCd());
     cmdMap.put("echo", new CmdEcho());

@@ -34,6 +34,7 @@ import filesystem.FileSystem;
 import io.Console;
 import io.ErrorConsole;
 import java.util.ArrayList;
+import utilities.Command;
 import utilities.CommandManager;
 import utilities.Parser;
 
@@ -52,6 +53,8 @@ public class JShell {
     String rawInput;
     Console console = Console.getInstance();
     ErrorConsole errorConsole = ErrorConsole.getInstance();
+    CommandManager cmdManager = CommandManager.getInstance();
+    cmdManager.initializeCommands();
     // create while loop which only exits once the exit command is called
     // send user input to parser, then validate, then execute
     while (running) {
@@ -63,10 +66,8 @@ public class JShell {
       rawInput = console.read();
       // add input to history ()
       history.add(rawInput);
-
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
-
-      CommandManager.getInstance().executeCommand(parsedInput);
+      cmdManager.executeCommand(parsedInput);
     }
 
     // use means of outputting to output data to the right destination
