@@ -43,9 +43,9 @@ public class CmdCat extends Command {
 
   private final String NAME = "cat";
   private CommandDescription DESCRIPTION = new CommandDescription(
-      "Print contents of file(s).", new String[] {"cat FILES"},
-      new String[] {"Path of FILE can be relative or absolute.",
-                    "Can take more than one FILE as arguments."});
+      "Print contents of file(s).", new String[]{"cat FILES"},
+      new String[]{"Path of FILE can be relative or absolute.",
+          "Can take more than one FILE as arguments."});
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {

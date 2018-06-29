@@ -42,8 +42,8 @@ public class CmdCd extends Command {
 
   private final String NAME = "cd";
   private CommandDescription DESCRIPTION = new CommandDescription(
-      "Change directory.", new String[] {"cd DIRECTORY"},
-      new String[] {"Path of DIRECTORY can be relative or absolute."});
+      "Change directory.", new String[]{"cd DIRECTORY"},
+      new String[]{"Path of DIRECTORY can be relative or absolute."});
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {

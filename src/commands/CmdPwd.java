@@ -40,13 +40,13 @@ public class CmdPwd extends Command {
 
   private final String NAME = "pwd";
   private CommandDescription DESCRIPTION = new CommandDescription(
-      "Print working directory.", new String[] {"pwd"},
-      new String[] {"None."});
+      "Print working directory.", new String[]{"pwd"},
+      new String[]{"None."});
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     FileSystem fs = FileSystem.getInstance();
-    
+
     out.writeln(fs.getWorkingDirPath());
 
     return ExitCode.SUCCESS;
