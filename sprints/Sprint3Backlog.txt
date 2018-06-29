@@ -1,0 +1,36 @@
+//Sprint 3 Backlog.
+June 29 to July 2
+
+User Stories from Product Backlog that we will address in this sprint:
+a) ID: #1 "As a product user I should be able run the command-line and be able
+   to input commands into it and get descriptive feedback from both correct and
+   incorrect inputs."
+   
+Specific tasks to be accomplished:
+a-1. Finish documenting code and making docstrings for the following classes:
+     FileSystem, Directory, File, DirectoryStack, Path, CmdMkdir, CmdPushd, CmdPopd
+a-2. Build/update unit tests for the classes covered in a-1.
+b-1. Finish documenting code and making docstrings for the following classes:
+     JShell, CmdLs, CmdHistory, CmdTree
+b-2. Build/update unit tests for the classes covered in b-1.
+c-1. Finish documenting code and making docstrings for the following classes:
+     CommandManager, CmdCd, CmdPwd, CmdCat
+c-2. Build/update unit tests for the classes covered in c-1.
+d-1. Finish documenting code and making docstrings for the following classes:
+     CommandArgs, CommandDescription, Console, ErrorConsole, Parser, CmdMan, CmdEcho, CmdFind, CmdExit
+d-2. Build/update unit tests for the classes covered in d-1.
+
+
+These tasks are assigned as follows:
+
+User: Anton Kaminsky
+Tasks: a-1, a-2
+
+User: Chedy Sankar
+Tasks: b-1, b-2
+
+User: Alexander Ursu
+Tasks: c-1, c-2
+
+User: Alexander Greff
+Tasks: d-1, d-2

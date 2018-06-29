@@ -1,0 +1,8 @@
+Class name: CommandDescription
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Acts as a container to store the documentation information of a command
+
+Collaborators:
