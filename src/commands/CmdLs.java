@@ -31,6 +31,7 @@ package commands;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.File;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
@@ -70,12 +71,19 @@ public class CmdLs extends Command {
           curr = fileSystem.getDirByPath(path);
           result.append(addon(curr));
         } catch (MalformedPathException | FileNotFoundException m) {
-          errOut
-              .writeln("Error: Path \"" + name + "\" was not found");
-        } // end try-catch for absolute pathing errors
-        //result.append(addon(curr));
-      }
-    }
+          // if name was not detected as directory, try searching for the file
+          try{
+            File file = curr.getFileByName(name);
+            result.append(addFileName(file));
+          } catch(FileNotFoundException e){
+            // only error out if the name was not found as either file or dir.
+            errOut
+                .writeln("Error: File \"" + name + "\" was not found");
+          }//end catch for filenotFound
+        } // end catch for bad/no existing path
+      }//end forloop for all params
+    }//endif
+
     // if no parameters are given, perform command on current working dir
     else {
       result = new StringBuilder(addon(curr));
@@ -108,6 +116,13 @@ public class CmdLs extends Command {
       result.append(name).append("\n");
     }
     return (result.toString()+"\n");
+  }
+
+  private String addFileName(File file){
+    String res="";
+    String name = file.getName();
+    res=name+"\n\n";
+    return res;
   }
 
   /**
