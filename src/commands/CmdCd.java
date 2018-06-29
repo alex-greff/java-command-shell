@@ -40,31 +40,41 @@ import utilities.ExitCode;
 
 public class CmdCd extends Command {
 
+  // Name and Description Constants
   private final String NAME = "cd";
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Change directory.", new String[]{"cd DIRECTORY"},
       new String[]{"Path of DIRECTORY can be relative or absolute."});
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+    // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];
 
     try {
-      Path new_dir = new Path(location);
-      fileSystem.changeWorkingDir(new_dir);
+      // Initiate a Path to the DIRECTORY with the path given as a String
+      Path newDir = new Path(location);
+      // Change the FileSystem's working directory to the created Path
+      fileSystem.changeWorkingDir(newDir);
+
     } catch (MalformedPathException e) {
+      // Argument given is an improper Path, return FAILURE
       errOut.writeln("Error: Invalid file path");
       return ExitCode.FAILURE;
+
     } catch (FileNotFoundException e) {
+      // No Directory at the Path of the argument given, return FAILURE
       errOut.writeln("Error: File does not exist");
       return ExitCode.FAILURE;
     }
 
+    // Nothing went wrong if this line is reached, return SUCCESS
     return ExitCode.SUCCESS;
   }
 
+  @Override
   public boolean isValidArgs(CommandArgs args) {
+    // Make sure the NAME matches, and just 1 argument, nothing else
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && args.getNumberOfNamedCommandParameters() == 0

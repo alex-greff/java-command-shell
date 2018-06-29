@@ -41,6 +41,7 @@ import utilities.ExitCode;
 
 public class CmdCat extends Command {
 
+  // Name and Description Constants
   private final String NAME = "cat";
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Print contents of file(s).", new String[]{"cat FILES"},
@@ -48,31 +49,40 @@ public class CmdCat extends Command {
           "Can take more than one FILE as arguments."});
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+    // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
 
-    for (String filePathStr : files) {
+    for (String filePathStr : files) { // Iterate through FILES arguments
 
       try {
+        // Initiate a Path to the FILE with the path given as a String
         Path filePath = new Path(filePathStr);
+        // Get the File with the given Path
         File file = fileSystem.getFileByPath(filePath);
+        // Finally, append the contents of the File to the StringBuilder
         result.append(file.read()).append('\n');
+
       } catch (MalformedPathException e) {
+        // Argument given is an improper Path
         errOut.writeln("Invalid file path");
+
       } catch (FileNotFoundException e) {
+        // No File at the Path of the argument given
         errOut.writeln("File does not exist");
       }
 
     }
 
+    // Write all the contents read to the Console and return SUCCESS always
     out.writeln(result.toString());
     return ExitCode.SUCCESS;
   }
 
   @Override
   public boolean isValidArgs(CommandArgs args) {
+    // Make sure the NAME matches, and at least 1 argument, nothing else
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length > 0
         && args.getNumberOfNamedCommandParameters() == 0

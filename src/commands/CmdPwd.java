@@ -38,22 +38,25 @@ import utilities.ExitCode;
 
 public class CmdPwd extends Command {
 
+  // Name and Description Constants
   private final String NAME = "pwd";
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Print working directory.", new String[]{"pwd"},
       new String[]{"None."});
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
-    FileSystem fs = FileSystem.getInstance();
-
-    out.writeln(fs.getWorkingDirPath());
-
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+    // Obtain the instance of the FileSystem
+    FileSystem FS = FileSystem.getInstance();
+    // Write the path of the working directory in the FileSystem to the Console
+    out.writeln(FS.getWorkingDirPath());
+    // return SUCCESS always
     return ExitCode.SUCCESS;
   }
 
+  @Override
   public boolean isValidArgs(CommandArgs args) {
+    // Make sure the NAME matches, nothing else
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 0
         && args.getNumberOfNamedCommandParameters() == 0
