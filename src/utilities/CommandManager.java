@@ -103,12 +103,10 @@ public class CommandManager {
         if (cmd.isValidArgs(cArgs)) {
           ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
           // Does nothing with the exit value (perhaps a future update) 
-        }
-        else {
+        } else {
           errorOut.writeln("Error: invalid command arguments");
         }
-      }
-      else {
+      } else {
         errorOut.writeln("Error: command not found, please try again");
       }
     }
