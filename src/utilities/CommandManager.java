@@ -51,18 +51,20 @@ import java.util.HashMap;
 public class CommandManager {
 
   private static CommandManager ourInstance = null;
+
+  // HashMap to contain known commands
   private HashMap<String, Command> cmdMap = new HashMap<>();
 
+  // Instances of the Console and ErrorConsole to pass in command execution
   private Console out = Console.getInstance();
   private ErrorConsole errorOut = ErrorConsole.getInstance();
-
-  private final String DEFAULT_ERROR_MESSAGE =
-      "Error: Invalid command, please try again";
 
   private CommandManager() {
   }
 
   public void initializeCommands() {
+    // All known commands as they are expected to be typed in String format,
+    // along with an instance of the respective command
     cmdMap.put("cat", new CmdCat());
     cmdMap.put("cd", new CmdCd());
     cmdMap.put("echo", new CmdEcho());
@@ -91,35 +93,50 @@ public class CommandManager {
   }
 
   public void executeCommand(CommandArgs cArgs) {
-    // make sure the command args parsed properly
+
+    // Make sure the command args parsed properly
     if (cArgs != null) {
-      // get the name of the command the user inputted
+
+      // Get the name of the command the user inputted
       String cmdName = cArgs.getCommandName();
-      // if the command exists
+      // If the command exists in the HashMap
       if (cmdMap.containsKey(cmdName)) {
-        // then get the instance of the command
+
+        // Then get the instance of the command from the HashMap
         Command cmd = cmdMap.get(cmdName);
-        // make sure the args are valid for the command
+        // If the args given are valid for the command
         if (cmd.isValidArgs(cArgs)) {
+
           ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
-          // Does nothing with the exit value (perhaps a future update) 
+          // Does nothing with the exit value (perhaps a future update)
+
         } else {
-          errorOut.writeln("Error: invalid command arguments");
+          errorOut.writeln("Error: Invalid command arguments");
         }
+
       } else {
-        errorOut
-            .writeln("Error: command not found, please try again");
+        errorOut.writeln("Error: Invalid command, please try again");
       }
+
     }
+
   }
 
-  public CommandDescription getCommandDescription(
-      String commandName) {
+  public CommandDescription getCommandDescription(String commandName) {
+    // Get the command from the HashMap, given the command name as a String
     Command cmd = cmdMap.get(commandName);
+    // Set the description found to null for now
     CommandDescription desc = null;
+
+    // If the command name is in the HashMap, then we'll have an instance of
+    // the command to get a description from, otherwise the description will
+    // remain null
     if (cmd != null) {
       desc = cmd.getDescription();
     }
+
+    // return the CommandDescription that was obtained
+    // will be null if the command doesn't exist
     return desc;
   }
 }
