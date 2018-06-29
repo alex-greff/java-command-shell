@@ -38,6 +38,16 @@ import utilities.Command;
 public class CmdHistory extends Command {
 
   private final String NAME = "history";
+  private final String DESCRIPTION = "History Command Documentation\n"
+      + "Description:\n\t - history: "
+      + "This command lists all of the past lines of user entry by\n\t\t "
+      + "default, but if given a positive integer argument x, the last x \n\t"
+      + "\t user entries will be listed. \n\n"
+      + "Usage:\n\t - history \n\t - history [int]\n\n"
+      + "Additional Comments: \n\t"
+      + "- The history command itself will always take place as the \n\t"
+      + "  latest user entry.\n";
+
 
   @Override
   public String execute(CommandArgs args) {
@@ -96,10 +106,7 @@ public class CmdHistory extends Command {
 
   @Override
   public String getDescription() {
-    return "This command lists all of the past lines of user entry by"
-        + "default, but if given a positive integer argument x, the last x "
-        + "user entries will be listed. Note that the history command itself"
-        + "will always take place as the latest user entry.\n";
+    return DESCRIPTION;
   }
 
 }

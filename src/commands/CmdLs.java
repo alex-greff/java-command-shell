@@ -41,6 +41,16 @@ import utilities.Command;
 public class CmdLs extends Command {
 
   private final String NAME = "ls";
+  private final String DESCRIPTION = "Ls Command Documentation \n"
+      + "Description: ls \n"
+      + "\t - This command lists all of the directories and files in\n"
+      + "\t   the current working directory.\n"
+      + "Usage: \n\t"
+      + "- ls\n\t- ls [Directory] \n\t- ls [Directory1] [Directory2]...\n"
+      + "Additional Comments:\n\t"
+      + "- This command can take none or multiple arguments\n\t"
+      + "- You can use either the relative path to a directory\n\t"
+      + "  or the absolute path.\n";
 
   @Override
   public String execute(CommandArgs args) {
@@ -104,9 +114,7 @@ public class CmdLs extends Command {
 
   @Override
   public String getDescription() {
-    return "This command lists all of the directories and files in"
-        + "the current working directory. No arguments are needed for this "
-        + "command.\n";
+    return DESCRIPTION;
   }
 
 }

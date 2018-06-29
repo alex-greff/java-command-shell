@@ -39,6 +39,15 @@ import utilities.Command;
 public class CmdTree extends Command {
 
   private final String NAME = "tree";
+  private final String DESCRIPTION = "" + "Tree Command Documentation\n"
+      + "Description:\n" + "    - tree: prints a tree style representation of"
+      + "file system, starting from the root.\n"
+      + "            No parameters are required ."
+      + "\n\n" + "Usage:\n" + "    - tree\n"
+      + "    \n" + "Additional Comments:\n"
+      + "\t- Directory's contents are spaced forward by a tabspace character"
+      + "\n";
+
 
   @Override
   public String execute(CommandArgs args) {
@@ -94,10 +103,7 @@ public class CmdTree extends Command {
 
   @Override
   public String getDescription() {
-    return "This command prints a tree representation of the entire"
-        + "filesystem, starting from the root. Takes in no parameters."
-        + "Files and subdirectories within a directory appear on tab ahead,"
-        + "listed below the directory name.\n";
+    return DESCRIPTION;
   }
 
 }
