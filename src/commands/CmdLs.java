@@ -46,6 +46,14 @@ public class CmdLs extends Command {
   private final String NAME = "ls";
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
+
+  /**
+   *
+   * @param args The command Arguments.
+   * @param out Gets the commands standard output written to
+   * @param errOut Gets the commands standard error output written to
+   * @return an Exitcode: 0 -> success, 1 -> failure
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
       Writable errOut) {
@@ -60,11 +68,12 @@ public class CmdLs extends Command {
         try {
           path = new Path(name);
           curr = fileSystem.getDirByPath(path);
+          result.append(addon(curr));
         } catch (MalformedPathException | FileNotFoundException m) {
           errOut
               .writeln("Error: Path \"" + name + "\" was not found");
         } // end try-catch for absolute pathing errors
-        result.append(addon(curr));
+        //result.append(addon(curr));
       }
     }
     // if no parameters are given, perform command on current working dir
@@ -73,12 +82,19 @@ public class CmdLs extends Command {
     }
 
     if (result.length() > 0) {
+      // trim final newline
+      result.reverse().delete(0,1).reverse();
       out.write(result.toString());
     }
 
     return ExitCode.SUCCESS;
   }
 
+  /**
+   *
+   * @param dir The directory whose contents will be represented by a string
+   * @return The string representation of the directories contents
+   */
   private String addon(Directory dir) {
     StringBuilder result = new StringBuilder();
     // get lists of files and dirs of the current working path
@@ -91,7 +107,7 @@ public class CmdLs extends Command {
     for (String name : files) {
       result.append(name).append("\n");
     }
-    return (result.toString());
+    return (result.toString()+"\n");
   }
 
   /**
@@ -108,20 +124,22 @@ public class CmdLs extends Command {
         && args.getTargetDestination().equals("");
   }
 
+  /**
+   *
+   * @return the name of the command
+   */
   @Override
   public String getName() {
     return NAME;
   }
 
+  /**
+   *
+   * @return the documentation of the command
+   */
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;
-    /*
-     * return "This command lists all of the directories and files in" +
-     * "the current working directory. No arguments are needed for this " +
-     * "command.\n";
-     */
-    // TODO: remove
   }
 
 }

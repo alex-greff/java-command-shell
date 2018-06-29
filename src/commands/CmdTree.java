@@ -54,7 +54,7 @@ public class CmdTree extends Command {
       // Do nothing
     }
 
-    out.writeln(result);
+    out.write(result);
 
     return ExitCode.SUCCESS;
   }
