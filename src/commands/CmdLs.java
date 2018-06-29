@@ -73,7 +73,7 @@ public class CmdLs extends Command {
     }
 
     if (result.length() > 0) {
-      out.writeln(result.toString());
+      out.write(result.toString());
     }
 
     return ExitCode.SUCCESS;
