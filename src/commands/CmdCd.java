@@ -36,6 +36,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdCd extends Command {
 
@@ -45,7 +46,7 @@ public class CmdCd extends Command {
       new String[] {"Path of DIRECTORY can be relative or absolute."});
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String location = args.getCommandParameters()[0];
 
     try {
@@ -53,13 +54,13 @@ public class CmdCd extends Command {
       fileSystem.changeWorkingDir(new_dir);
     } catch (MalformedPathException e) {
       errOut.writeln("Error: Invalid file path");
-      return 1;
+      return ExitCode.FAILURE;
     } catch (FileNotFoundException e) {
       errOut.writeln("Error: File does not exist");
-      return 1;
+      return ExitCode.FAILURE;
     }
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   public boolean isValidArgs(CommandArgs args) {

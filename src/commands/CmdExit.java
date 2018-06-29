@@ -34,6 +34,7 @@ import containers.CommandDescription;
 import driver.JShell;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdExit extends Command {
 
@@ -42,9 +43,9 @@ public class CmdExit extends Command {
       "Exits the currently running JShell.", new String[] {"exit"});
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     JShell.exit();
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   @Override

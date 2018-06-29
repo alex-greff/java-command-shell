@@ -2,6 +2,7 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import commands.CmdEcho;
 import containers.CommandArgs;
@@ -18,6 +19,7 @@ import io.ErrorConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
+import utilities.ExitCode;
 import utilities.Parser;
 
 public class CmdEchoTest {
@@ -50,9 +52,9 @@ public class CmdEchoTest {
         new CommandArgs("echo", new String[] {"nice sentence you got there"});
 
     Command cmd = new CmdEcho();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
-    assertTrue(exitVal == 0);
+    assertSame(exitVal, ExitCode.SUCCESS);
   }
 
   @Test
@@ -62,7 +64,7 @@ public class CmdEchoTest {
         Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
 
     Command cmd = new CmdEcho();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     FileSystem fs = FileSystem.getInstance();
@@ -79,7 +81,7 @@ public class CmdEchoTest {
     CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
 
     Command cmd = new CmdEcho();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     FileSystem fs = FileSystem.getInstance();
@@ -97,7 +99,7 @@ public class CmdEchoTest {
         Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
 
     Command cmd = new CmdEcho();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     FileSystem fs = FileSystem.getInstance();
@@ -113,9 +115,9 @@ public class CmdEchoTest {
         Parser.parseUserInput("notEcho \"some string\" >> /fileBlahBlahBlah");
 
     Command cmd = new CmdEcho();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
-    assertTrue(exitVal > 0);
+    assertSame(exitVal, ExitCode.SUCCESS);
   }
 }

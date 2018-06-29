@@ -38,6 +38,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdMkdir extends Command {
 
@@ -45,7 +46,7 @@ public class CmdMkdir extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     for (String pathString : args.getCommandParameters()) {
       try {
         Path path = new Path(pathString);
@@ -54,16 +55,16 @@ public class CmdMkdir extends Command {
         parent.createAndAddNewDir(newDirName);
       } catch (MalformedPathException e) {
         errOut.writeln("Error: Invalid path" + pathString);
-        return 1;
+        return ExitCode.SUCCESS;
       } catch (FileNotFoundException e) {
         errOut.writeln("Error: Parent directory not found");
-        return 1;
+        return ExitCode.FAILURE;
       } catch (DirectoryAlreadyExistsException e) {
         errOut.writeln("Error: Directory already exists");
-        return 1;
+        return ExitCode.FAILURE;
       }
     }
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   @Override

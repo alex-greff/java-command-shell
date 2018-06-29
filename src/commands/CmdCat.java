@@ -37,6 +37,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdCat extends Command {
 
@@ -47,7 +48,7 @@ public class CmdCat extends Command {
                     "Can take more than one FILE as arguments."});
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
 
@@ -66,7 +67,7 @@ public class CmdCat extends Command {
     }
 
     out.writeln(result.toString());
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   @Override

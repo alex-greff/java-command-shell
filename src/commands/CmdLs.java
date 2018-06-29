@@ -39,6 +39,7 @@ import filesystem.Path;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdLs extends Command {
 
@@ -46,7 +47,8 @@ public class CmdLs extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     StringBuilder result = new StringBuilder();
     Directory curr = FileSystem.getInstance().getWorkingDir();
     Path path;
@@ -59,7 +61,8 @@ public class CmdLs extends Command {
           path = new Path(name);
           curr = fileSystem.getDirByPath(path);
         } catch (MalformedPathException | FileNotFoundException m) {
-          errOut.writeln("Error: Path \"" + name + "\" was not found");
+          errOut
+              .writeln("Error: Path \"" + name + "\" was not found");
         } // end try-catch for absolute pathing errors
         result.append(addon(curr));
       }
@@ -69,9 +72,11 @@ public class CmdLs extends Command {
       result = new StringBuilder(addon(curr));
     }
 
-    out.writeln(result.toString());
+    if (result.length() > 0) {
+      out.writeln(result.toString());
+    }
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   private String addon(Directory dir) {
@@ -90,7 +95,8 @@ public class CmdLs extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command

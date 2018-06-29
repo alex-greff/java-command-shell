@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdFind extends Command {
 
@@ -35,7 +36,7 @@ public class CmdFind extends Command {
   private final String TYPE_DIR = "d";
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
     String expression = args.getNamedCommandParameter(NAME_IDENTIFIER);
@@ -80,7 +81,7 @@ public class CmdFind extends Command {
     // Print the output
     out.writeln(output.toString());
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
 

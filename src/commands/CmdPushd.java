@@ -34,6 +34,7 @@ import containers.CommandDescription;
 import filesystem.DirectoryStack;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdPushd extends Command {
 
@@ -43,7 +44,7 @@ public class CmdPushd extends Command {
   private DirectoryStack dirStack = DirectoryStack.getInstance();
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with
@@ -52,7 +53,7 @@ public class CmdPushd extends Command {
     // execute the cd command to go to the given directory
     commandManager.executeCommand(cdArgs);
     // this command does not print anything
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   @Override

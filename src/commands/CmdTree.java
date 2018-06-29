@@ -36,6 +36,7 @@ import filesystem.FileNotFoundException;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
+import utilities.ExitCode;
 
 
 public class CmdTree extends Command {
@@ -44,7 +45,7 @@ public class CmdTree extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
@@ -55,7 +56,7 @@ public class CmdTree extends Command {
 
     out.writeln(result);
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   @Override

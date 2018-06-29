@@ -9,6 +9,7 @@ import io.Console;
 import io.ErrorConsole;
 import org.junit.Test;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdManTest {
 
@@ -17,7 +18,7 @@ public class CmdManTest {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
     Command cmd = new CmdMan();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     assertEquals(exitVal, 0);
@@ -28,7 +29,7 @@ public class CmdManTest {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
     Command cmd = new CmdMan();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     assertEquals(exitVal, 0);

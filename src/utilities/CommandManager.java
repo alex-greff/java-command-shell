@@ -101,7 +101,7 @@ public class CommandManager {
         Command cmd = cmdMap.get(cmdName);
         // make sure the args are valid for the command
         if (cmd.isValidArgs(cArgs)) {
-          int exitValue = cmd.execute(cArgs, out, errorOut);
+          ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
           // Does nothing with the exit value (perhaps a future update) 
         }
         else {

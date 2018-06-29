@@ -35,6 +35,7 @@ import driver.JShell;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
+import utilities.ExitCode;
 
 
 public class CmdHistory extends Command {
@@ -43,7 +44,7 @@ public class CmdHistory extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history
@@ -60,12 +61,12 @@ public class CmdHistory extends Command {
     else if (params.length == 1) {
       // check if the parameter is an int
       if (!params[0].matches("\\d+")) {
-        return 1;
+        return ExitCode.FAILURE;
       }
       int paramInt = Integer.parseInt(params[0]);
       if (paramInt < 0) {
         // error if a negative integer is passed as an argument
-        return 1;
+        return ExitCode.FAILURE;
       }
       int index = history.size() - paramInt;
       // in the case that the parameter int is bigger than the size of history
@@ -83,7 +84,7 @@ public class CmdHistory extends Command {
 
     out.writeln(result.toString());
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   @Override

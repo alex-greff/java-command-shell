@@ -34,6 +34,7 @@ import containers.CommandDescription;
 import filesystem.DirectoryStack;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdPopd extends Command {
 
@@ -41,7 +42,7 @@ public class CmdPopd extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {
@@ -54,10 +55,10 @@ public class CmdPopd extends Command {
       // the stack
       commandManager.executeCommand(cdArgs);
       // the command does not need to print anything
-      return 0;
+      return ExitCode.SUCCESS;
     } else {
       errOut.writeln("Error: The directory stack is empty.");
-      return 1;
+      return ExitCode.FAILURE;
     }
   }
 

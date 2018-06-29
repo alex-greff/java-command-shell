@@ -40,7 +40,8 @@ public abstract class Command {
       .getInstance();
   protected FileSystem fileSystem = FileSystem.getInstance();
 
-  public abstract int execute(CommandArgs args, Writable out, Writable errorOut);
+  public abstract ExitCode execute(CommandArgs args, Writable out,
+      Writable errorOut);
 
   public abstract boolean isValidArgs(CommandArgs args);
 

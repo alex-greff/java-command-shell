@@ -33,6 +33,7 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdMan extends Command {
 
@@ -55,7 +56,7 @@ public class CmdMan extends Command {
    * @return Returns the output of the command
    */
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the description of the command
@@ -66,7 +67,7 @@ public class CmdMan extends Command {
     if (cmdDesc == null) {
       errOut.writeln(
           "Error: No description found for command \"" + cmdName + "\"");
-      return 1;
+      return ExitCode.FAILURE;
     }
 
     StringBuilder output = new StringBuilder();
@@ -87,7 +88,7 @@ public class CmdMan extends Command {
     // Write the output to the given out
     out.writeln(output.toString());
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
   /**

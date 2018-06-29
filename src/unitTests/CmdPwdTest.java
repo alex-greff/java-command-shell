@@ -9,6 +9,7 @@ import io.Console;
 import io.ErrorConsole;
 import org.junit.Test;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdPwdTest {
 
@@ -17,7 +18,7 @@ public class CmdPwdTest {
     CommandArgs args = new CommandArgs("pwd");
 
     Command cmd = new CmdPwd();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     assertEquals(exitVal, 0);

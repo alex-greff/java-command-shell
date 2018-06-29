@@ -34,6 +34,7 @@ import containers.CommandDescription;
 import filesystem.FileSystem;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdPwd extends Command {
 
@@ -43,12 +44,12 @@ public class CmdPwd extends Command {
       new String[] {"None."});
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     FileSystem fs = FileSystem.getInstance();
     
     out.writeln(fs.getWorkingDirPath());
-    
-    return 0;
+
+    return ExitCode.SUCCESS;
   }
 
   public boolean isValidArgs(CommandArgs args) {

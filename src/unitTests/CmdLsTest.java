@@ -15,6 +15,7 @@ import io.ErrorConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdLsTest {
 
@@ -39,7 +40,7 @@ public class CmdLsTest {
   public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
     Command cmd = new CmdLs();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
     assertEquals(exitVal, 0);
   }
@@ -50,7 +51,7 @@ public class CmdLsTest {
     params[0] = "/dir1";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
     assertEquals(exitVal, 0);
   }
@@ -61,7 +62,7 @@ public class CmdLsTest {
     params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
     assertEquals(exitVal, 0);
   }

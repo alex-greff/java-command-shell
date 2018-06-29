@@ -1,6 +1,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import commands.CmdFind;
 import containers.CommandArgs;
@@ -14,6 +15,7 @@ import io.ErrorConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
+import utilities.ExitCode;
 import utilities.Parser;
 
 public class CmdFindTest {
@@ -47,10 +49,10 @@ public class CmdFindTest {
     System.out.println(args.toString());
 
     Command cmd = new CmdFind();
-    int exitVal =
+    ExitCode exitVal =
         cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
-    assertTrue(exitVal == 0);
+    assertSame(exitVal, ExitCode.SUCCESS);
   }
 
   // TODO: add more tests

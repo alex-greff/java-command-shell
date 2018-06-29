@@ -40,6 +40,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.ExitCode;
 
 public class CmdEcho extends Command {
 
@@ -57,10 +58,10 @@ public class CmdEcho extends Command {
   private final String APPEND_OPERATOR = ">>";
 
   @Override
-  public int execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Initialize default command output
     String output = "";
-    int exitValue = 0;
+    ExitCode exitValue = ExitCode.SUCCESS;
 
     // If there is a redirect operator provided
     if (args.getRedirectOperator().length() > 0) {
@@ -68,7 +69,7 @@ public class CmdEcho extends Command {
       try {
         exitValue = writeToFile(args, out, errOut);
       } catch (FileAlreadyExistsException e) {
-        exitValue = 1;
+        exitValue = ExitCode.FAILURE;
         errOut.writeln("File already exists");
       }
     }
@@ -94,7 +95,8 @@ public class CmdEcho extends Command {
    * @param errOut The error output to use.
    * @return Returns 0 if the write succeeded, 1 if not.
    */
-  private int writeToFile(CommandArgs args, Writable out, Writable errOut)
+  private ExitCode writeToFile(CommandArgs args, Writable out, Writable
+      errOut)
       throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();
@@ -140,13 +142,13 @@ public class CmdEcho extends Command {
 
         } catch (FileNotFoundException e1) {
           errOut.writeln("Error: No directory found");
-          return 1;
+          return ExitCode.FAILURE;
         }
 
 
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: Not a valid file path");
-        return 1;
+        return ExitCode.FAILURE;
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
@@ -165,10 +167,10 @@ public class CmdEcho extends Command {
 
     } catch (MalformedPathException e) {
       errOut.write("Error: Invalid path \"" + filePathStr + "\"");
-      return 1;
+      return ExitCode.FAILURE;
     }
 
-    return 0;
+    return ExitCode.SUCCESS;
   }
 
 
