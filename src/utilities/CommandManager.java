@@ -43,6 +43,7 @@ import commands.CmdPushd;
 import commands.CmdPwd;
 import commands.CmdTree;
 import containers.CommandArgs;
+import containers.CommandDescription;
 import io.Console;
 import io.ErrorConsole;
 import java.util.HashMap;
@@ -100,22 +101,22 @@ public class CommandManager {
         Command cmd = cmdMap.get(cmdName);
         // make sure the args are valid for the command
         if (cmd.isValidArgs(cArgs)) {
-          String result = cmd.execute(cArgs);
-          if (result != null) {
-            out.write(result);
-            return;
-          }
+          int exitValue = cmd.execute(cArgs, out, errorOut);
+          // Does nothing with the exit value (perhaps a future update) 
+        }
+        else {
+          errorOut.writeln("Error: invalid command arguments");
         }
       }
+      else {
+        errorOut.writeln("Error: command not found, please try again");
+      }
     }
-
-    // Getting here means there was an error so print the error message
-    errorOut.writeln(DEFAULT_ERROR_MESSAGE);
   }
 
-  public String getCommandDescription(String commandName) {
+  public CommandDescription getCommandDescription(String commandName) {
     Command cmd = cmdMap.get(commandName);
-    String desc = null;
+    CommandDescription desc = null;
     if (cmd != null) {
       desc = cmd.getDescription();
     }

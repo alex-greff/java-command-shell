@@ -30,20 +30,28 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
+import filesystem.FileSystem;
+import io.Writable;
 import utilities.Command;
 
 public class CmdPwd extends Command {
 
   private final String NAME = "pwd";
-  private final String DESCRIPTION =
+  /*private final String DESCRIPTION =
       "" + "Pwd Command Documentation\n"
           + "Description:\n" + "    - pwd: print working directory\n"
           + "    \n" + "Usage:\r\n" + "    - pwd\n" + "    \n"
-          + "Additional Comments:\n" + "    - None\n";
+          + "Additional Comments:\n" + "    - None\n";*/
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
-    return fileSystem.getWorkingDirPath() + "\n";
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
+    FileSystem fs = FileSystem.getInstance();
+    
+    out.writeln(fs.getWorkingDirPath());
+    
+    return 0;
   }
 
   public boolean isValidArgs(CommandArgs args) {
@@ -60,7 +68,7 @@ public class CmdPwd extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
   }
 

@@ -30,39 +30,40 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.FileNotFoundException;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.ErrorConsole;
+import io.Writable;
 import utilities.Command;
 
 public class CmdCd extends Command {
 
   private final String NAME = "cd";
-  private final String DESCRIPTION =
-      "" + "Cd Command Documentation\n"
-          + "Description:\n" + "    - cd: change directory\n"
-          + "    \n" + "Usage:\r\n" + "    - cd DIRECTORY\n" + "    \n"
-          + "Additional Comments:\n" + "    - Path of DIRECTORY can be"
-          + "relative or absolute\n";
+  /*
+   * private final String DESCRIPTION = "" + "Cd Command Documentation\n" +
+   * "Description:\n" + "    - cd: change directory\n" + "    \n" + "Usage:\r\n"
+   * + "    - cd DIRECTORY\n" + "    \n" + "Additional Comments:\n" +
+   * "    - Path of DIRECTORY can be" + "relative or absolute\n";
+   */
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     String location = args.getCommandParameters()[0];
-    ErrorConsole errorOut = ErrorConsole.getInstance();
 
     try {
       Path new_dir = new Path(location);
       fileSystem.changeWorkingDir(new_dir);
     } catch (MalformedPathException e) {
-      errorOut.writeln("Error: Invalid file path");
-      return null;
-    } catch (FileNotFoundException e){
-      errorOut.writeln("Error: File does not exist");
-      return null;
+      errOut.writeln("Error: Invalid file path");
+      return 1;
+    } catch (FileNotFoundException e) {
+      errOut.writeln("Error: File does not exist");
+      return 1;
     }
 
-    return "";
+    return 0;
   }
 
   public boolean isValidArgs(CommandArgs args) {
@@ -79,7 +80,7 @@ public class CmdCd extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
   }
 

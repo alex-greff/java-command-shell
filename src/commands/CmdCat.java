@@ -30,28 +30,31 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.File;
 import filesystem.FileNotFoundException;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.ErrorConsole;
+import io.Writable;
 import utilities.Command;
 
 public class CmdCat extends Command {
 
   private final String NAME = "cat";
-  private final String DESCRIPTION =
-      "" + "Cat Command Documentation\n"
-          + "Description:\n" + "    - cat: print contents of file(s)\n"
-          + "    \n" + "Usage:\r\n" + "    - cat FILES\n" + "    \n"
-          + "Additional Comments:\n" + "    - Path of FILE can be relative or"
-          + "absolute\n" + "    - Can take more than one FILE as arguments\n";
+  /*
+   * private final String DESCRIPTION = "" + "Cat Command Documentation\n" +
+   * "Description:\n" + "    - cat: print contents of file(s)\n" + "    \n" +
+   * "Usage:\r\n" + "    - cat FILES\n" + "    \n" + "Additional Comments:\n" +
+   * "    - Path of FILE can be relative or" + "absolute\n" +
+   * "    - Can take more than one FILE as arguments\n";
+   */
+
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
-    ErrorConsole errorOut = ErrorConsole.getInstance();
 
     for (String filePathStr : files) {
 
@@ -60,14 +63,15 @@ public class CmdCat extends Command {
         File file = fileSystem.getFileByPath(filePath);
         result.append(file.read()).append('\n');
       } catch (MalformedPathException e) {
-        errorOut.writeln("Invalid file path");
+        errOut.writeln("Invalid file path");
       } catch (FileNotFoundException e) {
-        errorOut.writeln("File does not exist");
+        errOut.writeln("File does not exist");
       }
 
     }
 
-    return result.toString();
+    out.writeln(result.toString());
+    return 0;
   }
 
   @Override
@@ -85,7 +89,7 @@ public class CmdCat extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
   }
 

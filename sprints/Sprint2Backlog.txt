@@ -50,6 +50,8 @@ k-1. (CmdFind) code find command
 k-2. Write documentation for find
 l-1. (CmdTree) code tree command
 l-2. Write documentation for tree
+m-1. (CmdExit) code the exit command
+m-2. Write documentation for exit
 
 These tasks are assigned as follows:
 
@@ -63,4 +65,4 @@ User: Alexander Ursu
 Tasks: x-2, b-1, b-2, c-1, c-2, i-1, i-2
 
 User: Alexander Greff
-Tasks: a-1, a-2, j-1, j-2, k-1, k-2
+Tasks: a-1, a-2, j-1, j-2, k-1, k-2, m-1, m-2

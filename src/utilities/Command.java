@@ -30,7 +30,9 @@
 package utilities;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.FileSystem;
+import io.Writable;
 
 public abstract class Command {
 
@@ -38,11 +40,11 @@ public abstract class Command {
       .getInstance();
   protected FileSystem fileSystem = FileSystem.getInstance();
 
-  public abstract String execute(CommandArgs args);
+  public abstract int execute(CommandArgs args, Writable out, Writable errorOut);
 
   public abstract boolean isValidArgs(CommandArgs args);
 
   public abstract String getName();
 
-  public abstract String getDescription();
+  public abstract CommandDescription getDescription();
 }

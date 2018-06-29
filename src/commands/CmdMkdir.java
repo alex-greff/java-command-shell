@@ -30,21 +30,22 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.DirectoryAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.ErrorConsole;
+import io.Writable;
 import utilities.Command;
 
 public class CmdMkdir extends Command {
 
   private final String NAME = "mkdir";
-  private ErrorConsole errorConsole = ErrorConsole.getInstance();
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     for (String pathString : args.getCommandParameters()) {
       try {
         Path path = new Path(pathString);
@@ -52,14 +53,17 @@ public class CmdMkdir extends Command {
         Directory parent = fileSystem.getDirByPath(path);
         parent.createAndAddNewDir(newDirName);
       } catch (MalformedPathException e) {
-        errorConsole.writeln("Invalid path" + pathString);
+        errOut.writeln("Error: Invalid path" + pathString);
+        return 1;
       } catch (FileNotFoundException e) {
-        errorConsole.writeln("Parent directory not found");
+        errOut.writeln("Error: Parent directory not found");
+        return 1;
       } catch (DirectoryAlreadyExistsException e) {
-        errorConsole.writeln("Directory already exists");
+        errOut.writeln("Error: Directory already exists");
+        return 1;
       }
     }
-    return "";
+    return 0;
   }
 
   @Override
@@ -77,9 +81,8 @@ public class CmdMkdir extends Command {
   }
 
   @Override
-  public String getDescription() {
-    // TODO: The description
-    return "Not done yet";
+  public CommandDescription getDescription() {
+    return DESCRIPTION;
   }
 
 }

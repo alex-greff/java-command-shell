@@ -1,0 +1,9 @@
+Class name: Console
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Writes output to the console
+* Reads input from the console
+
+Collaborators:

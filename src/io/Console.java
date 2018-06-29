@@ -69,7 +69,7 @@ public class Console implements Writable, Readable {
 
   @Override
   public void writeln(String contents) {
-    System.out.print(contents);
+    System.out.println(contents);
   }
 
   /**

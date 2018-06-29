@@ -30,16 +30,20 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.DirectoryStack;
+import io.Writable;
 import utilities.Command;
 
 public class CmdPushd extends Command {
 
   private final String NAME = "pushd";
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  
   private DirectoryStack dirStack = DirectoryStack.getInstance();
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with
@@ -48,7 +52,7 @@ public class CmdPushd extends Command {
     // execute the cd command to go to the given directory
     commandManager.executeCommand(cdArgs);
     // this command does not print anything
-    return "";
+    return 0;
   }
 
   @Override
@@ -66,14 +70,16 @@ public class CmdPushd extends Command {
   }
 
   @Override
-  public String getDescription() {
-    return "Pushd command description:\n"
+  public CommandDescription getDescription() {
+    return DESCRIPTION;
+    /*return "Pushd command description:\n"
         + "Description:\n"
         + "    - pushd: pushes the current directory to the top of the directory"
         + " stack and changes the current working directory to the"
         + " given directory\n"
         + "\n\nUsage:\n"
-        + "    - pushd DIRECTORY";
+        + "    - pushd DIRECTORY";*/
+    // TODO: remove
   }
 
 }

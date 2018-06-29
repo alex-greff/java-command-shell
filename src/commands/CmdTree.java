@@ -30,8 +30,10 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
+import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
 
@@ -39,26 +41,21 @@ import utilities.Command;
 public class CmdTree extends Command {
 
   private final String NAME = "tree";
-  private final String DESCRIPTION = "" + "Tree Command Documentation\n"
-      + "Description:\n" + "    - tree: prints a tree style representation of"
-      + "file system, starting from the root.\n"
-      + "            No parameters are required ."
-      + "\n\n" + "Usage:\n" + "    - tree\n"
-      + "    \n" + "Additional Comments:\n"
-      + "\t- Directory's contents are spaced forward by a tabspace character"
-      + "\n";
-
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
       result += (addon(root, 1));
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      // Do nothing
     }
-    return result;
+
+    out.writeln(result);
+
+    return 0;
   }
 
   @Override
@@ -86,11 +83,11 @@ public class CmdTree extends Command {
       }
     }
     // now finally get all of the subdirectories
-    //HashMap<String, Directory> childs = curr.getChildDirs();
+    // HashMap<String, Directory> childs = curr.getChildDirs();
     ArrayList<String> childs = curr.listDirNames();
     for (String key : childs) {
       result.append(spacing).append(key).append("\n");
-      //result+=addon(childs.get(key), tabs+1);
+      // result+=addon(childs.get(key), tabs+1);
       result.append(addon(curr.getDirByName(key), tabs + 1));
     }
     return result.toString();
@@ -102,8 +99,15 @@ public class CmdTree extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
+    /*
+     * return "This command prints a tree representation of the entire" +
+     * "filesystem, starting from the root. Takes in no parameters." +
+     * "Files and subdirectories within a directory appear on tab ahead," +
+     * "listed below the directory name.\n";
+     */
+    // TODO: remove
   }
 
 }

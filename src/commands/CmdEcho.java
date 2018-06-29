@@ -30,46 +30,46 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.Directory;
-import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.ErrorConsole;
+import io.Writable;
 import utilities.Command;
 
 public class CmdEcho extends Command {
 
   private final String NAME = "echo";
-  private final String DESCRIPTION = "" + "Echo Command Documentation\n"
-      + "Description:\n" + "    - echo: appends or writes a string to a file.\n"
-      + "            If no file is given then the string is written to console."
-      + "\n\n" + "Usage:\n" + "    - echo STRING\n"
-      + "    - echo STRING [> OUTFILE]\n" + "    - echo STRING [>> OUTFILE]\n"
-      + "    \n" + "Additional Comments:\n"
-      + "    - The \">\" characer signals to overwrite the file contents.\n"
-      + "    - The \">>\" characer signals to append to the file contents.\n";
+  private CommandDescription DESCRIPTION =
+      new CommandDescription("Appends or writes a string to a file.",
+          new String[] {"echo STRING", "echo STRING [> OUTFILE]",
+              "echo STRING [>> OUTFILE]"},
+          new String[] {
+              "The \">\" character signals to overwrite the file conents.",
+              "The \">>\" character signals to append to the file conents."});
+
 
   private final String OVERWRITE_OPERATOR = ">";
   private final String APPEND_OPERATOR = ">>";
 
-  private ErrorConsole errorConsole = ErrorConsole.getInstance();
-
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     // Initialize default command output
     String output = "";
+    int exitValue = 0;
 
     // If there is a redirect operator provided
     if (args.getRedirectOperator().length() > 0) {
       // Write to the file
       try {
-        writeToFile(args);
+        exitValue = writeToFile(args, out, errOut);
       } catch (FileAlreadyExistsException e) {
-        e.printStackTrace();
+        exitValue = 1;
+        errOut.writeln("File already exists");
       }
     }
     // If not
@@ -78,18 +78,24 @@ public class CmdEcho extends Command {
       output = args.getCommandParameters()[0];
     }
 
-    output = (!output.equals("")) ? output + "\n" : output;
+    if (!output.equals("")) {
+      out.writeln(output);
+    }
 
     // Return the output
-    return output;
+    return exitValue;
   }
 
   /**
    * A helper function that writes the given command args to a file
    *
    * @param args The command args
+   * @param out The standard output to use.
+   * @param errOut The error output to use.
+   * @return Returns 0 if the write succeeded, 1 if not.
    */
-  private void writeToFile(CommandArgs args) throws FileAlreadyExistsException {
+  private int writeToFile(CommandArgs args, Writable out, Writable errOut)
+      throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();
     String strContents = args.getCommandParameters()[0];
@@ -122,14 +128,25 @@ public class CmdEcho extends Command {
           dirPathStr = "/";
         }
 
-        Path dirPath = new Path(dirPathStr);
-        Directory dirOfFile = getDirOfFile(dirPath);
+        // Path dirPath = new Path(dirPathStr);
+        // Directory dirOfFile = getDirOfFile(dirPath);
 
-        // Add the file to the directory
-        dirOfFile.addFile(file);
+        try {
+          Path dirPath = new Path(dirPathStr);
+          Directory dirOfFile = fs.getDirByPath(dirPath);
+
+          // Add the file to the directory
+          dirOfFile.addFile(file);
+
+        } catch (FileNotFoundException e1) {
+          errOut.writeln("Error: No directory found");
+          return 1;
+        }
+
+
       } catch (MalformedPathException e1) {
-        errorConsole.writeln("Not a valid file path");
-        return;
+        errOut.writeln("Error: Not a valid file path");
+        return 1;
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
@@ -147,45 +164,11 @@ public class CmdEcho extends Command {
       file.write(strContents);
 
     } catch (MalformedPathException e) {
-      errorConsole.write("Error: Invalid path \"" + filePathStr + "\"");
+      errOut.write("Error: Invalid path \"" + filePathStr + "\"");
+      return 1;
     }
-  }
 
-  /**
-   * Returns the directory at the path and creates it, and any other directories
-   * that it needs along the way.
-   *
-   * @param path The path
-   * @return Returns the directory at path
-   * @throws MalformedPathException if the path is not proper
-   */
-  private Directory getDirOfFile(Path path) throws MalformedPathException {
-    FileSystem fs = FileSystem.getInstance();
-
-    Directory curr = fs.getWorkingDir();
-
-    for (String segment : path) {
-      if (segment.equals("/")) {
-        curr = fs.getRoot();
-      } else if (segment.equals("..")) {
-        curr = curr.getParent();
-        if (curr == null) {
-          throw new MalformedPathException();
-        }
-      } else if (!segment.equals(".")) {
-        Directory prev = curr;
-        try {
-          curr = curr.getDirByName(segment);
-        } catch (FileNotFoundException e) {
-          try {
-            curr = prev.createAndAddNewDir(segment);
-          } catch (DirectoryAlreadyExistsException e1) {
-            e1.printStackTrace();
-          }
-        }
-      }
-    }
-    return curr;
+    return 0;
   }
 
 
@@ -200,8 +183,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR))
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 
@@ -221,7 +204,7 @@ public class CmdEcho extends Command {
    * @return The command description
    */
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
   }
 

@@ -30,22 +30,21 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import driver.JShell;
+import io.Writable;
 import utilities.Command;
 
 public class CmdExit extends Command {
 
   private final String NAME = "exit";
-  private final String DESCRIPTION =
-      "" + "Exit Command Documentation\n"
-          + "Description:\n"
-          + "    - man: exits the currently running JShell\n"
-          + "    \n" + "Usage:\r\n" + "    - exit\n" + "    \n";
+  private CommandDescription DESCRIPTION = new CommandDescription(
+      "Exits the currently running JShell.", new String[] {"exit"});
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     JShell.exit();
-    return "";
+    return 0;
   }
 
   @Override
@@ -63,7 +62,7 @@ public class CmdExit extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
   }
 

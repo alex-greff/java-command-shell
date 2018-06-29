@@ -1,7 +1,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertNull;
-
+import static org.junit.Assert.assertTrue;
 import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -9,6 +9,8 @@ import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
+import io.Console;
+import io.ErrorConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -45,11 +47,10 @@ public class CmdFindTest {
     System.out.println(args.toString());
 
     Command cmd = new CmdFind();
-    String out_actual = cmd.execute(args);
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
-    System.out.println("Out: " + out_actual);
-
-    assertNull(out_actual);
+    assertTrue(exitVal == 0);
   }
 
   // TODO: add more tests

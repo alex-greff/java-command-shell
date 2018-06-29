@@ -1,12 +1,13 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.ErrorConsole;
+import io.Writable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,27 +16,29 @@ import utilities.Command;
 public class CmdFind extends Command {
 
   private final String NAME = "find";
-  private final String DESCRIPTION =
-      "" + "Find Command Documentation\n"
-          + "Description:\n"
-          + "    - find: finds all files/directories.\n"
-          + "            Outputs the found file/directory paths to them."
-          + "\n\n"
-          + "Usage:\n"
-          + "    - find PATH... -type [f|d] -name EXPRESSION\n"
-          + "    \n" + "Additional Comments:\n"
-          + "    - A blank string is returned if no files are found.\n";
+  /*
+   * private final String DESCRIPTION = "" + "Find Command Documentation\n" +
+   * "Description:\n" + "    - find: finds all files/directories.\n" +
+   * "            Outputs the found file/directory paths to them." + "\n\n" +
+   * "Usage:\n" + "    - find PATH... -type [f|d] -name EXPRESSION\n" + "    \n"
+   * + "Additional Comments:\n" +
+   * "    - A blank string is returned if no files are found.\n";
+   */
+  private CommandDescription DESCRIPTION = new CommandDescription(
+      "Finds and lists all found files/directories of a given expression.",
+      new String[] {"find PATH... -type [f|d] -name EXPRESSION"},
+      new String[] {"Nothing is returned if no files are found"});
+
   private final String TYPE_IDENTIFIER = "type";
   private final String NAME_IDENTIFIER = "name";
   private final String TYPE_FILE = "f";
   private final String TYPE_DIR = "d";
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
-    String expression = args
-        .getNamedCommandParameter(NAME_IDENTIFIER);
+    String expression = args.getNamedCommandParameter(NAME_IDENTIFIER);
 
     StringBuilder output = new StringBuilder();
 
@@ -54,14 +57,12 @@ public class CmdFind extends Command {
         // If we're looking for file occurrences
         if (type.equals(TYPE_FILE)) {
           // Search recursively for the file
-          outputPaths = findFileInDirectoryStructure(currDir,
-              expression);
+          outputPaths = findFileInDirectoryStructure(currDir, expression);
         }
         // If we're looking for directory occurrences
         else if (type.equals(TYPE_DIR)) {
           // Search recursively for the directory
-          outputPaths = findDirectoryInDirectoryStructure(currDir,
-              expression);
+          outputPaths = findDirectoryInDirectoryStructure(currDir, expression);
         }
 
         // Print out the set as a string with each entry on a new line
@@ -69,25 +70,29 @@ public class CmdFind extends Command {
           output.append(outputPath).append("\n");
         }
 
-      } catch (MalformedPathException | FileNotFoundException e) {
-        ErrorConsole.getInstance().writeln("Erorr: invalid file/path");
+      } catch (MalformedPathException e1) {
+        errOut.writeln("Error: invalid path");
+      } catch (FileNotFoundException e2) {
+        errOut.writeln("Error: file/directory not found");
       }
+
     }
-    // Return the output
-    return output.toString();
+    // Print the output
+    out.writeln(output.toString());
+
+    return 0;
   }
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name
-   * "name"
+   * Gets a set of all absolute paths to instances of files with the name "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
    * @return Returns the set
    */
-  private Set<String> findFileInDirectoryStructure(Directory dir,
-      String name) throws FileNotFoundException {
+  private Set<String> findFileInDirectoryStructure(Directory dir, String name)
+      throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
     Set<String> ret_set = new HashSet<>();
@@ -151,8 +156,7 @@ public class CmdFind extends Command {
       // TODO: make sure this is ok not to error
       // Call the function recursively again on the child directory and add any
       // instances of the directory to the current return set
-      ret_set
-          .addAll(findDirectoryInDirectoryStructure(childDir, name));
+      ret_set.addAll(findDirectoryInDirectoryStructure(childDir, name));
     }
 
     // Return the set
@@ -171,10 +175,8 @@ public class CmdFind extends Command {
         && args.getNumberOfNamedCommandParameters() == 2
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
-        && (args.getNamedCommandParameter(TYPE_IDENTIFIER)
-        .equals(TYPE_FILE)
-        || args.getNamedCommandParameter(TYPE_IDENTIFIER)
-        .equals(TYPE_DIR))
+        && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
+            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }
@@ -195,7 +197,7 @@ public class CmdFind extends Command {
    * @return The command description
    */
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
   }
 }

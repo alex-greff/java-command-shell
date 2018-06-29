@@ -1,9 +1,12 @@
 package unitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import commands.CmdMan;
 import containers.CommandArgs;
+import io.Console;
+import io.ErrorConsole;
 import org.junit.Test;
 import utilities.Command;
 
@@ -14,11 +17,10 @@ public class CmdManTest {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
     Command cmd = new CmdMan();
-    String out_actual = cmd.execute(args);
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
-    System.out.println(out_actual);
-
-    assertTrue(out_actual.length() > 0);
+    assertEquals(exitVal, 0);
   }
 
   @Test
@@ -26,10 +28,9 @@ public class CmdManTest {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
     Command cmd = new CmdMan();
-    String out_actual = cmd.execute(args);
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
-    System.out.println(out_actual);
-
-    assertTrue(out_actual.length() > 0);
+    assertEquals(exitVal, 0);
   }
 }

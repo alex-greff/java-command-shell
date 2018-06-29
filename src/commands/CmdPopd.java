@@ -30,16 +30,18 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.DirectoryStack;
-import io.ErrorConsole;
+import io.Writable;
 import utilities.Command;
 
 public class CmdPopd extends Command {
 
   private final String NAME = "popd";
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {
@@ -52,11 +54,10 @@ public class CmdPopd extends Command {
       // the stack
       commandManager.executeCommand(cdArgs);
       // the command does not need to print anything
-      return "";
+      return 0;
     } else {
-      ErrorConsole.getInstance()
-          .writeln("Error: The directory stack is empty.");
-      return "";
+      errOut.writeln("Error: The directory stack is empty.");
+      return 1;
     }
   }
 
@@ -76,11 +77,15 @@ public class CmdPopd extends Command {
   }
 
   @Override
-  public String getDescription() {
-    return "popd Command Documentation\n" + "Description:\n"
-        + "    - popd: removes the directory at the top of the "
-        + "directory stack and changes the current working "
-        + "directory to the removed directory.\n" + "\n Usage: popd";
+  public CommandDescription getDescription() {
+    return DESCRIPTION;
+    /*
+     * return "popd Command Documentation\n" + "Description:\n" +
+     * "    - popd: removes the directory at the top of the " +
+     * "directory stack and changes the current working " +
+     * "directory to the removed directory.\n" + "\n Usage: popd";
+     */
+    // TODO: remove
   }
 
 }

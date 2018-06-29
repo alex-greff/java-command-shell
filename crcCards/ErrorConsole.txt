@@ -1,0 +1,8 @@
+Class name: ErrorConsole
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Writes output to the error console
+
+Collaborators:

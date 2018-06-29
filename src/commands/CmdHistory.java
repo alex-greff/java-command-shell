@@ -30,7 +30,9 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import driver.JShell;
+import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
 
@@ -38,19 +40,10 @@ import utilities.Command;
 public class CmdHistory extends Command {
 
   private final String NAME = "history";
-  private final String DESCRIPTION = "History Command Documentation\n"
-      + "Description:\n\t - history: "
-      + "This command lists all of the past lines of user entry by\n\t\t "
-      + "default, but if given a positive integer argument x, the last x \n\t"
-      + "\t user entries will be listed. \n\n"
-      + "Usage:\n\t - history \n\t - history [int]\n\n"
-      + "Additional Comments: \n\t"
-      + "- The history command itself will always take place as the \n\t"
-      + "  latest user entry.\n";
-
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history
@@ -67,18 +60,18 @@ public class CmdHistory extends Command {
     else if (params.length == 1) {
       // check if the parameter is an int
       if (!params[0].matches("\\d+")) {
-        return null;
+        return 1;
       }
       int paramInt = Integer.parseInt(params[0]);
       if (paramInt < 0) {
         // error if a negative integer is passed as an argument
-        return null;
+        return 1;
       }
       int index = history.size() - paramInt;
       // in the case that the parameter int is bigger than the size of history
       // resort to printing the whole history rather than throwing error
-      ArrayList<String> newList = new ArrayList<>
-          (history.subList(Math.max(index, 0), history.size()));
+      ArrayList<String> newList =
+          new ArrayList<>(history.subList(Math.max(index, 0), history.size()));
 
       for (String item : newList) {
         result.append(Integer.toString(i)).append(". ").append(item)
@@ -87,7 +80,10 @@ public class CmdHistory extends Command {
       }
       // if the parameter was 0, an empty string is returned
     }
-    return result.toString();
+
+    out.writeln(result.toString());
+
+    return 0;
   }
 
   @Override
@@ -105,8 +101,15 @@ public class CmdHistory extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
+    /*
+     * return "This command lists all of the past lines of user entry by" +
+     * "default, but if given a positive integer argument x, the last x " +
+     * "user entries will be listed. Note that the history command itself" +
+     * "will always take place as the latest user entry.\n";
+     */
+    // TODO: remove
   }
 
 }

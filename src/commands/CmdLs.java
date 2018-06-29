@@ -30,30 +30,23 @@
 package commands;
 
 import containers.CommandArgs;
+import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
 
 public class CmdLs extends Command {
 
   private final String NAME = "ls";
-  private final String DESCRIPTION = "Ls Command Documentation \n"
-      + "Description: ls \n"
-      + "\t - This command lists all of the directories and files in\n"
-      + "\t   the current working directory.\n"
-      + "Usage: \n\t"
-      + "- ls\n\t- ls [Directory] \n\t- ls [Directory1] [Directory2]...\n"
-      + "Additional Comments:\n\t"
-      + "- This command can take none or multiple arguments\n\t"
-      + "- You can use either the relative path to a directory\n\t"
-      + "  or the absolute path.\n";
+  private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public String execute(CommandArgs args) {
+  public int execute(CommandArgs args, Writable out, Writable errOut) {
     StringBuilder result = new StringBuilder();
     Directory curr = FileSystem.getInstance().getWorkingDir();
     Path path;
@@ -66,8 +59,7 @@ public class CmdLs extends Command {
           path = new Path(name);
           curr = fileSystem.getDirByPath(path);
         } catch (MalformedPathException | FileNotFoundException m) {
-          result.append("Error: Path ").append(name)
-              .append(" was not found.\n");
+          errOut.writeln("Error: Path \"" + name + "\" was not found");
         } // end try-catch for absolute pathing errors
         result.append(addon(curr));
       }
@@ -76,7 +68,10 @@ public class CmdLs extends Command {
     else {
       result = new StringBuilder(addon(curr));
     }
-    return result.toString();
+
+    out.writeln(result.toString());
+
+    return 0;
   }
 
   private String addon(Directory dir) {
@@ -102,9 +97,9 @@ public class CmdLs extends Command {
    */
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getNumberOfNamedCommandParameters() == 0 && args
-        .getRedirectOperator().equals("") && args.getTargetDestination()
-        .equals("");
+        && args.getNumberOfNamedCommandParameters() == 0
+        && args.getRedirectOperator().equals("")
+        && args.getTargetDestination().equals("");
   }
 
   @Override
@@ -113,8 +108,14 @@ public class CmdLs extends Command {
   }
 
   @Override
-  public String getDescription() {
+  public CommandDescription getDescription() {
     return DESCRIPTION;
+    /*
+     * return "This command lists all of the directories and files in" +
+     * "the current working directory. No arguments are needed for this " +
+     * "command.\n";
+     */
+    // TODO: remove
   }
 
 }

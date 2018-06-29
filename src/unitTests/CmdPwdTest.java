@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import commands.CmdPwd;
 import containers.CommandArgs;
 import filesystem.FileSystem;
+import io.Console;
+import io.ErrorConsole;
 import org.junit.Test;
 import utilities.Command;
 
@@ -15,12 +17,9 @@ public class CmdPwdTest {
     CommandArgs args = new CommandArgs("pwd");
 
     Command cmd = new CmdPwd();
-    String out_actual = cmd.execute(args);
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
-    FileSystem FS = FileSystem.getInstance();
-
-    System.out.println(out_actual);
-
-    assertEquals(FS.getWorkingDirPath() + "\n", out_actual);
+    assertEquals(exitVal, 0);
   }
 }

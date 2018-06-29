@@ -6,6 +6,8 @@ import commands.CmdCd;
 import containers.CommandArgs;
 import filesystem.DirectoryAlreadyExistsException;
 import filesystem.FileSystem;
+import io.Console;
+import io.ErrorConsole;
 import org.junit.Test;
 import utilities.Command;
 
@@ -21,7 +23,7 @@ public class CmdCdTest {
     FileSystem FS = FileSystem.getInstance();
     FS.getRoot().createAndAddNewDir("testDir");
 
-    cmd.execute(args);
+    cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
 
     assertEquals(FS.getWorkingDirPath(), "/testDir/");
   }

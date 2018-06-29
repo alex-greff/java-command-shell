@@ -10,6 +10,8 @@ import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
+import io.Console;
+import io.ErrorConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -37,9 +39,9 @@ public class CmdLsTest {
   public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
     Command cmd = new CmdLs();
-    String out_actual = cmd.execute(args);
-    String[] names = out_actual.split("\n");
-    assertEquals(4, names.length);
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+    assertEquals(exitVal, 0);
   }
 
   @Test
@@ -48,8 +50,9 @@ public class CmdLsTest {
     params[0] = "/dir1";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
-    String out_actual = cmd.execute(args);
-    assertEquals(0, out_actual.length());
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+    assertEquals(exitVal, 0);
   }
 
   @Test
@@ -58,8 +61,9 @@ public class CmdLsTest {
     params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
-    String out_actual = cmd.execute(args);
-    assertEquals("file3\n", out_actual);
+    int exitVal =
+        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+    assertEquals(exitVal, 0);
   }
 
 }
