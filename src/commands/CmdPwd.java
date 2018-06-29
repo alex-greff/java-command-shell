@@ -38,12 +38,9 @@ import utilities.Command;
 public class CmdPwd extends Command {
 
   private final String NAME = "pwd";
-  /*private final String DESCRIPTION =
-      "" + "Pwd Command Documentation\n"
-          + "Description:\n" + "    - pwd: print working directory\n"
-          + "    \n" + "Usage:\r\n" + "    - pwd\n" + "    \n"
-          + "Additional Comments:\n" + "    - None\n";*/
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  private CommandDescription DESCRIPTION = new CommandDescription(
+      "Print working directory.", new String[] {"pwd"},
+      new String[] {"None."});
 
   @Override
   public int execute(CommandArgs args, Writable out, Writable errOut) {

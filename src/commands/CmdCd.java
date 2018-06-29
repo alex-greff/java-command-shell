@@ -40,13 +40,9 @@ import utilities.Command;
 public class CmdCd extends Command {
 
   private final String NAME = "cd";
-  /*
-   * private final String DESCRIPTION = "" + "Cd Command Documentation\n" +
-   * "Description:\n" + "    - cd: change directory\n" + "    \n" + "Usage:\r\n"
-   * + "    - cd DIRECTORY\n" + "    \n" + "Additional Comments:\n" +
-   * "    - Path of DIRECTORY can be" + "relative or absolute\n";
-   */
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  private CommandDescription DESCRIPTION = new CommandDescription(
+      "Change directory.", new String[] {"cd DIRECTORY"},
+      new String[] {"Path of DIRECTORY can be relative or absolute."});
 
   @Override
   public int execute(CommandArgs args, Writable out, Writable errOut) {
