@@ -1,14 +1,12 @@
 package unitTests;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+
 import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.DirectoryAlreadyExistsException;
-import filesystem.File;
 import filesystem.FileAlreadyExistsException;
+import filesystem.File;
 import filesystem.FileSystem;
 import io.Console;
 import io.ErrorConsole;
@@ -22,7 +20,7 @@ public class CmdFindTest {
 
   @Before
   public void Setup()
-      throws FileAlreadyExistsException, DirectoryAlreadyExistsException {
+      throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -50,7 +48,8 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     assertSame(exitVal, ExitCode.SUCCESS);
   }

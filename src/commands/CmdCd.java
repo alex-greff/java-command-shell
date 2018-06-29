@@ -46,7 +46,8 @@ public class CmdCd extends Command {
       new String[]{"Path of DIRECTORY can be relative or absolute."});
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     String location = args.getCommandParameters()[0];
 
     try {

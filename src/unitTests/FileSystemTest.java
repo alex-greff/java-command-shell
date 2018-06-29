@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import filesystem.Directory;
-import filesystem.DirectoryAlreadyExistsException;
+import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
@@ -15,7 +15,7 @@ public class FileSystemTest {
 
   @Test
   public void testAddingNewDirectoryToWorkingDirectory()
-      throws DirectoryAlreadyExistsException {
+      throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // make sure that the current working directory is root
     assertEquals("/", fs.getWorkingDirPath());

@@ -44,7 +44,8 @@ public class CmdHistory extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history
@@ -72,7 +73,8 @@ public class CmdHistory extends Command {
       // in the case that the parameter int is bigger than the size of history
       // resort to printing the whole history rather than throwing error
       ArrayList<String> newList =
-          new ArrayList<>(history.subList(Math.max(index, 0), history.size()));
+          new ArrayList<>(
+              history.subList(Math.max(index, 0), history.size()));
 
       for (String item : newList) {
         result.append(Integer.toString(i)).append(". ").append(item)

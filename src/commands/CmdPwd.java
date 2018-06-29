@@ -44,7 +44,8 @@ public class CmdPwd extends Command {
       new String[]{"None."});
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     FileSystem fs = FileSystem.getInstance();
 
     out.writeln(fs.getWorkingDirPath());

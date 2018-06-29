@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdPwd;
 import containers.CommandArgs;
-import filesystem.FileSystem;
 import io.Console;
 import io.ErrorConsole;
 import org.junit.Test;
@@ -19,7 +18,8 @@ public class CmdPwdTest {
 
     Command cmd = new CmdPwd();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     assertEquals(exitVal, 0);
   }

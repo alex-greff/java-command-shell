@@ -47,9 +47,9 @@ public class CmdEcho extends Command {
   private final String NAME = "echo";
   private CommandDescription DESCRIPTION =
       new CommandDescription("Appends or writes a string to a file.",
-          new String[] {"echo STRING", "echo STRING [> OUTFILE]",
+          new String[]{"echo STRING", "echo STRING [> OUTFILE]",
               "echo STRING [>> OUTFILE]"},
-          new String[] {
+          new String[]{
               "The \">\" character signals to overwrite the file conents.",
               "The \">>\" character signals to append to the file conents."});
 
@@ -58,7 +58,8 @@ public class CmdEcho extends Command {
   private final String APPEND_OPERATOR = ">>";
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Initialize default command output
     String output = "";
     ExitCode exitValue = ExitCode.SUCCESS;
@@ -95,8 +96,9 @@ public class CmdEcho extends Command {
    * @param errOut The error output to use.
    * @return Returns 0 if the write succeeded, 1 if not.
    */
-  private ExitCode writeToFile(CommandArgs args, Writable out, Writable
-      errOut)
+  private ExitCode writeToFile(CommandArgs args, Writable out,
+      Writable
+          errOut)
       throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();
@@ -124,7 +126,8 @@ public class CmdEcho extends Command {
 
         // Get the directory that the file is in
         String dirPathStr =
-            (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
+            (lastSlash > -1) ? filePathStr.substring(0, lastSlash)
+                : "";
 
         if (dirPathStr.equals("")) {
           dirPathStr = "/";
@@ -175,7 +178,8 @@ public class CmdEcho extends Command {
 
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
@@ -185,8 +189,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR))
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 

@@ -34,7 +34,6 @@ import filesystem.FileSystem;
 import io.Console;
 import io.ErrorConsole;
 import java.util.ArrayList;
-import utilities.Command;
 import utilities.CommandManager;
 import utilities.Parser;
 

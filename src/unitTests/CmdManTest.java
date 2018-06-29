@@ -1,7 +1,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import commands.CmdMan;
 import containers.CommandArgs;
@@ -19,7 +18,8 @@ public class CmdManTest {
 
     Command cmd = new CmdMan();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     assertEquals(exitVal, 0);
   }
@@ -30,7 +30,8 @@ public class CmdManTest {
 
     Command cmd = new CmdMan();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     assertEquals(exitVal, 0);
   }

@@ -107,12 +107,14 @@ public class CommandManager {
           errorOut.writeln("Error: invalid command arguments");
         }
       } else {
-        errorOut.writeln("Error: command not found, please try again");
+        errorOut
+            .writeln("Error: command not found, please try again");
       }
     }
   }
 
-  public CommandDescription getCommandDescription(String commandName) {
+  public CommandDescription getCommandDescription(
+      String commandName) {
     Command cmd = cmdMap.get(commandName);
     CommandDescription desc = null;
     if (cmd != null) {

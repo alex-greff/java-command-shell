@@ -1,12 +1,10 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
@@ -21,7 +19,7 @@ public class CmdLsTest {
 
   @Before
   public void setup()
-      throws FileAlreadyExistsException, DirectoryAlreadyExistsException {
+      throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     Directory root = fs.getRoot();
     Directory dir1 = root.createAndAddNewDir("dir1");
@@ -41,7 +39,8 @@ public class CmdLsTest {
     CommandArgs args = new CommandArgs("ls");
     Command cmd = new CmdLs();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
     assertEquals(exitVal, 0);
   }
 
@@ -52,7 +51,8 @@ public class CmdLsTest {
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
     assertEquals(exitVal, 0);
   }
 
@@ -63,7 +63,8 @@ public class CmdLsTest {
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
     assertEquals(exitVal, 0);
   }
 

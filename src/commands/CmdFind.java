@@ -27,8 +27,8 @@ public class CmdFind extends Command {
    */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Finds and lists all found files/directories of a given expression.",
-      new String[] {"find PATH... -type [f|d] -name EXPRESSION"},
-      new String[] {"Nothing is returned if no files are found"});
+      new String[]{"find PATH... -type [f|d] -name EXPRESSION"},
+      new String[]{"Nothing is returned if no files are found"});
 
   private final String TYPE_IDENTIFIER = "type";
   private final String NAME_IDENTIFIER = "name";
@@ -36,10 +36,12 @@ public class CmdFind extends Command {
   private final String TYPE_DIR = "d";
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
-    String expression = args.getNamedCommandParameter(NAME_IDENTIFIER);
+    String expression = args
+        .getNamedCommandParameter(NAME_IDENTIFIER);
 
     StringBuilder output = new StringBuilder();
 
@@ -58,12 +60,14 @@ public class CmdFind extends Command {
         // If we're looking for file occurrences
         if (type.equals(TYPE_FILE)) {
           // Search recursively for the file
-          outputPaths = findFileInDirectoryStructure(currDir, expression);
+          outputPaths = findFileInDirectoryStructure(currDir,
+              expression);
         }
         // If we're looking for directory occurrences
         else if (type.equals(TYPE_DIR)) {
           // Search recursively for the directory
-          outputPaths = findDirectoryInDirectoryStructure(currDir, expression);
+          outputPaths = findDirectoryInDirectoryStructure(currDir,
+              expression);
         }
 
         // Print out the set as a string with each entry on a new line
@@ -86,13 +90,15 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name "name"
+   * Gets a set of all absolute paths to instances of files with the
+   * name "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
    * @return Returns the set
    */
-  private Set<String> findFileInDirectoryStructure(Directory dir, String name)
+  private Set<String> findFileInDirectoryStructure(Directory dir,
+      String name)
       throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
@@ -130,8 +136,8 @@ public class CmdFind extends Command {
   }
 
   /**
-   * Gets a set of all absolute paths to instances of directories with the name
-   * "name"
+   * Gets a set of all absolute paths to instances of directories with
+   * the name "name"
    *
    * @param dir The current directory
    * @param name The wanted directory name
@@ -157,7 +163,8 @@ public class CmdFind extends Command {
       // TODO: make sure this is ok not to error
       // Call the function recursively again on the child directory and add any
       // instances of the directory to the current return set
-      ret_set.addAll(findDirectoryInDirectoryStructure(childDir, name));
+      ret_set
+          .addAll(findDirectoryInDirectoryStructure(childDir, name));
     }
 
     // Return the set
@@ -165,7 +172,8 @@ public class CmdFind extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
@@ -176,8 +184,10 @@ public class CmdFind extends Command {
         && args.getNumberOfNamedCommandParameters() == 2
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
-        && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        && (args.getNamedCommandParameter(TYPE_IDENTIFIER)
+        .equals(TYPE_FILE)
+        || args.getNamedCommandParameter(TYPE_IDENTIFIER)
+        .equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }

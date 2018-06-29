@@ -68,7 +68,8 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name and named command arguments
+   * Constructor initializing with command name and named command
+   * arguments
    *
    * @param cmdName the name of the command
    * @param namedCmdParams the parameters that are mapped by type
@@ -79,8 +80,8 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name, command arguments and named
-   * command arguments
+   * Constructor initializing with command name, command arguments and
+   * named command arguments
    *
    * @param cmdName the command name
    * @param cmdParams the command arguments
@@ -92,8 +93,8 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name, redirect operator and target
-   * destination
+   * Constructor initializing with command name, redirect operator and
+   * target destination
    *
    * @param cmdName the name of the command
    * @param redirOperator the redirect operator
@@ -106,8 +107,8 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name, command arguments, redirect
-   * operator and target destination
+   * Constructor initializing with command name, command arguments,
+   * redirect operator and target destination
    *
    * @param cmdName the name of the command
    * @param cmdArgs the command arguments
@@ -122,8 +123,8 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name, named command arguments,
-   * redirect operator and target destination
+   * Constructor initializing with command name, named command
+   * arguments, redirect operator and target destination
    *
    * @param cmdName the name of the command
    * @param namedCmdArgs the parameters that are mapped by type
@@ -138,8 +139,9 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name, command arguments, named
-   * command arguments, the redirect operator and the target destination
+   * Constructor initializing with command name, command arguments,
+   * named command arguments, the redirect operator and the target
+   * destination
    *
    * @param cmdName the command name
    * @param cmdParams the command arguments
@@ -167,10 +169,11 @@ public class CommandArgs {
   }
 
   /**
-   * Gets the command arguments or returns an empty array if there are none
+   * Gets the command arguments or returns an empty array if there are
+   * none
    *
-   * @return Returns the array of command arguments. Returns an empty array if
-   * there are none
+   * @return Returns the array of command arguments. Returns an empty
+   * array if there are none
    */
   public String[] getCommandParameters() {
     return cmdParams;
@@ -180,7 +183,8 @@ public class CommandArgs {
    * Gets the named command parameter with a given name.
    *
    * @param name The name of the type.
-   * @return Returns the parameter mapped to name or null it is it not mapped.
+   * @return Returns the parameter mapped to name or null it is it not
+   * mapped.
    */
   public String getNamedCommandParameter(String name) {
     return this.namedCmdParams.get(name);
@@ -189,7 +193,8 @@ public class CommandArgs {
   /**
    * Gets a copy of the hash map for the named command parameters
    *
-   * @return Returns a copy of the hash map for the named command parameters
+   * @return Returns a copy of the hash map for the named command
+   * parameters
    */
   public HashMap<String, String> getNamedCommandParametersMap() {
     return new HashMap<>(this.namedCmdParams);
@@ -216,17 +221,19 @@ public class CommandArgs {
   /**
    * Gets the redirect operator or returns "" if there is none
    *
-   * @return Returns the redirect operator. Returns "" if there is none
+   * @return Returns the redirect operator. Returns "" if there is
+   * none
    */
   public String getRedirectOperator() {
     return redirOperator;
   }
 
   /**
-   * Gets the target redirect destination or returns "" if there is none
-   *
-   * @return Returns the target redirect destination. Returns "" if there is
+   * Gets the target redirect destination or returns "" if there is
    * none
+   *
+   * @return Returns the target redirect destination. Returns "" if
+   * there is none
    */
   public String getTargetDestination() {
     return targetDest;

@@ -47,7 +47,8 @@ public class Directory {
   private HashMap<String, File> childFiles = new HashMap<>();
 
   /**
-   * Creates a new directory given the name of the directory and its parent
+   * Creates a new directory given the name of the directory and its
+   * parent
    *
    * @param name The name of the new directory
    * @param parent The parent of this directory
@@ -58,31 +59,32 @@ public class Directory {
   }
 
   /**
-   * Adds a given directory as a child of this directory if the directory does
-   * not already exist
+   * Adds a given directory as a child of this directory if the
+   * directory does not already exist
    *
    * @param name The name of the new child directory
    */
   public Directory createAndAddNewDir(String name)
-      throws DirectoryAlreadyExistsException {
+      throws FileAlreadyExistsException {
     Directory newDir = new Directory(name, this);
-    if (!childDirs.containsKey(name)) {
+    if (!containsDir(name) && !containsFile(name)) {
       this.childDirs.put(name, newDir);
     } else {
-      throw new DirectoryAlreadyExistsException();
+      throw new FileAlreadyExistsException();
     }
     return newDir;
   }
 
   /**
-   * Adds a given file as a child of this directory if the file does not already
-   * exist otherwise raises error
+   * Adds a given file as a child of this directory if the file does
+   * not already exist otherwise raises error
    *
    * @param newFile The child file
    */
-  public void addFile(File newFile) throws FileAlreadyExistsException {
+  public void addFile(File newFile)
+      throws FileAlreadyExistsException {
     String fileName = newFile.getName();
-    if (!childFiles.containsKey(fileName)) {
+    if (!containsDir(fileName) && !containsFile(fileName)) {
       this.childFiles.put(fileName, newFile);
     } else {
       throw new FileAlreadyExistsException();
@@ -94,7 +96,8 @@ public class Directory {
    *
    * @param name The name of the directory to remove
    */
-  public void removeDirByName(String name) throws FileNotFoundException {
+  public void removeDirByName(String name)
+      throws FileNotFoundException {
     if (!childDirs.containsKey(name)) {
       throw new FileNotFoundException();
     }
@@ -106,7 +109,8 @@ public class Directory {
    *
    * @param name The name of the file to remove
    */
-  public void removeFileByName(String name) throws FileNotFoundException {
+  public void removeFileByName(String name)
+      throws FileNotFoundException {
     if (!childFiles.containsKey(name)) {
       throw new FileNotFoundException();
     }
@@ -124,7 +128,8 @@ public class Directory {
   }
 
   /**
-   * Checks if the directory with the given name exits in this directory
+   * Checks if the directory with the given name exits in this
+   * directory
    *
    * @param name The name of the directory to look for
    * @return True if the directory exists, False otherwise
@@ -139,7 +144,8 @@ public class Directory {
    * @param name The name of the directory wanted
    * @return The directory with the given name
    */
-  public Directory getDirByName(String name) throws FileNotFoundException {
+  public Directory getDirByName(String name)
+      throws FileNotFoundException {
     if (!childDirs.containsKey(name)) {
       throw new FileNotFoundException();
     }
@@ -152,7 +158,8 @@ public class Directory {
    * @param name The name of the file wanted
    * @return The file with the given name
    */
-  public File getFileByName(String name) throws FileNotFoundException {
+  public File getFileByName(String name)
+      throws FileNotFoundException {
     if (!childFiles.containsKey(name)) {
       throw new FileNotFoundException();
     }

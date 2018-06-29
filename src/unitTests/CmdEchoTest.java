@@ -1,13 +1,11 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.DirectoryAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
@@ -26,7 +24,7 @@ public class CmdEchoTest {
 
   @Before
   public void Setup()
-      throws FileAlreadyExistsException, DirectoryAlreadyExistsException {
+      throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -49,11 +47,13 @@ public class CmdEchoTest {
   @Test
   public void testExecute1() {
     CommandArgs args =
-        new CommandArgs("echo", new String[] {"nice sentence you got there"});
+        new CommandArgs("echo",
+            new String[]{"nice sentence you got there"});
 
     Command cmd = new CmdEcho();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
     assertSame(exitVal, ExitCode.SUCCESS);
   }
 
@@ -61,11 +61,13 @@ public class CmdEchoTest {
   public void testExecute2()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
+        Parser.parseUserInput(
+            "echo \"some string\" > /dir1/dir4/file4");
 
     Command cmd = new CmdEcho();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     FileSystem fs = FileSystem.getInstance();
 
@@ -78,11 +80,13 @@ public class CmdEchoTest {
   @Test
   public void testExecute3()
       throws MalformedPathException, FileNotFoundException {
-    CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
+    CommandArgs args = Parser
+        .parseUserInput("echo \"some string\" >> /file1");
 
     Command cmd = new CmdEcho();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     FileSystem fs = FileSystem.getInstance();
 
@@ -96,11 +100,13 @@ public class CmdEchoTest {
   public void testExecute4()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
+        Parser.parseUserInput(
+            "echo \"some string\" >> /fileBlahBlahBlah");
 
     Command cmd = new CmdEcho();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     FileSystem fs = FileSystem.getInstance();
 
@@ -112,11 +118,13 @@ public class CmdEchoTest {
   @Test
   public void testExecute5() {
     CommandArgs args =
-        Parser.parseUserInput("notEcho \"some string\" >> /fileBlahBlahBlah");
+        Parser.parseUserInput(
+            "notEcho \"some string\" >> /fileBlahBlahBlah");
 
     Command cmd = new CmdEcho();
     ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
 
     assertSame(exitVal, ExitCode.SUCCESS);
   }

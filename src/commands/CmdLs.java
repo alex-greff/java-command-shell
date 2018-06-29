@@ -31,8 +31,8 @@ package commands;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
-import filesystem.File;
 import filesystem.Directory;
+import filesystem.File;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
@@ -49,7 +49,6 @@ public class CmdLs extends Command {
 
 
   /**
-   *
    * @param args The command Arguments.
    * @param out Gets the commands standard output written to
    * @param errOut Gets the commands standard error output written to
@@ -72,13 +71,14 @@ public class CmdLs extends Command {
           result.append(addon(curr));
         } catch (MalformedPathException | FileNotFoundException m) {
           // if name was not detected as directory, try searching for the file
-          try{
+          try {
             File file = curr.getFileByName(name);
             result.append(addFileName(file));
-          } catch(FileNotFoundException e){
+          } catch (FileNotFoundException e) {
             // only error out if the name was not found as either file or dir.
             errOut
-                .writeln("Error: File \"" + name + "\" was not found");
+                .writeln(
+                    "Error: File \"" + name + "\" was not found");
           }//end catch for filenotFound
         } // end catch for bad/no existing path
       }//end forloop for all params
@@ -91,7 +91,7 @@ public class CmdLs extends Command {
 
     if (result.length() > 0) {
       // trim final newline
-      result.reverse().delete(0,1).reverse();
+      result.reverse().delete(0, 1).reverse();
       out.write(result.toString());
     }
 
@@ -99,8 +99,8 @@ public class CmdLs extends Command {
   }
 
   /**
-   *
-   * @param dir The directory whose contents will be represented by a string
+   * @param dir The directory whose contents will be represented by a
+   * string
    * @return The string representation of the directories contents
    */
   private String addon(Directory dir) {
@@ -115,13 +115,13 @@ public class CmdLs extends Command {
     for (String name : files) {
       result.append(name).append("\n");
     }
-    return (result.toString()+"\n");
+    return (result.toString() + "\n");
   }
 
-  private String addFileName(File file){
-    String res="";
+  private String addFileName(File file) {
+    String res = "";
     String name = file.getName();
-    res=name+"\n\n";
+    res = name + "\n\n";
     return res;
   }
 
@@ -140,7 +140,6 @@ public class CmdLs extends Command {
   }
 
   /**
-   *
    * @return the name of the command
    */
   @Override
@@ -149,7 +148,6 @@ public class CmdLs extends Command {
   }
 
   /**
-   *
    * @return the documentation of the command
    */
   @Override

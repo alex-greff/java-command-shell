@@ -46,8 +46,8 @@ public class CmdMan extends Command {
    * "Additional Comments:\n" + "    - For some fun try \"man man\".\n";
    */
   private CommandDescription DESCRIPTION = new CommandDescription(
-      "Gets documentation for commands.", new String[] {"man COMMAND"},
-      new String[] {"For some fun try \"man man\"."});
+      "Gets documentation for commands.", new String[]{"man COMMAND"},
+      new String[]{"For some fun try \"man man\"."});
 
   /**
    * Executes the man command with the arguments args
@@ -56,24 +56,28 @@ public class CmdMan extends Command {
    * @return Returns the output of the command
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the description of the command
     // Return the command description
     // return commandManager.getCommandDescription(cmdName); // TODO: fix
-    CommandDescription cmdDesc = commandManager.getCommandDescription(cmdName);
+    CommandDescription cmdDesc = commandManager
+        .getCommandDescription(cmdName);
 
     if (cmdDesc == null) {
       errOut.writeln(
-          "Error: No description found for command \"" + cmdName + "\"");
+          "Error: No description found for command \"" + cmdName
+              + "\"");
       return ExitCode.FAILURE;
     }
 
     StringBuilder output = new StringBuilder();
 
     output.append("\"" + cmdName + "\" Command Documentation\n");
-    output.append("Description:\n\t" + cmdDesc.getDescription() + "\n");
+    output
+        .append("Description:\n\t" + cmdDesc.getDescription() + "\n");
     output.append("Usage:");
     for (String usage : cmdDesc.getUsages()) {
       output.append("\n\t- " + usage);
@@ -92,7 +96,8 @@ public class CmdMan extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command

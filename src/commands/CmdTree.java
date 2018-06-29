@@ -45,7 +45,8 @@ public class CmdTree extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
@@ -68,7 +69,8 @@ public class CmdTree extends Command {
         && args.getTargetDestination().equals("");
   }
 
-  private String addon(Directory curr, int tabs) throws FileNotFoundException {
+  private String addon(Directory curr, int tabs)
+      throws FileNotFoundException {
     // get proper amount of tabs
     StringBuilder spacing = new StringBuilder();
     for (int i = 0; i < tabs; i++) {

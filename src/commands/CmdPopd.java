@@ -42,7 +42,8 @@ public class CmdPopd extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {

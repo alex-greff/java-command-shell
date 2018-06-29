@@ -48,7 +48,8 @@ public class CmdCat extends Command {
           "Can take more than one FILE as arguments."});
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
 

@@ -32,7 +32,7 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
-import filesystem.DirectoryAlreadyExistsException;
+import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -46,7 +46,8 @@ public class CmdMkdir extends Command {
   private CommandDescription DESCRIPTION = null; // TODO: initialize
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     for (String pathString : args.getCommandParameters()) {
       try {
         Path path = new Path(pathString);
@@ -59,8 +60,8 @@ public class CmdMkdir extends Command {
       } catch (FileNotFoundException e) {
         errOut.writeln("Error: Parent directory not found");
         return ExitCode.FAILURE;
-      } catch (DirectoryAlreadyExistsException e) {
-        errOut.writeln("Error: Directory already exists");
+      } catch (FileAlreadyExistsException e) {
+        errOut.writeln("Error: File already exists");
         return ExitCode.FAILURE;
       }
     }

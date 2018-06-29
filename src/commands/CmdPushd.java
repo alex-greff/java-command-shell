@@ -40,11 +40,12 @@ public class CmdPushd extends Command {
 
   private final String NAME = "pushd";
   private CommandDescription DESCRIPTION = null; // TODO: initialize
-  
+
   private DirectoryStack dirStack = DirectoryStack.getInstance();
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with
