@@ -74,10 +74,17 @@ public class JShell {
 
   }
 
+  /**
+   * This function works as a toggle for JShells exit condition
+   */
   public static void exit() {
     JShell.running = false;
   }
 
+  /**
+   *
+   * @return the user input history
+   */
   public static ArrayList<String> getHistory() {
     return history;
   }

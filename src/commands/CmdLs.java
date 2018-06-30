@@ -45,7 +45,15 @@ import utilities.ExitCode;
 public class CmdLs extends Command {
 
   private final String NAME = "ls";
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  private CommandDescription DESCRIPTION = new CommandDescription(
+      "Lists all of the files and directories in the current\n"
+          + "working directory. Can take multiple filenames/directory \n"
+          + "names as arguments",
+      new String[]{"ls", "ls [Directory]", "ls [File]",
+          "ls [Directory] [File]"},
+      new String[]{"If given a filename, ls will simply print back that name",
+          "ls separates multiple argument's content with an extra newline"}
+  );
 
 
   /**
@@ -154,5 +162,4 @@ public class CmdLs extends Command {
   public CommandDescription getDescription() {
     return DESCRIPTION;
   }
-
 }

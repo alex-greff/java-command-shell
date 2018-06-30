@@ -42,7 +42,13 @@ import utilities.ExitCode;
 public class CmdTree extends Command {
 
   private final String NAME = "tree";
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  private CommandDescription DESCRIPTION = new CommandDescription(
+      "prints a tree representation of the entire filesystem, \n"
+          + "stemming from the root.",
+      new String[]{"tree"},
+      new String[]{"tree doesnt take any arguments", "directory content is "
+          + "listed a tab forward, and below the directory name"}
+  );
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
@@ -104,13 +110,6 @@ public class CmdTree extends Command {
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;
-    /*
-     * return "This command prints a tree representation of the entire" +
-     * "filesystem, starting from the root. Takes in no parameters." +
-     * "Files and subdirectories within a directory appear on tab ahead," +
-     * "listed below the directory name.\n";
-     */
-    // TODO: remove
   }
 
 }

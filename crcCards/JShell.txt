@@ -11,3 +11,5 @@ Collaborators:
 * Parser
 * CommandManager
 * FileSystem
+* Console
+* ErrorConsole
