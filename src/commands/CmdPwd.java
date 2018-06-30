@@ -44,6 +44,15 @@ public class CmdPwd extends Command {
       "Print working directory.", new String[]{"pwd"},
       new String[]{"None."});
 
+  /**
+   * Executes the pwd command with the given arguments
+   * pwd prints the working directory
+   *
+   * @param args The command arguments container
+   * @param out Writable for Standard Output
+   * @param errOut Writable for Error Output
+   * @return Returns the ExitCode of the command, always SUCCESS
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the instance of the FileSystem
@@ -54,6 +63,13 @@ public class CmdPwd extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   * Helper function to check if the arguments passed are valid for this command
+   * pwd expects no arguments
+   *
+   * @param args The command arguments container
+   * @return Returns true iff the arguments are valid, false otherwise
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     // Make sure the NAME matches, nothing else
@@ -64,14 +80,20 @@ public class CmdPwd extends Command {
         && args.getTargetDestination().equals("");
   }
 
+  /**
+   * Gets the name of this command
+   *
+   * @return Returns the name of the command
+   */
   @Override
-  public String getName() {
-    return NAME;
-  }
+  public String getName() { return NAME; }
 
+  /**
+   * Gets the description for this command
+   *
+   * @return Returns the command description
+   */
   @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
+  public CommandDescription getDescription() { return DESCRIPTION; }
 
 }

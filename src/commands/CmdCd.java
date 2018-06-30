@@ -46,6 +46,15 @@ public class CmdCd extends Command {
       "Change directory.", new String[]{"cd DIRECTORY"},
       new String[]{"Path of DIRECTORY can be relative or absolute."});
 
+  /**
+   * Executes the cd command with the given arguments
+   * cd changes the working directory
+   *
+   * @param args The command arguments container
+   * @param out Writable for Standard Output
+   * @param errOut Writable for Error Output
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the DIRECTORY argument passed
@@ -72,6 +81,13 @@ public class CmdCd extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   * Helper function to check if the arguments passed are valid for this command
+   * cd expects only 1 argument
+   *
+   * @param args The command arguments container
+   * @return Returns true iff the arguments are valid, false otherwise
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     // Make sure the NAME matches, and just 1 argument, nothing else
@@ -82,11 +98,21 @@ public class CmdCd extends Command {
         && args.getTargetDestination().equals("");
   }
 
+  /**
+   * Gets the name of this command
+   *
+   * @return Returns the name of the command
+   */
   @Override
   public String getName() {
     return NAME;
   }
 
+  /**
+   * Gets the description for this command
+   *
+   * @return Returns the command description
+   */
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;

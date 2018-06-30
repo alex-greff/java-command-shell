@@ -48,6 +48,15 @@ public class CmdCat extends Command {
       new String[]{"Path of FILE can be relative or absolute.",
           "Can take more than one FILE as arguments."});
 
+  /**
+   * Executes the cat command with the given arguments
+   * cat prints the contents of files
+   *
+   * @param args The command arguments container
+   * @param out Writable for Standard Output
+   * @param errOut Writable for Error Output
+   * @return Returns the ExitCode of the command, always SUCCESS
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
@@ -80,6 +89,13 @@ public class CmdCat extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   * Helper function to check if the arguments passed are valid for this command
+   * cat expects at least 1 argument
+   *
+   * @param args The command arguments container
+   * @return Returns true iff the arguments are valid, false otherwise
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     // Make sure the NAME matches, and at least 1 argument, nothing else
@@ -90,11 +106,21 @@ public class CmdCat extends Command {
         && args.getTargetDestination().equals("");
   }
 
+  /**
+   * Gets the name of this command
+   *
+   * @return Returns the name of the command
+   */
   @Override
   public String getName() {
     return NAME;
   }
 
+  /**
+   * Gets the description for this command
+   *
+   * @return Returns the command description
+   */
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;
