@@ -1,0 +1,8 @@
+Class name: Path
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Manages path strings and makes them more accessible to use
+
+Collaborators:

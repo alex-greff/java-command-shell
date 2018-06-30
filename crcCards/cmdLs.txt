@@ -3,10 +3,13 @@ Parent class: Command
 Subclasses:
 
 Responsibilities:
-* list all of the contents within the given directory
+* list all of the files/directories within the given directory/file
 
 Collaborators:
 * CommandArgs
+* CommandDescription
 * File
 * Directory
 * FileSystem
+* Console
+* ErrorConsole

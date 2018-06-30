@@ -8,4 +8,7 @@ Responsibilities:
 
 Collaborators:
 * CommandArgs
-* ???
+* CommandDescription
+* Console
+* ErrorConsole
+* DirectoryStack

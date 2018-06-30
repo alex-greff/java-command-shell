@@ -7,6 +7,9 @@ Responsibilities:
 
 Collaborators:
 * CommandArgs
+* CommandDescription
 * File
 * Directory
 * FileSystem
+* Console
+* ErrorConsole

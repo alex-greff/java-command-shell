@@ -1,0 +1,8 @@
+Class name: DirectoryStack
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Stores and manages the stack of stored working directory paths.
+
+Collaborators:

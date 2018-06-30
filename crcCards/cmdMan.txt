@@ -3,8 +3,11 @@ Parent class: Command
 Subclasses:
 
 Responsibilities:
-* display help information for the given command
+* display documentation for a given command
 
 Collaborators:
 * CommandArgs
+* CommandDescription
 * CommandManager
+* Console
+* ErrorConsole
