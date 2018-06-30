@@ -42,24 +42,37 @@ import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * The echo command.
+ * 
+ * @author greff
+ *
+ */
 public class CmdEcho extends Command {
-
+  // Setup command information
   private final String NAME = "echo";
   private CommandDescription DESCRIPTION =
       new CommandDescription("Appends or writes a string to a file.",
-          new String[]{"echo STRING", "echo STRING [> OUTFILE]",
+          new String[] {"echo STRING", "echo STRING [> OUTFILE]",
               "echo STRING [>> OUTFILE]"},
-          new String[]{
+          new String[] {
               "The \">\" character signals to overwrite the file conents.",
               "The \">>\" character signals to append to the file conents."});
 
-
+  // Define operator constants
   private final String OVERWRITE_OPERATOR = ">";
   private final String APPEND_OPERATOR = ">>";
 
+  /**
+   * Executes the echo command.
+   * 
+   * @param args The arguments for the command.
+   * @param out The writable for any normal output of the command.
+   * @param errOut The writable for any error output of the command.
+   * @return Returns the exit status of the command.
+   */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Initialize default command output
     String output = "";
     ExitCode exitValue = ExitCode.SUCCESS;
@@ -68,18 +81,21 @@ public class CmdEcho extends Command {
     if (args.getRedirectOperator().length() > 0) {
       // Write to the file
       try {
+        // Attempt to write to the file
         exitValue = writeToFile(args, out, errOut);
       } catch (FileAlreadyExistsException e) {
+        // Set the failure exit code and print that the file already exists
         exitValue = ExitCode.FAILURE;
         errOut.writeln("File already exists");
       }
     }
     // If not
     else {
-      // Set the string parameter to the ouput
+      // Set the string parameter to the output
       output = args.getCommandParameters()[0];
     }
 
+    // If there is any output for the standard out then write to it
     if (!output.equals("")) {
       out.writeln(output);
     }
@@ -94,11 +110,9 @@ public class CmdEcho extends Command {
    * @param args The command args
    * @param out The standard output to use.
    * @param errOut The error output to use.
-   * @return Returns 0 if the write succeeded, 1 if not.
+   * @return Returns if the write succeeded or not
    */
-  private ExitCode writeToFile(CommandArgs args, Writable out,
-      Writable
-          errOut)
+  private ExitCode writeToFile(CommandArgs args, Writable out, Writable errOut)
       throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();
@@ -106,6 +120,7 @@ public class CmdEcho extends Command {
     String filePathStr = args.getTargetDestination();
 
     try {
+      // Get file system reference
       FileSystem fs = FileSystem.getInstance();
 
       // Get the path of the file
@@ -122,20 +137,19 @@ public class CmdEcho extends Command {
         String fileName = fileSplit[fileSplit.length - 1];
         file = new File(fileName);
 
+        // Get the index of the last "/"
         int lastSlash = filePathStr.lastIndexOf('/');
 
         // Get the directory that the file is in
         String dirPathStr =
-            (lastSlash > -1) ? filePathStr.substring(0, lastSlash)
-                : "";
+            (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
 
+        // If the file is in the root
         if (dirPathStr.equals("")) {
           dirPathStr = "/";
         }
 
-        // Path dirPath = new Path(dirPathStr);
-        // Directory dirOfFile = getDirOfFile(dirPath);
-
+        // Attempt to add the file to the directory
         try {
           Path dirPath = new Path(dirPathStr);
           Directory dirOfFile = fs.getDirByPath(dirPath);
@@ -147,7 +161,6 @@ public class CmdEcho extends Command {
           errOut.writeln("Error: No directory found");
           return ExitCode.FAILURE;
         }
-
 
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: Not a valid file path");
@@ -173,13 +186,13 @@ public class CmdEcho extends Command {
       return ExitCode.FAILURE;
     }
 
+    // Reaching this point means that the write to file executed successfully
     return ExitCode.SUCCESS;
   }
 
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * Checks if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
@@ -189,8 +202,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR))
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 
