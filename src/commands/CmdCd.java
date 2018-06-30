@@ -49,6 +49,8 @@ public class CmdCd extends Command {
   /**
    * Executes the cd command with the given arguments
    * cd changes the working directory
+   * Error messages if the directory path is invalid,
+   * or the directory does not exist
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output

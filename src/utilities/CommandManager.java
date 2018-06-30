@@ -59,12 +59,17 @@ public class CommandManager {
   private Console out = Console.getInstance();
   private ErrorConsole errorOut = ErrorConsole.getInstance();
 
+  /**
+   * Private constructor for singleton
+   */
   private CommandManager() {
   }
 
+  /**
+   * Populates cmdMap with all known commands as they are expected to be typed
+   * in String format, mapped to an instance of the respective command
+   */
   public void initializeCommands() {
-    // All known commands as they are expected to be typed in String format,
-    // along with an instance of the respective command
     cmdMap.put("cat", new CmdCat());
     cmdMap.put("cd", new CmdCd());
     cmdMap.put("echo", new CmdEcho());
@@ -81,9 +86,9 @@ public class CommandManager {
   }
 
   /**
-   * Get the singleton instance of the command manager
+   * Get the singleton instance of the CommandManager
    *
-   * @return This command manager instance
+   * @return Returns this CommandManager instance
    */
   public static CommandManager getInstance() {
     if (ourInstance == null) {
@@ -92,6 +97,15 @@ public class CommandManager {
     return ourInstance;
   }
 
+  /**
+   * Attempt to execute a command, corresponding to the command name found
+   * in the CommandArgs container cArgs. cArgs is passed to the command being
+   * executed for information about any arguments found in cArgs.
+   * Error messages if the command name in cArgs does not exist,
+   * or the command is given invalid arguments.
+   *
+   * @param cArgs The command arguments container
+   */
   public void executeCommand(CommandArgs cArgs) {
 
     // Make sure the command args parsed properly
@@ -122,6 +136,12 @@ public class CommandManager {
 
   }
 
+  /**
+   * Attempt to obtain the CommandDescription of a command, given its name.
+   *
+   * @param commandName The command name, as it expected to be seen
+   * @return Returns the command's description, if the command exists, or null
+   */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String
     Command cmd = cmdMap.get(commandName);
