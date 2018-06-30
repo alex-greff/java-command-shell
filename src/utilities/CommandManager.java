@@ -124,16 +124,14 @@ public class CommandManager {
           ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
           // Does nothing with the exit value (perhaps a future update)
 
-        } else {
-          errorOut.writeln("Error: Invalid command arguments");
+          // End the function execution here since we've done all we need to do
+          return; 
         }
-
-      } else {
-        errorOut.writeln("Error: Invalid command, please try again");
       }
-
     }
-
+    // If it gets down here then the command failed to run so print the
+    // error message
+    errorOut.writeln("Error: Invalid command, please try again");
   }
 
   /**
