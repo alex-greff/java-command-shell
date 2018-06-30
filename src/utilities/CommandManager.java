@@ -108,30 +108,42 @@ public class CommandManager {
    */
   public void executeCommand(CommandArgs cArgs) {
 
+    // Default error message
+    String errMsg = "Error: Invalid command, please try again";
+
     // Make sure the command args parsed properly
     if (cArgs != null) {
 
       // Get the name of the command the user inputted
       String cmdName = cArgs.getCommandName();
+
       // If the command exists in the HashMap
       if (cmdMap.containsKey(cmdName)) {
 
         // Then get the instance of the command from the HashMap
         Command cmd = cmdMap.get(cmdName);
-        // If the args given are valid for the command
+
+        // If the given args are valid for the command
         if (cmd.isValidArgs(cArgs)) {
 
+          // Execute the command with the given args, remembering the exit value
           ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
           // Does nothing with the exit value (perhaps a future update)
 
           // End the function execution here since we've done all we need to do
-          return; 
+          return;
+
+        } else {
+          errMsg = "Error: Invalid arguments"; // Change the error message
         }
+
       }
+
     }
-    // If it gets down here then the command failed to run so print the
-    // error message
-    errorOut.writeln("Error: Invalid command, please try again");
+
+    // If this line is reached the command failed to execute, so print the
+    // corresponding error message
+    errorOut.writeln(errMsg);
   }
 
   /**
