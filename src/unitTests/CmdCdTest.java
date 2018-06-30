@@ -17,18 +17,18 @@ public class CmdCdTest {
   private Console out = Console.getInstance();
   private ErrorConsole errOut = ErrorConsole.getInstance();
   private Command cmd = new CmdCd();
+  private FileSystem FS = FileSystem.getInstance();
 
   @Test
   public void testChildDir() throws FileAlreadyExistsException {
-    String argParam[] = {"testDir"};
-    CommandArgs args = new CommandArgs("cd", argParam);
+    FS.getRoot().createAndAddNewDir("testDir1");
 
-    FileSystem FS = FileSystem.getInstance();
-    FS.getRoot().createAndAddNewDir("testDir");
+    String argParam[] = {"testDir1"};
+    CommandArgs args = new CommandArgs("cd", argParam);
 
     ExitCode exitVal = cmd.execute(args, out, errOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir/");
+    assertEquals(FS.getWorkingDirPath(), "/testDir1");
   }
 
   @Test
@@ -36,29 +36,17 @@ public class CmdCdTest {
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
-    FileSystem FS = FileSystem.getInstance();
-
-    cmd.execute(args, out, errOut);
     ExitCode exitVal = cmd.execute(args, out, errOut);
-
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir/");
+    assertEquals(FS.getWorkingDirPath(), "/testDir1");
   }
 
   @Test
   public void testParentDir() throws FileAlreadyExistsException {
-    String argParam1[] = {"testDir"};
-    CommandArgs args1 = new CommandArgs("cd", argParam1);
+    String argParam[] = {".."};
+    CommandArgs args = new CommandArgs("cd", argParam);
 
-    String argParam2[] = {".."};
-    CommandArgs args2 = new CommandArgs("cd", argParam2);
-
-    FileSystem FS = FileSystem.getInstance();
-    FS.getRoot().createAndAddNewDir("testDir");
-
-    cmd.execute(args1, out, errOut);
-    ExitCode exitVal = cmd.execute(args2, out, errOut);
-
+    ExitCode exitVal = cmd.execute(args, out, errOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/");
   }
