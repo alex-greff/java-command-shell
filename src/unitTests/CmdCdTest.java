@@ -42,7 +42,7 @@ public class CmdCdTest {
   }
 
   @Test
-  public void testParentDir() throws FileAlreadyExistsException {
+  public void testParentDir() {
     String argParam[] = {".."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
