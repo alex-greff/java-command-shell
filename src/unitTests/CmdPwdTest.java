@@ -12,15 +12,16 @@ import utilities.ExitCode;
 
 public class CmdPwdTest {
 
+  private Console out = Console.getInstance();
+  private ErrorConsole errOut = ErrorConsole.getInstance();
+  private Command cmd = new CmdPwd();
+
   @Test
   public void testRootDir() {
     CommandArgs args = new CommandArgs("pwd");
 
-    Command cmd = new CmdPwd();
-    ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(),
-            ErrorConsole.getInstance());
-
-    assertEquals(exitVal, 0);
+    ExitCode exitVal = cmd.execute(args, out, errOut);
+    assertEquals(exitVal, ExitCode.SUCCESS);
   }
+
 }
