@@ -21,7 +21,13 @@ public class TestingConsole implements Writable {
    */
   @Override
   public void write(String contents) {
-    inputs.push(contents.trim());
+    String prev_line = "";
+
+    if (!inputs.isEmpty()) {
+      prev_line = inputs.pop();
+    }
+
+    inputs.push(prev_line + contents);
   }
 
   /**
@@ -32,15 +38,18 @@ public class TestingConsole implements Writable {
    */
   @Override
   public void writeln(String contents) {
-    inputs.push(contents.trim());
+    inputs.push(contents);
   }
 
   /**
    * Gets the most recent write to the console.
    * 
-   * @return returns the most recent write to the console
+   * @return returns the most recent write to the console or null if no writes
+   *         exist.
    */
   public String getLastWrite() {
+    if (inputs.isEmpty())
+      return null;
     return inputs.peek();
   }
 
@@ -55,5 +64,23 @@ public class TestingConsole implements Writable {
     inputs.toArray(ret);
 
     return ret;
+  }
+
+  /**
+   * Gets all the writes as one whole string.
+   * 
+   * @return Returns all the writes as a string.
+   */
+  public String getAllWritesAsString() {
+    String[] input_arr = new String[inputs.size()];
+    inputs.toArray(input_arr);
+
+    StringBuilder ret_str = new StringBuilder();
+
+    for (String s : input_arr) {
+      ret_str.append(s + "\n");
+    }
+
+    return ret_str.toString();
   }
 }

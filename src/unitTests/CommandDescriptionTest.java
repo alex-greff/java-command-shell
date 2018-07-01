@@ -1,14 +1,7 @@
 package unitTests;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import containers.CommandArgs;
 import containers.CommandDescription;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.Test;
 
 public class CommandDescriptionTest {
