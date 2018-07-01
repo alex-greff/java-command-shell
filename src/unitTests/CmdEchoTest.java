@@ -11,9 +11,7 @@ import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.Console;
-import io.ErrorConsole;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
@@ -21,8 +19,8 @@ import utilities.Parser;
 
 public class CmdEchoTest {
 
-  @Before
-  public void Setup() throws FileAlreadyExistsException {
+  @BeforeClass
+  public static void Setup() throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -58,7 +56,7 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void test_execute_()
+  public void test_execute_write_to_file()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
@@ -74,42 +72,63 @@ public class CmdEchoTest {
     Path filePath = new Path("/dir1/dir4/file4");
     File file = fs.getFileByPath(filePath);
 
+    assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("some string", file.read());
   }
 
-  /*
-   * @Test public void testExecute3() throws MalformedPathException,
-   * FileNotFoundException { CommandArgs args = Parser
-   * .parseUserInput("echo \"some string\" >> /file1");
-   * 
-   * Command cmd = new CmdEcho(); ExitCode exitVal = cmd.execute(args,
-   * Console.getInstance(), ErrorConsole.getInstance());
-   * 
-   * FileSystem fs = FileSystem.getInstance();
-   * 
-   * Path filePath = new Path("/file1"); File file = fs.getFileByPath(filePath);
-   * 
-   * assertEquals("file1's contents\nsome string", file.read()); }
-   * 
-   * @Test public void testExecute4() throws MalformedPathException,
-   * FileNotFoundException { CommandArgs args = Parser.parseUserInput(
-   * "echo \"some string\" >> /fileBlahBlahBlah");
-   * 
-   * Command cmd = new CmdEcho(); ExitCode exitVal = cmd.execute(args,
-   * Console.getInstance(), ErrorConsole.getInstance());
-   * 
-   * FileSystem fs = FileSystem.getInstance();
-   * 
-   * File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
-   * 
-   * assertEquals("some string", file.read()); }
-   * 
-   * @Test public void testExecute5() { CommandArgs args =
-   * Parser.parseUserInput( "notEcho \"some string\" >> /fileBlahBlahBlah");
-   * 
-   * Command cmd = new CmdEcho(); ExitCode exitVal = cmd.execute(args,
-   * Console.getInstance(), ErrorConsole.getInstance());
-   * 
-   * assertSame(exitVal, ExitCode.SUCCESS); }
-   */
+
+  @Test
+  public void test_execute_append_to_file()
+      throws MalformedPathException, FileNotFoundException {
+    CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
+
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+
+    Command cmd = new CmdEcho();
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+
+    FileSystem fs = FileSystem.getInstance();
+
+    Path filePath = new Path("/file1");
+    File file = fs.getFileByPath(filePath);
+
+    assertSame(exitVal, ExitCode.SUCCESS);
+    assertEquals("file1's contents\nsome string", file.read());
+  }
+
+  @Test
+  public void test_execute_create_file()
+      throws MalformedPathException, FileNotFoundException {
+    CommandArgs args =
+        Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
+
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+
+    Command cmd = new CmdEcho();
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+
+    FileSystem fs = FileSystem.getInstance();
+
+    File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
+    
+    assertSame(exitVal, ExitCode.SUCCESS);
+    assertEquals("some string", file.read());
+  }
+
+  @Test
+  public void test_execute_mising_directory()
+      throws MalformedPathException, FileNotFoundException {
+    CommandArgs args =
+        Parser.parseUserInput("echo \"some string\" >> /wrongDir/f1.txt");
+
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+
+    Command cmd = new CmdEcho();
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    
+    assertSame(exitVal, ExitCode.FAILURE);
+  }
 }
