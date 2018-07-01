@@ -43,7 +43,7 @@ import org.junit.Test;
 public class CommandArgsTest {
 
   @Test
-  public void testGetters1() {
+  public void test_getters_simple_command() {
     CommandArgs ca = new CommandArgs("myCommand");
     assertEquals("myCommand", ca.getCommandName());
     assertArrayEquals(new String[0], ca.getCommandParameters());
@@ -59,7 +59,7 @@ public class CommandArgsTest {
   }
 
   @Test
-  public void testGetters2() {
+  public void test_getters_complex_command() {
     HashMap<String, String> hm_in = new HashMap<>();
     hm_in.put("type1", "value1");
     hm_in.put("type2", "value2");
@@ -88,14 +88,14 @@ public class CommandArgsTest {
 
 
   @Test
-  public void testEquals1() {
+  public void test_equals_simple_command() {
     CommandArgs ca1 = new CommandArgs("myCommand");
     CommandArgs ca2 = new CommandArgs("myCommand");
     assertEquals(ca1, ca2);
   }
 
   @Test
-  public void testEquals2() {
+  public void test_equals_with_args() {
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
     CommandArgs ca2 =
@@ -104,7 +104,7 @@ public class CommandArgsTest {
   }
 
   @Test
-  public void testEquals3() {
+  public void test_not_equals_with_args() {
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
     CommandArgs ca2 = new CommandArgs("myCommand");
@@ -112,14 +112,14 @@ public class CommandArgsTest {
   }
 
   @Test
-  public void testEquals4() {
+  public void test_equals_with_no_args() {
     CommandArgs ca1 = new CommandArgs("myCommand", new String[0]);
     CommandArgs ca2 = new CommandArgs("myCommand");
     assertEquals(ca1, ca2);
   }
 
   @Test
-  public void testEquals5() {
+  public void test_not_equals_one_with_redirect() {
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
     CommandArgs ca2 = new CommandArgs("myCommand");
@@ -127,7 +127,7 @@ public class CommandArgsTest {
   }
 
   @Test
-  public void testEquals6() {
+  public void test_equals_both_with_redirects() {
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[0], ">", "hello.txt");
     CommandArgs ca2 =
@@ -136,7 +136,7 @@ public class CommandArgsTest {
   }
 
   @Test
-  public void testEquals7() {
+  public void test_equals_both_with_fields_and_redirect() {
     HashMap<String, String> hm_1 = new HashMap<>();
     hm_1.put("type1", "value1");
     hm_1.put("type2", "value2");
@@ -155,7 +155,7 @@ public class CommandArgsTest {
   }
 
   @Test
-  public void testEquals8() {
+  public void test_equals_both_with_fields() {
     HashMap<String, String> hm_1 = new HashMap<>();
     hm_1.put("type1", "value1");
     hm_1.put("type2", "value2");
