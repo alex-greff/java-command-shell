@@ -6,16 +6,14 @@ import commands.CmdCd;
 import containers.CommandArgs;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
-import io.Console;
-import io.ErrorConsole;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
 
 public class CmdCdTest {
 
-  private Console out = Console.getInstance();
-  private ErrorConsole errOut = ErrorConsole.getInstance();
+  private TestingConsole testOut = new TestingConsole();
+  private TestingConsole testErrOut = new TestingConsole();
   private Command cmd = new CmdCd();
   private FileSystem FS = FileSystem.getInstance();
 
@@ -27,7 +25,7 @@ public class CmdCdTest {
     String argParam[] = {"testDir1"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
-    ExitCode exitVal = cmd.execute(args, out, errOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir1");
   }
@@ -39,7 +37,7 @@ public class CmdCdTest {
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
-    ExitCode exitVal = cmd.execute(args, out, errOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir1");
   }
@@ -49,7 +47,7 @@ public class CmdCdTest {
     String argParam[] = {".."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
-    ExitCode exitVal = cmd.execute(args, out, errOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/");
   }
@@ -59,7 +57,7 @@ public class CmdCdTest {
     String argParam[] = {"/testDir1/testDir3"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
-    ExitCode exitVal = cmd.execute(args, out, errOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir1/testDir3");
   }
@@ -69,7 +67,7 @@ public class CmdCdTest {
     String argParam[] = {"../../testDir2"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
-    ExitCode exitVal = cmd.execute(args, out, errOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir2");
   }
