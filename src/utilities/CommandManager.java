@@ -169,4 +169,14 @@ public class CommandManager {
     // will be null if the command doesn't exist
     return desc;
   }
+
+  /**
+   * Shows if the cmdMap is empty
+   *
+   * @return Returns true if empty, false otherwise
+   */
+  public boolean isCmdMapEmpty() {
+    return cmdMap.isEmpty();
+  }
+
 }
