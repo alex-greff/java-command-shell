@@ -1,0 +1,11 @@
+What did I do last time?
+    - Finish mkdir command
+    - Finsh pushd command
+    - Finish popd command
+
+What do I plan to do now?
+    - Make test for my commands
+    - Change command description to use new class greff made
+
+Am I blocked on anything?
+    - Nope

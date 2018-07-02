@@ -1,5 +1,5 @@
 Class name: DirectoryStack
-Parent class:
+Parent class: Stack<String>
 Subclasses:
 
 Responsibilities:
