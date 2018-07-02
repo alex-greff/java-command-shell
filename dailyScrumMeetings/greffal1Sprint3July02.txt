@@ -1,0 +1,12 @@
+What did I do last time?
+    - Fixed a small bug with the Parser
+    - Checked CRC cards to make sure they were all one
+    - Completed Javadocs for all code assigned to myself
+    - Finalized internal comments
+    - Small code refactors to fit within the 30 line guideline
+
+What do I plan to do now?
+    - Project Completed
+
+Am I blocked on anything?
+    - No
