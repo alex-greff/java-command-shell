@@ -51,10 +51,8 @@ public class CmdMan extends Command {
    */
   private CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Gets documentation for commands.",
-          "man COMMAND")
-          .additionalComment("For some fun try \"man man\".")
-          .build();
+          "Gets documentation for commands.", "man COMMAND")
+              .additionalComment("For some fun try \"man man\".").build();
 
   /**
    * Executes the man command with the arguments args
@@ -63,20 +61,17 @@ public class CmdMan extends Command {
    * @return Returns the output of the command
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the description of the command
-    CommandDescription cmdDesc = commandManager
-        .getCommandDescription(cmdName);
+    CommandDescription cmdDesc = commandManager.getCommandDescription(cmdName);
 
     // If the command does not have a command description object
     if (cmdDesc == null) {
       // Write to an error message
       errOut.writeln(
-          "Error: No description found for command \"" + cmdName
-              + "\"");
+          "Error: No description found for command \"" + cmdName + "\"");
       // Return the failure exit code
       return ExitCode.FAILURE;
     }
@@ -86,23 +81,21 @@ public class CmdMan extends Command {
     StringBuilder output = new StringBuilder();
 
     // Build the header for the command documentation
-    output.append("\"").append(cmdName)
-        .append("\" Command Documentation\n")
+    output.append("\"").append(cmdName).append("\" Command Documentation\n")
         // Build the description section
         .append("Description:\n\t").append(cmdDesc.getDescription())
         .append("\n")
         // Build the usage section
         .append("Usage:");
-    for (String usage : cmdDesc.getUsages()) {
+    
+    for (String usage : cmdDesc.getUsages()) 
       output.append("\n\t- ").append(usage);
-    }
 
     // If applicable, build the additional comments section
     if (!cmdDesc.getAdditionalComments().isEmpty()) {
       output.append("\nAdditional Comments:");
-      for (String comment : cmdDesc.getAdditionalComments()) {
+      for (String comment : cmdDesc.getAdditionalComments())
         output.append("\n\t- ").append(comment);
-      }
     }
 
     // Write the output to the given out

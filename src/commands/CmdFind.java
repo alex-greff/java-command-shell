@@ -79,13 +79,12 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-          .additionalComment(
-              "Nothing is printed if no files are found")
-          .build();
+              .additionalComment("Nothing is printed if no files are found")
+              .build();
 
   /**
-   * Executes the find command which finds all files/directories in
-   * the given locations.
+   * Executes the find command which finds all files/directories in the given
+   * locations.
    *
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
@@ -93,12 +92,10 @@ public class CmdFind extends Command {
    * @return Returns the exit status of the command.
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
-    String expression = args
-        .getNamedCommandParameter(NAME_IDENTIFIER);
+    String expr = args.getNamedCommandParameter(NAME_IDENTIFIER);
 
     // Initialize a new string builder
     StringBuilder output = new StringBuilder();
@@ -118,32 +115,23 @@ public class CmdFind extends Command {
 
         // If we're looking for file occurrences
         if (type.equals(TYPE_FILE))
-        // Search recursively for the file
-        {
-          outputPaths = findFileInDirectoryStructure(currDir,
-              expression);
-        }
+          // Search recursively for the file
+          outputPaths = findFileInDirectoryStructure(currDir, expr);
         // If we're looking for directory occurrences
         else if (type.equals(TYPE_DIR))
-        // Search recursively for the directory
-        {
-          outputPaths = findDirectoryInDirectoryStructure(currDir,
-              expression);
-        }
+          // Search recursively for the directory
+          outputPaths = findDirectoryInDirectoryStructure(currDir, expr);
 
         // Print out the set as a string with each entry on a new line
-        for (String outputPath : outputPaths) {
+        for (String outputPath : outputPaths)
           output.append(outputPath).append("\n");
-        }
-
+        
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: invalid path");
       } catch (FileNotFoundException e2) {
         errOut.writeln("Error: file/directory not found");
       }
-
     }
-
     // Print the output
     out.write(output.toString());
 
@@ -152,15 +140,13 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the
-   * name "name"
+   * Gets a set of all absolute paths to instances of files with the name "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
    * @return Returns the set
    */
-  private Set<String> findFileInDirectoryStructure(Directory dir,
-      String name)
+  private Set<String> findFileInDirectoryStructure(Directory dir, String name)
       throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
@@ -199,8 +185,8 @@ public class CmdFind extends Command {
   }
 
   /**
-   * Gets a set of all absolute paths to instances of directories with
-   * the name "name"
+   * Gets a set of all absolute paths to instances of directories with the name
+   * "name"
    *
    * @param dir The current directory
    * @param name The wanted directory name
@@ -237,8 +223,7 @@ public class CmdFind extends Command {
 
       // Call the function recursively again on the child directory and add any
       // instances of the directory to the current return set
-      ret_set
-          .addAll(findDirectoryInDirectoryStructure(childDir, name));
+      ret_set.addAll(findDirectoryInDirectoryStructure(childDir, name));
     }
 
     // Return the set
@@ -257,10 +242,8 @@ public class CmdFind extends Command {
         && args.getNumberOfNamedCommandParameters() == 2
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
-        && (args.getNamedCommandParameter(TYPE_IDENTIFIER)
-        .equals(TYPE_FILE)
-        || args.getNamedCommandParameter(TYPE_IDENTIFIER)
-        .equals(TYPE_DIR))
+        && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
+            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }

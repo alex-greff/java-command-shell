@@ -66,16 +66,15 @@ public class CmdEcho extends Command {
    */
   private CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Appends or writes a string to a file.",
-          "echo STRING")
-          .usage("echo STRING [> OUTFILE]")
-          .usage("echo STRING [>> OUTFILE]")
-          .additionalComment(
-              "The \">\" character signals to overwrite the file "
-                  + "conents.")
-          .additionalComment(
-              "The \">>\" character signals to append to the file conents.")
-          .build();
+          "Appends or writes a string to a file.", "echo STRING")
+              .usage("echo STRING [> OUTFILE]")
+              .usage("echo STRING [>> OUTFILE]")
+              .additionalComment(
+                  "The \">\" character signals to overwrite the file "
+                      + "conents.")
+              .additionalComment(
+                  "The \">>\" character signals to append to the file conents.")
+              .build();
 
   /**
    * Executes the echo command.
@@ -86,8 +85,7 @@ public class CmdEcho extends Command {
    * @return Returns the exit status of the command.
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Initialize default command output
     String output = "";
     ExitCode exitValue = ExitCode.SUCCESS;
@@ -127,8 +125,7 @@ public class CmdEcho extends Command {
    * @param errOut The error output to use.
    * @return Returns if the write succeeded or not
    */
-  private ExitCode writeToFile(CommandArgs args, Writable out,
-      Writable errOut)
+  private ExitCode writeToFile(CommandArgs args, Writable out, Writable errOut)
       throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();
@@ -148,45 +145,21 @@ public class CmdEcho extends Command {
         file = fs.getFileByPath(filePath);
         // If the file does not exist
       } catch (FileNotFoundException e) {
-        // Make the new file
-        String[] fileSplit = filePathStr.split("/");
-        String fileName = fileSplit[fileSplit.length - 1];
-        file = new File(fileName);
-
-        // Get the index of the last "/"
-        int lastSlash = filePathStr.lastIndexOf('/');
-
-        // Get the directory that the file is in
-        String dirPathStr =
-            (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
-
-        // If the file is in the root
-        if (dirPathStr.equals("")) {
-          dirPathStr = "/";
-        }
-
-        // Attempt to add the file to the directory
+        // Attempt to make the file
         try {
-          Path dirPath = new Path(dirPathStr);
-          Directory dirOfFile = fs.getDirByPath(dirPath);
-
-          // Add the file to the directory
-          dirOfFile.addFile(file);
-
+          file = makeFile(filePathStr);
         } catch (FileNotFoundException e1) {
           errOut.writeln("Error: No directory found");
           return ExitCode.FAILURE;
         }
-
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: Not a valid file path");
         return ExitCode.FAILURE;
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
-      if (redirOper.equals(OVERWRITE_OPERATOR)) {
+      if (redirOper.equals(OVERWRITE_OPERATOR))
         file.clear();
-      }
 
       // Add the string contents to the file
       file.write(strContents);
@@ -202,6 +175,45 @@ public class CmdEcho extends Command {
 
 
   /**
+   * Attempts to make a file from the given file path string.
+   * 
+   * @param filePathStr The file path string.
+   * @return Returns the created file.
+   * @throws MalformedPathException
+   * @throws FileNotFoundException
+   * @throws FileAlreadyExistsException
+   */
+  private File makeFile(String filePathStr) throws MalformedPathException,
+      FileNotFoundException, FileAlreadyExistsException {
+    // Get a reference to the file system singleton
+    FileSystem fs = FileSystem.getInstance();
+
+    // Make the new file
+    String[] fileSplit = filePathStr.split("/");
+    String fileName = fileSplit[fileSplit.length - 1];
+    File file = new File(fileName);
+    // Get the index of the last "/"
+    int lastSlash = filePathStr.lastIndexOf('/');
+
+    // Get the directory that the file is in
+    String dirPathStr =
+        (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
+
+    // If the file is in the root
+    if (dirPathStr.equals(""))
+      dirPathStr = "/";
+
+    Path dirPath = new Path(dirPathStr);
+    Directory dirOfFile = fs.getDirByPath(dirPath);
+
+    // Add the file to the directory
+    dirOfFile.addFile(file);
+
+    // Return the file
+    return file;
+  }
+
+  /**
    * Checks if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
@@ -212,8 +224,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR))
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 
