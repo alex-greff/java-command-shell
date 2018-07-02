@@ -74,8 +74,9 @@ public class CmdMan extends Command {
     // Initialize a string builder object
     StringBuilder output = new StringBuilder();
 
-    // Build the description section
+    // Build the header for the command documentation
     output.append("\"" + cmdName + "\" Command Documentation\n");
+    // Build the description section
     output.append("Description:\n\t" + cmdDesc.getDescription() + "\n");
     // Build the usage section
     output.append("Usage:");
