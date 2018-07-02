@@ -1,0 +1,8 @@
+Class name: TestConsole
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Stores input from written to it which allows for it to be accessed back at a later time
+
+Collaborators:
