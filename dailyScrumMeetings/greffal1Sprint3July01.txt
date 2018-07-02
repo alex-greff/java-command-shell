@@ -1,0 +1,11 @@
+What did I do last time?
+    - Added injection console system for commands
+    - Added a command description system
+    - Finalizing code and fixing any bugs found in the project
+    - Add/updating and finalizing JUnit tests for CmdMan, CmdEcho, CmdExit, CmdFind and TestingConsole.
+
+What do I plan to do now?
+    - Continue overlooking the project and testing the JShell as a whole
+
+Am I blocked on anything?
+    - Nope
