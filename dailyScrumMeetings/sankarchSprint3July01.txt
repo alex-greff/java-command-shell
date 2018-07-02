@@ -1,0 +1,10 @@
+What did I do last time?
+    - Fixed documentation implementation in history, tree, ls
+    - Created test for history command
+
+What do I plan to do now?
+    - Finalize Unit tests
+    - Ensure documentation and style is proper
+
+Am I blocked on anything?
+    - nope
