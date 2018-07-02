@@ -41,7 +41,8 @@ import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import org.junit.BeforeClass;
+import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
@@ -49,8 +50,14 @@ import utilities.Parser;
 
 public class CmdEchoTest {
 
-  @BeforeClass
-  public static void setup() throws FileAlreadyExistsException {
+  @Before
+  public void setup()
+      throws SecurityException, NoSuchFieldException,
+      FileAlreadyExistsException, IllegalArgumentException,
+      IllegalAccessException {
+    Field instance = FileSystem.class.getDeclaredField("ourInstance");
+    instance.setAccessible(true);
+    instance.set(null, null);
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -73,7 +80,8 @@ public class CmdEchoTest {
   @Test
   public void testExecuteEchoToConsole() {
     CommandArgs args =
-        new CommandArgs("echo", new String[]{"nice sentence you got there"});
+        new CommandArgs("echo",
+            new String[]{"nice sentence you got there"});
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -82,14 +90,16 @@ public class CmdEchoTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("nice sentence you got there\n", tc.getAllWritesAsString());
+    assertEquals("nice sentence you got there\n",
+        tc.getAllWritesAsString());
   }
 
   @Test
   public void testExecuteWriteToFile()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
+        Parser.parseUserInput(
+            "echo \"some string\" > /dir1/dir4/file4");
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -110,7 +120,8 @@ public class CmdEchoTest {
   @Test
   public void testExecuteAppendToFile()
       throws MalformedPathException, FileNotFoundException {
-    CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
+    CommandArgs args = Parser
+        .parseUserInput("echo \"some string\" >> /file1");
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -131,7 +142,8 @@ public class CmdEchoTest {
   public void testExecuteCreateFile()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
+        Parser.parseUserInput(
+            "echo \"some string\" >> /fileBlahBlahBlah");
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -151,7 +163,8 @@ public class CmdEchoTest {
   public void testExecuteMisingDirectory()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
-        Parser.parseUserInput("echo \"some string\" >> /wrongDir/f1.txt");
+        Parser.parseUserInput(
+            "echo \"some string\" >> /wrongDir/f1.txt");
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();

@@ -29,6 +29,8 @@
 // *********************************************************
 package containers;
 
+import java.util.ArrayList;
+
 /**
  * A container storing the description of a command.
  *
@@ -36,41 +38,20 @@ package containers;
  */
 public class CommandDescription {
 
-  /**
-   * The description of the command.
-   */
-  private String description = "";
-  /**
-   * The usages of the command.
-   */
-  private String[] usages = new String[0];
-  /**
-   * The additional comments for the command, if any.
-   */
-  private String[] additionalComments = new String[0];
+  //The description of the command.
+  private String description;
+  // The usages of the command.
+  private ArrayList<String> usages;
+  //The additional comments for the command, if any.
+  private ArrayList<String> additionalComments;
 
-  /**
-   * Constructor for initializing the command description.
-   *
-   * @param description A brief description of the command.
-   * @param usages A list of possible usages of the command.
-   * @param additionalComments Any additional comments of the command.
-   */
-  public CommandDescription(String description, String[] usages,
-      String[] additionalComments) {
+  // private constructor
+  private CommandDescription(String description,
+      ArrayList<String> usages,
+      ArrayList<String> additionalComments) {
     this.description = description;
     this.usages = usages;
     this.additionalComments = additionalComments;
-  }
-
-  /**
-   * Constructor for initializing the command description.
-   *
-   * @param description A brief description of the command.
-   * @param usages A list of possible usages of the command.
-   */
-  public CommandDescription(String description, String[] usages) {
-    this(description, usages, new String[0]);
   }
 
   /**
@@ -87,7 +68,7 @@ public class CommandDescription {
    *
    * @return Returns an array of usages.
    */
-  public String[] getUsages() {
+  public ArrayList<String> getUsages() {
     return usages;
   }
 
@@ -96,7 +77,61 @@ public class CommandDescription {
    *
    * @return Returns any additional comments.
    */
-  public String[] getAdditionalComments() {
+  public ArrayList<String> getAdditionalComments() {
     return additionalComments;
+  }
+
+  // internal builder class used to simplify the creation of the
+  // comments class
+  public static class DescriptionBuilder {
+
+    // mirror all the fields of the comments class
+    private String description;
+    private ArrayList<String> usages = new ArrayList<>();
+    private ArrayList<String> comments = new ArrayList<>();
+
+    /**
+     * Creates a new description builder with required params
+     *
+     * @param description The description of the command
+     * @param usage Usage info for the command
+     */
+    public DescriptionBuilder(String description, String usage) {
+      this.description = description;
+      usages.add(usage);
+    }
+
+    /**
+     * Adds additional usage info
+     *
+     * @param usage A string with some usage info
+     * @return The current description builder for chaining
+     */
+    public DescriptionBuilder usage(String usage) {
+      usages.add(usage);
+      return this;
+    }
+
+    /**
+     * add additiona
+     *
+     * @param comment An additional comment
+     * @return Current description builder for chaining
+     */
+    public DescriptionBuilder additionalComment(String comment) {
+      comments.add(comment);
+      return this;
+    }
+
+    /**
+     * Builds an instance of a CommandDescription with the currently
+     * set parameters
+     *
+     * @return A new CommandDescription instance with all the
+     * configuration set
+     */
+    public CommandDescription build() {
+      return new CommandDescription(description, usages, comments);
+    }
   }
 }

@@ -36,7 +36,6 @@ import org.junit.Test;
 
 public class TestingConsoleTest {
 
-  @SuppressWarnings("deprecation")
   @Test
   public void testConsoleWriteln() {
     TestingConsole tc = new TestingConsole();
@@ -47,7 +46,6 @@ public class TestingConsoleTest {
         tc.getAllWrites());
   }
 
-  @SuppressWarnings("deprecation")
   @Test
   public void testConsoleWrite() {
     TestingConsole tc = new TestingConsole();
@@ -57,7 +55,6 @@ public class TestingConsoleTest {
     assertEquals(new String[]{"ab"}, tc.getAllWrites());
   }
 
-  @SuppressWarnings("deprecation")
   @Test
   public void testConsoleGetAllWrites() {
     TestingConsole tc = new TestingConsole();
@@ -68,7 +65,6 @@ public class TestingConsoleTest {
     assertEquals(new String[]{"ab", "c"}, tc.getAllWrites());
   }
 
-  @SuppressWarnings("deprecation")
   @Test
   public void testConsoleGetAllWritesNoWrites() {
     TestingConsole tc = new TestingConsole();

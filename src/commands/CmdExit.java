@@ -50,8 +50,11 @@ public class CmdExit extends Command {
   /**
    * The description of the command.
    */
-  private CommandDescription DESCRIPTION = new CommandDescription(
-      "Exits the currently running JShell.", new String[]{"exit"});
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Exits the currently running JShell.",
+          "exit")
+          .build();
 
   /**
    * Executes the exit command to shut the JShell down.
@@ -62,7 +65,8 @@ public class CmdExit extends Command {
    * @return Returns the exit status of the command.
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Tell the JShell to exit
     JShell.exit();
     return ExitCode.SUCCESS;

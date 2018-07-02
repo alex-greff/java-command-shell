@@ -50,16 +50,15 @@ public class CmdTree extends Command {
    * name of the command
    */
   private final String NAME = "tree";
-  /**
-   * description of the command
-   */
-  private CommandDescription DESCRIPTION = new CommandDescription(
-      "prints a tree representation of the entire filesystem, \n"
-          + "stemming from the root.",
-      new String[]{"tree"},
-      new String[]{"tree doesnt take any arguments", "directory content is "
-          + "listed a tab forward, and below the directory name"}
-  );
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Prints a tree representation of the entire filesystem, "
+              + "starting from the root.",
+          "tree")
+          .additionalComment(
+              "Directory content is listed a tab forward, and below"
+                  + " the directory name")
+          .build();
 
   /**
    *

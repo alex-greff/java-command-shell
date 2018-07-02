@@ -33,9 +33,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import commands.CmdMan;
 import containers.CommandArgs;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
@@ -60,7 +60,7 @@ public class CmdManTest {
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
-    assertTrue(tc_err.getAllWritesAsString().length() == 0);
+    assertEquals(0, tc_err.getAllWritesAsString().length());
   }
 
   @Test
@@ -75,7 +75,7 @@ public class CmdManTest {
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
-    assertTrue(tc_err.getAllWritesAsString().length() == 0);
+    assertEquals(0, tc_err.getAllWritesAsString().length());
   }
 
   @Test
@@ -89,8 +89,9 @@ public class CmdManTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertTrue(tc.getAllWritesAsString().length() == 0);
-    assertEquals("Error: No description found for command \"nonExistentCmd\"\n",
+    assertEquals(0, tc.getAllWritesAsString().length());
+    assertEquals(
+        "Error: No description found for command \"nonExistentCmd\"\n",
         tc_err.getAllWritesAsString());
   }
 }

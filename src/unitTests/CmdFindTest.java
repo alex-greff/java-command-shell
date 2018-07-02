@@ -35,9 +35,11 @@ import static org.junit.Assert.assertSame;
 import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.FileAlreadyExistsException;
 import filesystem.File;
+import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
+import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
@@ -46,9 +48,14 @@ import utilities.Parser;
 
 public class CmdFindTest {
 
-  @BeforeClass
-  public static void setup()
-      throws FileAlreadyExistsException {
+  @Before
+  public void setup()
+      throws SecurityException, NoSuchFieldException,
+      FileAlreadyExistsException, IllegalArgumentException,
+      IllegalAccessException {
+    Field instance = FileSystem.class.getDeclaredField("ourInstance");
+    instance.setAccessible(true);
+    instance.set(null, null);
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -97,13 +104,15 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1/dir4/file1\n/file1\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1/dir4/file1\n/file1\n\n",
+        tc.getAllWritesAsString());
   }
 
   @Test
   public void testExecuteFindNoFiles() {
     CommandArgs args =
-        Parser.parseUserInput("find / -type f -name \"nonExistentFile\"");
+        Parser.parseUserInput(
+            "find / -type f -name \"nonExistentFile\"");
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -142,13 +151,15 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1/dir4/dir1/\n/dir1/\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1/dir4/dir1/\n/dir1/\n\n",
+        tc.getAllWritesAsString());
   }
 
   @Test
   public void testExecuteFindNoDirectories() {
     CommandArgs args =
-        Parser.parseUserInput("find / -type d -name \"nonExistentDir\"");
+        Parser.parseUserInput(
+            "find / -type d -name \"nonExistentDir\"");
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();

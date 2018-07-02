@@ -36,6 +36,8 @@ import containers.CommandArgs;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
+import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
@@ -49,8 +51,18 @@ public class CmdCatTest {
   private Command cmd = new CmdCat();
   private FileSystem FS = FileSystem.getInstance();
 
+  @Before
+  public void resetSingleton()
+      throws SecurityException, NoSuchFieldException,
+      IllegalArgumentException, IllegalAccessException {
+    Field instance = FileSystem.class.getDeclaredField("ourInstance");
+    instance.setAccessible(true);
+    instance.set(null, null);
+  }
+
   @Test
-  public void testFileWithOneLine() throws FileAlreadyExistsException {
+  public void testFileWithOneLine()
+      throws FileAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
     File file1 = new File("testFile1", "hello");
     FS.getRoot().addFile(file1);
@@ -66,7 +78,8 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testMultipleFilesWithOneLine() throws FileAlreadyExistsException {
+  public void testMultipleFilesWithOneLine()
+      throws FileAlreadyExistsException {
     // Create another file with one line of content, and add it to the root
     // directory, the file from before still exists in the file system
     File file2 = new File("testFile2", "world");
@@ -79,11 +92,13 @@ public class CmdCatTest {
     // content were printed, with 2 blank lines in between
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(), "hello\n\n\nworld\n");
+    assertEquals(testOut.getAllWritesAsString(),
+        "hello\n\n\nworld\n");
   }
 
   @Test
-  public void testFileWithMultipleLines() throws FileAlreadyExistsException {
+  public void testFileWithMultipleLines()
+      throws FileAlreadyExistsException {
     // Create a file with multiple lines of content, and add it to the root
     // directory
     File file3 = new File("testFile3", "hello\nworld\nthis\n"
@@ -97,8 +112,9 @@ public class CmdCatTest {
     // content was printed
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(), "hello\nworld\nthis\n"
-        + "is\na\ntest\n");
+    assertEquals(testOut.getAllWritesAsString(),
+        "hello\nworld\nthis\n"
+            + "is\na\ntest\n");
   }
 
 }

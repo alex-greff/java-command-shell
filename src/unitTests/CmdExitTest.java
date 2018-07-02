@@ -29,12 +29,12 @@
 // *********************************************************
 package unitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
 import commands.CmdExit;
 import containers.CommandArgs;
+import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
 import utilities.Parser;
@@ -53,7 +53,7 @@ public class CmdExitTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertTrue(tc.getAllWritesAsString().length() == 0);
-    assertTrue(tc_err.getAllWritesAsString().length() == 0);
+    assertEquals(0, tc.getAllWritesAsString().length());
+    assertEquals(0, tc_err.getAllWritesAsString().length());
   }
 }

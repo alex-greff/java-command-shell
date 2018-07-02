@@ -39,7 +39,13 @@ import utilities.ExitCode;
 public class CmdPopd extends Command {
 
   private final String NAME = "popd";
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Removes the directory at the top of the "
+              + "directory stack and changes the current working "
+              + "directory to the removed directory.",
+          "popd")
+          .build();
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
@@ -81,13 +87,6 @@ public class CmdPopd extends Command {
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;
-    /*
-     * return "popd Command Documentation\n" + "Description:\n" +
-     * "    - popd: removes the directory at the top of the " +
-     * "directory stack and changes the current working " +
-     * "directory to the removed directory.\n" + "\n Usage: popd";
-     */
-    // TODO: remove
   }
 
 }

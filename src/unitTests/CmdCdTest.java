@@ -35,6 +35,8 @@ import commands.CmdCd;
 import containers.CommandArgs;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
+import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
@@ -47,6 +49,15 @@ public class CmdCdTest {
   private TestingConsole testErrOut = new TestingConsole();
   private Command cmd = new CmdCd();
   private FileSystem FS = FileSystem.getInstance();
+
+  @Before
+  public void resetSingleton()
+      throws SecurityException, NoSuchFieldException,
+      IllegalArgumentException, IllegalAccessException {
+    Field instance = FileSystem.class.getDeclaredField("ourInstance");
+    instance.setAccessible(true);
+    instance.set(null, null);
+  }
 
   @Test
   public void testChildDir() throws FileAlreadyExistsException {

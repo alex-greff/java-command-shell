@@ -38,9 +38,20 @@ import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Test;
 
 public class FileSystemTest {
+
+  @Before
+  public void resetSingleton()
+      throws SecurityException, NoSuchFieldException,
+      IllegalArgumentException, IllegalAccessException {
+    Field instance = FileSystem.class.getDeclaredField("ourInstance");
+    instance.setAccessible(true);
+    instance.set(null, null);
+  }
 
   @Test
   public void testAddingNewDirectoryToWorkingDirectory()
@@ -56,8 +67,10 @@ public class FileSystemTest {
 
   @Test
   public void testGettingAbsolutePathOfDirectory()
-      throws FileNotFoundException {
+      throws FileNotFoundException, FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
+    // add a new directory to the working directory
+    fs.getWorkingDir().createAndAddNewDir("test");
     // the filesystem should now contain a directory called "test"
     Directory testDir = fs.getWorkingDir().getDirByName("test");
     assertEquals("/test", fs.getAbsolutePathOfDir(testDir));
@@ -88,8 +101,10 @@ public class FileSystemTest {
 
   @Test
   public void testGettingNonRootDirectoryByPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FileNotFoundException, FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
+    // add a new directory to the working directory
+    fs.getWorkingDir().createAndAddNewDir("test");
     Path dirPath = new Path("/test/");
     Directory expected = fs.getRoot().getDirByName("test");
     Directory actual = fs.getDirByPath(dirPath);

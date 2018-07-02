@@ -39,7 +39,13 @@ import utilities.ExitCode;
 public class CmdPushd extends Command {
 
   private final String NAME = "pushd";
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Pushes the current directory to the top of the directory"
+              + " stack and changes the current working directory to the"
+              + " given directory",
+          "pushd DIRECTORY")
+          .build();
 
   private DirectoryStack dirStack = DirectoryStack.getInstance();
 
@@ -74,14 +80,6 @@ public class CmdPushd extends Command {
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;
-    /*return "Pushd command description:\n"
-        + "Description:\n"
-        + "    - pushd: pushes the current directory to the top of the directory"
-        + " stack and changes the current working directory to the"
-        + " given directory\n"
-        + "\n\nUsage:\n"
-        + "    - pushd DIRECTORY";*/
-    // TODO: remove
   }
 
 }

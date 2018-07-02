@@ -50,8 +50,8 @@ public class Parser {
   private static final String TYPE_ARG_OPERATOR = "-";
 
   /**
-   * Parses the given input and returns a CommandArgs instance with the parsed
-   * information
+   * Parses the given input and returns a CommandArgs instance with
+   * the parsed information
    *
    * @param input The user input string
    * @return Returns a CommandArgs instance with the parsed user input or null
@@ -113,7 +113,8 @@ public class Parser {
       // If curr character is a whitespace char and the previous char was not
       // (ie the end of a split section is reached)
       // OR we're on the last iteration
-      if ((!inQuotes && currChar.matches("\\s") && !prevChar.matches("[\\s\"]"))
+      if ((!inQuotes && currChar.matches("\\s") && !prevChar
+          .matches("[\\s\"]"))
           || (i == input.length() - 1)) {
         // Add the current split to the split list and reset the tracker
         inputSplit.add(currItem.toString());
@@ -130,7 +131,8 @@ public class Parser {
    * @param inputSplit The list of split items of the input.
    * @return Returns a CommandArgs object or null if the given input is invalid.
    */
-  private static CommandArgs constructCommandArgs(List<String> inputSplit) {
+  private static CommandArgs constructCommandArgs(
+      List<String> inputSplit) {
     // Get command name
     String cmdName = inputSplit.get(0);
     // Initialize an array list for all the command parameter
@@ -189,7 +191,8 @@ public class Parser {
 
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
-    return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,
+    return new CommandArgs(cmdName, cmdParams, namedParamsMap,
+        redirOperator,
         targetDest);
   }
 }

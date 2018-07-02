@@ -44,7 +44,8 @@ public abstract class Command {
   /**
    * The reference to the instance of the command manager.
    */
-  protected CommandManager commandManager = CommandManager.getInstance();
+  protected CommandManager commandManager = CommandManager
+      .getInstance();
 
   /**
    * The reference to the instance of the file system.

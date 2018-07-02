@@ -54,19 +54,22 @@ public class CmdLs extends Command {
    * name of the command
    */
   private final String NAME = "ls";
-
-  /**
-   * description of the command
-   */
-  private CommandDescription DESCRIPTION = new CommandDescription(
-      "Lists all of the files and directories in the current\n"
-          + "working directory. Can take multiple filenames/directory \n"
-          + "names as arguments",
-      new String[]{"ls", "ls [Directory]", "ls [File]",
-          "ls [Directory] [File]"},
-      new String[]{"If given a filename, ls will simply print back that name",
-          "ls separates multiple argument's content with an extra newline"}
-  );
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Lists all of the files and directories in the current\n"
+              + "working directory. Can take multiple "
+              + "filenames/directory \n names as arguments",
+          "ls")
+          .usage("ls [Directory]")
+          .usage("ls [File]")
+          .usage("ls [Directory] [File]")
+          .additionalComment(
+              "If given a filename, ls will simply print back that "
+                  + "name")
+          .additionalComment(
+              "ls separates multiple argument's content with an "
+                  + "extra newline")
+          .build();
 
 
   /**

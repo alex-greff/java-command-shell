@@ -33,13 +33,24 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdPwd;
 import containers.CommandArgs;
+import filesystem.FileSystem;
+import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
 
 public class CmdPwdTest {
 
-  // Create Testing Consoles, and an instance of the command
+  @Before
+  public void resetSingleton()
+      throws SecurityException, NoSuchFieldException,
+      IllegalArgumentException, IllegalAccessException {
+    Field instance = FileSystem.class.getDeclaredField("ourInstance");
+    instance.setAccessible(true);
+    instance.set(null, null);
+  }
+
   private TestingConsole testOut = new TestingConsole();
   private TestingConsole testErrOut = new TestingConsole();
   private Command cmd = new CmdPwd();

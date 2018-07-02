@@ -32,8 +32,8 @@ package unitTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.util.HashMap;
 import containers.CommandArgs;
+import java.util.HashMap;
 import org.junit.Test;
 import utilities.Parser;
 
@@ -61,7 +61,8 @@ public class ParserTest {
   public void testUserInputMultipleArgumentsAndFileOverwrite() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2 > hi.txt");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">",
+            "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -69,7 +70,8 @@ public class ParserTest {
   public void testUserInputMultipleArgumentsAndFileAppend() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2 >> hi.txt");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>",
+            "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -128,7 +130,8 @@ public class ParserTest {
   public void testUserInputArgsAndRedirectWithMultipleSpacesTabs() {
     CommandArgs p = Parser.parseUserInput("  myCmd arg1 arg2 >   hi.txt\t\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">",
+            "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -136,7 +139,8 @@ public class ParserTest {
   public void testUserInputOnlyTabSeparators() {
     CommandArgs p = Parser.parseUserInput("\tmyCmd\targ1\targ2\t>>\thi.txt\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>",
+            "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -152,7 +156,8 @@ public class ParserTest {
   @Test
   public void testUserInputStringArgumentsAndRedirect() {
     CommandArgs p =
-        Parser.parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
+        Parser.parseUserInput(
+            "echo \"this is a string\" > \"myFile.txt\"");
 
     CommandArgs c_wanted = new CommandArgs("echo",
         new String[]{"this is a string"}, ">", "myFile.txt");
@@ -162,7 +167,8 @@ public class ParserTest {
   @Test
   public void testUserInputMultipleStringArguments() {
     CommandArgs p = Parser
-        .parseUserInput("mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
+        .parseUserInput(
+            "mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
 
     CommandArgs c_wanted = new CommandArgs("mkdir",
         new String[]{"myFile1.txt", "myFile2.txt", "myFile3.txt"});
@@ -211,7 +217,8 @@ public class ParserTest {
   @Test
   public void testUserInputWithStringFeilds() {
     CommandArgs p =
-        Parser.parseUserInput("find -type \"d\" -name \"some string\"");
+        Parser
+            .parseUserInput("find -type \"d\" -name \"some string\"");
 
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("type", "d");
@@ -239,7 +246,8 @@ public class ParserTest {
   public void testUserInputWithNewlineInsideOfStringField() {
     CommandArgs p = Parser.parseUserInput("echo \"some\ntext\"");
 
-    CommandArgs c_wanted = new CommandArgs("echo", new String[]{"some\ntext"});
+    CommandArgs c_wanted = new CommandArgs("echo",
+        new String[]{"some\ntext"});
     assertEquals(p, c_wanted);
   }
 }

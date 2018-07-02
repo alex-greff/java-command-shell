@@ -54,18 +54,6 @@ public class CmdEcho extends Command {
    */
   private final String NAME = "echo";
   /**
-   * The description of the command.
-   */
-  private CommandDescription DESCRIPTION =
-      new CommandDescription("Appends or writes a string to a file.",
-          new String[]{"echo STRING", "echo STRING [> OUTFILE]",
-              "echo STRING [>> OUTFILE]"},
-          new String[]{
-              "The \">\" character signals to overwrite the file contents.",
-              "The \">>\" character signals to append to the file contents."});
-
-  // Define operator constants
-  /**
    * The overwrite operator character.
    */
   private final String OVERWRITE_OPERATOR = ">";
@@ -73,6 +61,21 @@ public class CmdEcho extends Command {
    * The append operator character.
    */
   private final String APPEND_OPERATOR = ">>";
+  /**
+   * The description of the command.
+   */
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Appends or writes a string to a file.",
+          "echo STRING")
+          .usage("echo STRING [> OUTFILE]")
+          .usage("echo STRING [>> OUTFILE]")
+          .additionalComment(
+              "The \">\" character signals to overwrite the file "
+                  + "conents.")
+          .additionalComment(
+              "The \">>\" character signals to append to the file conents.")
+          .build();
 
   /**
    * Executes the echo command.
@@ -83,7 +86,8 @@ public class CmdEcho extends Command {
    * @return Returns the exit status of the command.
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Initialize default command output
     String output = "";
     ExitCode exitValue = ExitCode.SUCCESS;
@@ -123,7 +127,8 @@ public class CmdEcho extends Command {
    * @param errOut The error output to use.
    * @return Returns if the write succeeded or not
    */
-  private ExitCode writeToFile(CommandArgs args, Writable out, Writable errOut)
+  private ExitCode writeToFile(CommandArgs args, Writable out,
+      Writable errOut)
       throws FileAlreadyExistsException {
     // Setup references
     String redirOper = args.getRedirectOperator();

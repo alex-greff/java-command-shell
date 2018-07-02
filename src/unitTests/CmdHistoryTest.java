@@ -34,15 +34,9 @@ import static org.junit.Assert.assertEquals;
 import commands.CmdHistory;
 import containers.CommandArgs;
 import driver.JShell;
-import filesystem.Directory;
-import filesystem.File;
-import filesystem.FileAlreadyExistsException;
-import filesystem.FileSystem;
 import io.Console;
 import io.ErrorConsole;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
@@ -63,7 +57,8 @@ public class CmdHistoryTest {
     Command cmd = new CmdHistory();
 
     ExitCode exc =
-        cmd.execute(args, Console.getInstance(), ErrorConsole.getInstance());
+        cmd.execute(args, Console.getInstance(),
+            ErrorConsole.getInstance());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 }

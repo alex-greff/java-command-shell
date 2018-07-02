@@ -45,13 +45,11 @@ public class CmdPwd extends Command {
    * Constant instance variable for the command name
    */
   private final String NAME = "pwd";
-
-  /**
-   * Container for the command's description
-   */
-  private CommandDescription DESCRIPTION = new CommandDescription(
-      "Print working directory.", new String[]{"pwd"},
-      new String[]{"None."});
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Print working directory.",
+          "pwd")
+          .build();
 
   /**
    * Executes the pwd command with the given arguments. Pwd prints the working
@@ -63,7 +61,8 @@ public class CmdPwd extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Obtain the instance of the FileSystem
     FileSystem FS = FileSystem.getInstance();
     // Write the path of the working directory in the FileSystem to the Console

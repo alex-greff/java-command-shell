@@ -47,13 +47,13 @@ public class CmdCd extends Command {
    * Constant instance variable for the command name
    */
   private final String NAME = "cd";
-
-  /**
-   * Container for the command's description
-   */
-  private CommandDescription DESCRIPTION = new CommandDescription(
-      "Change directory.", new String[]{"cd DIRECTORY"},
-      new String[]{"Path of DIRECTORY can be relative or absolute."});
+  private CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Change directory.",
+          "cd DIRECTORY")
+          .additionalComment(
+              "Path of DIRECTORY can be relative or absolute.")
+          .build();
 
   /**
    * Executes the cd command with the given arguments. Cd changes the working
@@ -66,7 +66,8 @@ public class CmdCd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out,
+      Writable errOut) {
     // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];
 

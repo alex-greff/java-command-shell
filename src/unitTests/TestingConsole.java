@@ -33,8 +33,8 @@ import java.util.Stack;
 import io.Writable;
 
 /**
- * A console for testing commands. Allows for easy lookup for the output of
- * commands.
+ * A console for testing commands. Allows for easy lookup for the
+ * output of commands.
  *
  * @author ajg
  */
