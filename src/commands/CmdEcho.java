@@ -38,9 +38,12 @@ import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.Console;
+import io.ErrorConsole;
 import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
+import utilities.Parser;
 
 /**
  * The echo command.
@@ -62,7 +65,7 @@ public class CmdEcho extends Command {
   // Define operator constants
   private final String OVERWRITE_OPERATOR = ">";
   private final String APPEND_OPERATOR = ">>";
-
+  
   /**
    * Executes the echo command.
    * 
@@ -96,9 +99,8 @@ public class CmdEcho extends Command {
     }
 
     // If there is any output for the standard out then write to it
-    if (!output.equals("")) {
+    if (!output.equals(""))
       out.writeln(output);
-    }
 
     // Return the output
     return exitValue;
@@ -145,9 +147,8 @@ public class CmdEcho extends Command {
             (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
 
         // If the file is in the root
-        if (dirPathStr.equals("")) {
+        if (dirPathStr.equals(""))
           dirPathStr = "/";
-        }
 
         // Attempt to add the file to the directory
         try {
@@ -168,14 +169,8 @@ public class CmdEcho extends Command {
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
-      if (redirOper.equals(OVERWRITE_OPERATOR)) {
+      if (redirOper.equals(OVERWRITE_OPERATOR))
         file.clear();
-      }
-      // Add a new line to the beginning of the string contents of the redirect
-      // operator is given
-      else if (redirOper.equals(APPEND_OPERATOR)) {
-        // Do nothing (just being explicit here)
-      }
 
       // Add the string contents to the file
       file.write(strContents);

@@ -80,15 +80,14 @@ public class CmdMan extends Command {
     output.append("Description:\n\t" + cmdDesc.getDescription() + "\n");
     // Build the usage section
     output.append("Usage:");
-    for (String usage : cmdDesc.getUsages()) {
+    for (String usage : cmdDesc.getUsages())
       output.append("\n\t- " + usage);
-    }
+
     // If applicable, build the additional comments section
     if (cmdDesc.getAdditionalComments().length > 0) {
       output.append("\nAdditional Comments:");
-      for (String comment : cmdDesc.getAdditionalComments()) {
+      for (String comment : cmdDesc.getAdditionalComments())
         output.append("\n\t- " + comment);
-      }
     }
 
     // Write the output to the given out

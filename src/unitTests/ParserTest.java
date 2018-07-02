@@ -45,15 +45,14 @@ public class ParserTest {
   public void test_user_input_multiple_arguments() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCmd", new String[] {"arg1", "arg2"});
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_only_command() {
     CommandArgs p = Parser.parseUserInput("myCmd");
-    CommandArgs c_wanted =
-        new CommandArgs("myCmd");
+    CommandArgs c_wanted = new CommandArgs("myCmd");
     assertEquals(p, c_wanted);
   }
 
@@ -61,18 +60,15 @@ public class ParserTest {
   public void test_user_input_multiple_arguments_and_file_overwrite() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2 > hi.txt");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">",
-            "hi.txt");
+        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_multiple_arguments_and_file_append() {
-    CommandArgs p = Parser
-        .parseUserInput("myCmd arg1 arg2 >> hi.txt");
+    CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2 >> hi.txt");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>",
-            "hi.txt");
+        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">>", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -119,35 +115,30 @@ public class ParserTest {
   public void test_user_input_multiple_args_and_sapces() {
     CommandArgs p = Parser.parseUserInput("myCmd    arg1   arg2\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCmd", new String[] {"arg1", "arg2"});
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_no_args_multiple_spaces_and_tabs_() {
     CommandArgs p = Parser.parseUserInput("     myCmd\t");
-    CommandArgs c_wanted =
-        new CommandArgs("myCmd");
+    CommandArgs c_wanted = new CommandArgs("myCmd");
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_args_and_redirect_with_multiple_spaces_tabs() {
-    CommandArgs p = Parser
-        .parseUserInput("  myCmd arg1 arg2 >   hi.txt\t\t");
+    CommandArgs p = Parser.parseUserInput("  myCmd arg1 arg2 >   hi.txt\t\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">",
-            "hi.txt");
+        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_only_tab_separators() {
-    CommandArgs p = Parser
-        .parseUserInput("\tmyCmd\targ1\targ2\t>>\thi.txt\t");
+    CommandArgs p = Parser.parseUserInput("\tmyCmd\targ1\targ2\t>>\thi.txt\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>",
-            "hi.txt");
+        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">>", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -156,34 +147,30 @@ public class ParserTest {
    */
   @Test
   public void test_user_input_string_parameter() {
-    CommandArgs p = Parser
-        .parseUserInput("echo \"this is a string\"");
+    CommandArgs p = Parser.parseUserInput("echo \"this is a string\"");
 
     CommandArgs c_wanted =
-        new CommandArgs("echo", new String[]{"this is a string"});
+        new CommandArgs("echo", new String[] {"this is a string"});
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_string_arguments_and_redirect() {
-    CommandArgs p = Parser
-        .parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
+    CommandArgs p =
+        Parser.parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
 
-    CommandArgs c_wanted =
-        new CommandArgs("echo", new String[]{"this is a string"}, ">",
-            "myFile.txt");
+    CommandArgs c_wanted = new CommandArgs("echo",
+        new String[] {"this is a string"}, ">", "myFile.txt");
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_multiple_string_arguments() {
-    CommandArgs p = Parser.parseUserInput(
-        "mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
+    CommandArgs p = Parser
+        .parseUserInput("mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
 
-    CommandArgs c_wanted =
-        new CommandArgs("mkdir",
-            new String[]{"myFile1.txt", "myFile2.txt",
-                "myFile3.txt"});
+    CommandArgs c_wanted = new CommandArgs("mkdir",
+        new String[] {"myFile1.txt", "myFile2.txt", "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
 
@@ -192,10 +179,8 @@ public class ParserTest {
     CommandArgs p = Parser.parseUserInput(
         "mkdir    \"myFile1.txt\" \t \"myFile2.txt\" \tmyFile3.txt");
 
-    CommandArgs c_wanted =
-        new CommandArgs("mkdir",
-            new String[]{"myFile1.txt", "myFile2.txt",
-                "myFile3.txt"});
+    CommandArgs c_wanted = new CommandArgs("mkdir",
+        new String[] {"myFile1.txt", "myFile2.txt", "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
 
@@ -203,48 +188,45 @@ public class ParserTest {
   public void test_user_input_redirect_character_as_string_argument() {
     CommandArgs p = Parser.parseUserInput("echo myString \">\" ");
 
+
     CommandArgs c_wanted =
-        new CommandArgs("echo", new String[]{"myString", ">"});
+        new CommandArgs("echo", new String[] {"myString", ">"});
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_user_input_with_feilds() {
-    CommandArgs p = Parser.parseUserInput(
-        "find someDir -type d -name hi");
+    CommandArgs p = Parser.parseUserInput("find someDir -type d -name hi");
 
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("type", "d");
     map.put("name", "hi");
-    
+
     CommandArgs c_wanted =
-        new CommandArgs("find",
-            new String[]{"someDir"}, map);
+        new CommandArgs("find", new String[] {"someDir"}, map);
     assertEquals(p, c_wanted);
   }
 
   @Test
   public void test_invalid_user_input_with_empty_feilds() {
-    CommandArgs p = Parser.parseUserInput(
-        "find someDir -type -name hi");
-    
+    CommandArgs p = Parser.parseUserInput("find someDir -type -name hi");
+
     assertNull(p);
   }
-  
+
   @Test
   public void test_user_input_with_string_feilds() {
-    CommandArgs p = Parser.parseUserInput(
-        "find -type \"d\" -name \"some string\"");
+    CommandArgs p =
+        Parser.parseUserInput("find -type \"d\" -name \"some string\"");
 
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("type", "d");
     map.put("name", "some string");
-    
-    CommandArgs c_wanted =
-        new CommandArgs("find", map);
+
+    CommandArgs c_wanted = new CommandArgs("find", map);
     assertEquals(p, c_wanted);
   }
-  
+
   @Test
   public void test_user_input_with_string_feilds_multiple_space_tabs() {
     CommandArgs p = Parser.parseUserInput(
@@ -253,10 +235,17 @@ public class ParserTest {
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("type", "d");
     map.put("name", "hi");
-    
+
     CommandArgs c_wanted =
-        new CommandArgs("find",
-            new String[]{"someDir"}, map);
+        new CommandArgs("find", new String[] {"someDir"}, map);
+    assertEquals(p, c_wanted);
+  }
+
+  @Test
+  public void test_user_input_with_newline_inside_of_string_field() {
+    CommandArgs p = Parser.parseUserInput("echo \"some\ntext\"");
+
+    CommandArgs c_wanted = new CommandArgs("echo", new String[] {"some\ntext"});
     assertEquals(p, c_wanted);
   }
 }

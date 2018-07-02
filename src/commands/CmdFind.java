@@ -95,20 +95,17 @@ public class CmdFind extends Command {
         Set<String> outputPaths = new HashSet<>();
 
         // If we're looking for file occurrences
-        if (type.equals(TYPE_FILE)) {
+        if (type.equals(TYPE_FILE))
           // Search recursively for the file
           outputPaths = findFileInDirectoryStructure(currDir, expression);
-        }
         // If we're looking for directory occurrences
-        else if (type.equals(TYPE_DIR)) {
+        else if (type.equals(TYPE_DIR))
           // Search recursively for the directory
           outputPaths = findDirectoryInDirectoryStructure(currDir, expression);
-        }
 
         // Print out the set as a string with each entry on a new line
-        for (String outputPath : outputPaths) {
+        for (String outputPath : outputPaths)
           output.append(outputPath).append("\n");
-        }
 
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: invalid path");
@@ -117,9 +114,9 @@ public class CmdFind extends Command {
       }
 
     }
-    
+
     // Print the output
-      out.write(output.toString());
+    out.write(output.toString());
 
     return ExitCode.SUCCESS;
   }
@@ -145,10 +142,9 @@ public class CmdFind extends Command {
       String dirAbsPath = fs.getAbsolutePathOfDir(dir);
 
       // If the directory is the root directory
-      if (dirAbsPath.equals("/")) {
+      if (dirAbsPath.equals("/"))
         // Remove the extra "/" character
         dirAbsPath = "";
-      }
 
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name);
@@ -186,15 +182,14 @@ public class CmdFind extends Command {
     // If the current directory contains the wanted directory then add the
     // absolute path of the file to the return set
     if (dir.containsDir(name)) {
-   // Get the absolute path of the directory
+      // Get the absolute path of the directory
       String dirAbsPath = fs.getAbsolutePathOfDir(dir);
 
       // If the directory is the root directory
-      if (dirAbsPath.equals("/")) {
+      if (dirAbsPath.equals("/"))
         // Remove the extra "/" character
         dirAbsPath = "";
-      }
-      
+
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name + "/");
     }
