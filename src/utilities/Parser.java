@@ -126,7 +126,7 @@ public class Parser {
   /**
    * Attempts to construct a CommandArgs object from the given input split.
    * 
-   * @param inputSplit The list of split items of the input
+   * @param inputSplit The list of split items of the input.
    * @return Returns a CommandArgs object or null if the given input is invalid.
    */
   private static CommandArgs constructCommandArgs(List<String> inputSplit) {
@@ -140,6 +140,7 @@ public class Parser {
     String redirOperator = "";
     // Initialize the target destination
     String targetDest = "";
+    
     // Iterate through the items after index 0
     for (int i = 1; i < inputSplit.size(); i++) {
       // If a redirect operator is found
@@ -176,8 +177,10 @@ public class Parser {
         // Add the parameters to the array list (without any quotes
         paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
     }
+    
     // Convert the parameter arraylist to an array
     String[] cmdParams = paramsArrayList.toArray(new String[0]);
+    
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,
