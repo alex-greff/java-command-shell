@@ -42,9 +42,22 @@ import java.util.ArrayList;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * the ls command
+ *
+ * @author chedy
+ *
+ */
 public class CmdLs extends Command {
 
+  /**
+   * name of the command
+   */
   private final String NAME = "ls";
+
+  /**
+   * description of the command
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Lists all of the files and directories in the current\n"
           + "working directory. Can take multiple filenames/directory \n"
@@ -58,8 +71,8 @@ public class CmdLs extends Command {
 
   /**
    * @param args The command Arguments.
-   * @param out Gets the commands standard output written to
-   * @param errOut Gets the commands standard error output written to
+   * @param out The writable for any normal output of the command.
+   * @param errOut The writable for any error output of the command.
    * @return an Exitcode: 0 -> success, 1 -> failure
    */
   @Override
@@ -76,7 +89,7 @@ public class CmdLs extends Command {
         try {
           path = new Path(name);
           curr = fileSystem.getDirByPath(path);
-          result.append(addon(curr));
+          result.append(addOn(curr));
         } catch (MalformedPathException | FileNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
@@ -94,7 +107,7 @@ public class CmdLs extends Command {
 
     // if no parameters are given, perform command on current working dir
     else {
-      result = new StringBuilder(addon(curr));
+      result = new StringBuilder(addOn(curr));
     }
 
     if (result.length() > 0) {
@@ -111,7 +124,7 @@ public class CmdLs extends Command {
    * string
    * @return The string representation of the directories contents
    */
-  private String addon(Directory dir) {
+  private String addOn(Directory dir) {
     StringBuilder result = new StringBuilder();
     // get lists of files and dirs of the current working path
     ArrayList<String> dirs = dir.listDirNames();

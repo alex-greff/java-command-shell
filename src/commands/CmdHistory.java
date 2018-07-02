@@ -37,11 +37,22 @@ import java.util.ArrayList;
 import utilities.Command;
 import utilities.ExitCode;
 
-
+/**
+ * the history command
+ *
+ * @author chedy
+ *
+ */
 public class CmdHistory extends Command {
 
+  /**
+   * the name of the command
+   */
   private final String NAME = "history";
 
+  /**
+   * the description of the command
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "This command lists all of the past lines of user entry by" +
       "default, but if given a positive integer argument x, the last x " +
@@ -51,6 +62,13 @@ public class CmdHistory extends Command {
           + "latest entry in history \n(i.e. history 1 prints:"
           + "\n 1. history 1)"});
 
+  /**
+   *
+   * @param args The arguments for the command call.
+   * @param out The writable for any normal output of the command.
+   * @param errOut The writable for any error output of the command.
+   * @return the history of the users input
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
       Writable errOut) {
@@ -97,6 +115,11 @@ public class CmdHistory extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   *
+   * @param args The command arguments.
+   * @return whether or not the arguments are valid for the command
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
@@ -106,11 +129,19 @@ public class CmdHistory extends Command {
         && args.getTargetDestination().equals("");
   }
 
+  /**
+   *
+   * @return the commands name
+   */
   @Override
   public String getName() {
     return NAME;
   }
 
+  /**
+   *
+   * @return the documentation of the command
+   */
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;

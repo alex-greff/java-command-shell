@@ -38,10 +38,21 @@ import java.util.ArrayList;
 import utilities.Command;
 import utilities.ExitCode;
 
-
+/**
+ * the tree command
+ *
+ * @author chedy
+ *
+ */
 public class CmdTree extends Command {
 
+  /**
+   * name of the command
+   */
   private final String NAME = "tree";
+  /**
+   * description of the command
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "prints a tree representation of the entire filesystem, \n"
           + "stemming from the root.",
@@ -50,13 +61,20 @@ public class CmdTree extends Command {
           + "listed a tab forward, and below the directory name"}
   );
 
+  /**
+   *
+   * @param args The arguments for the command call.
+   * @param out The writable for any normal output of the command.
+   * @param errOut The writable for any error output of the command.
+   * @return string representation of the entire filesystem
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
       Writable errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
-      result += (addon(root, 1));
+      result += (addOn(root, 1));
     } catch (FileNotFoundException e) {
       // Do nothing
     }
@@ -66,6 +84,11 @@ public class CmdTree extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   *
+   * @param args The command arguments.
+   * @return whether or not the arguments are valid for this command
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
@@ -75,7 +98,15 @@ public class CmdTree extends Command {
         && args.getTargetDestination().equals("");
   }
 
-  private String addon(Directory curr, int tabs)
+  /**
+   *
+   * @param curr The current directory to get names from
+   * @param tabs The amount of tabs to indent the newlines
+   * @return a block of String which represents the filesystem from the
+   * curr directory down.
+   * @throws FileNotFoundException
+   */
+  private String addOn(Directory curr, int tabs)
       throws FileNotFoundException {
     // get proper amount of tabs
     StringBuilder spacing = new StringBuilder();
@@ -96,17 +127,25 @@ public class CmdTree extends Command {
     ArrayList<String> childs = curr.listDirNames();
     for (String key : childs) {
       result.append(spacing).append(key).append("\n");
-      // result+=addon(childs.get(key), tabs+1);
-      result.append(addon(curr.getDirByName(key), tabs + 1));
+      // result+=addOn(childs.get(key), tabs+1);
+      result.append(addOn(curr.getDirByName(key), tabs + 1));
     }
     return result.toString();
   }
 
+  /**
+   *
+   * @return the name of the command
+   */
   @Override
   public String getName() {
     return NAME;
   }
 
+  /**
+   *
+   * @return the documentation of the command
+   */
   @Override
   public CommandDescription getDescription() {
     return DESCRIPTION;
