@@ -67,10 +67,10 @@ public class CmdCdTest {
     // Attempt to change into the child directory created
     String argParam[] = {"testDir"};
     CommandArgs args = new CommandArgs("cd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the child directory which we created
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir");
   }
@@ -80,10 +80,10 @@ public class CmdCdTest {
     // Attempt to change into the current directory
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is still the root directory
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/");
   }
@@ -102,10 +102,10 @@ public class CmdCdTest {
     // Attempt to change into the parent directory
     String argParam2[] = {".."};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the root directory again
-    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/");
   }
@@ -127,10 +127,10 @@ public class CmdCdTest {
     // starting from the root
     String argParam2[] = {"/testDir/testDirAgain"};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the grandchild directory which we created
-    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir/testDirAgain");
   }
@@ -151,10 +151,10 @@ public class CmdCdTest {
     // up to the parent first, and then to the sibling
     String argParam2[] = {"../testDirAgain"};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the second sibling directory which we created
-    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDirAgain");
   }

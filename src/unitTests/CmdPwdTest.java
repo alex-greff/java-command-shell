@@ -58,11 +58,12 @@ public class CmdPwdTest {
 
   @Test
   public void testRootDir() {
+    // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the path of the
     // root directory was printed
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getLastWrite(), "/");
   }

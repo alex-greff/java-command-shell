@@ -61,60 +61,60 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testFileWithOneLine()
-      throws FileAlreadyExistsException {
+  public void testFileWithOneLine() throws FileAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
-    File file1 = new File("testFile1", "hello");
-    FS.getRoot().addFile(file1);
+    File file = new File("testFile", "hello");
+    FS.getRoot().addFile(file);
 
-    String argParam[] = {"testFile1"};
+    // Attempt to display the contents of the file
+    String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and just the one line of
     // content was printed
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(), "hello\n");
   }
 
   @Test
-  public void testMultipleFilesWithOneLine()
-      throws FileAlreadyExistsException {
-    // Create another file with one line of content, and add it to the root
-    // directory, the file from before still exists in the file system
+  public void testMultipleFilesWithOneLine() throws FileAlreadyExistsException {
+    // Create two files with one line of content each, and add them to the root
+    // directory
+    File file1 = new File("testFile1", "hello");
     File file2 = new File("testFile2", "world");
+    FS.getRoot().addFile(file1);
     FS.getRoot().addFile(file2);
 
+    // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
     CommandArgs args = new CommandArgs("cat", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that both lines of
     // content were printed, with 2 blank lines in between
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(),
-        "hello\n\n\nworld\n");
+    assertEquals(testOut.getAllWritesAsString(), "hello\n\n\nworld\n");
   }
 
   @Test
-  public void testFileWithMultipleLines()
-      throws FileAlreadyExistsException {
+  public void testFileWithMultipleLines() throws FileAlreadyExistsException {
     // Create a file with multiple lines of content, and add it to the root
     // directory
-    File file3 = new File("testFile3", "hello\nworld\nthis\n"
-        + "is\na\ntest");
-    FS.getRoot().addFile(file3);
+    File file = new File("testFile",
+        "hello\nworld\nthis\nis\na\ntest");
+    FS.getRoot().addFile(file);
 
-    String argParam[] = {"testFile3"};
+    // Attempt to display the contents of the file
+    String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that every line of
     // content was printed
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(),
-        "hello\nworld\nthis\n"
-            + "is\na\ntest\n");
+        "hello\nworld\nthis\nis\na\ntest\n");
   }
 
 }
