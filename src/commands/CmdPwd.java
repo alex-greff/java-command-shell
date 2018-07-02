@@ -36,10 +36,19 @@ import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * The pwd command class that inherits from command
+ */
 public class CmdPwd extends Command {
 
-  // Name and Description Constants
+  /**
+   * Constant instance variable for the command name
+   */
   private final String NAME = "pwd";
+
+  /**
+   * Container for the command's description
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Print working directory.", new String[]{"pwd"},
       new String[]{"None."});

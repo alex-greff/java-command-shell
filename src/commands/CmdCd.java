@@ -38,10 +38,19 @@ import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * The cd command class that inherits from command
+ */
 public class CmdCd extends Command {
 
-  // Name and Description Constants
+  /**
+   * Constant instance variable for the command name
+   */
   private final String NAME = "cd";
+
+  /**
+   * Container for the command's description
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Change directory.", new String[]{"cd DIRECTORY"},
       new String[]{"Path of DIRECTORY can be relative or absolute."});

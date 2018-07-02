@@ -39,10 +39,19 @@ import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * The cat command class that inherits from command
+ */
 public class CmdCat extends Command {
 
-  // Name and Description Constants
+  /**
+   * Constant instance variable for the command name
+   */
   private final String NAME = "cat";
+
+  /**
+   * Container for the command's description
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Print contents of file(s).", new String[]{"cat FILES"},
       new String[]{"Path of FILE can be relative or absolute.",

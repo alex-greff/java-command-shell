@@ -48,15 +48,31 @@ import io.Console;
 import io.ErrorConsole;
 import java.util.HashMap;
 
+/**
+ * The CommandManager class that stores all known commands, and is in charge of
+ * command execution and obtaining command descriptions
+ */
 public class CommandManager {
 
+  /**
+   * Instance of the CommandManager for singleton access
+   */
   private static CommandManager ourInstance = null;
 
-  // HashMap to contain known commands
+  /**
+   * HashMap container for command names mapped to command instances, initially
+   * empty
+   */
   private HashMap<String, Command> cmdMap = new HashMap<>();
 
-  // Instances of the Console and ErrorConsole to pass in command execution
+  /**
+   * Reference to the instance of the Console
+   */
   private Console out = Console.getInstance();
+
+  /**
+   * Reference to the instance of the ErrorConsole
+   */
   private ErrorConsole errorOut = ErrorConsole.getInstance();
 
   /**
