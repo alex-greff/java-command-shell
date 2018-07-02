@@ -47,7 +47,7 @@ public class CmdCatTest {
   @Test
   public void testFileWithMultipleLines() throws FileAlreadyExistsException {
     File file3 = new File("testFile3", "hello\nworld\nthis\n"
-                                                    + "is\na\ntest");
+        + "is\na\ntest");
     FS.getRoot().addFile(file3);
 
     String argParam[] = {"testFile3"};
@@ -55,7 +55,8 @@ public class CmdCatTest {
 
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(),"hello\nworld\nthis\n"
-                                                    + "is\na\ntest\n");
+    assertEquals(testOut.getAllWritesAsString(), "hello\nworld\nthis\n"
+        + "is\na\ntest\n");
   }
+
 }
