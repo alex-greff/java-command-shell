@@ -41,6 +41,8 @@ import utilities.ExitCode;
 
 public class CmdCdTest {
 
+  // Create Testing Consoles, an instance of the command, and get an instance
+  // of the file system
   private TestingConsole testOut = new TestingConsole();
   private TestingConsole testErrOut = new TestingConsole();
   private Command cmd = new CmdCd();
@@ -48,12 +50,15 @@ public class CmdCdTest {
 
   @Test
   public void testChildDir() throws FileAlreadyExistsException {
+    // Create two directories and add them to the root directory
     FS.getRoot().createAndAddNewDir("testDir1");
     FS.getRoot().createAndAddNewDir("testDir2");
 
     String argParam[] = {"testDir1"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
+    // Assert that the command successfully executed, and that the working
+    // directory is now the first which we created
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir1");
@@ -61,11 +66,14 @@ public class CmdCdTest {
 
   @Test
   public void testCurrentDir() throws FileAlreadyExistsException {
+    // Create another directory for later, now inside of the first directory
     FS.getWorkingDir().createAndAddNewDir("testDir3");
 
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
+    // Assert that the command successfully executed, and that the working
+    // directory is still the first which we created
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir1");
@@ -76,6 +84,8 @@ public class CmdCdTest {
     String argParam[] = {".."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
+    // Assert that the command successfully executed, and that the working
+    // directory is now the root directory again
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/");
@@ -86,6 +96,8 @@ public class CmdCdTest {
     String argParam[] = {"/testDir1/testDir3"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
+    // Assert that the command successfully executed, and that the working
+    // directory is now the third which we created, inside of the first
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir1/testDir3");
@@ -96,6 +108,8 @@ public class CmdCdTest {
     String argParam[] = {"../../testDir2"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
+    // Assert that the command successfully executed, and that the working
+    // directory is now the second which we created
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/testDir2");

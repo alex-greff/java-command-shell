@@ -42,12 +42,14 @@ public class CommandManagerTest {
 
   @Test
   public void testInitialization() {
+    // Assert that the cmdMap has in fact been populated by initializeCommands
     CM.initializeCommands();
     assertFalse(CM.isCmdMapEmpty());
   }
 
   @Test
   public void testGetCommandDescription() {
+    // Assert that a CommandDescription is returned for a known command
     CommandDescription desc = CM.getCommandDescription("man");
     assertNotNull(desc);
   }

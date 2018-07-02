@@ -42,6 +42,8 @@ import utilities.ExitCode;
 
 public class CmdCatTest {
 
+  // Create Testing Consoles, an instance of the command, and get an instance
+  // of the file system
   private TestingConsole testOut = new TestingConsole();
   private TestingConsole testErrOut = new TestingConsole();
   private Command cmd = new CmdCat();
@@ -49,12 +51,15 @@ public class CmdCatTest {
 
   @Test
   public void testFileWithOneLine() throws FileAlreadyExistsException {
+    // Create a file with one line of content, and add it to the root directory
     File file1 = new File("testFile1", "hello");
     FS.getRoot().addFile(file1);
 
     String argParam[] = {"testFile1"};
     CommandArgs args = new CommandArgs("cat", argParam);
 
+    // Assert that the command successfully executed, and just the one line of
+    // content was printed
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(), "hello\n");
@@ -62,12 +67,16 @@ public class CmdCatTest {
 
   @Test
   public void testMultipleFilesWithOneLine() throws FileAlreadyExistsException {
+    // Create another file with one line of content, and add it to the root
+    // directory, the file from before still exists in the file system
     File file2 = new File("testFile2", "world");
     FS.getRoot().addFile(file2);
 
     String argParam[] = {"testFile1", "testFile2"};
     CommandArgs args = new CommandArgs("cat", argParam);
 
+    // Assert that the command successfully executed, and that both lines of
+    // content were printed, with 2 blank lines in between
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(), "hello\n\n\nworld\n");
@@ -75,6 +84,8 @@ public class CmdCatTest {
 
   @Test
   public void testFileWithMultipleLines() throws FileAlreadyExistsException {
+    // Create a file with multiple lines of content, and add it to the root
+    // directory
     File file3 = new File("testFile3", "hello\nworld\nthis\n"
         + "is\na\ntest");
     FS.getRoot().addFile(file3);
@@ -82,6 +93,8 @@ public class CmdCatTest {
     String argParam[] = {"testFile3"};
     CommandArgs args = new CommandArgs("cat", argParam);
 
+    // Assert that the command successfully executed, and that every line of
+    // content was printed
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(), "hello\nworld\nthis\n"

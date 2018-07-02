@@ -49,8 +49,8 @@ public class CmdCat extends Command {
           "Can take more than one FILE as arguments."});
 
   /**
-   * Executes the cat command with the given arguments cat prints the contents
-   * of files Error messages if the file path is invalid, or the file does not
+   * Executes the cat command with the given arguments. Cat prints the contents
+   * of files. Error messages if the file path is invalid, or the file does not
    * exist
    *
    * @param args The command arguments container
@@ -92,8 +92,8 @@ public class CmdCat extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for this command
-   * cat expects at least 1 argument
+   * Helper function to check if the arguments passed are valid for this
+   * command. Cat expects at least 1 argument
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise

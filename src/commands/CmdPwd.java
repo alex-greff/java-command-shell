@@ -45,7 +45,7 @@ public class CmdPwd extends Command {
       new String[]{"None."});
 
   /**
-   * Executes the pwd command with the given arguments pwd prints the working
+   * Executes the pwd command with the given arguments. Pwd prints the working
    * directory
    *
    * @param args The command arguments container
@@ -64,8 +64,8 @@ public class CmdPwd extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for this command
-   * pwd expects no arguments
+   * Helper function to check if the arguments passed are valid for this
+   * command. Pwd expects no arguments
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise

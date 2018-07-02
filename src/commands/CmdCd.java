@@ -47,9 +47,9 @@ public class CmdCd extends Command {
       new String[]{"Path of DIRECTORY can be relative or absolute."});
 
   /**
-   * Executes the cd command with the given arguments cd changes the working
-   * directory Error messages if the directory path is invalid, or the directory
-   * does not exist
+   * Executes the cd command with the given arguments. Cd changes the working
+   * directory. Error messages if the directory path is invalid, or the
+   * directory does not exist
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -83,8 +83,8 @@ public class CmdCd extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for this command
-   * cd expects only 1 argument
+   * Helper function to check if the arguments passed are valid for this
+   * command. Cd expects only 1 argument
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise

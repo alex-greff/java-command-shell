@@ -39,6 +39,7 @@ import utilities.ExitCode;
 
 public class CmdPwdTest {
 
+  // Create Testing Consoles, and an instance of the command
   private TestingConsole testOut = new TestingConsole();
   private TestingConsole testErrOut = new TestingConsole();
   private Command cmd = new CmdPwd();
@@ -47,6 +48,8 @@ public class CmdPwdTest {
   public void testRootDir() {
     CommandArgs args = new CommandArgs("pwd");
 
+    // Assert that the command successfully executed, and that the path of the
+    // root directory was printed
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getLastWrite(), "/");
