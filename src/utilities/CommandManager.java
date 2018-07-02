@@ -84,9 +84,8 @@ public class CommandManager {
   }
 
   /**
-   * Populates cmdMap with all known commands as they are expected to
-   * be typed in String format, mapped to an instance of the
-   * respective command
+   * Populates cmdMap with all known commands as they are expected to be typed
+   * in String format, mapped to an instance of the respective command
    */
   public void initializeCommands() {
     cmdMap.put("cat", new CmdCat());
@@ -159,8 +158,7 @@ public class CommandManager {
   }
 
   /**
-   * Attempt to obtain the CommandDescription of a command, given its
-   * name.
+   * Attempt to obtain the CommandDescription of a command, given its name.
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
