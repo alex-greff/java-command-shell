@@ -1,0 +1,10 @@
+What did I do last time?
+    - Created missing JavaDoc for files responsible for
+    - Updated test files to account for file system being reset for each test
+    - Double checked formatting, style, and other conventions for consistency
+
+What do I plan to do now?
+    - Project Completed
+
+Am I blocked on anything?
+    - No
