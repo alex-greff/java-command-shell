@@ -37,9 +37,8 @@ import utilities.ExitCode;
 
 /**
  * The man command.
- * 
- * @author greff
  *
+ * @author greff
  */
 public class CmdMan extends Command {
   // Setup command information
@@ -51,8 +50,8 @@ public class CmdMan extends Command {
    * The description of the command.
    */
   private CommandDescription DESCRIPTION = new CommandDescription(
-      "Gets documentation for commands.", new String[] {"man COMMAND"},
-      new String[] {"For some fun try \"man man\"."});
+      "Gets documentation for commands.", new String[]{"man COMMAND"},
+      new String[]{"For some fun try \"man man\"."});
 
   /**
    * Executes the man command with the arguments args
@@ -70,8 +69,8 @@ public class CmdMan extends Command {
     // If the command does not have a command description object
     if (cmdDesc == null) {
       // Write to an error message
-      errOut.writeln(
-          "Error: No description found for command \"" + cmdName + "\"");
+      errOut.writeln("Error: No description found for command \""
+          + cmdName + "\"");
       // Return the failure exit code
       return ExitCode.FAILURE;
     }
@@ -86,14 +85,16 @@ public class CmdMan extends Command {
     output.append("Description:\n\t" + cmdDesc.getDescription() + "\n");
     // Build the usage section
     output.append("Usage:");
-    for (String usage : cmdDesc.getUsages())
+    for (String usage : cmdDesc.getUsages()) {
       output.append("\n\t- " + usage);
+    }
 
     // If applicable, build the additional comments section
     if (cmdDesc.getAdditionalComments().length > 0) {
       output.append("\nAdditional Comments:");
-      for (String comment : cmdDesc.getAdditionalComments())
+      for (String comment : cmdDesc.getAdditionalComments()) {
         output.append("\n\t- " + comment);
+      }
     }
 
     // Write the output to the given out
