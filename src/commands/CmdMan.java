@@ -59,24 +59,30 @@ public class CmdMan extends Command {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the description of the command
-    // Return the command description
-    // return commandManager.getCommandDescription(cmdName); // TODO: fix
     CommandDescription cmdDesc = commandManager.getCommandDescription(cmdName);
 
+    // If the command does not have a command description object
     if (cmdDesc == null) {
+      // Write to an error message
       errOut.writeln(
           "Error: No description found for command \"" + cmdName + "\"");
+      // Return the failure exit code
       return ExitCode.FAILURE;
     }
 
+    // In the case that there is a command description object
+    // Initialize a string builder object
     StringBuilder output = new StringBuilder();
 
+    // Build the description section
     output.append("\"" + cmdName + "\" Command Documentation\n");
     output.append("Description:\n\t" + cmdDesc.getDescription() + "\n");
+    // Build the usage section
     output.append("Usage:");
     for (String usage : cmdDesc.getUsages()) {
       output.append("\n\t- " + usage);
     }
+    // If applicable, build the additional comments section
     if (cmdDesc.getAdditionalComments().length > 0) {
       output.append("\nAdditional Comments:");
       for (String comment : cmdDesc.getAdditionalComments()) {
@@ -87,6 +93,7 @@ public class CmdMan extends Command {
     // Write the output to the given out
     out.writeln(output.toString());
 
+    // Return the success exit code
     return ExitCode.SUCCESS;
   }
 
