@@ -43,7 +43,13 @@ import utilities.ExitCode;
  */
 public class CmdMan extends Command {
   // Setup command information
+  /**
+   * The name of the command.
+   */
   private final String NAME = "man";
+  /**
+   * The description of the command.
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Gets documentation for commands.", new String[] {"man COMMAND"},
       new String[] {"For some fun try \"man man\"."});

@@ -34,18 +34,54 @@ import containers.CommandDescription;
 import filesystem.FileSystem;
 import io.Writable;
 
+/**
+ * The abstract command class that all commands inherit from.
+ * 
+ * @author greff
+ *
+ */
 public abstract class Command {
 
-  protected CommandManager commandManager = CommandManager
-      .getInstance();
+  /**
+   * The reference to the instance of the command manager.
+   */
+  protected CommandManager commandManager = CommandManager.getInstance();
+
+  /**
+   * The reference to the instance of the file system.
+   */
   protected FileSystem fileSystem = FileSystem.getInstance();
 
+  /**
+   * Executes the command's function.
+   * 
+   * @param args The arguments for the command call.
+   * @param out The standard output console.
+   * @param errorOut The error output console.
+   * @return Returns the exit condition of the command.
+   */
   public abstract ExitCode execute(CommandArgs args, Writable out,
       Writable errorOut);
 
+  /**
+   * Checks if the given args are valid for this command.
+   * 
+   * @param args The command arguments.
+   * @return Returns true iff the args are valid.
+   */
   public abstract boolean isValidArgs(CommandArgs args);
 
+  /**
+   * Gets the name of the command.
+   * 
+   * @return Returns the name of the command.
+   */
   public abstract String getName();
 
+  /**
+   * Gets the CommandDescription object for the command.
+   * 
+   * @return Returns the CommandDescription object for the command.
+   */
   public abstract CommandDescription getDescription();
 }

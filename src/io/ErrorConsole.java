@@ -35,12 +35,15 @@ package io;
  * @author greff
  */
 public class ErrorConsole implements Writable {
-
+  /**
+   * The current singleton instance of the ErrorConsole.
+   */
   private static ErrorConsole ourInstance = null;
 
-  private ErrorConsole() {
-
-  }
+  /**
+   * The constructor, defaulted to private visibility.
+   */
+  private ErrorConsole() {}
 
   /**
    * Gets the singleton instance of ErrorConsole
@@ -61,7 +64,7 @@ public class ErrorConsole implements Writable {
    */
   @Override
   public void write(String contents) {
-    //System.err.println(contents);
+    // System.err.println(contents);
     System.out.print(contents);
   }
 
@@ -69,5 +72,4 @@ public class ErrorConsole implements Writable {
   public void writeln(String contents) {
     System.out.println(contents);
   }
-
 }

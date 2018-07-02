@@ -42,10 +42,25 @@ import java.util.Set;
 public class CommandArgs {
 
   // Storage variables
+  /**
+   * The name of the command.
+   */
   private String cmdName;
+  /**
+   * The array of parameters, if any.
+   */
   private String[] cmdParams;
+  /**
+   * The map of named command parameters, if any.
+   */
   private HashMap<String, String> namedCmdParams;
+  /**
+   * The redirect operator, if any.
+   */
   private String redirOperator;
+  /**
+   * The target destination file, if any.
+   */
   private String targetDest;
 
   /**
@@ -68,20 +83,18 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name and named command
-   * arguments
+   * Constructor initializing with command name and named command arguments
    *
    * @param cmdName the name of the command
    * @param namedCmdParams the parameters that are mapped by type
    */
-  public CommandArgs(String cmdName,
-      HashMap<String, String> namedCmdParams) {
+  public CommandArgs(String cmdName, HashMap<String, String> namedCmdParams) {
     this(cmdName, new String[0], namedCmdParams, "", "");
   }
 
   /**
-   * Constructor initializing with command name, command arguments and
-   * named command arguments
+   * Constructor initializing with command name, command arguments and named
+   * command arguments
    *
    * @param cmdName the command name
    * @param cmdParams the command arguments
@@ -93,55 +106,48 @@ public class CommandArgs {
   }
 
   /**
-   * Constructor initializing with command name, redirect operator and
-   * target destination
+   * Constructor initializing with command name, redirect operator and target
+   * destination
    *
    * @param cmdName the name of the command
    * @param redirOperator the redirect operator
    * @param targetDest the target destination of the redirect
    */
-  public CommandArgs(String cmdName, String redirOperator,
-      String targetDest) {
-    this(cmdName, new String[0], new HashMap<>(), redirOperator,
-        targetDest);
+  public CommandArgs(String cmdName, String redirOperator, String targetDest) {
+    this(cmdName, new String[0], new HashMap<>(), redirOperator, targetDest);
   }
 
   /**
-   * Constructor initializing with command name, command arguments,
-   * redirect operator and target destination
+   * Constructor initializing with command name, command arguments, redirect
+   * operator and target destination
    *
    * @param cmdName the name of the command
    * @param cmdArgs the command arguments
    * @param redirOperator the redirect operator
    * @param targetDest the target destination of the redirect
    */
-  public CommandArgs(String cmdName, String[] cmdArgs,
-      String redirOperator,
+  public CommandArgs(String cmdName, String[] cmdArgs, String redirOperator,
       String targetDest) {
-    this(cmdName, cmdArgs, new HashMap<>(), redirOperator,
-        targetDest);
+    this(cmdName, cmdArgs, new HashMap<>(), redirOperator, targetDest);
   }
 
   /**
-   * Constructor initializing with command name, named command
-   * arguments, redirect operator and target destination
+   * Constructor initializing with command name, named command arguments,
+   * redirect operator and target destination
    *
    * @param cmdName the name of the command
    * @param namedCmdArgs the parameters that are mapped by type
    * @param redirOperator the redirect operator
    * @param targetDest the target destination of the redirect
    */
-  public CommandArgs(String cmdName,
-      HashMap<String, String> namedCmdArgs,
+  public CommandArgs(String cmdName, HashMap<String, String> namedCmdArgs,
       String redirOperator, String targetDest) {
-    this(cmdName, new String[0], namedCmdArgs, redirOperator,
-        targetDest);
+    this(cmdName, new String[0], namedCmdArgs, redirOperator, targetDest);
   }
 
   /**
-   * Constructor initializing with command name, command arguments,
-   * named command arguments, the redirect operator and the target
-   * destination
+   * Constructor initializing with command name, command arguments, named
+   * command arguments, the redirect operator and the target destination
    *
    * @param cmdName the command name
    * @param cmdParams the command arguments
@@ -169,11 +175,10 @@ public class CommandArgs {
   }
 
   /**
-   * Gets the command arguments or returns an empty array if there are
-   * none
+   * Gets the command arguments or returns an empty array if there are none
    *
-   * @return Returns the array of command arguments. Returns an empty
-   * array if there are none
+   * @return Returns the array of command arguments. Returns an empty array if
+   *         there are none
    */
   public String[] getCommandParameters() {
     return cmdParams;
@@ -183,8 +188,7 @@ public class CommandArgs {
    * Gets the named command parameter with a given name.
    *
    * @param name The name of the type.
-   * @return Returns the parameter mapped to name or null it is it not
-   * mapped.
+   * @return Returns the parameter mapped to name or null it is it not mapped.
    */
   public String getNamedCommandParameter(String name) {
     return this.namedCmdParams.get(name);
@@ -193,8 +197,7 @@ public class CommandArgs {
   /**
    * Gets a copy of the hash map for the named command parameters
    *
-   * @return Returns a copy of the hash map for the named command
-   * parameters
+   * @return Returns a copy of the hash map for the named command parameters
    */
   public HashMap<String, String> getNamedCommandParametersMap() {
     return new HashMap<>(this.namedCmdParams);
@@ -221,19 +224,17 @@ public class CommandArgs {
   /**
    * Gets the redirect operator or returns "" if there is none
    *
-   * @return Returns the redirect operator. Returns "" if there is
-   * none
+   * @return Returns the redirect operator. Returns "" if there is none
    */
   public String getRedirectOperator() {
     return redirOperator;
   }
 
   /**
-   * Gets the target redirect destination or returns "" if there is
-   * none
+   * Gets the target redirect destination or returns "" if there is none
    *
-   * @return Returns the target redirect destination. Returns "" if
-   * there is none
+   * @return Returns the target redirect destination. Returns "" if there is
+   *         none
    */
   public String getTargetDestination() {
     return targetDest;
@@ -251,8 +252,7 @@ public class CommandArgs {
 
     // If there are command arguments then add them to the string representation
     if (cmdParams.length != 0) {
-      ret_str.append("  Params: ")
-          .append(Arrays.toString(this.cmdParams));
+      ret_str.append("  Params: ").append(Arrays.toString(this.cmdParams));
     }
 
     // If there are named command arguments then add them to the string
@@ -265,8 +265,7 @@ public class CommandArgs {
             .append(namedCmdParams.get(name)).append("), ");
       }
 
-      ret_str = new StringBuilder(
-          ret_str.substring(0, ret_str.length() - 2));
+      ret_str = new StringBuilder(ret_str.substring(0, ret_str.length() - 2));
       ret_str.append("]");
     }
 
@@ -297,12 +296,9 @@ public class CommandArgs {
       return this.cmdName.equals(cmdArgs_other.getCommandName())
           && Arrays.equals(this.cmdParams, cmdArgs_other.cmdParams)
           && this.namedCmdParams
-          .equals(
-              ((CommandArgs) other).getNamedCommandParametersMap())
-          && this.redirOperator
-          .equals(cmdArgs_other.getRedirectOperator())
-          && this.targetDest
-          .equals(cmdArgs_other.getTargetDestination());
+              .equals(((CommandArgs) other).getNamedCommandParametersMap())
+          && this.redirOperator.equals(cmdArgs_other.getRedirectOperator())
+          && this.targetDest.equals(cmdArgs_other.getTargetDestination());
     } else {
       return false;
     }

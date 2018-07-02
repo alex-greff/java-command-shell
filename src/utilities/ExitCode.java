@@ -30,6 +30,12 @@
 
 package utilities;
 
+/**
+ * Used by commands to indicate their exit status.
+ * 
+ * @author anton
+ *
+ */
 public enum ExitCode {
   SUCCESS,
   FAILURE

@@ -30,19 +30,24 @@
 package utilities;
 
 import containers.CommandArgs;
-import io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Parser {
-
+  /**
+   * The overwrite operator character.
+   */
   private static final String OVERWRITE_OPERATOR = ">";
+  /**
+   * The append operator character.
+   */
   private static final String APPEND_OPERATOR = ">>";
+  /**
+   * The type argument indicator character.
+   */
   private static final String TYPE_ARG_OPERATOR = "-";
-  
+
   /**
    * Parses the given input and returns a CommandArgs instance with the parsed
    * information
@@ -77,7 +82,6 @@ public class Parser {
     // Initialize variables
     List<String> inputSplit = new ArrayList<>();
     boolean inQuotes = false;
-    int quotesLevel = 0;
     StringBuilder currItem = new StringBuilder();
     String prevChar = " ";
 
@@ -85,15 +89,12 @@ public class Parser {
     for (int i = 0; i < input.length(); i++) {
       // Get the current character
       String currChar = input.substring(i, i + 1);
-
       // If we find a quotation character
       if (currChar.equals("\"")) {
         // Flip the in quotes flag
         inQuotes = !inQuotes;
-
         // Add the quote character to the current item
         currItem.append(currChar);
-        
         // If exiting a quotation pair then add a split and reset the tracker
         if (!inQuotes) {
           inputSplit.add(currItem.toString());
@@ -103,13 +104,11 @@ public class Parser {
         prevChar = currChar;
         continue;
       }
-
       // If inside a quotation section or the current char is a regular char
       if (inQuotes || !currChar.matches("\\s")) {
         // Add to the current split and move on to the next iteration
         currItem.append(currChar);
       }
-
       // If curr character is a whitespace char and the previous char was not
       // (ie the end of a split section is reached)
       // OR we're on the last iteration
@@ -121,7 +120,6 @@ public class Parser {
       }
       prevChar = currChar;
     }
-
     return inputSplit;
   }
 
@@ -142,17 +140,14 @@ public class Parser {
     String redirOperator = "";
     // Initialize the target destination
     String targetDest = "";
-
     // Iterate through the items after index 0
     for (int i = 1; i < inputSplit.size(); i++) {
       // If a redirect operator is found
       if (inputSplit.get(i).equals(OVERWRITE_OPERATOR)
           || inputSplit.get(i).equals(APPEND_OPERATOR)) {
-
         // If there is not only a single item after i then the input is invalid
         if (i + 1 != inputSplit.size() - 1)
           return null;
-
         // Set the redirect operator
         redirOperator = inputSplit.get(i);
         // Set the target destination (without any quotes)
@@ -160,36 +155,29 @@ public class Parser {
         // Break out of the for loop
         break;
       }
-
       // If the item at index i is a type parameter
       if (inputSplit.size() > 0
           && inputSplit.get(i).startsWith(TYPE_ARG_OPERATOR)) {
         // If there is no item after i then return invalid
         if (i + 1 >= inputSplit.size())
           return null;
-
         // If the item after is another type parameter then return invalid
         if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR))
           return null;
-
         // Remove the - and set the key value
         String key = inputSplit.get(i).replaceFirst("-", "");
         // Remove any quoutes and set the value's value
         String val = inputSplit.get(i + 1).replace("\"", "");
-
         // Add to the hashmap
         namedParamsMap.put(key, val);
-
         // Force increment i by 1 (since we already dealt with index i + 1)
         i += 1;
       } else
         // Add the parameters to the array list (without any quotes
         paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
     }
-
     // Convert the parameter arraylist to an array
     String[] cmdParams = paramsArrayList.toArray(new String[0]);
-
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,

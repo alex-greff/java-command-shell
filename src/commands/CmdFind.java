@@ -51,16 +51,34 @@ import utilities.ExitCode;
  */
 public class CmdFind extends Command {
   // Setup command information
+  /**
+   * The name of the command.
+   */
   private final String NAME = "find";
+  /**
+   * The description of the command.
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Finds and lists all found files/directories of a given expression.",
       new String[] {"find PATH... -type [f|d] -name EXPRESSION"},
       new String[] {"Nothing is printed if no files are found"});
 
   // Setup flag constants
+  /**
+   * The identifier for the type flag.
+   */
   private final String TYPE_IDENTIFIER = "type";
+  /**
+   * The identifier for the name flag.
+   */
   private final String NAME_IDENTIFIER = "name";
+  /**
+   * The file type character option.
+   */
   private final String TYPE_FILE = "f";
+  /**
+   * The directory type character option.
+   */
   private final String TYPE_DIR = "d";
 
   /**

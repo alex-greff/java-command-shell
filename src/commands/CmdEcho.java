@@ -38,12 +38,9 @@ import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.Console;
-import io.ErrorConsole;
 import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
-import utilities.Parser;
 
 /**
  * The echo command.
@@ -53,7 +50,13 @@ import utilities.Parser;
  */
 public class CmdEcho extends Command {
   // Setup command information
+  /**
+   * The name of the command.
+   */
   private final String NAME = "echo";
+  /**
+   * The description of the command.
+   */
   private CommandDescription DESCRIPTION =
       new CommandDescription("Appends or writes a string to a file.",
           new String[] {"echo STRING", "echo STRING [> OUTFILE]",
@@ -63,9 +66,15 @@ public class CmdEcho extends Command {
               "The \">>\" character signals to append to the file conents."});
 
   // Define operator constants
+  /**
+   * The overwrite operator character.
+   */
   private final String OVERWRITE_OPERATOR = ">";
+  /**
+   * The append operator character.
+   */
   private final String APPEND_OPERATOR = ">>";
-  
+
   /**
    * Executes the echo command.
    * 

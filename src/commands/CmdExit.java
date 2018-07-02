@@ -43,8 +43,14 @@ import utilities.ExitCode;
  *
  */
 public class CmdExit extends Command {
-  //Setup command information
+  // Setup command information
+  /**
+   * The name of the command.
+   */
   private final String NAME = "exit";
+  /**
+   * The description of the command.
+   */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Exits the currently running JShell.", new String[] {"exit"});
 

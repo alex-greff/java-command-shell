@@ -35,9 +35,17 @@ package containers;
  * @author greff
  */
 public class CommandDescription {
-
+  /**
+   * The description of the command.
+   */
   private String description = "";
+  /**
+   * The usages of the command.
+   */
   private String[] usages = new String[0];
+  /**
+   * The additional comments for the command, if any.
+   */
   private String[] additionalComments = new String[0];
 
   /**
@@ -45,8 +53,7 @@ public class CommandDescription {
    *
    * @param description A brief description of the command.
    * @param usages A list of possible usages of the command.
-   * @param additionalComments Any additional comments of the
-   * command.
+   * @param additionalComments Any additional comments of the command.
    */
   public CommandDescription(String description, String[] usages,
       String[] additionalComments) {

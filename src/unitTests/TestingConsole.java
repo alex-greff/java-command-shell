@@ -11,6 +11,9 @@ import io.Writable;
  *
  */
 public class TestingConsole implements Writable {
+  /**
+   * The stack storing all the write inputs.
+   */
   private Stack<String> inputs = new Stack<String>();
 
   /**
