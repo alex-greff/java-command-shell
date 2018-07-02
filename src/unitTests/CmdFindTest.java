@@ -17,7 +17,7 @@ import utilities.Parser;
 public class CmdFindTest {
 
   @BeforeClass
-  public static void Setup()
+  public static void setup()
       throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
@@ -27,7 +27,7 @@ public class CmdFindTest {
     Directory dir2 = root.createAndAddNewDir("dir2");
     File file1 = new File("file1", "file1's contents");
     root.addFile(file1);
-    Directory dir3 = dir2.createAndAddNewDir("dir3");
+    dir2.createAndAddNewDir("dir3");
     File file2 = new File("file2", "file2's contents");
     dir2.addFile(file2);
     Directory dir4 = dir1.createAndAddNewDir("dir4");
@@ -41,7 +41,7 @@ public class CmdFindTest {
   }
 
   @Test
-  public void test_execute_find_one_file() {
+  public void testExecuteFindOneFile() {
     CommandArgs args =
         Parser.parseUserInput("find /dir1 -type f -name \"file4\"");
 
@@ -56,7 +56,7 @@ public class CmdFindTest {
   }
   
   @Test
-  public void test_execute_find_multiple_files() {
+  public void testExecuteFindMultipleFiles() {
     CommandArgs args =
         Parser.parseUserInput("find / -type f -name \"file1\"");
 
@@ -71,7 +71,7 @@ public class CmdFindTest {
   }
   
   @Test
-  public void test_execute_find_no_files() {
+  public void testExecuteFindNoFiles() {
     CommandArgs args =
         Parser.parseUserInput("find / -type f -name \"nonExistentFile\"");
 
@@ -86,7 +86,7 @@ public class CmdFindTest {
   }
   
   @Test
-  public void test_execute_find_one_directory() {
+  public void testExecuteFindOneDirectory() {
     CommandArgs args =
         Parser.parseUserInput("find /dir1 -type d -name \"dir4\"");
 
@@ -101,7 +101,7 @@ public class CmdFindTest {
   }
   
   @Test
-  public void test_execute_find_multiple_directories() {
+  public void testExecuteFindMultipleDirectories() {
     CommandArgs args =
         Parser.parseUserInput("find / -type d -name \"dir1\"");
 
@@ -116,7 +116,7 @@ public class CmdFindTest {
   }
   
   @Test
-  public void test_execute_find_no_directories() {
+  public void testExecuteFindNoDirectories() {
     CommandArgs args =
         Parser.parseUserInput("find / -type d -name \"nonExistentDir\"");
 

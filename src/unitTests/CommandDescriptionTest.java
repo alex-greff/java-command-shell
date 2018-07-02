@@ -5,8 +5,9 @@ import containers.CommandDescription;
 import org.junit.Test;
 
 public class CommandDescriptionTest {
+  @SuppressWarnings("deprecation")
   @Test
-  public void test_getters_container_with_description_and_usages() {
+  public void testGettersContainerWithDescriptionAndUsages() {
     CommandDescription cd = new CommandDescription("some basic description",
         new String[] {"usage 1", "usage 2"});
     
@@ -15,8 +16,9 @@ public class CommandDescriptionTest {
     assertEquals(new String[0], cd.getAdditionalComments());
   }
   
+  @SuppressWarnings("deprecation")
   @Test
-  public void test_getters_container_with_additional_comments() {
+  public void testGettersContainerWithAdditionalComments() {
     CommandDescription cd = new CommandDescription("some basic description",
         new String[] {"usage 1", "usage 2"}, new String[] {"some cool thing"});
     

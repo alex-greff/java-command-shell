@@ -20,7 +20,7 @@ import utilities.Parser;
 public class CmdEchoTest {
 
   @BeforeClass
-  public static void Setup() throws FileAlreadyExistsException {
+  public static void setup() throws FileAlreadyExistsException {
     FileSystem fs = FileSystem.getInstance();
     // See my notebook for a diagram of this file system
     Directory root = fs.getRoot();
@@ -41,7 +41,7 @@ public class CmdEchoTest {
 
 
   @Test
-  public void test_execute_echo_to_console() {
+  public void testExecuteEchoToConsole() {
     CommandArgs args =
         new CommandArgs("echo", new String[] {"nice sentence you got there"});
 
@@ -56,7 +56,7 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void test_execute_write_to_file()
+  public void testExecuteWriteToFile()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
@@ -78,7 +78,7 @@ public class CmdEchoTest {
 
 
   @Test
-  public void test_execute_append_to_file()
+  public void testExecuteAppendToFile()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
 
@@ -98,7 +98,7 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void test_execute_create_file()
+  public void testExecuteCreateFile()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
@@ -118,7 +118,7 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void test_execute_mising_directory()
+  public void testExecuteMisingDirectory()
       throws MalformedPathException, FileNotFoundException {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" >> /wrongDir/f1.txt");

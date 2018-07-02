@@ -5,8 +5,9 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 public class TestingConsoleTest {
+  @SuppressWarnings("deprecation")
   @Test
-  public void test_console_writeln() {
+  public void testConsoleWriteln() {
     TestingConsole tc = new TestingConsole();
     tc.writeln("some line 1");
     tc.writeln("some line 2");
@@ -15,8 +16,9 @@ public class TestingConsoleTest {
         tc.getAllWrites());
   }
 
+  @SuppressWarnings("deprecation")
   @Test
-  public void test_console_write() {
+  public void testConsoleWrite() {
     TestingConsole tc = new TestingConsole();
     tc.write("a");
     tc.write("b");
@@ -24,8 +26,9 @@ public class TestingConsoleTest {
     assertEquals(new String[] {"ab"}, tc.getAllWrites());
   }
   
+  @SuppressWarnings("deprecation")
   @Test
-  public void test_console_getAllWrites() {
+  public void testConsoleGetAllWrites() {
     TestingConsole tc = new TestingConsole();
     tc.write("a");
     tc.write("b");
@@ -34,15 +37,16 @@ public class TestingConsoleTest {
     assertEquals(new String[] {"ab", "c"}, tc.getAllWrites());
   }
   
+  @SuppressWarnings("deprecation")
   @Test
-  public void test_console_getAllWrites_no_writes() {
+  public void testConsoleGetAllWritesNoWrites() {
     TestingConsole tc = new TestingConsole();
 
     assertEquals(new String[0], tc.getAllWrites());
   }
   
   @Test
-  public void test_console_getLastWrite() {
+  public void testConsoleGetLastWrite() {
     TestingConsole tc = new TestingConsole();
     tc.write("a");
     tc.write("b");
@@ -52,14 +56,14 @@ public class TestingConsoleTest {
   }
   
   @Test
-  public void test_console_getLastWrite_no_writes() {
+  public void testConsoleGetLastWriteNoWrites() {
     TestingConsole tc = new TestingConsole();
 
     assertNull(tc.getLastWrite());
   }
   
   @Test
-  public void test_console_getAllWritesAsString() {
+  public void testConsoleGetAllWritesAsString() {
     TestingConsole tc = new TestingConsole();
     tc.write("a");
     tc.write("b");
@@ -69,7 +73,7 @@ public class TestingConsoleTest {
   }
   
   @Test
-  public void test_console_getAllWritesAsString_no_writes() {
+  public void testConsoleGetAllWritesAsStringNoWrites() {
     TestingConsole tc = new TestingConsole();
 
     assertEquals("", tc.getAllWritesAsString());

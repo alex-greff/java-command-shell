@@ -14,12 +14,12 @@ import utilities.ExitCode;
 public class CmdManTest {
 
   @BeforeClass
-  public static void Setup() {
+  public static void setup() {
     CommandManager.getInstance().initializeCommands();
   }
 
   @Test
-  public void test_execute_get_man_doc() {
+  public void testExecuteGetManDoc() {
     CommandArgs args = new CommandArgs("man", new String[] {"man"});
 
     TestingConsole tc = new TestingConsole();
@@ -34,7 +34,7 @@ public class CmdManTest {
   }
 
   @Test
-  public void test_execute_get_echo_doc() {
+  public void testExecuteGetEchoDoc() {
     CommandArgs args = new CommandArgs("man", new String[] {"echo"});
 
     TestingConsole tc = new TestingConsole();
@@ -49,7 +49,7 @@ public class CmdManTest {
   }
 
   @Test
-  public void test_execute_get_non_existent_command_doc() {
+  public void testExecuteGetNonExistentCommandDoc() {
     CommandArgs args = new CommandArgs("man", new String[] {"nonExistentCmd"});
 
     TestingConsole tc = new TestingConsole();
