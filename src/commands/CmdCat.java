@@ -72,8 +72,9 @@ public class CmdCat extends Command {
         Path filePath = new Path(filePathStr);
         // Get the File with the given Path
         File file = fileSystem.getFileByPath(filePath);
-        // Finally, append the contents of the File to the StringBuilder
-        result.append(file.read()).append('\n');
+        // Finally, append the contents of the File to the StringBuilder,
+        // with 1 new line to separate multiple files, and 2 more for spacing
+        result.append(file.read()).append("\n\n\n");
 
       } catch (MalformedPathException e) {
         // Argument given is an improper Path
@@ -87,7 +88,7 @@ public class CmdCat extends Command {
     }
 
     // Write all the contents read to the Console and return SUCCESS always
-    out.writeln(result.toString());
+    out.writeln(result.toString().trim());
     return ExitCode.SUCCESS;
   }
 

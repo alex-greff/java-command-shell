@@ -19,8 +19,8 @@ public class CmdPwdTest {
     CommandArgs args = new CommandArgs("pwd");
 
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
-    assertEquals(testOut.getLastWrite(), "/");
     assertEquals(exitVal, ExitCode.SUCCESS);
+    assertEquals(testOut.getLastWrite(), "/");
   }
 
 }
