@@ -98,47 +98,40 @@ public class CommandManager {
   }
 
   /**
-   * Attempt to execute a command, corresponding to the command name found
-   * in the CommandArgs container cArgs. cArgs is passed to the command being
-   * executed for information about any arguments found in cArgs.
-   * Error messages if the command name in cArgs does not exist,
-   * or the command is given invalid arguments.
+   * Attempt to execute a command, corresponding to the command name found in
+   * the CommandArgs container cArgs. cArgs is passed to the command being
+   * executed for information about any arguments found in cArgs. Error messages
+   * if the command name in cArgs does not exist, or the command is given
+   * invalid arguments.
    *
    * @param cArgs The command arguments container
    */
   public void executeCommand(CommandArgs cArgs) {
-
     // Default error message
     String errMsg = "Error: Invalid command, please try again";
 
-    // Make sure the command args parsed properly
-    if (cArgs != null) {
+    if (cArgs != null) { // Make sure the command args parsed properly
 
       // Get the name of the command the user inputted
       String cmdName = cArgs.getCommandName();
 
-      // If the command exists in the HashMap
-      if (cmdMap.containsKey(cmdName)) {
+      if (cmdMap.containsKey(cmdName)) { // If the command exists in the HashMap
 
         // Then get the instance of the command from the HashMap
         Command cmd = cmdMap.get(cmdName);
 
-        // If the given args are valid for the command
-        if (cmd.isValidArgs(cArgs)) {
+        if (cmd.isValidArgs(cArgs)) { // If the args are valid for the command
 
           // Execute the command with the given args, remembering the exit value
           ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
           // Does nothing with the exit value (perhaps a future update)
 
-          // End the function execution here since we've done all we need to do
-          return;
+          return; // End here since we've done all we need to do
 
         } else {
           errMsg = "Error: Invalid arguments"; // Change the error message
         }
-
       }
-
     }
 
     // If this line is reached the command failed to execute, so print the

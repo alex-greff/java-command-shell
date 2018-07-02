@@ -36,9 +36,8 @@ import io.Writable;
 
 /**
  * The abstract command class that all commands inherit from.
- * 
- * @author greff
  *
+ * @author greff
  */
 public abstract class Command {
 
@@ -54,7 +53,7 @@ public abstract class Command {
 
   /**
    * Executes the command's function.
-   * 
+   *
    * @param args The arguments for the command call.
    * @param out The standard output console.
    * @param errorOut The error output console.
@@ -65,7 +64,7 @@ public abstract class Command {
 
   /**
    * Checks if the given args are valid for this command.
-   * 
+   *
    * @param args The command arguments.
    * @return Returns true iff the args are valid.
    */
@@ -73,14 +72,14 @@ public abstract class Command {
 
   /**
    * Gets the name of the command.
-   * 
+   *
    * @return Returns the name of the command.
    */
   public abstract String getName();
 
   /**
    * Gets the CommandDescription object for the command.
-   * 
+   *
    * @return Returns the CommandDescription object for the command.
    */
   public abstract CommandDescription getDescription();

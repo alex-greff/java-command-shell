@@ -49,10 +49,9 @@ public class CmdCat extends Command {
           "Can take more than one FILE as arguments."});
 
   /**
-   * Executes the cat command with the given arguments
-   * cat prints the contents of files
-   * Error messages if the file path is invalid,
-   * or the file does not exist
+   * Executes the cat command with the given arguments cat prints the contents
+   * of files Error messages if the file path is invalid, or the file does not
+   * exist
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output

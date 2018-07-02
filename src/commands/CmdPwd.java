@@ -45,8 +45,8 @@ public class CmdPwd extends Command {
       new String[]{"None."});
 
   /**
-   * Executes the pwd command with the given arguments
-   * pwd prints the working directory
+   * Executes the pwd command with the given arguments pwd prints the working
+   * directory
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -86,7 +86,9 @@ public class CmdPwd extends Command {
    * @return Returns the name of the command
    */
   @Override
-  public String getName() { return NAME; }
+  public String getName() {
+    return NAME;
+  }
 
   /**
    * Gets the description for this command
@@ -94,6 +96,8 @@ public class CmdPwd extends Command {
    * @return Returns the command description
    */
   @Override
-  public CommandDescription getDescription() { return DESCRIPTION; }
+  public CommandDescription getDescription() {
+    return DESCRIPTION;
+  }
 
 }
