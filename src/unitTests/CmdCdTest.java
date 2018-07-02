@@ -61,69 +61,102 @@ public class CmdCdTest {
 
   @Test
   public void testChildDir() throws FileAlreadyExistsException {
-    // Create two directories and add them to the root directory
-    FS.getRoot().createAndAddNewDir("testDir1");
-    FS.getRoot().createAndAddNewDir("testDir2");
+    // Create a directory and add it to the root directory
+    FS.getRoot().createAndAddNewDir("testDir");
 
-    String argParam[] = {"testDir1"};
+    // Attempt to change into the child directory created
+    String argParam[] = {"testDir"};
     CommandArgs args = new CommandArgs("cd", argParam);
 
     // Assert that the command successfully executed, and that the working
-    // directory is now the first which we created
+    // directory is now the child directory which we created
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir1");
+    assertEquals(FS.getWorkingDirPath(), "/testDir");
   }
 
   @Test
-  public void testCurrentDir() throws FileAlreadyExistsException {
-    // Create another directory for later, now inside of the first directory
-    FS.getWorkingDir().createAndAddNewDir("testDir3");
-
+  public void testCurrentDir() {
+    // Attempt to change into the current directory
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
 
     // Assert that the command successfully executed, and that the working
-    // directory is still the first which we created
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir1");
-  }
-
-  @Test
-  public void testParentDir() {
-    String argParam[] = {".."};
-    CommandArgs args = new CommandArgs("cd", argParam);
-
-    // Assert that the command successfully executed, and that the working
-    // directory is now the root directory again
+    // directory is still the root directory
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(FS.getWorkingDirPath(), "/");
   }
 
   @Test
-  public void testAbsolutePathToDir() {
-    String argParam[] = {"/testDir1/testDir3"};
-    CommandArgs args = new CommandArgs("cd", argParam);
+  public void testParentDir() throws FileAlreadyExistsException {
+    // Create a directory and add it to the root directory
+    FS.getRoot().createAndAddNewDir("testDir");
+
+    // Change into the child directory we created, so we can try to change back
+    // to the parent directory
+    String argParam1[] = {"testDir"};
+    CommandArgs args1 = new CommandArgs("cd", argParam1);
+    cmd.execute(args1, testOut, testErrOut);
+
+    // Attempt to change into the parent directory
+    String argParam2[] = {".."};
+    CommandArgs args2 = new CommandArgs("cd", argParam2);
 
     // Assert that the command successfully executed, and that the working
-    // directory is now the third which we created, inside of the first
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    // directory is now the root directory again
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir1/testDir3");
+    assertEquals(FS.getWorkingDirPath(), "/");
   }
 
   @Test
-  public void testRelativePathToDir() {
-    String argParam[] = {"../../testDir2"};
-    CommandArgs args = new CommandArgs("cd", argParam);
+  public void testAbsolutePathToDir() throws FileAlreadyExistsException {
+    // Create a directory and add it to the root directory
+    FS.getRoot().createAndAddNewDir("testDir");
+
+    // Change into the child directory we created, so we can make another in it
+    String argParam1[] = {"testDir"};
+    CommandArgs args1 = new CommandArgs("cd", argParam1);
+    cmd.execute(args1, testOut, testErrOut);
+
+    // Create a directory and add it to the directory we are currently in
+    FS.getWorkingDir().createAndAddNewDir("testDirAgain");
+
+    // Attempt to change into the grandchild directory, giving in a path
+    // starting from the root
+    String argParam2[] = {"/testDir/testDirAgain"};
+    CommandArgs args2 = new CommandArgs("cd", argParam2);
 
     // Assert that the command successfully executed, and that the working
-    // directory is now the second which we created
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    // directory is now the grandchild directory which we created
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir2");
+    assertEquals(FS.getWorkingDirPath(), "/testDir/testDirAgain");
+  }
+
+  @Test
+  public void testRelativePathToDir() throws FileAlreadyExistsException {
+    // Create two directories and add them to the root directory
+    FS.getRoot().createAndAddNewDir("testDir");
+    FS.getRoot().createAndAddNewDir("testDirAgain");
+
+    // Change into the child directory we created, so we can try to access its
+    // sibling from it
+    String argParam1[] = {"testDir"};
+    CommandArgs args1 = new CommandArgs("cd", argParam1);
+    cmd.execute(args1, testOut, testErrOut);
+
+    // Attempt to change into the sibling directory, giving in a path that goes
+    // up to the parent first, and then to the sibling
+    String argParam2[] = {"../testDirAgain"};
+    CommandArgs args2 = new CommandArgs("cd", argParam2);
+
+    // Assert that the command successfully executed, and that the working
+    // directory is now the second sibling directory which we created
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
+    assertEquals(exitVal, ExitCode.SUCCESS);
+    assertEquals(FS.getWorkingDirPath(), "/testDirAgain");
   }
 
 }

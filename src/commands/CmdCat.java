@@ -44,8 +44,14 @@ import utilities.ExitCode;
  */
 public class CmdCat extends Command {
 
-  // Name and Description Constants
+  /**
+   * Constant instance variable for the command name
+   */
   private final String NAME = "cat";
+
+  /**
+   * Container built for the command's description
+   */
   private CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Print contents of file(s).",

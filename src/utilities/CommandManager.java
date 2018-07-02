@@ -51,6 +51,8 @@ import java.util.HashMap;
 /**
  * The CommandManager class that stores all known commands, and is in charge of
  * command execution and obtaining command descriptions
+ *
+ * @author ursu
  */
 public class CommandManager {
 

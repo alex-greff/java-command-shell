@@ -42,6 +42,11 @@ import utilities.ExitCode;
 
 public class CmdPwdTest {
 
+  // Create Testing Consoles, and an instance of the command
+  private TestingConsole testOut = new TestingConsole();
+  private TestingConsole testErrOut = new TestingConsole();
+  private Command cmd = new CmdPwd();
+
   @Before
   public void resetSingleton()
       throws SecurityException, NoSuchFieldException,
@@ -50,10 +55,6 @@ public class CmdPwdTest {
     instance.setAccessible(true);
     instance.set(null, null);
   }
-
-  private TestingConsole testOut = new TestingConsole();
-  private TestingConsole testErrOut = new TestingConsole();
-  private Command cmd = new CmdPwd();
 
   @Test
   public void testRootDir() {

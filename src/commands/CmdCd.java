@@ -47,6 +47,10 @@ public class CmdCd extends Command {
    * Constant instance variable for the command name
    */
   private final String NAME = "cd";
+
+  /**
+   * Container built for the command's description
+   */
   private CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Change directory.",
