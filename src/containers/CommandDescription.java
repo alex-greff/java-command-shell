@@ -35,6 +35,7 @@ package containers;
  * @author greff
  */
 public class CommandDescription {
+
   /**
    * The description of the command.
    */

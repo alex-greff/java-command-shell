@@ -35,11 +35,11 @@ import io.Writable;
 /**
  * A console for testing commands. Allows for easy lookup for the output of
  * commands.
- * 
- * @author ajg
  *
+ * @author ajg
  */
 public class TestingConsole implements Writable {
+
   /**
    * The stack storing all the write inputs.
    */
@@ -48,7 +48,7 @@ public class TestingConsole implements Writable {
   /**
    * Writes the content input to a list with the most recent at the head.
    * Newlines at the end of the content string are trimmed.
-   * 
+   *
    * @param contents The contents to be written
    */
   @Override
@@ -65,7 +65,7 @@ public class TestingConsole implements Writable {
   /**
    * Writes the content input to a list with the most recent at the head.
    * Newlines at the end of the content string are trimmed.
-   * 
+   *
    * @param contents The contents to be written
    */
   @Override
@@ -75,20 +75,21 @@ public class TestingConsole implements Writable {
 
   /**
    * Gets the most recent write to the console.
-   * 
+   *
    * @return returns the most recent write to the console or null if no writes
-   *         exist.
+   * exist.
    */
   public String getLastWrite() {
-    if (inputs.isEmpty())
+    if (inputs.isEmpty()) {
       return null;
+    }
     return inputs.peek();
   }
 
   /**
    * Gets a string array of all the writes to the console. The most recent
    * writes are stored first in the array.
-   * 
+   *
    * @return Returns the list of all writes to the console.
    */
   public String[] getAllWrites() {
@@ -100,7 +101,7 @@ public class TestingConsole implements Writable {
 
   /**
    * Gets all the writes as one whole string.
-   * 
+   *
    * @return Returns all the writes as a string.
    */
   public String getAllWritesAsString() {

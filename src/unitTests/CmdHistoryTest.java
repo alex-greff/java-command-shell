@@ -30,6 +30,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdHistory;
 import containers.CommandArgs;
 import driver.JShell;

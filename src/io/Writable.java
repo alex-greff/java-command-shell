@@ -31,21 +31,21 @@ package io;
 
 /**
  * The writable interface.
- * 
- * @author anton
  *
+ * @author anton
  */
 public interface Writable {
+
   /**
    * Writes the contents.
-   * 
+   *
    * @param contents The contents string.
    */
   void write(String contents);
 
   /**
    * Writes the contents to a new line.
-   * 
+   *
    * @param contents The contents string.
    */
   void writeln(String contents);

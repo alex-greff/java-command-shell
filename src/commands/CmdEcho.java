@@ -44,9 +44,8 @@ import utilities.ExitCode;
 
 /**
  * The echo command.
- * 
- * @author greff
  *
+ * @author greff
  */
 public class CmdEcho extends Command {
   // Setup command information
@@ -59,11 +58,11 @@ public class CmdEcho extends Command {
    */
   private CommandDescription DESCRIPTION =
       new CommandDescription("Appends or writes a string to a file.",
-          new String[] {"echo STRING", "echo STRING [> OUTFILE]",
+          new String[]{"echo STRING", "echo STRING [> OUTFILE]",
               "echo STRING [>> OUTFILE]"},
-          new String[] {
-              "The \">\" character signals to overwrite the file conents.",
-              "The \">>\" character signals to append to the file conents."});
+          new String[]{
+              "The \">\" character signals to overwrite the file contents.",
+              "The \">>\" character signals to append to the file contents."});
 
   // Define operator constants
   /**
@@ -77,7 +76,7 @@ public class CmdEcho extends Command {
 
   /**
    * Executes the echo command.
-   * 
+   *
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
@@ -108,8 +107,9 @@ public class CmdEcho extends Command {
     }
 
     // If there is any output for the standard out then write to it
-    if (!output.equals(""))
+    if (!output.equals("")) {
       out.writeln(output);
+    }
 
     // Return the output
     return exitValue;
@@ -156,8 +156,9 @@ public class CmdEcho extends Command {
             (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
 
         // If the file is in the root
-        if (dirPathStr.equals(""))
+        if (dirPathStr.equals("")) {
           dirPathStr = "/";
+        }
 
         // Attempt to add the file to the directory
         try {
@@ -178,8 +179,9 @@ public class CmdEcho extends Command {
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
-      if (redirOper.equals(OVERWRITE_OPERATOR))
+      if (redirOper.equals(OVERWRITE_OPERATOR)) {
         file.clear();
+      }
 
       // Add the string contents to the file
       file.write(strContents);
@@ -205,8 +207,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR))
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 

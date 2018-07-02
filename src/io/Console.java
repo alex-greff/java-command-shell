@@ -37,6 +37,7 @@ import java.util.Scanner;
  * @author anton
  */
 public class Console implements Writable, Readable {
+
   /**
    * The current singleton instance of the Console.
    */
@@ -50,7 +51,8 @@ public class Console implements Writable, Readable {
   /**
    * The constructor, defaulted to private visibility.
    */
-  private Console() {}
+  private Console() {
+  }
 
   /**
    * Gets the singleton instance of Console

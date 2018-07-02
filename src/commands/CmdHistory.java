@@ -55,8 +55,8 @@ public class CmdHistory extends Command {
    */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "This command lists all of the past lines of user entry by" +
-      "default, but if given a positive integer argument x, the last x " +
-      "user entries will be listed. Note that the history command itself",
+          "default, but if given a positive integer argument x, the last x " +
+          "user entries will be listed. Note that the history command itself",
       new String[]{"history", "history [int]"},
       new String[]{"The history command itself will always take place as the"
           + "latest entry in history \n(i.e. history 1 prints:"

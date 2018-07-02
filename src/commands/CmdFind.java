@@ -45,9 +45,8 @@ import utilities.ExitCode;
 
 /**
  * The find command.
- * 
- * @author ajg
  *
+ * @author ajg
  */
 public class CmdFind extends Command {
   // Setup command information
@@ -60,8 +59,8 @@ public class CmdFind extends Command {
    */
   private CommandDescription DESCRIPTION = new CommandDescription(
       "Finds and lists all found files/directories of a given expression.",
-      new String[] {"find PATH... -type [f|d] -name EXPRESSION"},
-      new String[] {"Nothing is printed if no files are found"});
+      new String[]{"find PATH... -type [f|d] -name EXPRESSION"},
+      new String[]{"Nothing is printed if no files are found"});
 
   // Setup flag constants
   /**
@@ -84,7 +83,7 @@ public class CmdFind extends Command {
   /**
    * Executes the find command which finds all files/directories in the given
    * locations.
-   * 
+   *
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
@@ -114,16 +113,21 @@ public class CmdFind extends Command {
 
         // If we're looking for file occurrences
         if (type.equals(TYPE_FILE))
-          // Search recursively for the file
+        // Search recursively for the file
+        {
           outputPaths = findFileInDirectoryStructure(currDir, expression);
+        }
         // If we're looking for directory occurrences
         else if (type.equals(TYPE_DIR))
-          // Search recursively for the directory
+        // Search recursively for the directory
+        {
           outputPaths = findDirectoryInDirectoryStructure(currDir, expression);
+        }
 
         // Print out the set as a string with each entry on a new line
-        for (String outputPath : outputPaths)
+        for (String outputPath : outputPaths) {
           output.append(outputPath).append("\n");
+        }
 
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: invalid path");
@@ -141,7 +145,8 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name "name"
+   * Gets a set of all absolute paths to instances of files with the name
+   * "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
@@ -161,8 +166,10 @@ public class CmdFind extends Command {
 
       // If the directory is the root directory
       if (dirAbsPath.equals("/"))
-        // Remove the extra "/" character
+      // Remove the extra "/" character
+      {
         dirAbsPath = "";
+      }
 
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name);
@@ -205,8 +212,10 @@ public class CmdFind extends Command {
 
       // If the directory is the root directory
       if (dirAbsPath.equals("/"))
-        // Remove the extra "/" character
+      // Remove the extra "/" character
+      {
         dirAbsPath = "";
+      }
 
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name + "/");
@@ -240,7 +249,7 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }

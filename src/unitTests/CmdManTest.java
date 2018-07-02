@@ -32,6 +32,7 @@ package unitTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.BeforeClass;
 import commands.CmdMan;
 import containers.CommandArgs;
@@ -49,7 +50,7 @@ public class CmdManTest {
 
   @Test
   public void testExecuteGetManDoc() {
-    CommandArgs args = new CommandArgs("man", new String[] {"man"});
+    CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -64,7 +65,7 @@ public class CmdManTest {
 
   @Test
   public void testExecuteGetEchoDoc() {
-    CommandArgs args = new CommandArgs("man", new String[] {"echo"});
+    CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -79,7 +80,7 @@ public class CmdManTest {
 
   @Test
   public void testExecuteGetNonExistentCommandDoc() {
-    CommandArgs args = new CommandArgs("man", new String[] {"nonExistentCmd"});
+    CommandArgs args = new CommandArgs("man", new String[]{"nonExistentCmd"});
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();

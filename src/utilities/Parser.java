@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Parser {
+
   /**
    * The overwrite operator character.
    */
@@ -54,7 +55,7 @@ public class Parser {
    *
    * @param input The user input string
    * @return Returns a CommandArgs instance with the parsed user input or null
-   *         if the user input is incorrect
+   * if the user input is incorrect
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
@@ -74,7 +75,7 @@ public class Parser {
 
   /**
    * Splits the input into a list of strings.
-   * 
+   *
    * @param input The input string.
    * @return The list of split strings.
    */
@@ -125,7 +126,7 @@ public class Parser {
 
   /**
    * Attempts to construct a CommandArgs object from the given input split.
-   * 
+   *
    * @param inputSplit The list of split items of the input.
    * @return Returns a CommandArgs object or null if the given input is invalid.
    */
@@ -140,15 +141,16 @@ public class Parser {
     String redirOperator = "";
     // Initialize the target destination
     String targetDest = "";
-    
+
     // Iterate through the items after index 0
     for (int i = 1; i < inputSplit.size(); i++) {
       // If a redirect operator is found
       if (inputSplit.get(i).equals(OVERWRITE_OPERATOR)
           || inputSplit.get(i).equals(APPEND_OPERATOR)) {
         // If there is not only a single item after i then the input is invalid
-        if (i + 1 != inputSplit.size() - 1)
+        if (i + 1 != inputSplit.size() - 1) {
           return null;
+        }
         // Set the redirect operator
         redirOperator = inputSplit.get(i);
         // Set the target destination (without any quotes)
@@ -160,11 +162,13 @@ public class Parser {
       if (inputSplit.size() > 0
           && inputSplit.get(i).startsWith(TYPE_ARG_OPERATOR)) {
         // If there is no item after i then return invalid
-        if (i + 1 >= inputSplit.size())
+        if (i + 1 >= inputSplit.size()) {
           return null;
+        }
         // If the item after is another type parameter then return invalid
-        if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR))
+        if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR)) {
           return null;
+        }
         // Remove the - and set the key value
         String key = inputSplit.get(i).replaceFirst("-", "");
         // Remove any quoutes and set the value's value
@@ -174,13 +178,15 @@ public class Parser {
         // Force increment i by 1 (since we already dealt with index i + 1)
         i += 1;
       } else
-        // Add the parameters to the array list (without any quotes
+      // Add the parameters to the array list (without any quotes
+      {
         paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
+      }
     }
-    
+
     // Convert the parameter arraylist to an array
     String[] cmdParams = paramsArrayList.toArray(new String[0]);
-    
+
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,

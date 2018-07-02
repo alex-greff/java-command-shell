@@ -35,6 +35,7 @@ package io;
  * @author greff
  */
 public class ErrorConsole implements Writable {
+
   /**
    * The current singleton instance of the ErrorConsole.
    */
@@ -43,7 +44,8 @@ public class ErrorConsole implements Writable {
   /**
    * The constructor, defaulted to private visibility.
    */
-  private ErrorConsole() {}
+  private ErrorConsole() {
+  }
 
   /**
    * Gets the singleton instance of ErrorConsole

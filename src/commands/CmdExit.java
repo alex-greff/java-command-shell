@@ -38,9 +38,8 @@ import utilities.ExitCode;
 
 /**
  * The exit command.
- * 
- * @author greff
  *
+ * @author greff
  */
 public class CmdExit extends Command {
   // Setup command information
@@ -52,11 +51,11 @@ public class CmdExit extends Command {
    * The description of the command.
    */
   private CommandDescription DESCRIPTION = new CommandDescription(
-      "Exits the currently running JShell.", new String[] {"exit"});
+      "Exits the currently running JShell.", new String[]{"exit"});
 
   /**
    * Executes the exit command to shut the JShell down.
-   * 
+   *
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.

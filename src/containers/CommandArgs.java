@@ -178,7 +178,7 @@ public class CommandArgs {
    * Gets the command arguments or returns an empty array if there are none
    *
    * @return Returns the array of command arguments. Returns an empty array if
-   *         there are none
+   * there are none
    */
   public String[] getCommandParameters() {
     return cmdParams;
@@ -234,7 +234,7 @@ public class CommandArgs {
    * Gets the target redirect destination or returns "" if there is none
    *
    * @return Returns the target redirect destination. Returns "" if there is
-   *         none
+   * none
    */
   public String getTargetDestination() {
     return targetDest;
@@ -296,7 +296,7 @@ public class CommandArgs {
       return this.cmdName.equals(cmdArgs_other.getCommandName())
           && Arrays.equals(this.cmdParams, cmdArgs_other.cmdParams)
           && this.namedCmdParams
-              .equals(((CommandArgs) other).getNamedCommandParametersMap())
+          .equals(((CommandArgs) other).getNamedCommandParametersMap())
           && this.redirOperator.equals(cmdArgs_other.getRedirectOperator())
           && this.targetDest.equals(cmdArgs_other.getTargetDestination());
     } else {

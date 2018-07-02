@@ -31,14 +31,14 @@ package io;
 
 /**
  * The readable interface.
- * 
- * @author anton
  *
+ * @author anton
  */
 public interface Readable {
+
   /**
    * Reads input from a source.
-   * 
+   *
    * @return Returns the input string.
    */
   public String read();

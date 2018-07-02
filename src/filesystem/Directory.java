@@ -47,8 +47,7 @@ public class Directory {
   private HashMap<String, File> childFiles = new HashMap<>();
 
   /**
-   * Creates a new directory given the name of the directory and its
-   * parent
+   * Creates a new directory given the name of the directory and its parent
    *
    * @param name The name of the new directory
    * @param parent The parent of this directory
@@ -59,8 +58,8 @@ public class Directory {
   }
 
   /**
-   * Adds a given directory as a child of this directory if the
-   * directory does not already exist
+   * Adds a given directory as a child of this directory if the directory does
+   * not already exist
    *
    * @param name The name of the new child directory
    */
@@ -76,8 +75,8 @@ public class Directory {
   }
 
   /**
-   * Adds a given file as a child of this directory if the file does
-   * not already exist otherwise raises error
+   * Adds a given file as a child of this directory if the file does not already
+   * exist otherwise raises error
    *
    * @param newFile The child file
    */
@@ -128,8 +127,7 @@ public class Directory {
   }
 
   /**
-   * Checks if the directory with the given name exits in this
-   * directory
+   * Checks if the directory with the given name exits in this directory
    *
    * @param name The name of the directory to look for
    * @return True if the directory exists, False otherwise

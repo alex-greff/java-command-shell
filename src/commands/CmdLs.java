@@ -100,9 +100,9 @@ public class CmdLs extends Command {
             errOut
                 .writeln(
                     "Error: File \"" + name + "\" was not found");
-          }//end catch for filenotFound
+          }//end catch for FileNotFound
         } // end catch for bad/no existing path
-      }//end forloop for all params
+      }//end for loop for all params
     }//endif
 
     // if no parameters are given, perform command on current working dir
@@ -120,8 +120,7 @@ public class CmdLs extends Command {
   }
 
   /**
-   * @param dir The directory whose contents will be represented by a
-   * string
+   * @param dir The directory whose contents will be represented by a string
    * @return The string representation of the directories contents
    */
   private String addOn(Directory dir) {
@@ -147,8 +146,7 @@ public class CmdLs extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * A helper checking if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command

@@ -159,7 +159,8 @@ public class CommandManager {
    * Attempt to obtain the CommandDescription of a command, given its name.
    *
    * @param commandName The command name, as it expected to be seen
-   * @return Returns the command's description, if the command exists, or null
+   * @return Returns the CommandDescription container for the command, if it
+   * exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

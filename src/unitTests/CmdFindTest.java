@@ -31,6 +31,7 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+
 import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -79,11 +80,11 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/file4\n\n", tc.getAllWritesAsString());
   }
-  
+
   @Test
   public void testExecuteFindMultipleFiles() {
     CommandArgs args =
@@ -94,11 +95,11 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/file1\n/file1\n\n", tc.getAllWritesAsString());
   }
-  
+
   @Test
   public void testExecuteFindNoFiles() {
     CommandArgs args =
@@ -109,11 +110,11 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("\n", tc.getAllWritesAsString());
   }
-  
+
   @Test
   public void testExecuteFindOneDirectory() {
     CommandArgs args =
@@ -124,11 +125,11 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/\n\n", tc.getAllWritesAsString());
   }
-  
+
   @Test
   public void testExecuteFindMultipleDirectories() {
     CommandArgs args =
@@ -139,11 +140,11 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-        
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/dir1/\n/dir1/\n\n", tc.getAllWritesAsString());
   }
-  
+
   @Test
   public void testExecuteFindNoDirectories() {
     CommandArgs args =
@@ -154,7 +155,7 @@ public class CmdFindTest {
 
     Command cmd = new CmdFind();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("\n", tc.getAllWritesAsString());
   }

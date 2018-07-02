@@ -31,6 +31,7 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -72,7 +73,7 @@ public class CmdEchoTest {
   @Test
   public void testExecuteEchoToConsole() {
     CommandArgs args =
-        new CommandArgs("echo", new String[] {"nice sentence you got there"});
+        new CommandArgs("echo", new String[]{"nice sentence you got there"});
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -141,7 +142,7 @@ public class CmdEchoTest {
     FileSystem fs = FileSystem.getInstance();
 
     File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
-    
+
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("some string", file.read());
   }
@@ -157,7 +158,7 @@ public class CmdEchoTest {
 
     Command cmd = new CmdEcho();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.FAILURE);
   }
 }

@@ -82,7 +82,6 @@ public class JShell {
   }
 
   /**
-   *
    * @return the user input history
    */
   public static ArrayList<String> getHistory() {
