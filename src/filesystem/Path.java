@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Represents a path in the filesystem
+ * Represents a path in the file system.
  *
  * @author anton
  */
@@ -77,10 +77,10 @@ public class Path implements Iterable<String> {
     return this.tokens.remove(this.tokens.size() - 1);
   }
 
-  @Override
   /**
    * The iterator override for path.
    */
+  @Override
   public Iterator<String> iterator() {
     return this.tokens.iterator();
   }

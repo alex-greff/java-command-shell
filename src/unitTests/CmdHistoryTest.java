@@ -30,12 +30,9 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdHistory;
 import containers.CommandArgs;
 import driver.JShell;
-import io.Console;
-import io.ErrorConsole;
 import java.util.ArrayList;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,9 +53,10 @@ public class CmdHistoryTest {
     CommandArgs args = new CommandArgs("history", params);
     Command cmd = new CmdHistory();
 
-    ExitCode exc =
-        cmd.execute(args, Console.getInstance(),
-                    ErrorConsole.getInstance());
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+
+    ExitCode exc = cmd.execute(args, tc, tc_err);
     assertEquals(exc, ExitCode.SUCCESS);
   }
 }

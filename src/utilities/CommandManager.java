@@ -55,7 +55,6 @@ import java.util.HashMap;
  * @author ursu
  */
 public class CommandManager {
-
   /**
    * Instance of the CommandManager for singleton access
    */
@@ -77,7 +76,6 @@ public class CommandManager {
    */
   private ErrorConsole errorOut = ErrorConsole.getInstance();
 
-
   /**
    * The exit code of the last command run
    */
@@ -86,8 +84,7 @@ public class CommandManager {
   /**
    * Private constructor for singleton
    */
-  private CommandManager() {
-  }
+  private CommandManager() {}
 
   /**
    * Populates cmdMap with all known commands as they are expected to be typed
@@ -168,7 +165,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   * exists, or null
+   *         exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

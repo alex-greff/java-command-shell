@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -48,9 +47,8 @@ import utilities.ExitCode;
 public class CmdLsTest {
 
   @Before
-  public void resetSingleton()
-      throws SecurityException, NoSuchFieldException,
-             IllegalArgumentException, IllegalAccessException {
+  public void resetSingleton() throws SecurityException, NoSuchFieldException,
+      IllegalArgumentException, IllegalAccessException {
     Field instance = FileSystem.class.getDeclaredField("ourInstance");
     instance.setAccessible(true);
     instance.set(null, null);
@@ -75,9 +73,11 @@ public class CmdLsTest {
   public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
     Command cmd = new CmdLs();
-    ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(),
-                    ErrorConsole.getInstance());
+    
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -87,9 +87,11 @@ public class CmdLsTest {
     params[0] = "dir1";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
-    ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(),
-                    ErrorConsole.getInstance());
+    
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -99,9 +101,11 @@ public class CmdLsTest {
     params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
     Command cmd = new CmdLs();
-    ExitCode exitVal =
-        cmd.execute(args, Console.getInstance(),
-                    ErrorConsole.getInstance());
+    
+    TestingConsole tc = new TestingConsole();
+    TestingConsole tc_err = new TestingConsole();
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 

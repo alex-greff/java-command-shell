@@ -34,7 +34,7 @@ import java.util.Scanner;
 /**
  * Class representing the JShell console
  *
- * @author anton
+ * @author greff
  */
 public class Console implements Writable, Readable {
 

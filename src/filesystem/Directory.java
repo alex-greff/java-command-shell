@@ -94,8 +94,7 @@ public class Directory {
    * @param newFile The child file
    * @throws FileAlreadyExistsException Thrown when the file already exists
    */
-  public void addFile(File newFile)
-      throws FileAlreadyExistsException {
+  public void addFile(File newFile) throws FileAlreadyExistsException {
     String fileName = newFile.getName();
     if (!containsDir(fileName) && !containsFile(fileName)) {
       this.childFiles.put(fileName, newFile);
@@ -110,8 +109,7 @@ public class Directory {
    * @param name The name of the directory to remove
    * @throws FileNotFoundException Thrown if the directory is not found
    */
-  public void removeDirByName(String name)
-      throws FileNotFoundException {
+  public void removeDirByName(String name) throws FileNotFoundException {
     if (!childDirs.containsKey(name)) {
       throw new FileNotFoundException();
     }
@@ -124,8 +122,7 @@ public class Directory {
    * @param name The name of the file to remove
    * @throws FileNotFoundException Thrown if the file is not found
    */
-  public void removeFileByName(String name)
-      throws FileNotFoundException {
+  public void removeFileByName(String name) throws FileNotFoundException {
     if (!childFiles.containsKey(name)) {
       throw new FileNotFoundException();
     }
@@ -159,8 +156,7 @@ public class Directory {
    * @return The directory with the given name
    * @throws FileNotFoundException Thrown if the directory is not found
    */
-  public Directory getDirByName(String name)
-      throws FileNotFoundException {
+  public Directory getDirByName(String name) throws FileNotFoundException {
     if (!childDirs.containsKey(name)) {
       throw new FileNotFoundException();
     }
@@ -174,8 +170,7 @@ public class Directory {
    * @return The file with the given name
    * @throws FileNotFoundException Thrown when the file is not found
    */
-  public File getFileByName(String name)
-      throws FileNotFoundException {
+  public File getFileByName(String name) throws FileNotFoundException {
     if (!childFiles.containsKey(name)) {
       throw new FileNotFoundException();
     }

@@ -52,9 +52,7 @@ public class CmdExit extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Exits the currently running JShell.",
-          "exit")
-          .build();
+          "Exits the currently running JShell.", "exit").build();
 
   /**
    * Constructs a new command instance
@@ -72,8 +70,7 @@ public class CmdExit extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS.
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Tell the JShell to exit
     JShell.exit();
     return ExitCode.SUCCESS;

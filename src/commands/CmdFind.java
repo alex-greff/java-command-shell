@@ -61,9 +61,8 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-          .additionalComment(
-              "Nothing is printed if no files are found")
-          .build();
+              .additionalComment("Nothing is printed if no files are found")
+              .build();
   /**
    * The identifier for the type flag.
    */
@@ -153,8 +152,7 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name
-   * "name"
+   * Gets a set of all absolute paths to instances of files with the name "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
@@ -207,8 +205,7 @@ public class CmdFind extends Command {
    * @return Returns the set
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-                                                        String name)
-      throws FileNotFoundException {
+      String name) throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
     Set<String> ret_set = new HashSet<>();
@@ -258,7 +255,7 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }

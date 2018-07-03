@@ -75,7 +75,6 @@ public class CmdLs extends Command {
     super(NAME, DESCRIPTION);
   }
 
-
   /**
    * @param args The command Arguments.
    * @param out The writable for any normal output of the command.

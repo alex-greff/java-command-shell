@@ -37,18 +37,28 @@ import java.util.ArrayList;
  * @author greff
  */
 public class CommandDescription {
-
-  //The description of the command.
+  /**
+   * The description of the command.
+   */
   private String description;
-  // The usages of the command.
+  /**
+   * The usages of the command.
+   */
   private ArrayList<String> usages;
-  //The additional comments for the command, if any.
+  /**
+   * The additional comments for the command, if any.
+   */
   private ArrayList<String> additionalComments;
 
-  // private constructor
-  private CommandDescription(String description,
-                             ArrayList<String> usages,
-                             ArrayList<String> additionalComments) {
+  /**
+   * Private constructor.
+   * 
+   * @param description The description of the command.
+   * @param usages The usages for the command.
+   * @param additionalComments Any additional comments.
+   */
+  private CommandDescription(String description, ArrayList<String> usages,
+      ArrayList<String> additionalComments) {
     this.description = description;
     this.usages = usages;
     this.additionalComments = additionalComments;
@@ -81,13 +91,26 @@ public class CommandDescription {
     return additionalComments;
   }
 
-  // internal builder class used to simplify the creation of the
-  // comments class
+  /**
+   * Internal builder class used to simplify the creation of the comments class.
+   * 
+   * @author anton
+   *
+   */
   public static class DescriptionBuilder {
 
     // mirror all the fields of the comments class
+    /**
+     * The description.
+     */
     private String description;
+    /**
+     * The usages.
+     */
     private ArrayList<String> usages = new ArrayList<>();
+    /**
+     * Additional comments, if any.
+     */
     private ArrayList<String> comments = new ArrayList<>();
 
     /**

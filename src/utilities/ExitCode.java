@@ -36,6 +36,5 @@ package utilities;
  * @author anton
  */
 public enum ExitCode {
-  SUCCESS,
-  FAILURE
+  SUCCESS, FAILURE
 }

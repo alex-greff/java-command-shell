@@ -37,7 +37,7 @@ import utilities.CommandManager;
 import utilities.Parser;
 
 /**
- * the jshell terminal
+ * the JShell terminal.
  * 
  * @author chedy
  *
@@ -60,12 +60,12 @@ public class JShell {
    * the console that the JShell reads from
    */
   private static Console console = Console.getInstance();
-  
+
   /**
    * the command manager that JShell uses
    */
   private static CommandManager cmdManager = CommandManager.getInstance();
-  
+
   /**
    * a record of all of the user input
    */
@@ -82,7 +82,7 @@ public class JShell {
     String rawInput;
     // Initialize the commands in the command manager
     cmdManager.initializeCommands();
-    
+
     // create while loop which only exits once the exit command is called
     // send user input to parser, then validate, then execute
     while (running) {
@@ -91,16 +91,16 @@ public class JShell {
       // write the default prompt symbol
       String prompt = workingDirPath + "# ";
       console.write(prompt);
-      
+
       // read user input form the console
       rawInput = console.read();
-      
+
       // add input to history
       history.add(rawInput);
-      
+
       // Parse the user input
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
-      
+
       // Execute the command
       cmdManager.executeCommand(parsedInput);
     }

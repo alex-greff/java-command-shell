@@ -63,7 +63,6 @@ public class CmdPushd extends Command {
     super(NAME, DESCRIPTION);
   }
 
-  
   /**
    * Executes the pushd command with the given arguments
    *

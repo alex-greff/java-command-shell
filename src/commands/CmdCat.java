@@ -57,9 +57,9 @@ public class CmdCat extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print contents of file(s).",
           "cat FILES")
-          .additionalComment("Path of FILE can be relative or absolute.")
-          .additionalComment("Can take more than one FILE as arguments.")
-          .build();
+              .additionalComment("Path of FILE can be relative or absolute.")
+              .additionalComment("Can take more than one FILE as arguments.")
+              .build();
 
   /**
    * Constructs a new command instance
@@ -103,7 +103,6 @@ public class CmdCat extends Command {
         // No File at the Path of the argument given
         errOut.writeln("File does not exist");
       }
-
     }
 
     // Write all the contents read to the Console and return SUCCESS always

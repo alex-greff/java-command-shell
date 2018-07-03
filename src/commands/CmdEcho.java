@@ -58,16 +58,15 @@ public class CmdEcho extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Appends or writes a string to a file.",
-          "echo STRING")
-          .usage("echo STRING [> OUTFILE]")
-          .usage("echo STRING [>> OUTFILE]")
-          .additionalComment(
-              "The \">\" character signals to overwrite the file "
-                  + "conents.")
-          .additionalComment(
-              "The \">>\" character signals to append to the file conents.")
-          .build();
+          "Appends or writes a string to a file.", "echo STRING")
+              .usage("echo STRING [> OUTFILE]")
+              .usage("echo STRING [>> OUTFILE]")
+              .additionalComment(
+                  "The \">\" character signals to overwrite the file "
+                      + "conents.")
+              .additionalComment(
+                  "The \">>\" character signals to append to the file conents.")
+              .build();
   /**
    * The overwrite operator character.
    */
@@ -190,7 +189,7 @@ public class CmdEcho extends Command {
    * @return Returns the created file.
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
-                                                   FileNotFoundException, FileAlreadyExistsException {
+      FileNotFoundException, FileAlreadyExistsException {
     // Get a reference to the file system singleton
     FileSystem fs = FileSystem.getInstance();
 
@@ -231,8 +230,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR))
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 }
