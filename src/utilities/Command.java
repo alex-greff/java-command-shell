@@ -82,7 +82,7 @@ public abstract class Command {
    * @return Returns the exit condition of the command.
    */
   public abstract ExitCode execute(CommandArgs args, Writable out,
-                                   Writable errorOut);
+      Writable errorOut);
 
   /**
    * Checks if the given args are valid for this command.

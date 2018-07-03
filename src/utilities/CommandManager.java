@@ -86,7 +86,8 @@ public class CommandManager {
   /**
    * Private constructor for singleton
    */
-  private CommandManager() {}
+  private CommandManager() {
+  }
 
   /**
    * Populates cmdMap with all known commands as they are expected to be typed
@@ -167,7 +168,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   *         exists, or null
+   * exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

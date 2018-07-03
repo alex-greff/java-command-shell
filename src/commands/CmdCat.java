@@ -41,7 +41,7 @@ import utilities.ExitCode;
 
 /**
  * The cat command class that inherits from command
- * 
+ *
  * @author ursu
  */
 public class CmdCat extends Command {
@@ -57,9 +57,9 @@ public class CmdCat extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print contents of file(s).",
           "cat FILES")
-              .additionalComment("Path of FILE can be relative or absolute.")
-              .additionalComment("Can take more than one FILE as arguments.")
-              .build();
+          .additionalComment("Path of FILE can be relative or absolute.")
+          .additionalComment("Can take more than one FILE as arguments.")
+          .build();
 
   /**
    * Constructs a new command instance
