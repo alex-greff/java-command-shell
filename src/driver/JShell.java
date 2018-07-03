@@ -38,7 +38,9 @@ import utilities.CommandManager;
 import utilities.Parser;
 
 /**
- * the jshell mock terminal
+ * the jshell terminal
+ * 
+ * @author chedy
  *
  */
 public class JShell {

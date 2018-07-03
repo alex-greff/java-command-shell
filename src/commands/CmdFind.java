@@ -46,7 +46,7 @@ import utilities.ExitCode;
 /**
  * The find command.
  *
- * @author ajg
+ * @author greff
  */
 public class CmdFind extends Command {
   // Setup command information

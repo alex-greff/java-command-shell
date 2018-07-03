@@ -52,7 +52,7 @@ public class CmdMan extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND")
-          .additionalComment("For some fun try \"man man\".").build();
+              .additionalComment("For some fun try \"man man\".").build();
 
   /**
    * Constructs a new command instance

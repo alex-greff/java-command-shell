@@ -58,11 +58,11 @@ public class CmdHistory extends Command {
               + "by default, but if given a positive integer "
               + "argument x, the last x user entries will be listed.",
           "history")
-          .usage("history [int]")
-          .additionalComment("The history command itself will "
-                                 + "always take place as the latest entry in history "
-                                 + "\n(i.e. history 1 prints: \n 1. history 1)")
-          .build();
+              .usage("history [int]")
+              .additionalComment("The history command itself will "
+                  + "always take place as the latest entry in history "
+                  + "\n(i.e. history 1 prints: \n 1. history 1)")
+              .build();
 
   /**
    * Constructs a new command instance
@@ -78,8 +78,7 @@ public class CmdHistory extends Command {
    * @return the history of the users input
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history
@@ -107,8 +106,7 @@ public class CmdHistory extends Command {
       // in the case that the parameter int is bigger than the size of history
       // resort to printing the whole history rather than throwing error
       ArrayList<String> newList =
-          new ArrayList<>(
-              history.subList(Math.max(index, 0), history.size()));
+          new ArrayList<>(history.subList(Math.max(index, 0), history.size()));
 
       for (String item : newList) {
         result.append(Integer.toString(i)).append(". ").append(item)

@@ -52,8 +52,7 @@ public class CmdPushd extends Command {
           "Pushes the current directory to the top of the directory"
               + " stack and changes the current working directory to the"
               + " given directory",
-          "pushd DIRECTORY")
-          .build();
+          "pushd DIRECTORY").build();
 
   private DirectoryStack dirStack = DirectoryStack.getInstance();
 
@@ -65,8 +64,7 @@ public class CmdPushd extends Command {
   }
 
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with

@@ -41,6 +41,8 @@ import utilities.ExitCode;
 
 /**
  * The cat command class that inherits from command
+ * 
+ * @author ursu
  */
 public class CmdCat extends Command {
 
@@ -53,14 +55,11 @@ public class CmdCat extends Command {
    * Container built for the command's description
    */
   private static final CommandDescription DESCRIPTION =
-      new CommandDescription.DescriptionBuilder(
-          "Print contents of file(s).",
+      new CommandDescription.DescriptionBuilder("Print contents of file(s).",
           "cat FILES")
-          .additionalComment(
-              "Path of FILE can be relative or absolute.")
-          .additionalComment(
-              "Can take more than one FILE as arguments.")
-          .build();
+              .additionalComment("Path of FILE can be relative or absolute.")
+              .additionalComment("Can take more than one FILE as arguments.")
+              .build();
 
   /**
    * Constructs a new command instance
@@ -80,8 +79,7 @@ public class CmdCat extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();

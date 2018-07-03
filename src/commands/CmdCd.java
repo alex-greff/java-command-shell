@@ -40,6 +40,8 @@ import utilities.ExitCode;
 
 /**
  * The cd command class that inherits from command
+ * 
+ * @author ursu
  */
 public class CmdCd extends Command {
 
@@ -52,12 +54,11 @@ public class CmdCd extends Command {
    * Container built for the command's description
    */
   private static final CommandDescription DESCRIPTION =
-      new CommandDescription.DescriptionBuilder(
-          "Change directory.",
+      new CommandDescription.DescriptionBuilder("Change directory.",
           "cd DIRECTORY")
-          .additionalComment(
-              "Path of DIRECTORY can be relative or absolute.")
-          .build();
+              .additionalComment(
+                  "Path of DIRECTORY can be relative or absolute.")
+              .build();
 
   /**
    * Constructs a new command instance
@@ -77,8 +78,7 @@ public class CmdCd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];
 

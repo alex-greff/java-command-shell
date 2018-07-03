@@ -58,17 +58,15 @@ public class CmdLs extends Command {
           "Lists all of the files and directories in the current\n"
               + "working directory. Can take multiple "
               + "filenames/directory \n names as arguments",
-          "ls")
-          .usage("ls [Directory]")
-          .usage("ls [File]")
-          .usage("ls [Directory] [File]")
-          .additionalComment(
-              "If given a filename, ls will simply print back that "
-                  + "name")
-          .additionalComment(
-              "ls separates multiple argument's content with an "
-                  + "extra newline")
-          .build();
+          "ls").usage("ls [Directory]").usage("ls [File]")
+              .usage("ls [Directory] [File]")
+              .additionalComment(
+                  "If given a filename, ls will simply print back that "
+                      + "name")
+              .additionalComment(
+                  "ls separates multiple argument's content with an "
+                      + "extra newline")
+              .build();
 
   /**
    * Constructs a new command instance
@@ -106,13 +104,11 @@ public class CmdLs extends Command {
             result.append(addFileName(file));
           } catch (FileNotFoundException | MalformedPathException e) {
             // only error out if the name was not found as either file or dir.
-            errOut
-                .writeln(
-                    "Error: File \"" + name + "\" was not found");
-          }//end catch for FileNotFound
+            errOut.writeln("Error: File \"" + name + "\" was not found");
+          } // end catch for FileNotFound
         } // end catch for bad/no existing path
-      }//end for loop for all params
-    }//endif
+      } // end for loop for all params
+    } // endif
 
     // if no parameters are given, perform command on current working dir
     else {

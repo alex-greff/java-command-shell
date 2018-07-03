@@ -38,6 +38,8 @@ import utilities.ExitCode;
 
 /**
  * The pwd command class that inherits from command
+ * 
+ * @author ursu
  */
 public class CmdPwd extends Command {
 
@@ -50,10 +52,8 @@ public class CmdPwd extends Command {
    * Container built for the command's description
    */
   private static final CommandDescription DESCRIPTION =
-      new CommandDescription.DescriptionBuilder(
-          "Print working directory.",
-          "pwd")
-          .build();
+      new CommandDescription.DescriptionBuilder("Print working directory.",
+          "pwd").build();
 
   /**
    * Constructs a new command instance
@@ -72,8 +72,7 @@ public class CmdPwd extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the instance of the FileSystem
     FileSystem FS = FileSystem.getInstance();
     // Write the path of the working directory in the FileSystem to the Console

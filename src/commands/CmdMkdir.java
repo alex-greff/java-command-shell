@@ -56,11 +56,10 @@ public class CmdMkdir extends Command {
           "Make a new directory given one or more paths to an "
               + "existing parent",
           "mkdir PATH_LIST")
-          .additionalComment(
-              "The given path may be absolute or relative")
-          .additionalComment("The path up to and not including the "
-                                 + "last segment must point to an existing directory")
-          .build();
+              .additionalComment("The given path may be absolute or relative")
+              .additionalComment("The path up to and not including the "
+                  + "last segment must point to an existing directory")
+              .build();
 
   /**
    * Constructs a new command instance
@@ -78,8 +77,7 @@ public class CmdMkdir extends Command {
    * @return Exit code of the command
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errorOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
     // iterate over each given path
     for (String pathString : args.getCommandParameters()) {
       try {

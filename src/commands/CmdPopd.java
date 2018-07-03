@@ -52,8 +52,7 @@ public class CmdPopd extends Command {
           "Removes the directory at the top of the "
               + "directory stack and changes the current working "
               + "directory to the removed directory.",
-          "popd")
-          .build();
+          "popd").build();
 
   /**
    * Constructs a new command instance
@@ -71,8 +70,7 @@ public class CmdPopd extends Command {
    * @return The exit code of the command
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-                          Writable errorOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
     DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {
