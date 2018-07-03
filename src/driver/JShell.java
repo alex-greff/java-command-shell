@@ -76,7 +76,7 @@ public class JShell {
    * The main function which makes the appropriate calls for JShell to operate
    * and that loops continually until exited
    * 
-   * @param the arguments that are passed in after running the JShell
+   * @param args the arguments that are passed in after running the JShell
    */
   public static void main(String[] args) {
     String rawInput;

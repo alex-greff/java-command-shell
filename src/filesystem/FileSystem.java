@@ -74,7 +74,8 @@ public class FileSystem {
    * Change the working dir to the dir given by the path
    *
    * @param path A path to the dir to change to
-   * @throws FileNotFoundException Thrown when a directory does not exist
+   * @throws FileNotFoundException Thrown when the directory does not exist
+   * @throws MalformedPathException Thrown when the path is invalid
    */
   public void changeWorkingDir(Path path)
       throws MalformedPathException, FileNotFoundException {
@@ -114,6 +115,8 @@ public class FileSystem {
    * @param path The path of the wanted file, can be absolute or relative.
    *        Absolute path must start with / indicating root directory.
    * @return The file located at the path
+   * @throws FileNotFoundException Thrown when the file does not exist
+   * @throws MalformedPathException Thrown when the path is invalid
    */
   public File getFileByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
@@ -128,6 +131,8 @@ public class FileSystem {
    * @param path The path of the wanted file, can be absolute or relative.
    *        Absolute path must start with / indicating root directory.
    * @return The directory located at the path
+   * @throws FileNotFoundException Thrown when the directory does not exist
+   * @throws MalformedPathException Thrown when the path is invalid
    */
   public Directory getDirByPath(Path path)
       throws MalformedPathException, FileNotFoundException {

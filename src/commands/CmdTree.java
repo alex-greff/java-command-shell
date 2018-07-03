@@ -70,7 +70,7 @@ public class CmdTree extends Command {
    * @param args The arguments for the command call.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
-   * @return string representation of the entire filesystem
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {

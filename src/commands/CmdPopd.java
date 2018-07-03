@@ -67,7 +67,7 @@ public class CmdPopd extends Command {
    * @param args The arguments for the command call.
    * @param out The standard output console.
    * @param errorOut The error console
-   * @return The exit code of the command
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {

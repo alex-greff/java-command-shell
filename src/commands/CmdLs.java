@@ -80,7 +80,7 @@ public class CmdLs extends Command {
    * @param args The command Arguments.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
-   * @return an Exitcode: 0 -> success, 1 -> failure
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {

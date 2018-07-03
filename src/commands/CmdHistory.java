@@ -75,7 +75,7 @@ public class CmdHistory extends Command {
    * @param args The arguments for the command call.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
-   * @return the history of the users input
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {

@@ -69,7 +69,7 @@ public class CmdExit extends Command {
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
-   * @return Returns the exit status of the command.
+   * @return Returns the ExitCode of the command, always SUCCESS.
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,

@@ -73,6 +73,8 @@ public class Directory {
    * not already exist
    *
    * @param name The name of the new child directory
+   * @return Returns the new created directory
+   * @throws FileAlreadyExistsException Thrown when the directory already exists
    */
   public Directory createAndAddNewDir(String name)
       throws FileAlreadyExistsException {
@@ -90,6 +92,7 @@ public class Directory {
    * exist otherwise raises error
    *
    * @param newFile The child file
+   * @throws FileAlreadyExistsException Thrown when the file already exists
    */
   public void addFile(File newFile)
       throws FileAlreadyExistsException {
@@ -105,6 +108,7 @@ public class Directory {
    * Removes a child directory with the given name if it exists
    *
    * @param name The name of the directory to remove
+   * @throws FileNotFoundException Thrown if the directory is not found
    */
   public void removeDirByName(String name)
       throws FileNotFoundException {
@@ -118,6 +122,7 @@ public class Directory {
    * Removes a child file with the given name if it exists
    *
    * @param name The name of the file to remove
+   * @throws FileNotFoundException Thrown if the file is not found
    */
   public void removeFileByName(String name)
       throws FileNotFoundException {
@@ -152,6 +157,7 @@ public class Directory {
    *
    * @param name The name of the directory wanted
    * @return The directory with the given name
+   * @throws FileNotFoundException Thrown if the directory is not found
    */
   public Directory getDirByName(String name)
       throws FileNotFoundException {
@@ -166,6 +172,7 @@ public class Directory {
    *
    * @param name The name of the file wanted
    * @return The file with the given name
+   * @throws FileNotFoundException Thrown when the file is not found
    */
   public File getFileByName(String name)
       throws FileNotFoundException {

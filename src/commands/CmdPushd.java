@@ -63,8 +63,17 @@ public class CmdPushd extends Command {
     super(NAME, DESCRIPTION);
   }
 
+  
+  /**
+   * Executes the pushd command with the given arguments
+   *
+   * @param args The arguments for the command call.
+   * @param out The standard output console.
+   * @param errorOut The error console
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with

@@ -48,6 +48,7 @@ public class Path implements Iterable<String> {
    * Creates a new path given a path string
    *
    * @param pathString A string representing a path
+   * @throws MalformedPathException Thrown when the path is invalid
    */
   public Path(String pathString) throws MalformedPathException {
     // if it's an absolute path add the root dir to the token list

@@ -74,7 +74,7 @@ public class CmdMkdir extends Command {
    * @param args The arguments for the command call.
    * @param out The standard output console.
    * @param errorOut The error output console.
-   * @return Exit code of the command
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {

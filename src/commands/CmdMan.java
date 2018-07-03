@@ -65,7 +65,7 @@ public class CmdMan extends Command {
    * Executes the man command with the arguments args
    *
    * @param args The command arguments
-   * @return Returns the output of the command
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
