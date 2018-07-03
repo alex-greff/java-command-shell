@@ -1,0 +1,7 @@
+Class name: MalformedPathException
+Parent class: Exception
+Subclasses:
+
+Responsibilities:
+* Represents failure when a path has incorrect form
+  - eg two slashes or a space between two slashes etc

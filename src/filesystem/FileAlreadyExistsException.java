@@ -30,6 +30,11 @@
 
 package filesystem;
 
+/**
+ * Exception raised when a file or directory already exists
+ *
+ * @author anton
+ */
 public class FileAlreadyExistsException extends Throwable {
 
 }

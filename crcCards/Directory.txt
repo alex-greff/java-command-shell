@@ -4,9 +4,11 @@ Subclasses:
 
 Responsibilities:
 * store directory name
-* store directory location (absolute path)
-* contain directories
-* contain files
+* store child directories
+* store child files
+* allow files to be added
+* allow directories to be added
+* allow files and directories to be queried
 
 Collaborators:
 * Directory

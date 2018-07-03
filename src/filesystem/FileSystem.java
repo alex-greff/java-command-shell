@@ -31,6 +31,8 @@ package filesystem;
 
 /**
  * Manages files, directories and the current working directory.
+ *
+ * @author anton
  */
 public class FileSystem {
 

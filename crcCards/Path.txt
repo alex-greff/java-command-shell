@@ -3,6 +3,6 @@ Parent class:
 Subclasses:
 
 Responsibilities:
-* Manages path strings and makes them more accessible to use
+* Parses path strings into segments and allows iteration over them
 
 Collaborators:

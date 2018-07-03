@@ -1,0 +1,7 @@
+Class name: FileAlreadyExistsException
+Parent class: Exception
+Subclasses:
+
+Responsibilities:
+* Represent failure when user attempts to create a file that already
+  exists
