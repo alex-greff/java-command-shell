@@ -33,6 +33,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import containers.CommandDescription;
+import java.util.Collections;
 import org.junit.Test;
 
 public class CommandDescriptionTest {
@@ -48,7 +49,7 @@ public class CommandDescriptionTest {
 
     assertEquals("some basic description", cd.getDescription());
     assertEquals(asList("usage 1", "usage 2"), cd.getUsages());
-    assertEquals(asList(), cd.getAdditionalComments());
+    assertEquals(Collections.emptyList(), cd.getAdditionalComments());
   }
 
   @Test
@@ -63,7 +64,7 @@ public class CommandDescriptionTest {
 
     assertEquals("some basic description", cd.getDescription());
     assertEquals(asList("usage 1", "usage 2"), cd.getUsages());
-    assertEquals(asList("some cool thing"),
+    assertEquals(Collections.singletonList("some cool thing"),
                  cd.getAdditionalComments());
   }
 }

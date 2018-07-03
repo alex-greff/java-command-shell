@@ -30,6 +30,7 @@
 package unitTests;
 
 import io.Writable;
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -43,7 +44,7 @@ public class TestingConsole implements Writable {
   /**
    * The stack storing all the write inputs.
    */
-  private Stack<String> inputs = new Stack<String>();
+  private Stack<String> inputs = new Stack<>();
 
   /**
    * Writes the content input to a list with the most recent at the head.
@@ -92,11 +93,8 @@ public class TestingConsole implements Writable {
    *
    * @return Returns the list of all writes to the console.
    */
-  public String[] getAllWrites() {
-    String[] ret = new String[inputs.size()];
-    inputs.toArray(ret);
-
-    return ret;
+  public ArrayList<String> getAllWrites() {
+    return new ArrayList<>(inputs);
   }
 
   /**
@@ -111,7 +109,7 @@ public class TestingConsole implements Writable {
     StringBuilder ret_str = new StringBuilder();
 
     for (String s : input_arr) {
-      ret_str.append(s + "\n");
+      ret_str.append(s).append("\n");
     }
 
     return ret_str.toString();

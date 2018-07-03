@@ -5,6 +5,6 @@ import org.junit.Before;
 public class CmdPushdTest {
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
   }
 }

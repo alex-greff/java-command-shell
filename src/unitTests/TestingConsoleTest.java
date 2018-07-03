@@ -29,9 +29,11 @@
 // *********************************************************
 package unitTests;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.Collections;
 import org.junit.Test;
 
 public class TestingConsoleTest {
@@ -42,8 +44,7 @@ public class TestingConsoleTest {
     tc.writeln("some line 1");
     tc.writeln("some line 2");
 
-    assertEquals(new String[]{"some line 1", "some line 2"},
-                 tc.getAllWrites());
+    assertEquals(asList("some line 1", "some line 2"), tc.getAllWrites());
   }
 
   @Test
@@ -52,7 +53,7 @@ public class TestingConsoleTest {
     tc.write("a");
     tc.write("b");
 
-    assertEquals(new String[]{"ab"}, tc.getAllWrites());
+    assertEquals(Collections.singletonList("ab"), tc.getAllWrites());
   }
 
   @Test
@@ -62,14 +63,14 @@ public class TestingConsoleTest {
     tc.write("b");
     tc.writeln("c");
 
-    assertEquals(new String[]{"ab", "c"}, tc.getAllWrites());
+    assertEquals(asList("ab", "c"), tc.getAllWrites());
   }
 
   @Test
   public void testConsoleGetAllWritesNoWrites() {
     TestingConsole tc = new TestingConsole();
 
-    assertEquals(new String[0], tc.getAllWrites());
+    assertEquals(Collections.emptyList(), tc.getAllWrites());
   }
 
   @Test

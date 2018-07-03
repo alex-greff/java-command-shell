@@ -7,6 +7,6 @@ import org.junit.Before;
 public class CmdPopdTest {
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
   }
 }

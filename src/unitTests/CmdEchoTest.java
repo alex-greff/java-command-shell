@@ -160,8 +160,7 @@ public class CmdEchoTest {
   }
 
   @Test
-  public void testExecuteMisingDirectory()
-      throws MalformedPathException, FileNotFoundException {
+  public void testExecuteMisingDirectory() {
     CommandArgs args =
         Parser.parseUserInput(
             "echo \"some string\" >> /wrongDir/f1.txt");

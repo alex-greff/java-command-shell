@@ -201,7 +201,7 @@ public class ParserTest {
   public void testUserInputWithFields() {
     CommandArgs p = Parser.parseUserInput("find someDir -type d -name hi");
 
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = new HashMap<>();
     map.put("type", "d");
     map.put("name", "hi");
 
@@ -223,7 +223,7 @@ public class ParserTest {
         Parser
             .parseUserInput("find -type \"d\" -name \"some string\"");
 
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = new HashMap<>();
     map.put("type", "d");
     map.put("name", "some string");
 
@@ -236,7 +236,7 @@ public class ParserTest {
     CommandArgs p = Parser.parseUserInput(
         "  \t  find\t\tsomeDir\t  \t  -type d    -name    \"hi\"    ");
 
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = new HashMap<>();
     map.put("type", "d");
     map.put("name", "hi");
 

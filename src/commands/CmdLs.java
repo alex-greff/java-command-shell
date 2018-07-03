@@ -148,7 +148,7 @@ public class CmdLs extends Command {
   }
 
   private String addFileName(File file) {
-    String res = "";
+    String res;
     String name = file.getName();
     res = name + "\n\n";
     return res;
