@@ -64,6 +64,6 @@ public class CommandDescriptionTest {
     assertEquals("some basic description", cd.getDescription());
     assertEquals(asList("usage 1", "usage 2"), cd.getUsages());
     assertEquals(asList("some cool thing"),
-        cd.getAdditionalComments());
+                 cd.getAdditionalComments());
   }
 }

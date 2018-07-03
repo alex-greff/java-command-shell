@@ -66,7 +66,7 @@ public class CmdPushd extends Command {
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+                          Writable errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with
@@ -82,8 +82,7 @@ public class CmdPushd extends Command {
    * Validates the args with respect to the pushd command
    *
    * @param args The command arguments.
-   * @return True iff the args are valid with respect to the pushd
-   * command
+   * @return True iff the args are valid with respect to the pushd command
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {

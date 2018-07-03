@@ -53,8 +53,8 @@ public class CmdEchoTest {
   @Before
   public void setup()
       throws SecurityException, NoSuchFieldException,
-      FileAlreadyExistsException, IllegalArgumentException,
-      IllegalAccessException {
+             FileAlreadyExistsException, IllegalArgumentException,
+             IllegalAccessException {
     Field instance = FileSystem.class.getDeclaredField("ourInstance");
     instance.setAccessible(true);
     instance.set(null, null);
@@ -81,7 +81,7 @@ public class CmdEchoTest {
   public void testExecuteEchoToConsole() {
     CommandArgs args =
         new CommandArgs("echo",
-            new String[]{"nice sentence you got there"});
+                        new String[]{"nice sentence you got there"});
 
     TestingConsole tc = new TestingConsole();
     TestingConsole tc_err = new TestingConsole();
@@ -91,7 +91,7 @@ public class CmdEchoTest {
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("nice sentence you got there\n",
-        tc.getAllWritesAsString());
+                 tc.getAllWritesAsString());
   }
 
   @Test

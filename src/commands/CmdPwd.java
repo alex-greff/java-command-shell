@@ -63,8 +63,8 @@ public class CmdPwd extends Command {
   }
 
   /**
-   * Executes the pwd command with the given arguments. Pwd prints the
-   * working directory
+   * Executes the pwd command with the given arguments. Pwd prints the working
+   * directory
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -73,7 +73,7 @@ public class CmdPwd extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+                          Writable errOut) {
     // Obtain the instance of the FileSystem
     FileSystem FS = FileSystem.getInstance();
     // Write the path of the working directory in the FileSystem to the Console
@@ -83,8 +83,8 @@ public class CmdPwd extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for
-   * this command. Pwd expects no arguments
+   * Helper function to check if the arguments passed are valid for this
+   * command. Pwd expects no arguments
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise

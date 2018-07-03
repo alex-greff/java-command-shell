@@ -58,7 +58,7 @@ public class CmdHistoryTest {
 
     ExitCode exc =
         cmd.execute(args, Console.getInstance(),
-            ErrorConsole.getInstance());
+                    ErrorConsole.getInstance());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 }

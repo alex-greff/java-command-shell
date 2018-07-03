@@ -60,8 +60,8 @@ public class CmdHistory extends Command {
           "history")
           .usage("history [int]")
           .additionalComment("The history command itself will "
-              + "always take place as the latest entry in history "
-              + "\n(i.e. history 1 prints: \n 1. history 1)")
+                                 + "always take place as the latest entry in history "
+                                 + "\n(i.e. history 1 prints: \n 1. history 1)")
           .build();
 
   /**
@@ -79,7 +79,7 @@ public class CmdHistory extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+                          Writable errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history

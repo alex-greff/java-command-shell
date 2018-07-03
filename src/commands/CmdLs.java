@@ -85,8 +85,7 @@ public class CmdLs extends Command {
    * @return an Exitcode: 0 -> success, 1 -> failure
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     StringBuilder result = new StringBuilder();
     Directory curr = FileSystem.getInstance().getWorkingDir();
     Path path;
@@ -129,8 +128,7 @@ public class CmdLs extends Command {
   }
 
   /**
-   * @param dir The directory whose contents will be represented by a
-   * string
+   * @param dir The directory whose contents will be represented by a string
    * @return The string representation of the directories contents
    */
   private String addOn(Directory dir) {
@@ -156,8 +154,7 @@ public class CmdLs extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for
-   * this command
+   * A helper checking if args is a valid CommandArgs instance for this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command

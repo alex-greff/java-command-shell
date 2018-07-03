@@ -40,7 +40,6 @@ import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
 import java.lang.reflect.Field;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
@@ -51,8 +50,8 @@ public class CmdFindTest {
   @Before
   public void setup()
       throws SecurityException, NoSuchFieldException,
-      FileAlreadyExistsException, IllegalArgumentException,
-      IllegalAccessException {
+             FileAlreadyExistsException, IllegalArgumentException,
+             IllegalAccessException {
     Field instance = FileSystem.class.getDeclaredField("ourInstance");
     instance.setAccessible(true);
     instance.set(null, null);
@@ -105,7 +104,7 @@ public class CmdFindTest {
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/file1\n/file1\n\n",
-        tc.getAllWritesAsString());
+                 tc.getAllWritesAsString());
   }
 
   @Test
@@ -152,7 +151,7 @@ public class CmdFindTest {
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/dir1/\n/dir1/\n\n",
-        tc.getAllWritesAsString());
+                 tc.getAllWritesAsString());
   }
 
   @Test

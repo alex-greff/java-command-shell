@@ -74,7 +74,7 @@ public class CmdTree extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+                          Writable errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
@@ -104,8 +104,8 @@ public class CmdTree extends Command {
   /**
    * @param curr The current directory to get names from
    * @param tabs The amount of tabs to indent the newlines
-   * @return a block of String which represents the filesystem from
-   * the curr directory down.
+   * @return a block of String which represents the filesystem from the curr
+   * directory down.
    */
   private String addOn(Directory curr, int tabs)
       throws FileNotFoundException {

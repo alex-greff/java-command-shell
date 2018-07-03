@@ -54,7 +54,7 @@ public class CmdCatTest {
   @Before
   public void resetSingleton()
       throws SecurityException, NoSuchFieldException,
-      IllegalArgumentException, IllegalAccessException {
+             IllegalArgumentException, IllegalAccessException {
     Field instance = FileSystem.class.getDeclaredField("ourInstance");
     instance.setAccessible(true);
     instance.set(null, null);
@@ -102,7 +102,7 @@ public class CmdCatTest {
     // Create a file with multiple lines of content, and add it to the root
     // directory
     File file = new File("testFile",
-        "hello\nworld\nthis\nis\na\ntest");
+                         "hello\nworld\nthis\nis\na\ntest");
     FS.getRoot().addFile(file);
 
     // Attempt to display the contents of the file
@@ -114,7 +114,7 @@ public class CmdCatTest {
     // content was printed
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(),
-        "hello\nworld\nthis\nis\na\ntest\n");
+                 "hello\nworld\nthis\nis\na\ntest\n");
   }
 
 }

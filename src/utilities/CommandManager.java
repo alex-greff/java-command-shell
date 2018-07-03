@@ -200,6 +200,7 @@ public class CommandManager {
 
   /**
    * Getter for the exit code of the last command run
+   *
    * @return The exit code of the last run command
    */
   public ExitCode getLastExitCode() {

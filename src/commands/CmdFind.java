@@ -123,16 +123,21 @@ public class CmdFind extends Command {
 
         // If we're looking for file occurrences
         if (type.equals(TYPE_FILE))
-          // Search recursively for the file
+        // Search recursively for the file
+        {
           outputPaths = findFileInDirectoryStructure(currDir, expr);
+        }
         // If we're looking for directory occurrences
         else if (type.equals(TYPE_DIR))
-          // Search recursively for the directory
+        // Search recursively for the directory
+        {
           outputPaths = findDirectoryInDirectoryStructure(currDir, expr);
+        }
 
         // Print out the set as a string with each entry on a new line
-        for (String outputPath : outputPaths)
+        for (String outputPath : outputPaths) {
           output.append(outputPath).append("\n");
+        }
 
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: invalid path");
@@ -148,7 +153,8 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name "name"
+   * Gets a set of all absolute paths to instances of files with the name
+   * "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
@@ -201,7 +207,8 @@ public class CmdFind extends Command {
    * @return Returns the set
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-      String name) throws FileNotFoundException {
+                                                        String name)
+      throws FileNotFoundException {
     // Initialize references
     FileSystem fs = FileSystem.getInstance();
     Set<String> ret_set = new HashSet<>();
@@ -251,7 +258,7 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }

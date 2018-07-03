@@ -52,7 +52,7 @@ public class CmdMan extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND")
-              .additionalComment("For some fun try \"man man\".").build();
+          .additionalComment("For some fun try \"man man\".").build();
 
   /**
    * Constructs a new command instance
@@ -94,15 +94,17 @@ public class CmdMan extends Command {
         .append("\n")
         // Build the usage section
         .append("Usage:");
-    
-    for (String usage : cmdDesc.getUsages()) 
+
+    for (String usage : cmdDesc.getUsages()) {
       output.append("\n\t- ").append(usage);
+    }
 
     // If applicable, build the additional comments section
     if (!cmdDesc.getAdditionalComments().isEmpty()) {
       output.append("\nAdditional Comments:");
-      for (String comment : cmdDesc.getAdditionalComments())
+      for (String comment : cmdDesc.getAdditionalComments()) {
         output.append("\n\t- ").append(comment);
+      }
     }
 
     // Write the output to the given out

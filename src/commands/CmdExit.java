@@ -73,7 +73,7 @@ public class CmdExit extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+                          Writable errOut) {
     // Tell the JShell to exit
     JShell.exit();
     return ExitCode.SUCCESS;

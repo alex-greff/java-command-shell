@@ -47,8 +47,8 @@ public class CommandDescription {
 
   // private constructor
   private CommandDescription(String description,
-      ArrayList<String> usages,
-      ArrayList<String> additionalComments) {
+                             ArrayList<String> usages,
+                             ArrayList<String> additionalComments) {
     this.description = description;
     this.usages = usages;
     this.additionalComments = additionalComments;
@@ -124,11 +124,10 @@ public class CommandDescription {
     }
 
     /**
-     * Builds an instance of a CommandDescription with the currently
-     * set parameters
+     * Builds an instance of a CommandDescription with the currently set
+     * parameters
      *
-     * @return A new CommandDescription instance with all the
-     * configuration set
+     * @return A new CommandDescription instance with all the configuration set
      */
     public CommandDescription build() {
       return new CommandDescription(description, usages, comments);

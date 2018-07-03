@@ -64,11 +64,11 @@ public class CommandArgsTest {
     hm_in.put("type1", "value1");
     hm_in.put("type2", "value2");
     CommandArgs ca = new CommandArgs("myCommand",
-        new String[]{"arg1", "arg2"},
-        hm_in, ">", "hello.txt");
+                                     new String[]{"arg1", "arg2"},
+                                     hm_in, ">", "hello.txt");
     assertEquals("myCommand", ca.getCommandName());
     assertArrayEquals(new String[]{"arg1", "arg2"},
-        ca.getCommandParameters());
+                      ca.getCommandParameters());
     assertEquals(">", ca.getRedirectOperator());
     assertEquals("hello.txt", ca.getTargetDestination());
 
@@ -147,10 +147,10 @@ public class CommandArgsTest {
 
     CommandArgs ca1 =
         new CommandArgs("myCommand", new String[0], hm_1, ">",
-            "hello.txt");
+                        "hello.txt");
     CommandArgs ca2 =
         new CommandArgs("myCommand", new String[0], hm_2, ">",
-            "hello.txt");
+                        "hello.txt");
     assertEquals(ca1, ca2);
   }
 

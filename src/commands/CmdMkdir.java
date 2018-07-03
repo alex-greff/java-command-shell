@@ -59,7 +59,7 @@ public class CmdMkdir extends Command {
           .additionalComment(
               "The given path may be absolute or relative")
           .additionalComment("The path up to and not including the "
-              + "last segment must point to an existing directory")
+                                 + "last segment must point to an existing directory")
           .build();
 
   /**
@@ -79,7 +79,7 @@ public class CmdMkdir extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errorOut) {
+                          Writable errorOut) {
     // iterate over each given path
     for (String pathString : args.getCommandParameters()) {
       try {
@@ -111,8 +111,7 @@ public class CmdMkdir extends Command {
   }
 
   /**
-   * Verifies the validity of the args with respect to the mkdir
-   * command
+   * Verifies the validity of the args with respect to the mkdir command
    *
    * @param args The command arguments.
    * @return true iff the arguments are valid, false otherwise

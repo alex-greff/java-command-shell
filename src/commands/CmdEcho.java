@@ -166,8 +166,9 @@ public class CmdEcho extends Command {
       }
 
       // Wipe the file contents if the overwrite operator is given in the args
-      if (redirOper.equals(OVERWRITE_OPERATOR))
+      if (redirOper.equals(OVERWRITE_OPERATOR)) {
         file.clear();
+      }
 
       // Add the string contents to the file
       file.write(strContents);
@@ -187,12 +188,9 @@ public class CmdEcho extends Command {
    *
    * @param filePathStr The file path string.
    * @return Returns the created file.
-   * @throws MalformedPathException
-   * @throws FileNotFoundException
-   * @throws FileAlreadyExistsException
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
-      FileNotFoundException, FileAlreadyExistsException {
+                                                   FileNotFoundException, FileAlreadyExistsException {
     // Get a reference to the file system singleton
     FileSystem fs = FileSystem.getInstance();
 
@@ -208,8 +206,9 @@ public class CmdEcho extends Command {
         (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
 
     // If the file is in the root
-    if (dirPathStr.equals(""))
+    if (dirPathStr.equals("")) {
       dirPathStr = "/";
+    }
 
     Path dirPath = new Path(dirPathStr);
     Directory dirOfFile = fs.getDirByPath(dirPath);
@@ -232,8 +231,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR))
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 }

@@ -70,9 +70,9 @@ public class CmdCat extends Command {
   }
 
   /**
-   * Executes the cat command with the given arguments. Cat prints the
-   * contents of files. Error messages if the file path is invalid, or
-   * the file does not exist
+   * Executes the cat command with the given arguments. Cat prints the contents
+   * of files. Error messages if the file path is invalid, or the file does not
+   * exist
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -81,7 +81,7 @@ public class CmdCat extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+                          Writable errOut) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
@@ -114,8 +114,8 @@ public class CmdCat extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for
-   * this command. Cat expects at least 1 argument
+   * Helper function to check if the arguments passed are valid for this
+   * command. Cat expects at least 1 argument
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise

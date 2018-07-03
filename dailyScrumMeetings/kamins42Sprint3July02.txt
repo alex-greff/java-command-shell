@@ -1,0 +1,14 @@
+What did I do last time?
+    - Change command description to use new class greff made
+    - Rework the command description to use the builder pattern
+    - Refactor commands to be more DRY
+      - Moved name up to the superclass
+      - Moved description up to the superclass
+      - Moved their getters up to the superclass
+
+What do I plan to do now?
+    - Add more test for my commands
+    - Make crc cards that are missing
+
+Am I blocked on anything?
+    - Nope

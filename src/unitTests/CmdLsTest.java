@@ -31,7 +31,6 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 
-
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -42,7 +41,6 @@ import io.Console;
 import io.ErrorConsole;
 import java.lang.reflect.Field;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
 import utilities.ExitCode;
@@ -52,7 +50,7 @@ public class CmdLsTest {
   @Before
   public void resetSingleton()
       throws SecurityException, NoSuchFieldException,
-      IllegalArgumentException, IllegalAccessException {
+             IllegalArgumentException, IllegalAccessException {
     Field instance = FileSystem.class.getDeclaredField("ourInstance");
     instance.setAccessible(true);
     instance.set(null, null);
@@ -79,7 +77,7 @@ public class CmdLsTest {
     Command cmd = new CmdLs();
     ExitCode exitVal =
         cmd.execute(args, Console.getInstance(),
-            ErrorConsole.getInstance());
+                    ErrorConsole.getInstance());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -91,7 +89,7 @@ public class CmdLsTest {
     Command cmd = new CmdLs();
     ExitCode exitVal =
         cmd.execute(args, Console.getInstance(),
-            ErrorConsole.getInstance());
+                    ErrorConsole.getInstance());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -103,7 +101,7 @@ public class CmdLsTest {
     Command cmd = new CmdLs();
     ExitCode exitVal =
         cmd.execute(args, Console.getInstance(),
-            ErrorConsole.getInstance());
+                    ErrorConsole.getInstance());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 

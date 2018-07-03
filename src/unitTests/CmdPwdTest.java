@@ -50,7 +50,7 @@ public class CmdPwdTest {
   @Before
   public void resetSingleton()
       throws SecurityException, NoSuchFieldException,
-      IllegalArgumentException, IllegalAccessException {
+             IllegalArgumentException, IllegalAccessException {
     Field instance = FileSystem.class.getDeclaredField("ourInstance");
     instance.setAccessible(true);
     instance.set(null, null);

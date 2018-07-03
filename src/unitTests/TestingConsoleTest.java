@@ -43,7 +43,7 @@ public class TestingConsoleTest {
     tc.writeln("some line 2");
 
     assertEquals(new String[]{"some line 1", "some line 2"},
-        tc.getAllWrites());
+                 tc.getAllWrites());
   }
 
   @Test
