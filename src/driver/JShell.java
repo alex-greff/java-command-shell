@@ -37,6 +37,9 @@ import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
 
+/**
+ * the jshell mock terminal
+ */
 public class JShell {
 
   // the exit condition can be toggled by a toggle function

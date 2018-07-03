@@ -119,7 +119,6 @@ public class CmdHistory extends Command {
     }
 
     out.writeln(result.toString());
-
     return ExitCode.SUCCESS;
   }
 

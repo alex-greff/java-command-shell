@@ -101,9 +101,10 @@ public class CmdLs extends Command {
         } catch (MalformedPathException | FileNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
-            File file = curr.getFileByName(name);
+            path = new Path(name);
+            File file = fileSystem.getFileByPath(path);
             result.append(addFileName(file));
-          } catch (FileNotFoundException e) {
+          } catch (FileNotFoundException | MalformedPathException e) {
             // only error out if the name was not found as either file or dir.
             errOut
                 .writeln(
