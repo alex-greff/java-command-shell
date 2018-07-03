@@ -39,17 +39,33 @@ import utilities.Parser;
 
 /**
  * the jshell mock terminal
+ *
  */
 public class JShell {
 
   // the exit condition can be toggled by a toggle function
+  /**
+   * the condition which keeps the JShell running
+   */
   private static boolean running = true;
   // this filesystem (singleton) is used by the JShell
+
+  /**
+   * the filesystem that the JShell operates on
+   */
   private static FileSystem fs = FileSystem.getInstance();
+
+  /**
+   * a record of all of the user input
+   */
   private static ArrayList<String> history = new ArrayList<>();
-  // will use as FIFO
 
 
+  /**
+   * The main function which makes the appropriate calls for JShell to operate
+   * and that loops continually until exited
+   * @param args are not used when starting up the JShell
+   */
   public static void main(String[] args) {
     // create means of attaining User Input (scanner may be replaced)
     String rawInput;
