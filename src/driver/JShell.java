@@ -32,7 +32,6 @@ package driver;
 import containers.CommandArgs;
 import filesystem.FileSystem;
 import io.Console;
-import io.ErrorConsole;
 import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
@@ -50,13 +49,23 @@ public class JShell {
    * the condition which keeps the JShell running
    */
   private static boolean running = true;
-  // this filesystem (singleton) is used by the JShell
 
+  // this filesystem (singleton) is used by the JShell
   /**
    * the filesystem that the JShell operates on
    */
   private static FileSystem fs = FileSystem.getInstance();
 
+  /**
+   * the console that the JShell reads from
+   */
+  private static Console console = Console.getInstance();
+  
+  /**
+   * the command manager that JShell uses
+   */
+  private static CommandManager cmdManager = CommandManager.getInstance();
+  
   /**
    * a record of all of the user input
    */
@@ -66,33 +75,35 @@ public class JShell {
   /**
    * The main function which makes the appropriate calls for JShell to operate
    * and that loops continually until exited
-   * @param args are not used when starting up the JShell
+   * 
+   * @param the arguments that are passed in after running the JShell
    */
   public static void main(String[] args) {
-    // create means of attaining User Input (scanner may be replaced)
     String rawInput;
-    Console console = Console.getInstance();
-    ErrorConsole errorConsole = ErrorConsole.getInstance();
-    CommandManager cmdManager = CommandManager.getInstance();
+    // Initialize the commands in the command manager
     cmdManager.initializeCommands();
+    
     // create while loop which only exits once the exit command is called
     // send user input to parser, then validate, then execute
     while (running) {
       // get working directory string, to be printed along with prompt
-      // default prompt symbol
       String workingDirPath = fs.getWorkingDirPath();
+      // write the default prompt symbol
       String prompt = workingDirPath + "# ";
       console.write(prompt);
+      
+      // read user input form the console
       rawInput = console.read();
-      // add input to history ()
+      
+      // add input to history
       history.add(rawInput);
+      
+      // Parse the user input
       CommandArgs parsedInput = Parser.parseUserInput(rawInput);
+      
+      // Execute the command
       cmdManager.executeCommand(parsedInput);
     }
-
-    // use means of outputting to output data to the right destination
-    // which can be out to system or file
-
   }
 
   /**
@@ -103,6 +114,8 @@ public class JShell {
   }
 
   /**
+   * Gets the user input history.
+   * 
    * @return the user input history
    */
   public static ArrayList<String> getHistory() {
