@@ -35,15 +35,28 @@ package filesystem;
  * @author anton
  */
 public class FileSystem {
-
+  /**
+   * The file system instance.
+   */
   private static FileSystem ourInstance = null;
   // the root dir has no parent
+  /**
+   * The root directory object.
+   */
   private Directory root = new Directory("/", null);
+  /**
+   * The current working directory.
+   */
   private Directory workingDir = root;
+  /**
+   * The path to the current working directory.
+   */
   private String workingDirPath = "/";
 
-  private FileSystem() {
-  }
+  /**
+   * Private default constructor.
+   */
+  private FileSystem() {}
 
   /**
    * Get the singleton instance of the filesystem
@@ -87,8 +100,7 @@ public class FileSystem {
     } else {
       while (!curDir.getName().equals("/")) {
         String segment =
-            new StringBuilder("/" + curDir.getName()).reverse()
-                .toString();
+            new StringBuilder("/" + curDir.getName()).reverse().toString();
         path.append(segment);
         curDir = curDir.getParent();
       }
@@ -100,7 +112,7 @@ public class FileSystem {
    * Provides file located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
+   *        Absolute path must start with / indicating root directory.
    * @return The file located at the path
    */
   public File getFileByPath(Path path)
@@ -114,7 +126,7 @@ public class FileSystem {
    * Provides directory located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
+   *        Absolute path must start with / indicating root directory.
    * @return The directory located at the path
    */
   public Directory getDirByPath(Path path)

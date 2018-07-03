@@ -39,7 +39,9 @@ import java.util.Iterator;
  * @author anton
  */
 public class Path implements Iterable<String> {
-
+  /**
+   * The list of tokens.
+   */
   private ArrayList<String> tokens = new ArrayList<>();
 
   /**
@@ -75,6 +77,9 @@ public class Path implements Iterable<String> {
   }
 
   @Override
+  /**
+   * The iterator override for path.
+   */
   public Iterator<String> iterator() {
     return this.tokens.iterator();
   }

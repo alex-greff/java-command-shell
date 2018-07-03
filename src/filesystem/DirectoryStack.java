@@ -38,12 +38,21 @@ import java.util.Stack;
  * @author anton
  */
 public class DirectoryStack extends Stack<String> {
-
+  /**
+   * The instance of the directory stack
+   */
   private static DirectoryStack ourInstance = null;
 
-  private DirectoryStack() {
-  }
+  /**
+   * Private default constructor.
+   */
+  private DirectoryStack() {}
 
+  /**
+   * Gets the singleton directory stack instance.
+   * 
+   * @return Returns the singleton directory stack instance.
+   */
   public static DirectoryStack getInstance() {
     if (ourInstance == null) {
       ourInstance = new DirectoryStack();

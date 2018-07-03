@@ -38,12 +38,23 @@ import java.util.HashMap;
  * @author anton
  */
 public class Directory {
-
+  /**
+   * The name of the directory.
+   */
   private String name;
+  /**
+   * The parent directory.
+   */
   private Directory parent;
   // Maps: <name of child directory> to <Directory object>
+  /**
+   * The map containing all the child directories.
+   */
   private HashMap<String, Directory> childDirs = new HashMap<>();
   // Maps: <name of child file> to <File object>
+  /**
+   * The map containing all the child files.
+   */
   private HashMap<String, File> childFiles = new HashMap<>();
 
   /**

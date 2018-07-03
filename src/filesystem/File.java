@@ -39,8 +39,13 @@ import io.Writable;
  * and written
  */
 public class File implements Writable, Readable {
-
+  /**
+   * The name of the file.
+   */
   private String name;
+  /**
+   * The contents of the file.
+   */
   private String contents;
 
   /**
