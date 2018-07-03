@@ -3,7 +3,7 @@ Parent class: Command
 Subclasses:
 
 Responsibilities:
-* display the contents of a file
+* display the contents of files
 
 Collaborators:
 * CommandArgs

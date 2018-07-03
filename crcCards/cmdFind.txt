@@ -3,7 +3,7 @@ Parent class: Command
 Subclasses:
 
 Responsibilities:
-* Finds the files/directories of the inputed name
+* finds and lists the files/directories of the inputed name
 
 Collaborators:
 * CommandArgs
