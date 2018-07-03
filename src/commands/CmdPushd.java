@@ -36,10 +36,18 @@ import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * The pushd command
+ *
+ * @author anton
+ */
 public class CmdPushd extends Command {
 
-  private final String NAME = "pushd";
-  private CommandDescription DESCRIPTION =
+  /**
+   * Command info constants
+   */
+  private static final String NAME = "pushd";
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Pushes the current directory to the top of the directory"
               + " stack and changes the current working directory to the"
@@ -48,6 +56,13 @@ public class CmdPushd extends Command {
           .build();
 
   private DirectoryStack dirStack = DirectoryStack.getInstance();
+
+  /**
+   * Constructs a new command instance
+   */
+  public CmdPushd() {
+    super(NAME, DESCRIPTION);
+  }
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
@@ -63,23 +78,19 @@ public class CmdPushd extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   * Validates the args with respect to the pushd command
+   *
+   * @param args The command arguments.
+   * @return True iff the args are valid with respect to the pushd
+   * command
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && args.getRedirectOperator().isEmpty()
+        && args.getTargetDestination().isEmpty();
   }
-
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

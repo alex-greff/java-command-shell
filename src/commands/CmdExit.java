@@ -46,15 +46,22 @@ public class CmdExit extends Command {
   /**
    * The name of the command.
    */
-  private final String NAME = "exit";
+  private static final String NAME = "exit";
   /**
    * The description of the command.
    */
-  private CommandDescription DESCRIPTION =
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Exits the currently running JShell.",
           "exit")
           .build();
+
+  /**
+   * Constructs a new command instance
+   */
+  public CmdExit() {
+    super(NAME, DESCRIPTION);
+  }
 
   /**
    * Executes the exit command to shut the JShell down.
@@ -86,25 +93,4 @@ public class CmdExit extends Command {
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
-
-  /**
-   * Gets the name of the command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the documentation for this command
-   *
-   * @return The command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

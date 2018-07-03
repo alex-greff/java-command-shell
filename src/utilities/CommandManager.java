@@ -77,6 +77,12 @@ public class CommandManager {
    */
   private ErrorConsole errorOut = ErrorConsole.getInstance();
 
+
+  /**
+   * The exit code of the last command run
+   */
+  private ExitCode lastExitCode = ExitCode.SUCCESS;
+
   /**
    * Private constructor for singleton
    */
@@ -141,7 +147,7 @@ public class CommandManager {
         if (cmd.isValidArgs(cArgs)) { // If the args are valid for the command
 
           // Execute the command with the given args, remembering the exit value
-          ExitCode exitValue = cmd.execute(cArgs, out, errorOut);
+          lastExitCode = cmd.execute(cArgs, out, errorOut);
           // Does nothing with the exit value (perhaps a future update)
 
           return; // End here since we've done all we need to do
@@ -192,4 +198,11 @@ public class CommandManager {
     return cmdMap.isEmpty();
   }
 
+  /**
+   * Getter for the exit code of the last command run
+   * @return The exit code of the last run command
+   */
+  public ExitCode getLastExitCode() {
+    return lastExitCode;
+  }
 }

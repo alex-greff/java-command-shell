@@ -53,7 +53,17 @@ public class CmdFind extends Command {
   /**
    * The name of the command.
    */
-  private final String NAME = "find";
+  private static final String NAME = "find";
+  /**
+   * The description of the command.
+   */
+  private static final CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Finds and lists all found files/directories of a given expression.",
+          "find PATH... -type [f|d] -name EXPRESSION")
+          .additionalComment(
+              "Nothing is printed if no files are found")
+          .build();
   /**
    * The identifier for the type flag.
    */
@@ -72,15 +82,13 @@ public class CmdFind extends Command {
    * The directory type character option.
    */
   private final String TYPE_DIR = "d";
+
   /**
-   * The description of the command.
+   * Constructs a new command instance
    */
-  private CommandDescription DESCRIPTION =
-      new CommandDescription.DescriptionBuilder(
-          "Finds and lists all found files/directories of a given expression.",
-          "find PATH... -type [f|d] -name EXPRESSION")
-              .additionalComment("Nothing is printed if no files are found")
-              .build();
+  public CmdFind() {
+    super(NAME, DESCRIPTION);
+  }
 
   /**
    * Executes the find command which finds all files/directories in the given
@@ -125,7 +133,7 @@ public class CmdFind extends Command {
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths)
           output.append(outputPath).append("\n");
-        
+
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: invalid path");
       } catch (FileNotFoundException e2) {
@@ -246,25 +254,5 @@ public class CmdFind extends Command {
             || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
-  }
-
-  /**
-   * Gets the name of the command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the documentation for this command
-   *
-   * @return The command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
   }
 }

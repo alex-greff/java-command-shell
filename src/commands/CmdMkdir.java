@@ -40,34 +40,83 @@ import io.Writable;
 import utilities.Command;
 import utilities.ExitCode;
 
+/**
+ * The mkdir command
+ *
+ * @author anton
+ */
 public class CmdMkdir extends Command {
 
-  private final String NAME = "mkdir";
-  private CommandDescription DESCRIPTION = null; // TODO: initialize
+  /**
+   * Command info constants
+   */
+  private static final String NAME = "mkdir";
+  private static final CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Make a new directory given one or more paths to an "
+              + "existing parent",
+          "mkdir PATH_LIST")
+          .additionalComment(
+              "The given path may be absolute or relative")
+          .additionalComment("The path up to and not including the "
+              + "last segment must point to an existing directory")
+          .build();
 
+  /**
+   * Constructs a new command instance
+   */
+  public CmdMkdir() {
+    super(NAME, DESCRIPTION);
+  }
+
+  /**
+   * Executes the mkdir command
+   *
+   * @param args The arguments for the command call.
+   * @param out The standard output console.
+   * @param errorOut The error output console.
+   * @return Exit code of the command
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out,
-      Writable errOut) {
+      Writable errorOut) {
+    // iterate over each given path
     for (String pathString : args.getCommandParameters()) {
       try {
+        // attempt to create a new path object
         Path path = new Path(pathString);
+        // remove the last segment of the path and store it
+        // this is the name of the new directory that the user
+        // wants to create
         String newDirName = path.removeLast();
+        // get the parent directory of the new directory to be created
         Directory parent = fileSystem.getDirByPath(path);
+        // add the directory to the parent
         parent.createAndAddNewDir(newDirName);
+        // error handling
       } catch (MalformedPathException e) {
-        errOut.writeln("Error: Invalid path" + pathString);
+        errorOut.writeln("Error: Invalid path" + pathString);
         return ExitCode.SUCCESS;
       } catch (FileNotFoundException e) {
-        errOut.writeln("Error: Parent directory not found");
+        errorOut.writeln("Error: Parent directory not found");
         return ExitCode.FAILURE;
       } catch (FileAlreadyExistsException e) {
-        errOut.writeln("Error: File already exists");
+        errorOut.writeln("Error: File already exists");
         return ExitCode.FAILURE;
       }
     }
+    // if execution reaches here everything went wee and success is
+    // returned as the exitcode
     return ExitCode.SUCCESS;
   }
 
+  /**
+   * Verifies the validity of the args with respect to the mkdir
+   * command
+   *
+   * @param args The command arguments.
+   * @return true iff the arguments are valid, false otherwise
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
@@ -76,15 +125,4 @@ public class CmdMkdir extends Command {
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
-
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

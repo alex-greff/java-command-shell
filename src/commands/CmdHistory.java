@@ -41,16 +41,18 @@ import utilities.ExitCode;
  * the history command
  *
  * @author chedy
- *
  */
 public class CmdHistory extends Command {
 
   /**
    * the name of the command
    */
-  private final String NAME = "history";
+  private static final String NAME = "history";
 
-  private CommandDescription DESCRIPTION =
+  /**
+   * command description
+   */
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "This command lists all of the past lines of user entry "
               + "by default, but if given a positive integer "
@@ -63,7 +65,13 @@ public class CmdHistory extends Command {
           .build();
 
   /**
-   *
+   * Constructs a new command instance
+   */
+  public CmdHistory() {
+    super(NAME, DESCRIPTION);
+  }
+
+  /**
    * @param args The arguments for the command call.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
@@ -116,7 +124,6 @@ public class CmdHistory extends Command {
   }
 
   /**
-   *
    * @param args The command arguments.
    * @return whether or not the arguments are valid for the command
    */
@@ -128,23 +135,4 @@ public class CmdHistory extends Command {
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
-
-  /**
-   *
-   * @return the commands name
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   *
-   * @return the documentation of the command
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

@@ -48,11 +48,26 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdEcho extends Command {
-  // Setup command information
+
   /**
    * The name of the command.
    */
-  private final String NAME = "echo";
+  private static final String NAME = "echo";
+  /**
+   * The description of the command.
+   */
+  private static final CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Appends or writes a string to a file.",
+          "echo STRING")
+          .usage("echo STRING [> OUTFILE]")
+          .usage("echo STRING [>> OUTFILE]")
+          .additionalComment(
+              "The \">\" character signals to overwrite the file "
+                  + "conents.")
+          .additionalComment(
+              "The \">>\" character signals to append to the file conents.")
+          .build();
   /**
    * The overwrite operator character.
    */
@@ -61,20 +76,13 @@ public class CmdEcho extends Command {
    * The append operator character.
    */
   private final String APPEND_OPERATOR = ">>";
+
   /**
-   * The description of the command.
+   * Constructs a new command instance
    */
-  private CommandDescription DESCRIPTION =
-      new CommandDescription.DescriptionBuilder(
-          "Appends or writes a string to a file.", "echo STRING")
-              .usage("echo STRING [> OUTFILE]")
-              .usage("echo STRING [>> OUTFILE]")
-              .additionalComment(
-                  "The \">\" character signals to overwrite the file "
-                      + "conents.")
-              .additionalComment(
-                  "The \">>\" character signals to append to the file conents.")
-              .build();
+  public CmdEcho() {
+    super(NAME, DESCRIPTION);
+  }
 
   /**
    * Executes the echo command.
@@ -176,7 +184,7 @@ public class CmdEcho extends Command {
 
   /**
    * Attempts to make a file from the given file path string.
-   * 
+   *
    * @param filePathStr The file path string.
    * @return Returns the created file.
    * @throws MalformedPathException
@@ -228,25 +236,4 @@ public class CmdEcho extends Command {
             || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
-
-  /**
-   * Gets the name of the command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the documentation for this command
-   *
-   * @return The command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

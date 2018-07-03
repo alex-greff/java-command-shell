@@ -47,12 +47,12 @@ public class CmdCat extends Command {
   /**
    * Constant instance variable for the command name
    */
-  private final String NAME = "cat";
+  private static final String NAME = "cat";
 
   /**
    * Container built for the command's description
    */
-  private CommandDescription DESCRIPTION =
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Print contents of file(s).",
           "cat FILES")
@@ -63,9 +63,16 @@ public class CmdCat extends Command {
           .build();
 
   /**
-   * Executes the cat command with the given arguments. Cat prints the contents
-   * of files. Error messages if the file path is invalid, or the file does not
-   * exist
+   * Constructs a new command instance
+   */
+  public CmdCat() {
+    super(NAME, DESCRIPTION);
+  }
+
+  /**
+   * Executes the cat command with the given arguments. Cat prints the
+   * contents of files. Error messages if the file path is invalid, or
+   * the file does not exist
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -107,8 +114,8 @@ public class CmdCat extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for this
-   * command. Cat expects at least 1 argument
+   * Helper function to check if the arguments passed are valid for
+   * this command. Cat expects at least 1 argument
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise
@@ -122,25 +129,4 @@ public class CmdCat extends Command {
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
-
-  /**
-   * Gets the name of this command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the description for this command
-   *
-   * @return Returns the command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

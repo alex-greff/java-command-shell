@@ -46,15 +46,14 @@ import utilities.ExitCode;
  * the ls command
  *
  * @author chedy
- *
  */
 public class CmdLs extends Command {
 
   /**
    * name of the command
    */
-  private final String NAME = "ls";
-  private CommandDescription DESCRIPTION =
+  private static final String NAME = "ls";
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Lists all of the files and directories in the current\n"
               + "working directory. Can take multiple "
@@ -70,6 +69,13 @@ public class CmdLs extends Command {
               "ls separates multiple argument's content with an "
                   + "extra newline")
           .build();
+
+  /**
+   * Constructs a new command instance
+   */
+  public CmdLs() {
+    super(NAME, DESCRIPTION);
+  }
 
 
   /**
@@ -123,7 +129,8 @@ public class CmdLs extends Command {
   }
 
   /**
-   * @param dir The directory whose contents will be represented by a string
+   * @param dir The directory whose contents will be represented by a
+   * string
    * @return The string representation of the directories contents
    */
   private String addOn(Directory dir) {
@@ -149,7 +156,8 @@ public class CmdLs extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
+   * A helper checking if args is a valid CommandArgs instance for
+   * this command
    *
    * @param args The command arguments
    * @return Returns true iff args is a valid for this command
@@ -159,21 +167,5 @@ public class CmdLs extends Command {
         && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
-  }
-
-  /**
-   * @return the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * @return the documentation of the command
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
   }
 }

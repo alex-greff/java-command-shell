@@ -44,20 +44,27 @@ public class CmdPwd extends Command {
   /**
    * Constant instance variable for the command name
    */
-  private final String NAME = "pwd";
+  private static final String NAME = "pwd";
 
   /**
    * Container built for the command's description
    */
-  private CommandDescription DESCRIPTION =
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Print working directory.",
           "pwd")
           .build();
 
   /**
-   * Executes the pwd command with the given arguments. Pwd prints the working
-   * directory
+   * Constructs a new command instance
+   */
+  public CmdPwd() {
+    super(NAME, DESCRIPTION);
+  }
+
+  /**
+   * Executes the pwd command with the given arguments. Pwd prints the
+   * working directory
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -76,8 +83,8 @@ public class CmdPwd extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for this
-   * command. Pwd expects no arguments
+   * Helper function to check if the arguments passed are valid for
+   * this command. Pwd expects no arguments
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise
@@ -91,25 +98,4 @@ public class CmdPwd extends Command {
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
-
-  /**
-   * Gets the name of this command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the description for this command
-   *
-   * @return Returns the command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

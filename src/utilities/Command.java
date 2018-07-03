@@ -53,6 +53,27 @@ public abstract class Command {
   protected FileSystem fileSystem = FileSystem.getInstance();
 
   /**
+   * The command's name
+   */
+  protected String NAME;
+
+  /**
+   * The command's description
+   */
+  protected CommandDescription DESCRIPTION;
+
+  /**
+   * Constructs a new command instance
+   *
+   * @param name The name of the command
+   * @param description The description of the command
+   */
+  public Command(String name, CommandDescription description) {
+    this.NAME = name;
+    this.DESCRIPTION = description;
+  }
+
+  /**
    * Executes the command's function.
    *
    * @param args The arguments for the command call.
@@ -76,12 +97,16 @@ public abstract class Command {
    *
    * @return Returns the name of the command.
    */
-  public abstract String getName();
+  public String getName() {
+    return this.NAME;
+  }
 
   /**
    * Gets the CommandDescription object for the command.
    *
    * @return Returns the CommandDescription object for the command.
    */
-  public abstract CommandDescription getDescription();
+  public CommandDescription getDescription() {
+    return this.DESCRIPTION;
+  }
 }

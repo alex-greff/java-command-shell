@@ -42,15 +42,14 @@ import utilities.ExitCode;
  * the tree command
  *
  * @author chedy
- *
  */
 public class CmdTree extends Command {
 
   /**
    * name of the command
    */
-  private final String NAME = "tree";
-  private CommandDescription DESCRIPTION =
+  private static final String NAME = "tree";
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Prints a tree representation of the entire filesystem, "
               + "starting from the root.",
@@ -61,7 +60,13 @@ public class CmdTree extends Command {
           .build();
 
   /**
-   *
+   * Constructs a new command instance
+   */
+  public CmdTree() {
+    super(NAME, DESCRIPTION);
+  }
+
+  /**
    * @param args The arguments for the command call.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
@@ -84,7 +89,6 @@ public class CmdTree extends Command {
   }
 
   /**
-   *
    * @param args The command arguments.
    * @return whether or not the arguments are valid for this command
    */
@@ -98,12 +102,10 @@ public class CmdTree extends Command {
   }
 
   /**
-   *
    * @param curr The current directory to get names from
    * @param tabs The amount of tabs to indent the newlines
-   * @return a block of String which represents the filesystem from the
-   * curr directory down.
-   * @throws FileNotFoundException
+   * @return a block of String which represents the filesystem from
+   * the curr directory down.
    */
   private String addOn(Directory curr, int tabs)
       throws FileNotFoundException {
@@ -131,23 +133,4 @@ public class CmdTree extends Command {
     }
     return result.toString();
   }
-
-  /**
-   *
-   * @return the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   *
-   * @return the documentation of the command
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }

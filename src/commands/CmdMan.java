@@ -45,14 +45,21 @@ public class CmdMan extends Command {
   /**
    * The name of the command.
    */
-  private final String NAME = "man";
+  private static final String NAME = "man";
   /**
    * The description of the command.
    */
-  private CommandDescription DESCRIPTION =
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND")
               .additionalComment("For some fun try \"man man\".").build();
+
+  /**
+   * Constructs a new command instance
+   */
+  public CmdMan() {
+    super(NAME, DESCRIPTION);
+  }
 
   /**
    * Executes the man command with the arguments args
@@ -117,26 +124,5 @@ public class CmdMan extends Command {
         && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
-  }
-
-
-  /**
-   * Gets the name of the command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the documentation for this command
-   *
-   * @return The command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
   }
 }

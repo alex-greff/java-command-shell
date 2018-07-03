@@ -46,12 +46,12 @@ public class CmdCd extends Command {
   /**
    * Constant instance variable for the command name
    */
-  private final String NAME = "cd";
+  private static final String NAME = "cd";
 
   /**
    * Container built for the command's description
    */
-  private CommandDescription DESCRIPTION =
+  private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Change directory.",
           "cd DIRECTORY")
@@ -60,9 +60,16 @@ public class CmdCd extends Command {
           .build();
 
   /**
-   * Executes the cd command with the given arguments. Cd changes the working
-   * directory. Error messages if the directory path is invalid, or the
-   * directory does not exist
+   * Constructs a new command instance
+   */
+  public CmdCd() {
+    super(NAME, DESCRIPTION);
+  }
+
+  /**
+   * Executes the cd command with the given arguments. Cd changes the
+   * working directory. Error messages if the directory path is
+   * invalid, or the directory does not exist
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -97,8 +104,8 @@ public class CmdCd extends Command {
   }
 
   /**
-   * Helper function to check if the arguments passed are valid for this
-   * command. Cd expects only 1 argument
+   * Helper function to check if the arguments passed are valid for
+   * this command. Cd expects only 1 argument
    *
    * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise
@@ -112,25 +119,4 @@ public class CmdCd extends Command {
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");
   }
-
-  /**
-   * Gets the name of this command
-   *
-   * @return Returns the name of the command
-   */
-  @Override
-  public String getName() {
-    return NAME;
-  }
-
-  /**
-   * Gets the description for this command
-   *
-   * @return Returns the command description
-   */
-  @Override
-  public CommandDescription getDescription() {
-    return DESCRIPTION;
-  }
-
 }
