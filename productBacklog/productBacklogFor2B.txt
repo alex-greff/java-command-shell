@@ -1,0 +1,21 @@
+  ID  |  Backlog Items:                                                                  | Estimate (Hrs) |
+______|__________________________________________________________________________________|________________|
+  1   |  As a user I should be able to redirect the output of every command              |       3        |
+  	  |  (except exit) to a file.                                                        |                |
+______|__________________________________________________________________________________|________________|
+  -   |  With the command-line, I the user should be able to accomplish the following.   |       -        |
+______|__________________________________________________________________________________|________________|
+  2a  |  - I am able to list all directories and files recursively or non-recursively    |       2        |
+______|__________________________________________________________________________________|________________|
+  2b  |  - I am able to move directories and files from one place to another.            |       2        |
+______|__________________________________________________________________________________|________________|
+  2c  |  - I am able to copy directories and files from one place to another.            |       2        |
+______|__________________________________________________________________________________|________________|
+  2d  |  - I am able to display the contents of multiple files at once.                  |       1        |
+______|__________________________________________________________________________________|________________|
+  2e  |  - I am able to retrieve and display the contents of files from URL sources.     |       3        |
+______|__________________________________________________________________________________|________________|
+  2f  |  - I am able to execute previously run commands using the ![number] notation.    |       2        |
+______|__________________________________________________________________________________|________________|
+  2g  |  - I am able to find expressions in specific files or recursively in directories.|       3        |
+______|__________________________________________________________________________________|________________|              
