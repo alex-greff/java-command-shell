@@ -10,6 +10,6 @@ Collaborators:
 * CommandDescription
 * File
 * Directory
-* FileSystem
+* NonPersistentFileSystem
 * Console
 * ErrorConsole

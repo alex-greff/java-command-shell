@@ -1,0 +1,8 @@
+Class name: MockFileSystem
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Emulates the behavior of the file system in a simplistic manner.
+
+Collaborators:

@@ -1,4 +1,4 @@
-Class name: FileSystem
+Class name: NonPersistentFileSystem
 Parent class:
 
 Responsibilities:
