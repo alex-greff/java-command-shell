@@ -36,10 +36,12 @@ import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -48,6 +50,16 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdEcho extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdEcho(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
+
 
   /**
    * The name of the command.
@@ -75,13 +87,6 @@ public class CmdEcho extends Command {
    * The append operator character.
    */
   private final String APPEND_OPERATOR = ">>";
-
-  /**
-   * Constructs a new command instance
-   */
-  public CmdEcho() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * Executes the echo command.
@@ -139,24 +144,22 @@ public class CmdEcho extends Command {
     String strContents = args.getCommandParameters()[0];
     String filePathStr = args.getTargetDestination();
 
-    try {
-      // Get file system reference
-      FileSystem fs = FileSystem.getInstance();
-
-      // Get the path of the file
-      Path filePath = new Path(filePathStr);
-
       // Get the File
       File file;
       try {
-        file = fs.getFileByPath(filePath);
+        file = fileSystem.getFileByPath(filePathStr);
         // If the file does not exist
       } catch (FileNotFoundException e) {
         // Attempt to make the file
         try {
           file = makeFile(filePathStr);
+        // Catch if the directory is not found
         } catch (FileNotFoundException e1) {
           errOut.writeln("Error: No directory found");
+          return ExitCode.FAILURE;
+        // Catch if the path is invalid
+        } catch (MalformedPathException e1) {
+          errOut.write("Error: Invalid path \"" + filePathStr + "\"");
           return ExitCode.FAILURE;
         }
       } catch (MalformedPathException e1) {
@@ -172,11 +175,6 @@ public class CmdEcho extends Command {
       // Add the string contents to the file
       file.write(strContents);
 
-    } catch (MalformedPathException e) {
-      errOut.write("Error: Invalid path \"" + filePathStr + "\"");
-      return ExitCode.FAILURE;
-    }
-
     // Reaching this point means that the write to file executed successfully
     return ExitCode.SUCCESS;
   }
@@ -190,8 +188,6 @@ public class CmdEcho extends Command {
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
       FileNotFoundException, FileAlreadyExistsException {
-    // Get a reference to the file system singleton
-    FileSystem fs = FileSystem.getInstance();
 
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
@@ -208,9 +204,9 @@ public class CmdEcho extends Command {
     if (dirPathStr.equals("")) {
       dirPathStr = "/";
     }
-
-    Path dirPath = new Path(dirPathStr);
-    Directory dirOfFile = fs.getDirByPath(dirPath);
+    
+    // Get the directory at the path
+    Directory dirOfFile = fileSystem.getDirByPath(dirPathStr);
 
     // Add the file to the directory
     dirOfFile.addFile(file);

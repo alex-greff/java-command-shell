@@ -31,26 +31,30 @@ package unitTests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-
 import containers.CommandDescription;
+import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import org.junit.Test;
 import utilities.CommandManager;
 
 public class CommandManagerTest {
-
-  private CommandManager CM = CommandManager.getInstance();
+  TestingConsole testOut = new TestingConsole();
+  TestingConsole testErrOut = new TestingConsole();
+  FileSystem fs = new NonPersistentFileSystem();
+  CommandManager cm =
+      CommandManager.constructCommandManager(testOut, testErrOut, fs);
 
   @Test
   public void testInitialization() {
     // Assert that the cmdMap has in fact been populated by initializeCommands
-    CM.initializeCommands();
-    assertFalse(CM.isCmdMapEmpty());
+    cm.initializeCommands();
+    assertFalse(cm.isCmdMapEmpty());
   }
 
   @Test
   public void testGetCommandDescription() {
     // Assert that a CommandDescription is returned for a known command
-    CommandDescription desc = CM.getCommandDescription("man");
+    CommandDescription desc = cm.getCommandDescription("man");
     assertNotNull(desc);
   }
 

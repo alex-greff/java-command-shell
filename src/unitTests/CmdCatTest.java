@@ -30,41 +30,43 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdCat;
 import containers.CommandArgs;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
-import java.lang.reflect.Field;
+import filesystem.NonPersistentFileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 public class CmdCatTest {
 
-  // Create Testing Consoles, an instance of the command, and get an instance
-  // of the file system
-  private TestingConsole testOut = new TestingConsole();
-  private TestingConsole testErrOut = new TestingConsole();
-  private Command cmd = new CmdCat();
-  private FileSystem FS = FileSystem.getInstance();
+  // Create Testing Consoles, a command manager instance, an instance of the
+  // mock file system and an instance of the command
+  private TestingConsole testOut;
+  private TestingConsole testErrOut;
+  private FileSystem fs;
+  private CommandManager cm;
+  private Command cmd;
 
   @Before
-  public void resetSingleton()
-      throws SecurityException, NoSuchFieldException,
-             IllegalArgumentException, IllegalAccessException {
-    Field instance = FileSystem.class.getDeclaredField("ourInstance");
-    instance.setAccessible(true);
-    instance.set(null, null);
+  // Resets the file system for each test case
+  public void reset() {
+    testOut = new TestingConsole();
+    testErrOut = new TestingConsole();
+    fs = new NonPersistentFileSystem();
+    cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
+    cmd = new CmdCat(fs, cm);
   }
 
   @Test
   public void testFileWithOneLine() throws FileAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
     File file = new File("testFile", "hello");
-    FS.getRoot().addFile(file);
+    fs.getRoot().addFile(file);
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
@@ -83,8 +85,8 @@ public class CmdCatTest {
     // directory
     File file1 = new File("testFile1", "hello");
     File file2 = new File("testFile2", "world");
-    FS.getRoot().addFile(file1);
-    FS.getRoot().addFile(file2);
+    fs.getRoot().addFile(file1);
+    fs.getRoot().addFile(file2);
 
     // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
@@ -101,9 +103,8 @@ public class CmdCatTest {
   public void testFileWithMultipleLines() throws FileAlreadyExistsException {
     // Create a file with multiple lines of content, and add it to the root
     // directory
-    File file = new File("testFile",
-                         "hello\nworld\nthis\nis\na\ntest");
-    FS.getRoot().addFile(file);
+    File file = new File("testFile", "hello\nworld\nthis\nis\na\ntest");
+    fs.getRoot().addFile(file);
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
@@ -114,7 +115,7 @@ public class CmdCatTest {
     // content was printed
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(),
-                 "hello\nworld\nthis\nis\na\ntest\n");
+        "hello\nworld\nthis\nis\na\ntest\n");
   }
 
 }

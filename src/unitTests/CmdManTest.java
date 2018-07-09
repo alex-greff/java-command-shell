@@ -32,9 +32,12 @@ package unitTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-
+import org.junit.Before;
+import commands.CmdExit;
 import commands.CmdMan;
 import containers.CommandArgs;
+import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
@@ -42,20 +45,30 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 public class CmdManTest {
+//Create Testing Consoles, a command manager instance, an instance of the
+ // mock file system and an instance of the command
+ private TestingConsole tc;
+ private TestingConsole tc_err;
+ private FileSystem fs;
+ private CommandManager cm;
+ private Command cmd;
 
-  @BeforeClass
-  public static void setup() {
-    CommandManager.getInstance().initializeCommands();
-  }
+ @Before
+ // Resets the file system for each test case
+ public void reset() {
+   tc = new TestingConsole();
+   tc_err = new TestingConsole();
+   fs = new NonPersistentFileSystem();
+   cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+   cmd = new CmdMan(fs, cm);
+   
+   cm.initializeCommands();
+ }
 
   @Test
   public void testExecuteGetManDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-
-    Command cmd = new CmdMan();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
@@ -67,10 +80,6 @@ public class CmdManTest {
   public void testExecuteGetEchoDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-
-    Command cmd = new CmdMan();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
@@ -82,10 +91,6 @@ public class CmdManTest {
   public void testExecuteGetNonExistentCommandDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"nonExistentCmd"});
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-
-    Command cmd = new CmdMan();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);

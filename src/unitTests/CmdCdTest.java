@@ -30,39 +30,43 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
+import commands.CmdCat;
 import commands.CmdCd;
 import containers.CommandArgs;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 public class CmdCdTest {
 
-  // Create Testing Consoles, an instance of the command, and get an instance
-  // of the file system
-  private TestingConsole testOut = new TestingConsole();
-  private TestingConsole testErrOut = new TestingConsole();
-  private Command cmd = new CmdCd();
-  private FileSystem FS = FileSystem.getInstance();
+  // Create Testing Consoles, a command manager instance, an instance of the
+  // mock file system and an instance of the command
+  private TestingConsole testOut;
+  private TestingConsole testErrOut;
+  private FileSystem fs;
+  private CommandManager cm;
+  private Command cmd;
 
   @Before
-  public void resetSingleton()
-      throws SecurityException, NoSuchFieldException,
-             IllegalArgumentException, IllegalAccessException {
-    Field instance = FileSystem.class.getDeclaredField("ourInstance");
-    instance.setAccessible(true);
-    instance.set(null, null);
+  // Resets the file system for each test case
+  public void reset() {
+    testOut = new TestingConsole();
+    testErrOut = new TestingConsole();
+    fs = new NonPersistentFileSystem();
+    cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
+    cmd = new CmdCd(fs, cm);
   }
 
   @Test
   public void testChildDir() throws FileAlreadyExistsException {
     // Create a directory and add it to the root directory
-    FS.getRoot().createAndAddNewDir("testDir");
+    fs.getRoot().createAndAddNewDir("testDir");
 
     // Attempt to change into the child directory created
     String argParam[] = {"testDir"};
@@ -72,7 +76,7 @@ public class CmdCdTest {
     // Assert that the command successfully executed, and that the working
     // directory is now the child directory which we created
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir");
+    assertEquals(fs.getWorkingDirPath(), "/testDir");
   }
 
   @Test
@@ -85,13 +89,13 @@ public class CmdCdTest {
     // Assert that the command successfully executed, and that the working
     // directory is still the root directory
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/");
+    assertEquals(fs.getWorkingDirPath(), "/");
   }
 
   @Test
   public void testParentDir() throws FileAlreadyExistsException {
     // Create a directory and add it to the root directory
-    FS.getRoot().createAndAddNewDir("testDir");
+    fs.getRoot().createAndAddNewDir("testDir");
 
     // Change into the child directory we created, so we can try to change back
     // to the parent directory
@@ -107,13 +111,13 @@ public class CmdCdTest {
     // Assert that the command successfully executed, and that the working
     // directory is now the root directory again
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/");
+    assertEquals(fs.getWorkingDirPath(), "/");
   }
 
   @Test
   public void testAbsolutePathToDir() throws FileAlreadyExistsException {
     // Create a directory and add it to the root directory
-    FS.getRoot().createAndAddNewDir("testDir");
+    fs.getRoot().createAndAddNewDir("testDir");
 
     // Change into the child directory we created, so we can make another in it
     String argParam1[] = {"testDir"};
@@ -121,7 +125,7 @@ public class CmdCdTest {
     cmd.execute(args1, testOut, testErrOut);
 
     // Create a directory and add it to the directory we are currently in
-    FS.getWorkingDir().createAndAddNewDir("testDirAgain");
+    fs.getWorkingDir().createAndAddNewDir("testDirAgain");
 
     // Attempt to change into the grandchild directory, giving in a path
     // starting from the root
@@ -132,14 +136,14 @@ public class CmdCdTest {
     // Assert that the command successfully executed, and that the working
     // directory is now the grandchild directory which we created
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDir/testDirAgain");
+    assertEquals(fs.getWorkingDirPath(), "/testDir/testDirAgain");
   }
 
   @Test
   public void testRelativePathToDir() throws FileAlreadyExistsException {
     // Create two directories and add them to the root directory
-    FS.getRoot().createAndAddNewDir("testDir");
-    FS.getRoot().createAndAddNewDir("testDirAgain");
+    fs.getRoot().createAndAddNewDir("testDir");
+    fs.getRoot().createAndAddNewDir("testDirAgain");
 
     // Change into the child directory we created, so we can try to access its
     // sibling from it
@@ -156,7 +160,7 @@ public class CmdCdTest {
     // Assert that the command successfully executed, and that the working
     // directory is now the second sibling directory which we created
     assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(FS.getWorkingDirPath(), "/testDirAgain");
+    assertEquals(fs.getWorkingDirPath(), "/testDirAgain");
   }
 
 }

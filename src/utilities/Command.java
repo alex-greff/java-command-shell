@@ -32,6 +32,7 @@ package utilities;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import io.Writable;
 
 /**
@@ -40,17 +41,6 @@ import io.Writable;
  * @author greff
  */
 public abstract class Command {
-
-  /**
-   * The reference to the instance of the command manager.
-   */
-  protected CommandManager commandManager = CommandManager.getInstance();
-
-  /**
-   * The reference to the instance of the file system.
-   */
-  protected FileSystem fileSystem = FileSystem.getInstance();
-
   /**
    * The command's name
    */
@@ -61,13 +51,38 @@ public abstract class Command {
    */
   protected CommandDescription DESCRIPTION;
 
+  protected FileSystem fileSystem;
+
+  protected CommandManager commandManager;
+
+  /**
+   * Hide default constructor.
+   */
+  private Command() {
+
+  }
+
+  /**
+   * Constructs a new command instance
+   * 
+   * @param fileSystem The file system the command uses
+   */
+  public Command(FileSystem fileSystem, CommandManager commandManager) {
+    this.fileSystem = fileSystem;
+    this.commandManager = commandManager;
+  }
+
   /**
    * Constructs a new command instance
    *
    * @param name The name of the command
    * @param description The description of the command
+   * @param fileSystem The file system the command uses
    */
-  public Command(String name, CommandDescription description) {
+  public Command(String name, CommandDescription description,
+      FileSystem fileSystem, CommandManager commandManager) {
+
+    this(fileSystem, commandManager);
     this.NAME = name;
     this.DESCRIPTION = description;
   }

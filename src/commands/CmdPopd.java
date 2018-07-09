@@ -32,8 +32,10 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.DirectoryStack;
+import filesystem.FileSystem;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -42,7 +44,16 @@ import utilities.ExitCode;
  * @author anton
  */
 public class CmdPopd extends Command {
-
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdPopd(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
+  
   /**
    * Command info constants
    */
@@ -54,12 +65,6 @@ public class CmdPopd extends Command {
               + "directory to the removed directory.",
           "popd").build();
 
-  /**
-   * Constructs a new command instance
-   */
-  public CmdPopd() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * Executes the popd command with the given arguments

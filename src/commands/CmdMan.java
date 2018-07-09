@@ -31,8 +31,10 @@ package commands;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.FileSystem;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -41,6 +43,16 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdMan extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdMan(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
+
   // Setup command information
   /**
    * The name of the command.
@@ -53,13 +65,6 @@ public class CmdMan extends Command {
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND")
               .additionalComment("For some fun try \"man man\".").build();
-
-  /**
-   * Constructs a new command instance
-   */
-  public CmdMan() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * Executes the man command with the arguments args

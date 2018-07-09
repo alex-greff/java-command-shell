@@ -34,10 +34,12 @@ import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
+import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -46,7 +48,16 @@ import utilities.ExitCode;
  * @author anton
  */
 public class CmdMkdir extends Command {
-
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdMkdir(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
+  
   /**
    * Command info constants
    */
@@ -60,13 +71,6 @@ public class CmdMkdir extends Command {
               .additionalComment("The path up to and not including the "
                   + "last segment must point to an existing directory")
               .build();
-
-  /**
-   * Constructs a new command instance
-   */
-  public CmdMkdir() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * Executes the mkdir command
@@ -88,12 +92,12 @@ public class CmdMkdir extends Command {
         // wants to create
         String newDirName = path.removeLast();
         // get the parent directory of the new directory to be created
-        Directory parent = fileSystem.getDirByPath(path);
+        Directory parent = fileSystem.getDirByPath(path.toString());
         // add the directory to the parent
         parent.createAndAddNewDir(newDirName);
         // error handling
       } catch (MalformedPathException e) {
-        errorOut.writeln("Error: Invalid path" + pathString);
+        errorOut.writeln("Error: Invalid path " + pathString);
         return ExitCode.SUCCESS;
       } catch (FileNotFoundException e) {
         errorOut.writeln("Error: Parent directory not found");

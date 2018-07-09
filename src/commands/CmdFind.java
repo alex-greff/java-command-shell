@@ -34,6 +34,7 @@ import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -49,6 +51,16 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdFind extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdFind(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
+
   // Setup command information
   /**
    * The name of the command.
@@ -83,13 +95,6 @@ public class CmdFind extends Command {
   private final String TYPE_DIR = "d";
 
   /**
-   * Constructs a new command instance
-   */
-  public CmdFind() {
-    super(NAME, DESCRIPTION);
-  }
-
-  /**
    * Executes the find command which finds all files/directories in the given
    * locations.
    *
@@ -114,8 +119,7 @@ public class CmdFind extends Command {
     for (String dirStrPath : dirStrPaths) {
       try {
         // Get the current directory
-        Path dirPath = new Path(dirStrPath);
-        Directory currDir = fileSystem.getDirByPath(dirPath);
+        Directory currDir = fileSystem.getDirByPath(dirStrPath);
 
         // Initialize the set of paths of the occurrences of <expression>
         Set<String> outputPaths = new HashSet<>();
@@ -160,15 +164,14 @@ public class CmdFind extends Command {
    */
   private Set<String> findFileInDirectoryStructure(Directory dir, String name)
       throws FileNotFoundException {
-    // Initialize references
-    FileSystem fs = FileSystem.getInstance();
+    // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
     // If the current directory contains the wanted file then add the absolute
     // path of the file to the return set
     if (dir.containsFile(name)) {
       // Get the absolute path of the directory
-      String dirAbsPath = fs.getAbsolutePathOfDir(dir);
+      String dirAbsPath = fileSystem.getAbsolutePathOfDir(dir);
 
       // If the directory is the root directory
       if (dirAbsPath.equals("/"))
@@ -206,15 +209,14 @@ public class CmdFind extends Command {
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
       String name) throws FileNotFoundException {
-    // Initialize references
-    FileSystem fs = FileSystem.getInstance();
+    // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
     // If the current directory contains the wanted directory then add the
     // absolute path of the file to the return set
     if (dir.containsDir(name)) {
       // Get the absolute path of the directory
-      String dirAbsPath = fs.getAbsolutePathOfDir(dir);
+      String dirAbsPath = fileSystem.getAbsolutePathOfDir(dir);
 
       // If the directory is the root directory
       if (dirAbsPath.equals("/"))

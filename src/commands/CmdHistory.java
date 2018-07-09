@@ -32,9 +32,11 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import driver.JShell;
+import filesystem.FileSystem;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -43,6 +45,15 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdHistory extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdHistory(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * the name of the command
@@ -63,13 +74,6 @@ public class CmdHistory extends Command {
                   + "always take place as the latest entry in history "
                   + "\n(i.e. history 1 prints: \n 1. history 1)")
               .build();
-
-  /**
-   * Constructs a new command instance
-   */
-  public CmdHistory() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * @param args The arguments for the command call.

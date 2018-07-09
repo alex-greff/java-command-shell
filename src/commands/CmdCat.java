@@ -33,10 +33,12 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.File;
 import filesystem.FileNotFoundException;
+import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -45,6 +47,15 @@ import utilities.ExitCode;
  * @author ursu
  */
 public class CmdCat extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdCat(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * Constant instance variable for the command name
@@ -60,13 +71,6 @@ public class CmdCat extends Command {
               .additionalComment("Path of FILE can be relative or absolute.")
               .additionalComment("Can take more than one FILE as arguments.")
               .build();
-
-  /**
-   * Constructs a new command instance
-   */
-  public CmdCat() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * Executes the cat command with the given arguments. Cat prints the contents
@@ -87,10 +91,8 @@ public class CmdCat extends Command {
     for (String filePathStr : files) { // Iterate through FILES arguments
 
       try {
-        // Initiate a Path to the FILE with the path given as a String
-        Path filePath = new Path(filePathStr);
         // Get the File with the given Path
-        File file = fileSystem.getFileByPath(filePath);
+        File file = fileSystem.getFileByPath(filePathStr);
         // Finally, append the contents of the File to the StringBuilder,
         // with 1 new line to separate multiple files, and 2 more for spacing
         result.append(file.read()).append("\n\n\n");

@@ -32,8 +32,10 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -42,6 +44,15 @@ import utilities.ExitCode;
  * @author ursu
  */
 public class CmdPwd extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdPwd(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * Constant instance variable for the command name
@@ -56,13 +67,6 @@ public class CmdPwd extends Command {
           "pwd").build();
 
   /**
-   * Constructs a new command instance
-   */
-  public CmdPwd() {
-    super(NAME, DESCRIPTION);
-  }
-
-  /**
    * Executes the pwd command with the given arguments. Pwd prints the working
    * directory
    *
@@ -73,10 +77,8 @@ public class CmdPwd extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
-    // Obtain the instance of the FileSystem
-    FileSystem FS = FileSystem.getInstance();
     // Write the path of the working directory in the FileSystem to the Console
-    out.writeln(FS.getWorkingDirPath());
+    out.writeln(fileSystem.getWorkingDirPath());
     // return SUCCESS always
     return ExitCode.SUCCESS;
   }

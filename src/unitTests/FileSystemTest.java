@@ -35,7 +35,7 @@ import static org.junit.Assert.assertTrue;
 import filesystem.Directory;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
-import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import java.lang.reflect.Field;
@@ -43,20 +43,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FileSystemTest {
-
-  @Before
-  public void resetSingleton()
-      throws SecurityException, NoSuchFieldException,
-             IllegalArgumentException, IllegalAccessException {
-    Field instance = FileSystem.class.getDeclaredField("ourInstance");
-    instance.setAccessible(true);
-    instance.set(null, null);
-  }
-
   @Test
   public void testAddingNewDirectoryToWorkingDirectory()
       throws FileAlreadyExistsException {
-    FileSystem fs = FileSystem.getInstance();
+    NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // make sure that the current working directory is root
     assertEquals("/", fs.getWorkingDirPath());
     // add a new directory to the working directory
@@ -68,7 +58,7 @@ public class FileSystemTest {
   @Test
   public void testGettingAbsolutePathOfDirectory()
       throws FileNotFoundException, FileAlreadyExistsException {
-    FileSystem fs = FileSystem.getInstance();
+    NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
     // the filesystem should now contain a directory called "test"
@@ -81,10 +71,9 @@ public class FileSystemTest {
   @Test
   public void testGettingRootDirectoryByPath()
       throws MalformedPathException, FileNotFoundException {
-    FileSystem fs = FileSystem.getInstance();
+    NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // make a path for root
-    Path root = new Path("/");
-    Directory rt = fs.getDirByPath(root);
+    Directory rt = fs.getDirByPath("/");
     assertEquals(fs.getRoot(), rt);
 
   }
@@ -92,22 +81,20 @@ public class FileSystemTest {
   @Test
   public void testGettingRootDirectoryWithConvolutedPath()
       throws MalformedPathException, FileNotFoundException {
-    FileSystem fs = FileSystem.getInstance();
+    NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // make a convoluted path
-    Path spooky = new Path("/./././././././");
-    Directory spookyRoot = fs.getDirByPath(spooky);
+    Directory spookyRoot = fs.getDirByPath("/./././././././");
     assertEquals(fs.getRoot(), spookyRoot);
   }
 
   @Test
   public void testGettingNonRootDirectoryByPath()
       throws MalformedPathException, FileNotFoundException, FileAlreadyExistsException {
-    FileSystem fs = FileSystem.getInstance();
+    NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
-    Path dirPath = new Path("/test/");
     Directory expected = fs.getRoot().getDirByName("test");
-    Directory actual = fs.getDirByPath(dirPath);
+    Directory actual = fs.getDirByPath("/test/");
     assertEquals(expected, actual);
   }
 }

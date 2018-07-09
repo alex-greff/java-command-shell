@@ -37,26 +37,9 @@ package io;
 public class ErrorConsole implements Writable {
 
   /**
-   * The current singleton instance of the ErrorConsole.
+   * The constructor, defaulted to public visibility.
    */
-  private static ErrorConsole ourInstance = null;
-
-  /**
-   * The constructor, defaulted to private visibility.
-   */
-  private ErrorConsole() {}
-
-  /**
-   * Gets the singleton instance of ErrorConsole
-   *
-   * @return The Console instance
-   */
-  public static ErrorConsole getInstance() {
-    if (ourInstance == null) {
-      ourInstance = new ErrorConsole();
-    }
-    return ourInstance;
-  }
+  public ErrorConsole() {}
 
   /**
    * Writes a string to the error console

@@ -32,10 +32,12 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileNotFoundException;
+import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -44,6 +46,15 @@ import utilities.ExitCode;
  * @author ursu
  */
 public class CmdCd extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdCd(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * Constant instance variable for the command name
@@ -61,13 +72,6 @@ public class CmdCd extends Command {
               .build();
 
   /**
-   * Constructs a new command instance
-   */
-  public CmdCd() {
-    super(NAME, DESCRIPTION);
-  }
-
-  /**
    * Executes the cd command with the given arguments. Cd changes the working
    * directory. Error messages if the directory path is invalid, or the
    * directory does not exist
@@ -83,10 +87,8 @@ public class CmdCd extends Command {
     String location = args.getCommandParameters()[0];
 
     try {
-      // Initiate a Path to the DIRECTORY with the path given as a String
-      Path newDir = new Path(location);
       // Change the FileSystem's working directory to the created Path
-      fileSystem.changeWorkingDir(newDir);
+      fileSystem.changeWorkingDir(location);
 
     } catch (MalformedPathException e) {
       // Argument given is an improper Path, return FAILURE

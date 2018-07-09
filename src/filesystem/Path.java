@@ -84,4 +84,25 @@ public class Path implements Iterable<String> {
   public Iterator<String> iterator() {
     return this.tokens.iterator();
   }
+
+  /**
+   * Gets the string of the path stored.
+   * 
+   * @return Returns the string of the path stored.
+   */
+  public String toString() {
+    String last = "";
+    String ret = "";
+
+    for (String t : tokens) {
+      if (last.equals("/") || t.equals("/"))
+        ret += t;
+      else
+        ret += "/" + t;
+        
+      last = t;
+    }
+
+    return ret.trim();
+  }
 }

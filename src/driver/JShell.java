@@ -30,8 +30,9 @@
 package driver;
 
 import containers.CommandArgs;
-import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import io.Console;
+import io.ErrorConsole;
 import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
@@ -54,20 +55,26 @@ public class JShell {
   /**
    * the filesystem that the JShell operates on
    */
-  private static FileSystem fs = FileSystem.getInstance();
+  private static NonPersistentFileSystem fs = new NonPersistentFileSystem();
 
   /**
-   * the console that the JShell reads from
+   * The console that the JShell reads and writes from
    */
-  private static Console console = Console.getInstance();
+  private static Console console = new Console();
 
   /**
-   * the command manager that JShell uses
+   * The error console that JShell uses.
    */
-  private static CommandManager cmdManager = CommandManager.getInstance();
+  private static ErrorConsole errorConsole = new ErrorConsole();
 
   /**
-   * a record of all of the user input
+   * The command manager instance that JShell uses.
+   */
+  private static CommandManager cmdManager =
+      CommandManager.constructCommandManager(console, errorConsole, fs);
+
+  /**
+   * A record of all of the user input.
    */
   private static ArrayList<String> history = new ArrayList<>();
 

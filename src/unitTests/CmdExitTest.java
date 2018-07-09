@@ -31,25 +31,42 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-
+import org.junit.Before;
+import commands.CmdCd;
 import commands.CmdExit;
 import containers.CommandArgs;
+import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import org.junit.Test;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 import utilities.Parser;
 
 public class CmdExitTest {
+  // Create Testing Consoles, a command manager instance, an instance of the
+  // mock file system and an instance of the command
+  private TestingConsole tc;
+  private TestingConsole tc_err;
+  private FileSystem fs;
+  private CommandManager cm;
+  private Command cmd;
+
+  @Before
+  // Resets the file system for each test case
+  public void reset() {
+    tc = new TestingConsole();
+    tc_err = new TestingConsole();
+    fs = new NonPersistentFileSystem();
+    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cmd = new CmdExit(fs, cm);
+  }
+
 
   @Test
   public void testExecuteExit() {
-    CommandArgs args =
-        Parser.parseUserInput("exit");
+    CommandArgs args = Parser.parseUserInput("exit");
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-
-    Command cmd = new CmdExit();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);

@@ -35,11 +35,13 @@ import filesystem.Directory;
 import filesystem.File;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -48,6 +50,15 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdLs extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdLs(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * name of the command
@@ -69,13 +80,6 @@ public class CmdLs extends Command {
               .build();
 
   /**
-   * Constructs a new command instance
-   */
-  public CmdLs() {
-    super(NAME, DESCRIPTION);
-  }
-
-  /**
    * @param args The command Arguments.
    * @param out The writable for any normal output of the command.
    * @param errOut The writable for any error output of the command.
@@ -84,7 +88,7 @@ public class CmdLs extends Command {
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     StringBuilder result = new StringBuilder();
-    Directory curr = FileSystem.getInstance().getWorkingDir();
+    Directory curr = fileSystem.getWorkingDir();
     Path path;
     // check parameters
 
@@ -92,14 +96,12 @@ public class CmdLs extends Command {
     if (params.length > 0) {
       for (String name : params) {
         try {
-          path = new Path(name);
-          curr = fileSystem.getDirByPath(path);
+          curr = fileSystem.getDirByPath(name);
           result.append(addOn(curr));
         } catch (MalformedPathException | FileNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
-            path = new Path(name);
-            File file = fileSystem.getFileByPath(path);
+            File file = fileSystem.getFileByPath(name);
             result.append(addFileName(file));
           } catch (FileNotFoundException | MalformedPathException e) {
             // only error out if the name was not found as either file or dir.

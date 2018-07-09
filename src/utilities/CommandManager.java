@@ -44,8 +44,11 @@ import commands.CmdPwd;
 import commands.CmdTree;
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.FileSystem;
+import filesystem.NonPersistentFileSystem;
 import io.Console;
 import io.ErrorConsole;
+import io.Writable;
 import java.util.HashMap;
 
 /**
@@ -56,9 +59,17 @@ import java.util.HashMap;
  */
 public class CommandManager {
   /**
-   * Instance of the CommandManager for singleton access
+   * Factory method constructing a new instance of a command manager.
+   * 
+   * @param out The standard output console.
+   * @param errorOut The standard error console.
+   * @param fileSystem The file system to be used.
+   * @return Returns a new instance of a command manager.
    */
-  private static CommandManager ourInstance = null;
+  public static CommandManager constructCommandManager(Writable out,
+      Writable errorOut, FileSystem fileSystem) {
+    return new CommandManager(out, errorOut, fileSystem);
+  }
 
   /**
    * HashMap container for command names mapped to command instances, initially
@@ -67,14 +78,19 @@ public class CommandManager {
   private HashMap<String, Command> cmdMap = new HashMap<>();
 
   /**
-   * Reference to the instance of the Console
+   * The standard output console.
    */
-  private Console out = Console.getInstance();
+  private Writable out;
 
   /**
-   * Reference to the instance of the ErrorConsole
+   * The standard error output console.
    */
-  private ErrorConsole errorOut = ErrorConsole.getInstance();
+  private Writable errorOut;
+
+  /**
+   * The file system used.
+   */
+  private FileSystem fileSystem;
 
   /**
    * The exit code of the last command run
@@ -84,38 +100,33 @@ public class CommandManager {
   /**
    * Private constructor for singleton
    */
-  private CommandManager() {}
+  private CommandManager(Writable out, Writable errorOut,
+      FileSystem fileSystem) {
+    this.out = out;
+    this.errorOut = errorOut;
+    this.fileSystem = fileSystem;
+    
+    initializeCommands();
+  }
 
   /**
    * Populates cmdMap with all known commands as they are expected to be typed
    * in String format, mapped to an instance of the respective command
    */
   public void initializeCommands() {
-    cmdMap.put("cat", new CmdCat());
-    cmdMap.put("cd", new CmdCd());
-    cmdMap.put("echo", new CmdEcho());
-    cmdMap.put("exit", new CmdExit());
-    cmdMap.put("history", new CmdHistory());
-    cmdMap.put("ls", new CmdLs());
-    cmdMap.put("man", new CmdMan());
-    cmdMap.put("mkdir", new CmdMkdir());
-    cmdMap.put("popd", new CmdPopd());
-    cmdMap.put("pushd", new CmdPushd());
-    cmdMap.put("pwd", new CmdPwd());
-    cmdMap.put("tree", new CmdTree());
-    cmdMap.put("find", new CmdFind());
-  }
-
-  /**
-   * Get the singleton instance of the CommandManager
-   *
-   * @return Returns this CommandManager instance
-   */
-  public static CommandManager getInstance() {
-    if (ourInstance == null) {
-      ourInstance = new CommandManager();
-    }
-    return ourInstance;
+    cmdMap.put("cat", new CmdCat(fileSystem, this));
+    cmdMap.put("cd", new CmdCd(fileSystem, this));
+    cmdMap.put("echo", new CmdEcho(fileSystem, this));
+    cmdMap.put("exit", new CmdExit(fileSystem, this));
+    cmdMap.put("history", new CmdHistory(fileSystem, this));
+    cmdMap.put("ls", new CmdLs(fileSystem, this));
+    cmdMap.put("man", new CmdMan(fileSystem, this));
+    cmdMap.put("mkdir", new CmdMkdir(fileSystem, this));
+    cmdMap.put("popd", new CmdPopd(fileSystem, this));
+    cmdMap.put("pushd", new CmdPushd(fileSystem, this));
+    cmdMap.put("pwd", new CmdPwd(fileSystem, this));
+    cmdMap.put("tree", new CmdTree(fileSystem, this));
+    cmdMap.put("find", new CmdFind(fileSystem, this));
   }
 
   /**

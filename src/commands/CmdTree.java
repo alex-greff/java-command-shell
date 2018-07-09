@@ -33,9 +33,11 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
+import filesystem.FileSystem;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
+import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
@@ -44,6 +46,15 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdTree extends Command {
+  /**
+   * Constructs a new command instance.
+   * 
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdTree(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * name of the command
@@ -58,13 +69,6 @@ public class CmdTree extends Command {
                   "Directory content is listed a tab forward, and below"
                       + " the directory name")
               .build();
-
-  /**
-   * Constructs a new command instance
-   */
-  public CmdTree() {
-    super(NAME, DESCRIPTION);
-  }
 
   /**
    * @param args The arguments for the command call.
