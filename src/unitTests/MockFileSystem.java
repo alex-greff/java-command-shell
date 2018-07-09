@@ -17,9 +17,9 @@ public class MockFileSystem implements FileSystem {
    * @param pathString The string of the path.
    */
   @Override
-  public void changeWorkingDir(String pathString)
+  public void changeWorkingDir(Path path)
       throws MalformedPathException, FileNotFoundException {
-    switch (pathString) {
+    switch (path.toString()) {
       case "validPath":
         break;
       case "invalidPath":
@@ -51,9 +51,9 @@ public class MockFileSystem implements FileSystem {
    *         contents".
    */
   @Override
-  public File getFileByPath(String pathString)
+  public File getFileByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
-    switch (pathString) {
+    switch (path.toString()) {
       case "validPath":
         return new File("someFile", "some file contents");
       case "invalidPath":
@@ -77,9 +77,9 @@ public class MockFileSystem implements FileSystem {
    *         children.
    */
   @Override
-  public Directory getDirByPath(String pathString)
+  public Directory getDirByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
-    switch (pathString) {
+    switch (path.toString()) {
       case "validPath":
         return new Directory("someDirectory", null);
       case "invalidPath":

@@ -119,7 +119,7 @@ public class CmdFind extends Command {
     for (String dirStrPath : dirStrPaths) {
       try {
         // Get the current directory
-        Directory currDir = fileSystem.getDirByPath(dirStrPath);
+        Directory currDir = fileSystem.getDirByPath(new Path(dirStrPath));
 
         // Initialize the set of paths of the occurrences of <expression>
         Set<String> outputPaths = new HashSet<>();

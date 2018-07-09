@@ -61,9 +61,9 @@ public class NonPersistentFileSystem implements FileSystem {
    * @throws FileNotFoundException Thrown when the directory does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
-  public void changeWorkingDir(String pathString)
+  public void changeWorkingDir(Path path)
       throws MalformedPathException, FileNotFoundException {
-    Directory newWorkingDir = getDirByPath(pathString);
+    Directory newWorkingDir = getDirByPath(path);
     if (newWorkingDir == null) {
       throw new FileNotFoundException();
     }
@@ -102,11 +102,11 @@ public class NonPersistentFileSystem implements FileSystem {
    * @throws FileNotFoundException Thrown when the file does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
-  public File getFileByPath(String pathString)
+  public File getFileByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
-    Path path = new Path(pathString);
+    //Path path = new Path(pathString);
     String fileName = path.removeLast();
-    Directory parent = getDirByPath(path.toString());
+    Directory parent = getDirByPath(path);
     return parent.getFileByName(fileName);
   }
 
@@ -119,10 +119,10 @@ public class NonPersistentFileSystem implements FileSystem {
    * @throws FileNotFoundException Thrown when the directory does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
-  public Directory getDirByPath(String pathString)
+  public Directory getDirByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
-    pathString = (pathString.isEmpty()) ? "/" : pathString;
-    Path path = new Path(pathString);
+    //pathString = (pathString.isEmpty()) ? "/" : pathString;
+    //Path path = new Path(pathString);
     Directory curr = workingDir;
     for (String segment : path) {
       if (segment.equals("/")) {

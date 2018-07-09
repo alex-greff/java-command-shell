@@ -103,7 +103,7 @@ public class CmdEchoTest {
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
-    File file = fs.getFileByPath("/dir1/dir4/file4");
+    File file = fs.getFileByPath(new Path("/dir1/dir4/file4"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("some string", file.read());
@@ -117,7 +117,7 @@ public class CmdEchoTest {
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
-    File file = fs.getFileByPath("/file1");
+    File file = fs.getFileByPath(new Path("/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("file1's contents\nsome string", file.read());
@@ -131,7 +131,7 @@ public class CmdEchoTest {
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
-    File file = fs.getFileByPath("/fileBlahBlahBlah");
+    File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("some string", file.read());

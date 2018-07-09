@@ -147,7 +147,7 @@ public class CmdEcho extends Command {
       // Get the File
       File file;
       try {
-        file = fileSystem.getFileByPath(filePathStr);
+        file = fileSystem.getFileByPath(new Path(filePathStr));
         // If the file does not exist
       } catch (FileNotFoundException e) {
         // Attempt to make the file
@@ -206,7 +206,7 @@ public class CmdEcho extends Command {
     }
     
     // Get the directory at the path
-    Directory dirOfFile = fileSystem.getDirByPath(dirPathStr);
+    Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
 
     // Add the file to the directory
     dirOfFile.addFile(file);

@@ -88,7 +88,7 @@ public class CmdCd extends Command {
 
     try {
       // Change the FileSystem's working directory to the created Path
-      fileSystem.changeWorkingDir(location);
+      fileSystem.changeWorkingDir(new Path(location));
 
     } catch (MalformedPathException e) {
       // Argument given is an improper Path, return FAILURE

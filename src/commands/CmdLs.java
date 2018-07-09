@@ -96,12 +96,12 @@ public class CmdLs extends Command {
     if (params.length > 0) {
       for (String name : params) {
         try {
-          curr = fileSystem.getDirByPath(name);
+          curr = fileSystem.getDirByPath(new Path(name));
           result.append(addOn(curr));
         } catch (MalformedPathException | FileNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
-            File file = fileSystem.getFileByPath(name);
+            File file = fileSystem.getFileByPath(new Path(name));
             result.append(addFileName(file));
           } catch (FileNotFoundException | MalformedPathException e) {
             // only error out if the name was not found as either file or dir.

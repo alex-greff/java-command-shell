@@ -92,7 +92,7 @@ public class CmdCat extends Command {
 
       try {
         // Get the File with the given Path
-        File file = fileSystem.getFileByPath(filePathStr);
+        File file = fileSystem.getFileByPath(new Path(filePathStr));
         // Finally, append the contents of the File to the StringBuilder,
         // with 1 new line to separate multiple files, and 2 more for spacing
         result.append(file.read()).append("\n\n\n");

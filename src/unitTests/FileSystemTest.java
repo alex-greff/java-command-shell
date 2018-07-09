@@ -73,7 +73,7 @@ public class FileSystemTest {
       throws MalformedPathException, FileNotFoundException {
     NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // make a path for root
-    Directory rt = fs.getDirByPath("/");
+    Directory rt = fs.getDirByPath(new Path("/"));
     assertEquals(fs.getRoot(), rt);
 
   }
@@ -83,7 +83,7 @@ public class FileSystemTest {
       throws MalformedPathException, FileNotFoundException {
     NonPersistentFileSystem fs = new NonPersistentFileSystem();
     // make a convoluted path
-    Directory spookyRoot = fs.getDirByPath("/./././././././");
+    Directory spookyRoot = fs.getDirByPath(new Path("/./././././././"));
     assertEquals(fs.getRoot(), spookyRoot);
   }
 
@@ -94,7 +94,7 @@ public class FileSystemTest {
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
     Directory expected = fs.getRoot().getDirByName("test");
-    Directory actual = fs.getDirByPath("/test/");
+    Directory actual = fs.getDirByPath(new Path("/test/"));
     assertEquals(expected, actual);
   }
 }

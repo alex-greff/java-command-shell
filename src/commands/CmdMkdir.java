@@ -92,7 +92,7 @@ public class CmdMkdir extends Command {
         // wants to create
         String newDirName = path.removeLast();
         // get the parent directory of the new directory to be created
-        Directory parent = fileSystem.getDirByPath(path.toString());
+        Directory parent = fileSystem.getDirByPath(path);
         // add the directory to the parent
         parent.createAndAddNewDir(newDirName);
         // error handling

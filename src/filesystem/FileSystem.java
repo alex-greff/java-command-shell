@@ -14,7 +14,7 @@ public interface FileSystem {
    * @throws MalformedPathException Throws if the path is invalid.
    * @throws FileNotFoundException Throws if the file/directory is not found.
    */
-  public void changeWorkingDir(String pathString)
+  public void changeWorkingDir(Path path)
       throws MalformedPathException, FileNotFoundException;
 
   /**
@@ -25,10 +25,10 @@ public interface FileSystem {
    */
   public String getAbsolutePathOfDir(Directory theDir);
 
-  public File getFileByPath(String pathString)
+  public File getFileByPath(Path path)
       throws MalformedPathException, FileNotFoundException;
   
-  public Directory getDirByPath(String pathString)
+  public Directory getDirByPath(Path path)
       throws MalformedPathException, FileNotFoundException;
   
   public Directory getWorkingDir();

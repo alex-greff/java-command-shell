@@ -91,16 +91,16 @@ public class Path implements Iterable<String> {
    * @return Returns the string of the path stored.
    */
   public String toString() {
-    String last = "";
     String ret = "";
 
-    for (String t : tokens) {
-      if (last.equals("/") || t.equals("/"))
+    for (int i = 0; i < tokens.size(); i++) {
+      String t = tokens.get(i);
+      if (i == 0) {
         ret += t;
-      else
+      }
+      else {
         ret += "/" + t;
-        
-      last = t;
+      }
     }
 
     return ret.trim();
