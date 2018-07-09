@@ -105,11 +105,8 @@ public class JShell {
       // add input to history
       history.add(rawInput);
 
-      // Parse the user input
-      CommandArgs parsedInput = Parser.parseUserInput(rawInput);
-
-      // Execute the command
-      cmdManager.executeCommand(parsedInput);
+      // Parse and execute the user input
+      parseAndExecute(rawInput);
     }
   }
 
@@ -127,5 +124,17 @@ public class JShell {
    */
   public static ArrayList<String> getHistory() {
     return history;
+  }
+
+  /**
+   * given a command input, parses and executes the user command
+   *
+   * @param input the raw string that is to be parsed and executed
+   */
+  public static void parseAndExecute(String input){
+    // parse the input
+    CommandArgs parsedInput = Parser.parseUserInput(input);
+    // Execute the command
+    cmdManager.executeCommand(parsedInput);
   }
 }
