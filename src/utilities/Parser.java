@@ -60,7 +60,7 @@ public class Parser {
    *
    * @param input The user input string
    * @return Returns a CommandArgs instance with the parsed user input or null
-   * if the user input is incorrect
+   *         if the user input is incorrect
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
@@ -140,6 +140,8 @@ public class Parser {
     String cmdName = inputSplit.get(0);
     // Initialize an array list for all the command parameter
     List<String> paramsArrayList = new ArrayList<>();
+    // Initialize an array list for all flags
+    List<String> flagsArrayList = new ArrayList<>();
     // Initialize the hash map for the named type parameters
     HashMap<String, String> namedParamsMap = new HashMap<>();
     // Initialize the redirect operator to its empty state
@@ -166,35 +168,47 @@ public class Parser {
       // If the item at index i is a type parameter
       if (inputSplit.size() > 0
           && inputSplit.get(i).startsWith(TYPE_ARG_OPERATOR)) {
-        // If there is no item after i then return invalid
-        if (i + 1 >= inputSplit.size()) {
-          return null;
-        }
-        // If the item after is another type parameter then return invalid
-        if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR)) {
-          return null;
-        }
+
         // Remove the - and set the key value
         String key = inputSplit.get(i).replaceFirst("-", "");
-        // Remove any quoutes and set the value's value
-        String val = inputSplit.get(i + 1).replace("\"", "");
-        // Add to the hashmap
-        namedParamsMap.put(key, val);
-        // Force increment i by 1 (since we already dealt with index i + 1)
-        i += 1;
-      } else
-      // Add the parameters to the array list (without any quotes
-      {
+
+        // If the key is a flag (ie capital letters)
+        if (key.matches("[A-Z]+")) {
+          // Add key to the flags array list
+          flagsArrayList.add(key);
+        }
+        // If they key is a named parameter (ie lower case letters)
+        else if (key.matches("[a-z]+")) {
+          // If there is no item after i then return invalid
+          if (i + 1 >= inputSplit.size())
+            return null;
+          // If the item after is another type parameter then return invalid
+          if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR))
+            return null;
+          // Remove any quoutes and set the value's value
+          String val = inputSplit.get(i + 1).replace("\"", "");
+          // Add to the hashmap
+          namedParamsMap.put(key, val);
+          // Force increment i by 1 (since we already dealt with index i + 1)
+          i += 1;
+        }
+        // If its an invalid flag then return null
+        else {
+          return null;
+        }
+      } else {
+        // Add the parameters to the array list (without any quotes
         paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
       }
     }
 
-    // Convert the parameter arraylist to an array
+    // Convert the parameter and flags array list to arrays
     String[] cmdParams = paramsArrayList.toArray(new String[0]);
+    String[] cmdFlags = flagsArrayList.toArray(new String[0]);
 
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
-    return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,
-                           targetDest);
+    return new CommandArgs(cmdName, cmdParams, cmdFlags, namedParamsMap,
+        redirOperator, targetDest);
   }
 }

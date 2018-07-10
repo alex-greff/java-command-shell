@@ -33,7 +33,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
-
 import containers.CommandArgs;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,12 +62,11 @@ public class CommandArgsTest {
     HashMap<String, String> hm_in = new HashMap<>();
     hm_in.put("type1", "value1");
     hm_in.put("type2", "value2");
-    CommandArgs ca = new CommandArgs("myCommand",
-                                     new String[]{"arg1", "arg2"},
-                                     hm_in, ">", "hello.txt");
+    CommandArgs ca = new CommandArgs("myCommand", new String[] {"arg1", "arg2"},
+        new String[] {"flag1", "flag2"}, hm_in, ">", "hello.txt");
     assertEquals("myCommand", ca.getCommandName());
-    assertArrayEquals(new String[]{"arg1", "arg2"},
-                      ca.getCommandParameters());
+    assertArrayEquals(new String[] {"flag1", "flag2"}, ca.getCommandFlags());
+    assertArrayEquals(new String[] {"arg1", "arg2"}, ca.getCommandParameters());
     assertEquals(">", ca.getRedirectOperator());
     assertEquals("hello.txt", ca.getTargetDestination());
 
@@ -97,16 +95,16 @@ public class CommandArgsTest {
   @Test
   public void testEqualsWithArgs() {
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     CommandArgs ca2 =
-        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     assertEquals(ca1, ca2);
   }
 
   @Test
   public void testNotEqualsWithArgs() {
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[]{"arg1", "arg2"});
+        new CommandArgs("myCommand", new String[] {"arg1", "arg2"});
     CommandArgs ca2 = new CommandArgs("myCommand");
     assertNotEquals(ca1, ca2);
   }
@@ -146,11 +144,9 @@ public class CommandArgsTest {
     hm_2.put("type1", "value1");
 
     CommandArgs ca1 =
-        new CommandArgs("myCommand", new String[0], hm_1, ">",
-                        "hello.txt");
+        new CommandArgs("myCommand", new String[0], new String[0], hm_1, ">", "hello.txt");
     CommandArgs ca2 =
-        new CommandArgs("myCommand", new String[0], hm_2, ">",
-                        "hello.txt");
+        new CommandArgs("myCommand", new String[0], new String[0], hm_2, ">", "hello.txt");
     assertEquals(ca1, ca2);
   }
 
