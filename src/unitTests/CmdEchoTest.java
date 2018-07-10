@@ -31,7 +31,7 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import commands.CmdCd;
+
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -39,10 +39,9 @@ import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
+import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -51,6 +50,7 @@ import utilities.ExitCode;
 import utilities.Parser;
 
 public class CmdEchoTest {
+
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private TestingConsole tc;
@@ -64,7 +64,7 @@ public class CmdEchoTest {
   public void reset() throws FileAlreadyExistsException {
     tc = new TestingConsole();
     tc_err = new TestingConsole();
-    fs = new NonPersistentFileSystem();
+    fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdEcho(fs, cm);
 
@@ -87,7 +87,7 @@ public class CmdEchoTest {
   @Test
   public void testExecuteEchoToConsole() {
     CommandArgs args =
-        new CommandArgs("echo", new String[] {"nice sentence you got there"});
+        new CommandArgs("echo", new String[]{"nice sentence you got there"});
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 

@@ -37,6 +37,7 @@ import java.util.Scanner;
  * @author greff
  */
 public class Console implements Writable, Readable {
+
   /**
    * The scanner.
    */
@@ -45,7 +46,8 @@ public class Console implements Writable, Readable {
   /**
    * The constructor, defaulted to public visibility.
    */
-  public Console() {}
+  public Console() {
+  }
 
   /**
    * Write text to the console

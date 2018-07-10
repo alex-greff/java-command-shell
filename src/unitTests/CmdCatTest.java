@@ -30,12 +30,13 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdCat;
 import containers.CommandArgs;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
+import filesystem.InMemoryFileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -57,7 +58,7 @@ public class CmdCatTest {
   public void reset() {
     testOut = new TestingConsole();
     testErrOut = new TestingConsole();
-    fs = new NonPersistentFileSystem();
+    fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdCat(fs, cm);
   }
@@ -115,7 +116,7 @@ public class CmdCatTest {
     // content was printed
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(),
-        "hello\nworld\nthis\nis\na\ntest\n");
+                 "hello\nworld\nthis\nis\na\ntest\n");
   }
 
 }

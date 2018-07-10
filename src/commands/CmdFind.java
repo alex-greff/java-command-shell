@@ -34,7 +34,6 @@ import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
@@ -51,9 +50,10 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdFind extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -73,8 +73,8 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-              .additionalComment("Nothing is printed if no files are found")
-              .build();
+          .additionalComment("Nothing is printed if no files are found")
+          .build();
   /**
    * The identifier for the type flag.
    */
@@ -156,7 +156,8 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name "name"
+   * Gets a set of all absolute paths to instances of files with the name
+   * "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
@@ -208,7 +209,8 @@ public class CmdFind extends Command {
    * @return Returns the set
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-      String name) throws FileNotFoundException {
+                                                        String name)
+      throws FileNotFoundException {
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
@@ -257,7 +259,7 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && args.getRedirectOperator().length() == 0
         && args.getTargetDestination().length() == 0;
   }

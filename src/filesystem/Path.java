@@ -39,6 +39,7 @@ import java.util.Iterator;
  * @author anton
  */
 public class Path implements Iterable<String> {
+
   /**
    * The list of tokens.
    */
@@ -87,7 +88,7 @@ public class Path implements Iterable<String> {
 
   /**
    * Gets the string of the path stored.
-   * 
+   *
    * @return Returns the string of the path stored.
    */
   public String toString() {
@@ -97,8 +98,7 @@ public class Path implements Iterable<String> {
       String t = tokens.get(i);
       if (i == 0) {
         ret += t;
-      }
-      else {
+      } else {
         ret += "/" + t;
       }
     }

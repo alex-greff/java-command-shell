@@ -34,7 +34,7 @@ package filesystem;
  *
  * @author anton
  */
-public class NonPersistentFileSystem implements FileSystem {
+public class InMemoryFileSystem implements FileSystem {
   // the root dir has no parent
   /**
    * The root directory object.
@@ -52,7 +52,8 @@ public class NonPersistentFileSystem implements FileSystem {
   /**
    * Public default constructor.
    */
-  public NonPersistentFileSystem() {}
+  public InMemoryFileSystem() {
+  }
 
   /**
    * Change the working dir to the dir given by the path
@@ -97,14 +98,13 @@ public class NonPersistentFileSystem implements FileSystem {
    * Provides file located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   *        Absolute path must start with / indicating root directory.
+   * Absolute path must start with / indicating root directory.
    * @return The file located at the path
    * @throws FileNotFoundException Thrown when the file does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public File getFileByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
-    //Path path = new Path(pathString);
     String fileName = path.removeLast();
     Directory parent = getDirByPath(path);
     return parent.getFileByName(fileName);
@@ -114,15 +114,13 @@ public class NonPersistentFileSystem implements FileSystem {
    * Provides directory located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   *        Absolute path must start with / indicating root directory.
+   * Absolute path must start with / indicating root directory.
    * @return The directory located at the path
    * @throws FileNotFoundException Thrown when the directory does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public Directory getDirByPath(Path path)
       throws MalformedPathException, FileNotFoundException {
-    //pathString = (pathString.isEmpty()) ? "/" : pathString;
-    //Path path = new Path(pathString);
     Directory curr = workingDir;
     for (String segment : path) {
       if (segment.equals("/")) {

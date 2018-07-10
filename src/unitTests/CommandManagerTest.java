@@ -31,16 +31,18 @@ package unitTests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
+import filesystem.InMemoryFileSystem;
 import org.junit.Test;
 import utilities.CommandManager;
 
 public class CommandManagerTest {
+
   TestingConsole testOut = new TestingConsole();
   TestingConsole testErrOut = new TestingConsole();
-  FileSystem fs = new NonPersistentFileSystem();
+  FileSystem fs = new InMemoryFileSystem();
   CommandManager cm =
       CommandManager.constructCommandManager(testOut, testErrOut, fs);
 

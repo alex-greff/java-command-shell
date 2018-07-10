@@ -42,13 +42,14 @@ import utilities.ExitCode;
 
 /**
  * The cd command class that inherits from command
- * 
+ *
  * @author ursu
  */
 public class CmdCd extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -66,10 +67,10 @@ public class CmdCd extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Change directory.",
-          "cd DIRECTORY")
-              .additionalComment(
-                  "Path of DIRECTORY can be relative or absolute.")
-              .build();
+                                                "cd DIRECTORY")
+          .additionalComment(
+              "Path of DIRECTORY can be relative or absolute.")
+          .build();
 
   /**
    * Executes the cd command with the given arguments. Cd changes the working

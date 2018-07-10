@@ -46,9 +46,10 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdTree extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -65,10 +66,10 @@ public class CmdTree extends Command {
           "Prints a tree representation of the entire filesystem, "
               + "starting from the root.",
           "tree")
-              .additionalComment(
-                  "Directory content is listed a tab forward, and below"
-                      + " the directory name")
-              .build();
+          .additionalComment(
+              "Directory content is listed a tab forward, and below"
+                  + " the directory name")
+          .build();
 
   /**
    * @param args The arguments for the command call.
@@ -108,7 +109,7 @@ public class CmdTree extends Command {
    * @param curr The current directory to get names from
    * @param tabs The amount of tabs to indent the newlines
    * @return a block of String which represents the filesystem from the curr
-   *         directory down.
+   * directory down.
    */
   private String addOn(Directory curr, int tabs) throws FileNotFoundException {
     // get proper amount of tabs

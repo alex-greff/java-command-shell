@@ -44,17 +44,18 @@ import utilities.ExitCode;
  * @author anton
  */
 public class CmdPushd extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
   public CmdPushd(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
-  
-  
+
+
   /**
    * Command info constants
    */

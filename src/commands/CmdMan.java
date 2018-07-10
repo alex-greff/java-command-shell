@@ -43,9 +43,10 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdMan extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -64,7 +65,7 @@ public class CmdMan extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND")
-              .additionalComment("For some fun try \"man man\".").build();
+          .additionalComment("For some fun try \"man man\".").build();
 
   /**
    * Executes the man command with the arguments args

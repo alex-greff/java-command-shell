@@ -1,14 +1,17 @@
 package unitTests;
 
-import static org.junit.Assert.*;
-import org.junit.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import filesystem.Directory;
 import filesystem.File;
 import filesystem.FileNotFoundException;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import org.junit.Test;
 
 public class MockFileSystemTest {
+
   @Test
   public void testChangeWorkingDirWithValidPath()
       throws MalformedPathException, FileNotFoundException {
@@ -32,21 +35,21 @@ public class MockFileSystemTest {
     MockFileSystem mfs = new MockFileSystem();
     mfs.changeWorkingDir(new Path("nonExistentFilePath"));
   }
-  
+
   @Test
   public void testGetAbsolutePathOfDirNormalDirectory() {
     MockFileSystem mfs = new MockFileSystem();
     String path = mfs.getAbsolutePathOfDir(new Directory("myDir", null));
     assertEquals(path, "/some/valid/directory/myDir");
   }
-  
+
   @Test
   public void testGetAbsolutePathOfDirRootDirectory() {
     MockFileSystem mfs = new MockFileSystem();
     String path = mfs.getAbsolutePathOfDir(new Directory("root", null));
     assertEquals(path, "/some/valid/directory/root");
   }
-  
+
   @Test
   public void testGetFileByPathWithValidPath()
       throws MalformedPathException, FileNotFoundException {
@@ -72,7 +75,7 @@ public class MockFileSystemTest {
     MockFileSystem mfs = new MockFileSystem();
     mfs.getFileByPath(new Path("nonExistentFilePath"));
   }
-  
+
   @Test
   public void testGetDirByPathWithValidPath()
       throws MalformedPathException, FileNotFoundException {
@@ -98,7 +101,7 @@ public class MockFileSystemTest {
     MockFileSystem mfs = new MockFileSystem();
     mfs.getDirByPath(new Path("nonExistentFilePath"));
   }
-  
+
   @Test
   public void testGetWorkingDir() {
     MockFileSystem mfs = new MockFileSystem();
@@ -106,14 +109,14 @@ public class MockFileSystemTest {
     assertEquals(d.getName(), "myWorkingDirectory");
     assertNull(d.getParent());
   }
-  
+
   @Test
   public void testGetWorkingDirPath() {
     MockFileSystem mfs = new MockFileSystem();
     String s = mfs.getWorkingDirPath();
     assertEquals(s, "/some/path/to/myWorkingDirectory");
   }
-  
+
   @Test
   public void testGetRoot() {
     MockFileSystem mfs = new MockFileSystem();

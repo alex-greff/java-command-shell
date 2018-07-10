@@ -30,12 +30,11 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import commands.CmdExit;
+
 import commands.CmdPwd;
 import containers.CommandArgs;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
-import java.lang.reflect.Field;
+import filesystem.InMemoryFileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -43,6 +42,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 public class CmdPwdTest {
+
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private TestingConsole testOut;
@@ -56,7 +56,7 @@ public class CmdPwdTest {
   public void reset() {
     testOut = new TestingConsole();
     testErrOut = new TestingConsole();
-    fs = new NonPersistentFileSystem();
+    fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdPwd(fs, cm);
   }

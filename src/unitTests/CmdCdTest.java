@@ -30,13 +30,12 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import commands.CmdCat;
+
 import commands.CmdCd;
 import containers.CommandArgs;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
-import java.lang.reflect.Field;
+import filesystem.InMemoryFileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -58,7 +57,7 @@ public class CmdCdTest {
   public void reset() {
     testOut = new TestingConsole();
     testErrOut = new TestingConsole();
-    fs = new NonPersistentFileSystem();
+    fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdCd(fs, cm);
   }

@@ -13,8 +13,8 @@ public class MockFileSystem implements FileSystem {
    * Simulates changing the working directory. Use "validPath" to simulate a
    * valid path behavior. Use "invalidPath" and "nonExistentFilePath" to throw
    * MalformedPathException and FileNotFoundException, respectively.
-   * 
-   * @param pathString The string of the path.
+   *
+   * @param path The path.
    */
   @Override
   public void changeWorkingDir(Path path)
@@ -31,7 +31,7 @@ public class MockFileSystem implements FileSystem {
 
   /**
    * Simulates getting the absolute path of a directory.
-   * 
+   *
    * @param theDir The wanted directory.
    * @return Returns "/some/valid/directory/[theDir.getName()]"
    */
@@ -45,10 +45,10 @@ public class MockFileSystem implements FileSystem {
    * valid path behavior. Use "invalidPath" and "nonExistentFilePath" to throw
    * MalformedPathException and FileNotFoundException, respectively. Using any
    * other string for pathString will throw a FileNotFoundException by default.
-   * 
-   * @param pathString The string of the path.
+   *
+   * @param path The path.
    * @return Returns a file with the name "someFile" and the contents "some file
-   *         contents".
+   * contents".
    */
   @Override
   public File getFileByPath(Path path)
@@ -71,10 +71,10 @@ public class MockFileSystem implements FileSystem {
    * to throw MalformedPathException and FileNotFoundException, respectively.
    * Using any other string for pathString will throw a FileNotFoundException by
    * default.
-   * 
-   * @param pathString The string of the path.
+   *
+   * @param path The path.
    * @return Returns a directory with the name "someDirectory" with no parent or
-   *         children.
+   * children.
    */
   @Override
   public Directory getDirByPath(Path path)
@@ -93,9 +93,9 @@ public class MockFileSystem implements FileSystem {
 
   /**
    * Simulates getting the working directory.
-   * 
+   *
    * @return Returns a directory with name "myWorkingDirectory" with no parent
-   *         or children.
+   * or children.
    */
   @Override
   public Directory getWorkingDir() {
@@ -104,7 +104,7 @@ public class MockFileSystem implements FileSystem {
 
   /**
    * Simulates getting the path to the working directory.
-   * 
+   *
    * @return Returns the string "/some/path/to/myWorkingDirectory".
    */
   @Override
@@ -114,7 +114,7 @@ public class MockFileSystem implements FileSystem {
 
   /**
    * Simulates getting the root directory.
-   * 
+   *
    * @return Returns a directory with name "root" with no parent or children.
    */
   @Override

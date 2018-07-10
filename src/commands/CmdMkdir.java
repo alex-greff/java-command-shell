@@ -48,16 +48,17 @@ import utilities.ExitCode;
  * @author anton
  */
 public class CmdMkdir extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
   public CmdMkdir(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
-  
+
   /**
    * Command info constants
    */
@@ -67,10 +68,10 @@ public class CmdMkdir extends Command {
           "Make a new directory given one or more paths to an "
               + "existing parent",
           "mkdir PATH_LIST")
-              .additionalComment("The given path may be absolute or relative")
-              .additionalComment("The path up to and not including the "
-                  + "last segment must point to an existing directory")
-              .build();
+          .additionalComment("The given path may be absolute or relative")
+          .additionalComment("The path up to and not including the "
+                                 + "last segment must point to an existing directory")
+          .build();
 
   /**
    * Executes the mkdir command

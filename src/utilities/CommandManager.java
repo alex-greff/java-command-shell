@@ -45,9 +45,6 @@ import commands.CmdTree;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
-import io.Console;
-import io.ErrorConsole;
 import io.Writable;
 import java.util.HashMap;
 
@@ -58,16 +55,18 @@ import java.util.HashMap;
  * @author ursu
  */
 public class CommandManager {
+
   /**
    * Factory method constructing a new instance of a command manager.
-   * 
+   *
    * @param out The standard output console.
    * @param errorOut The standard error console.
    * @param fileSystem The file system to be used.
    * @return Returns a new instance of a command manager.
    */
   public static CommandManager constructCommandManager(Writable out,
-      Writable errorOut, FileSystem fileSystem) {
+                                                       Writable errorOut,
+                                                       FileSystem fileSystem) {
     return new CommandManager(out, errorOut, fileSystem);
   }
 
@@ -101,11 +100,11 @@ public class CommandManager {
    * Private constructor for singleton
    */
   private CommandManager(Writable out, Writable errorOut,
-      FileSystem fileSystem) {
+                         FileSystem fileSystem) {
     this.out = out;
     this.errorOut = errorOut;
     this.fileSystem = fileSystem;
-    
+
     initializeCommands();
   }
 
@@ -176,7 +175,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   *         exists, or null
+   * exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

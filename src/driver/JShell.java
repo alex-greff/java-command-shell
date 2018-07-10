@@ -30,7 +30,7 @@
 package driver;
 
 import containers.CommandArgs;
-import filesystem.NonPersistentFileSystem;
+import filesystem.InMemoryFileSystem;
 import io.Console;
 import io.ErrorConsole;
 import java.util.ArrayList;
@@ -39,9 +39,8 @@ import utilities.Parser;
 
 /**
  * the JShell terminal.
- * 
- * @author chedy
  *
+ * @author chedy
  */
 public class JShell {
 
@@ -55,7 +54,7 @@ public class JShell {
   /**
    * the filesystem that the JShell operates on
    */
-  private static NonPersistentFileSystem fs = new NonPersistentFileSystem();
+  private static InMemoryFileSystem fs = new InMemoryFileSystem();
 
   /**
    * The console that the JShell reads and writes from
@@ -82,7 +81,7 @@ public class JShell {
   /**
    * The main function which makes the appropriate calls for JShell to operate
    * and that loops continually until exited
-   * 
+   *
    * @param args the arguments that are passed in after running the JShell
    */
   public static void main(String[] args) {
@@ -119,7 +118,7 @@ public class JShell {
 
   /**
    * Gets the user input history.
-   * 
+   *
    * @return the user input history
    */
   public static ArrayList<String> getHistory() {
@@ -131,7 +130,7 @@ public class JShell {
    *
    * @param input the raw string that is to be parsed and executed
    */
-  public static void parseAndExecute(String input){
+  public static void parseAndExecute(String input) {
     // parse the input
     CommandArgs parsedInput = Parser.parseUserInput(input);
     // Execute the command

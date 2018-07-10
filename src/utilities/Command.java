@@ -32,7 +32,6 @@ package utilities;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
 import io.Writable;
 
 /**
@@ -41,6 +40,7 @@ import io.Writable;
  * @author greff
  */
 public abstract class Command {
+
   /**
    * The command's name
    */
@@ -64,7 +64,7 @@ public abstract class Command {
 
   /**
    * Constructs a new command instance
-   * 
+   *
    * @param fileSystem The file system the command uses
    */
   public Command(FileSystem fileSystem, CommandManager commandManager) {
@@ -80,7 +80,7 @@ public abstract class Command {
    * @param fileSystem The file system the command uses
    */
   public Command(String name, CommandDescription description,
-      FileSystem fileSystem, CommandManager commandManager) {
+                 FileSystem fileSystem, CommandManager commandManager) {
 
     this(fileSystem, commandManager);
     this.NAME = name;
@@ -96,7 +96,7 @@ public abstract class Command {
    * @return Returns the exit condition of the command.
    */
   public abstract ExitCode execute(CommandArgs args, Writable out,
-      Writable errorOut);
+                                   Writable errorOut);
 
   /**
    * Checks if the given args are valid for this command.

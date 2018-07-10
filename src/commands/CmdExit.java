@@ -44,16 +44,17 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdExit extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
   public CmdExit(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
-  
+
   // Setup command information
   /**
    * The name of the command.
@@ -65,7 +66,7 @@ public class CmdExit extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Exits the currently running JShell.", "exit").build();
-  
+
   /**
    * Executes the exit command to shut the JShell down.
    *

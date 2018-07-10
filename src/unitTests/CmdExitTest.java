@@ -31,12 +31,12 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import commands.CmdCd;
+
 import commands.CmdExit;
 import containers.CommandArgs;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
+import filesystem.InMemoryFileSystem;
+import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
@@ -44,6 +44,7 @@ import utilities.ExitCode;
 import utilities.Parser;
 
 public class CmdExitTest {
+
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private TestingConsole tc;
@@ -57,7 +58,7 @@ public class CmdExitTest {
   public void reset() {
     tc = new TestingConsole();
     tc_err = new TestingConsole();
-    fs = new NonPersistentFileSystem();
+    fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdExit(fs, cm);
   }

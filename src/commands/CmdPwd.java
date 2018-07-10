@@ -32,7 +32,6 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
 import io.Writable;
 import utilities.Command;
 import utilities.CommandManager;
@@ -44,9 +43,10 @@ import utilities.ExitCode;
  * @author ursu
  */
 public class CmdPwd extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -64,7 +64,7 @@ public class CmdPwd extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print working directory.",
-          "pwd").build();
+                                                "pwd").build();
 
   /**
    * Executes the pwd command with the given arguments. Pwd prints the working

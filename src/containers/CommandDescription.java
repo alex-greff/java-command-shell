@@ -37,6 +37,7 @@ import java.util.ArrayList;
  * @author greff
  */
 public class CommandDescription {
+
   /**
    * The description of the command.
    */
@@ -52,13 +53,13 @@ public class CommandDescription {
 
   /**
    * Private constructor.
-   * 
+   *
    * @param description The description of the command.
    * @param usages The usages for the command.
    * @param additionalComments Any additional comments.
    */
   private CommandDescription(String description, ArrayList<String> usages,
-      ArrayList<String> additionalComments) {
+                             ArrayList<String> additionalComments) {
     this.description = description;
     this.usages = usages;
     this.additionalComments = additionalComments;
@@ -92,10 +93,10 @@ public class CommandDescription {
   }
 
   /**
-   * Internal builder class used to simplify the creation of the comments class.
-   * 
-   * @author anton
+   * Internal builder class used to simplify the creation of the comments
+   * class.
    *
+   * @author anton
    */
   public static class DescriptionBuilder {
 

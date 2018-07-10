@@ -36,7 +36,6 @@ import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
@@ -50,9 +49,10 @@ import utilities.ExitCode;
  * @author greff
  */
 public class CmdEcho extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -71,14 +71,14 @@ public class CmdEcho extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Appends or writes a string to a file.", "echo STRING")
-              .usage("echo STRING [> OUTFILE]")
-              .usage("echo STRING [>> OUTFILE]")
-              .additionalComment(
-                  "The \">\" character signals to overwrite the file "
-                      + "conents.")
-              .additionalComment(
-                  "The \">>\" character signals to append to the file conents.")
-              .build();
+          .usage("echo STRING [> OUTFILE]")
+          .usage("echo STRING [>> OUTFILE]")
+          .additionalComment(
+              "The \">\" character signals to overwrite the file "
+                  + "conents.")
+          .additionalComment(
+              "The \">>\" character signals to append to the file conents.")
+          .build();
   /**
    * The overwrite operator character.
    */
@@ -144,36 +144,36 @@ public class CmdEcho extends Command {
     String strContents = args.getCommandParameters()[0];
     String filePathStr = args.getTargetDestination();
 
-      // Get the File
-      File file;
+    // Get the File
+    File file;
+    try {
+      file = fileSystem.getFileByPath(new Path(filePathStr));
+      // If the file does not exist
+    } catch (FileNotFoundException e) {
+      // Attempt to make the file
       try {
-        file = fileSystem.getFileByPath(new Path(filePathStr));
-        // If the file does not exist
-      } catch (FileNotFoundException e) {
-        // Attempt to make the file
-        try {
-          file = makeFile(filePathStr);
+        file = makeFile(filePathStr);
         // Catch if the directory is not found
-        } catch (FileNotFoundException e1) {
-          errOut.writeln("Error: No directory found");
-          return ExitCode.FAILURE;
+      } catch (FileNotFoundException e1) {
+        errOut.writeln("Error: No directory found");
+        return ExitCode.FAILURE;
         // Catch if the path is invalid
-        } catch (MalformedPathException e1) {
-          errOut.write("Error: Invalid path \"" + filePathStr + "\"");
-          return ExitCode.FAILURE;
-        }
       } catch (MalformedPathException e1) {
-        errOut.writeln("Error: Not a valid file path");
+        errOut.write("Error: Invalid path \"" + filePathStr + "\"");
         return ExitCode.FAILURE;
       }
+    } catch (MalformedPathException e1) {
+      errOut.writeln("Error: Not a valid file path");
+      return ExitCode.FAILURE;
+    }
 
-      // Wipe the file contents if the overwrite operator is given in the args
-      if (redirOper.equals(OVERWRITE_OPERATOR)) {
-        file.clear();
-      }
+    // Wipe the file contents if the overwrite operator is given in the args
+    if (redirOper.equals(OVERWRITE_OPERATOR)) {
+      file.clear();
+    }
 
-      // Add the string contents to the file
-      file.write(strContents);
+    // Add the string contents to the file
+    file.write(strContents);
 
     // Reaching this point means that the write to file executed successfully
     return ExitCode.SUCCESS;
@@ -187,7 +187,7 @@ public class CmdEcho extends Command {
    * @return Returns the created file.
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
-      FileNotFoundException, FileAlreadyExistsException {
+                                                   FileNotFoundException, FileAlreadyExistsException {
 
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
@@ -204,7 +204,7 @@ public class CmdEcho extends Command {
     if (dirPathStr.equals("")) {
       dirPathStr = "/";
     }
-    
+
     // Get the directory at the path
     Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
 
@@ -226,8 +226,8 @@ public class CmdEcho extends Command {
     return args.getCommandName().equals(NAME)
         && args.getCommandParameters().length == 1
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR))
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR))
         && args.getNumberOfNamedCommandParameters() == 0;
   }
 }

@@ -35,7 +35,6 @@ import filesystem.Directory;
 import filesystem.File;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
@@ -50,9 +49,10 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdLs extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -70,14 +70,14 @@ public class CmdLs extends Command {
               + "working directory. Can take multiple "
               + "filenames/directory \n names as arguments",
           "ls").usage("ls [Directory]").usage("ls [File]")
-              .usage("ls [Directory] [File]")
-              .additionalComment(
-                  "If given a filename, ls will simply print back that "
-                      + "name")
-              .additionalComment(
-                  "ls separates multiple argument's content with an "
-                      + "extra newline")
-              .build();
+          .usage("ls [Directory] [File]")
+          .additionalComment(
+              "If given a filename, ls will simply print back that "
+                  + "name")
+          .additionalComment(
+              "ls separates multiple argument's content with an "
+                  + "extra newline")
+          .build();
 
   /**
    * @param args The command Arguments.

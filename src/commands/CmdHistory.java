@@ -45,9 +45,10 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdHistory extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -69,11 +70,11 @@ public class CmdHistory extends Command {
               + "by default, but if given a positive integer "
               + "argument x, the last x user entries will be listed.",
           "history")
-              .usage("history [int]")
-              .additionalComment("The history command itself will "
-                  + "always take place as the latest entry in history "
-                  + "\n(i.e. history 1 prints: \n 1. history 1)")
-              .build();
+          .usage("history [int]")
+          .additionalComment("The history command itself will "
+                                 + "always take place as the latest entry in history "
+                                 + "\n(i.e. history 1 prints: \n 1. history 1)")
+          .build();
 
   /**
    * @param args The arguments for the command call.

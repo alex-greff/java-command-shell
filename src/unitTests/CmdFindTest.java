@@ -31,15 +31,14 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import commands.CmdEcho;
+
 import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.File;
 import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
-import filesystem.NonPersistentFileSystem;
-import java.lang.reflect.Field;
+import filesystem.InMemoryFileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -48,6 +47,7 @@ import utilities.ExitCode;
 import utilities.Parser;
 
 public class CmdFindTest {
+
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private TestingConsole tc;
@@ -61,7 +61,7 @@ public class CmdFindTest {
   public void reset() throws FileAlreadyExistsException {
     tc = new TestingConsole();
     tc_err = new TestingConsole();
-    fs = new NonPersistentFileSystem();
+    fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdFind(fs, cm);
 
@@ -83,7 +83,6 @@ public class CmdFindTest {
     dir4.addFile(file1_2);
     dir4.createAndAddNewDir("dir1");
   }
-
 
 
   @Test

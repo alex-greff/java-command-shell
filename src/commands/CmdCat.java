@@ -47,9 +47,10 @@ import utilities.ExitCode;
  * @author ursu
  */
 public class CmdCat extends Command {
+
   /**
    * Constructs a new command instance.
-   * 
+   *
    * @param fileSystem The file system that the command uses.
    * @param commandManager The command manager that the command uses.
    */
@@ -67,10 +68,10 @@ public class CmdCat extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print contents of file(s).",
-          "cat FILES")
-              .additionalComment("Path of FILE can be relative or absolute.")
-              .additionalComment("Can take more than one FILE as arguments.")
-              .build();
+                                                "cat FILES")
+          .additionalComment("Path of FILE can be relative or absolute.")
+          .additionalComment("Can take more than one FILE as arguments.")
+          .build();
 
   /**
    * Executes the cat command with the given arguments. Cat prints the contents

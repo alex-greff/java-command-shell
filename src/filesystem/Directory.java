@@ -38,6 +38,7 @@ import java.util.HashMap;
  * @author anton
  */
 public class Directory {
+
   /**
    * The name of the directory.
    */
@@ -74,7 +75,8 @@ public class Directory {
    *
    * @param name The name of the new child directory
    * @return Returns the new created directory
-   * @throws FileAlreadyExistsException Thrown when the directory already exists
+   * @throws FileAlreadyExistsException Thrown when the directory already
+   * exists
    */
   public Directory createAndAddNewDir(String name)
       throws FileAlreadyExistsException {

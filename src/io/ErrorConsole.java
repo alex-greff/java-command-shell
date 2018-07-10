@@ -39,7 +39,8 @@ public class ErrorConsole implements Writable {
   /**
    * The constructor, defaulted to public visibility.
    */
-  public ErrorConsole() {}
+  public ErrorConsole() {
+  }
 
   /**
    * Writes a string to the error console

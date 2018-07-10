@@ -37,9 +37,9 @@ import io.Writable;
  * and written.
  *
  * @author anton
- * 
  */
 public class File implements Writable, Readable {
+
   /**
    * The name of the file.
    */
@@ -53,7 +53,7 @@ public class File implements Writable, Readable {
    * Create a new file given a name and the contents of the file
    *
    * @param name The name by which the file is to be referred, may or may not
-   *        contain an extension
+   * contain an extension
    * @param contents The text data stored inside the file
    */
   public File(String name, String contents) {
@@ -65,7 +65,7 @@ public class File implements Writable, Readable {
    * Create a new file with the given name, and empty contents
    *
    * @param name The name by which the file is to be referred, may or may not
-   *        contain an extension
+   * contain an extension
    */
   public File(String name) {
     this.name = name;

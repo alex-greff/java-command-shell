@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * The parser class.
- * 
+ *
  * @author greff
  */
 public class Parser {
@@ -60,7 +60,7 @@ public class Parser {
    *
    * @param input The user input string
    * @return Returns a CommandArgs instance with the parsed user input or null
-   *         if the user input is incorrect
+   * if the user input is incorrect
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
@@ -195,6 +195,6 @@ public class Parser {
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, namedParamsMap, redirOperator,
-        targetDest);
+                           targetDest);
   }
 }
