@@ -91,7 +91,8 @@ public class CmdExit extends Command {
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length == 0
+        && args.getNumberOfCommandParameters() == 0
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && args.getRedirectOperator().equals("")
         && args.getTargetDestination().equals("");

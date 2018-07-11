@@ -38,6 +38,8 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -49,6 +51,10 @@ import utilities.ExitCode;
  * @author chedy
  */
 public class CmdLs extends Command {
+  /**
+   * The string for the recursive flag option.
+   */
+  private final String RECURSIVE_FLAG = "R";
 
   /**
    * Constructs a new command instance.
@@ -70,14 +76,14 @@ public class CmdLs extends Command {
               + "working directory. Can take multiple "
               + "filenames/directory \n names as arguments",
           "ls").usage("ls [Directory]").usage("ls [File]")
-          .usage("ls [Directory] [File]")
-          .additionalComment(
-              "If given a filename, ls will simply print back that "
-                  + "name")
-          .additionalComment(
-              "ls separates multiple argument's content with an "
-                  + "extra newline")
-          .build();
+              .usage("ls [Directory] [File]")
+              .additionalComment(
+                  "If given a filename, ls will simply print back that "
+                      + "name")
+              .additionalComment(
+                  "ls separates multiple argument's content with an "
+                      + "extra newline")
+              .build();
 
   /**
    * @param args The command Arguments.
@@ -159,8 +165,12 @@ public class CmdLs extends Command {
    */
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
+        && ((args.getNumberOfCommandFieldParameters() == 1
+            && args.getCommandFlags()[0] == RECURSIVE_FLAG)
+            || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

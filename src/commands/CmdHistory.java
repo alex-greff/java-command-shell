@@ -34,6 +34,8 @@ import containers.CommandDescription;
 import driver.JShell;
 import filesystem.FileSystem;
 import io.Writable;
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -70,11 +72,11 @@ public class CmdHistory extends Command {
               + "by default, but if given a positive integer "
               + "argument x, the last x user entries will be listed.",
           "history")
-          .usage("history [int]")
-          .additionalComment("The history command itself will "
-                                 + "always take place as the latest entry in history "
-                                 + "\n(i.e. history 1 prints: \n 1. history 1)")
-          .build();
+              .usage("history [int]")
+              .additionalComment("The history command itself will "
+                  + "always take place as the latest entry in history "
+                  + "\n(i.e. history 1 prints: \n 1. history 1)")
+              .build();
 
   /**
    * @param args The arguments for the command call.
@@ -132,9 +134,11 @@ public class CmdHistory extends Command {
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length <= 1
+        && args.getNumberOfCommandParameters() <= 1
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

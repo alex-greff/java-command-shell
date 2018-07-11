@@ -29,6 +29,8 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -68,10 +70,10 @@ public class CmdMkdir extends Command {
           "Make a new directory given one or more paths to an "
               + "existing parent",
           "mkdir PATH_LIST")
-          .additionalComment("The given path may be absolute or relative")
-          .additionalComment("The path up to and not including the "
-                                 + "last segment must point to an existing directory")
-          .build();
+              .additionalComment("The given path may be absolute or relative")
+              .additionalComment("The path up to and not including the "
+                  + "last segment must point to an existing directory")
+              .build();
 
   /**
    * Executes the mkdir command
@@ -122,9 +124,11 @@ public class CmdMkdir extends Command {
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length > 0
+        && args.getNumberOfCommandParameters() > 0
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

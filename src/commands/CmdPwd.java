@@ -29,6 +29,8 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -64,7 +66,7 @@ public class CmdPwd extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print working directory.",
-                                                "pwd").build();
+          "pwd").build();
 
   /**
    * Executes the pwd command with the given arguments. Pwd prints the working
@@ -94,9 +96,11 @@ public class CmdPwd extends Command {
   public boolean isValidArgs(CommandArgs args) {
     // Make sure the NAME matches, nothing else
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length == 0
+        && args.getNumberOfCommandParameters() == 0
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

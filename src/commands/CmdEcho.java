@@ -42,6 +42,7 @@ import io.Writable;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import static utilities.JShellConstants.*;
 
 /**
  * The echo command.
@@ -71,22 +72,14 @@ public class CmdEcho extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Appends or writes a string to a file.", "echo STRING")
-          .usage("echo STRING [> OUTFILE]")
-          .usage("echo STRING [>> OUTFILE]")
-          .additionalComment(
-              "The \">\" character signals to overwrite the file "
-                  + "conents.")
-          .additionalComment(
-              "The \">>\" character signals to append to the file conents.")
-          .build();
-  /**
-   * The overwrite operator character.
-   */
-  private final String OVERWRITE_OPERATOR = ">";
-  /**
-   * The append operator character.
-   */
-  private final String APPEND_OPERATOR = ">>";
+              .usage("echo STRING [> OUTFILE]")
+              .usage("echo STRING [>> OUTFILE]")
+              .additionalComment(
+                  "The \">\" character signals to overwrite the file "
+                      + "conents.")
+              .additionalComment(
+                  "The \">>\" character signals to append to the file conents.")
+              .build();
 
   /**
    * Executes the echo command.
@@ -187,7 +180,7 @@ public class CmdEcho extends Command {
    * @return Returns the created file.
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
-                                                   FileNotFoundException, FileAlreadyExistsException {
+      FileNotFoundException, FileAlreadyExistsException {
 
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
@@ -224,10 +217,11 @@ public class CmdEcho extends Command {
   @Override
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length == 1
+        && args.getNumberOfCommandParameters() == 1
+        && args.getNumberOfCommandFieldParameters() == 0
+        && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR))
-        && args.getNumberOfNamedCommandParameters() == 0;
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

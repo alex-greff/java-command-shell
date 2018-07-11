@@ -29,6 +29,8 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -65,7 +67,7 @@ public class CmdMan extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND")
-          .additionalComment("For some fun try \"man man\".").build();
+              .additionalComment("For some fun try \"man man\".").build();
 
   /**
    * Executes the man command with the arguments args
@@ -128,9 +130,11 @@ public class CmdMan extends Command {
    */
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length == 1
+        && args.getNumberOfCommandParameters() == 1
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

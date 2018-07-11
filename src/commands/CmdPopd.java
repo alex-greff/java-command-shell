@@ -29,6 +29,8 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.DirectoryStack;
@@ -107,9 +109,11 @@ public class CmdPopd extends Command {
   public boolean isValidArgs(CommandArgs args) {
     // this command does not take any arguments
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length == 0
+        && args.getNumberOfCommandParameters() == 0
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
-        && args.getRedirectOperator().equals("")
-        && args.getTargetDestination().equals("");
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

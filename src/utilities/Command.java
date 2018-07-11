@@ -40,7 +40,6 @@ import io.Writable;
  * @author greff
  */
 public abstract class Command {
-
   /**
    * The command's name
    */

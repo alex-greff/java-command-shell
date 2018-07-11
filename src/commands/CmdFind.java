@@ -37,6 +37,8 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -73,8 +75,8 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-          .additionalComment("Nothing is printed if no files are found")
-          .build();
+              .additionalComment("Nothing is printed if no files are found")
+              .build();
   /**
    * The identifier for the type flag.
    */
@@ -156,8 +158,7 @@ public class CmdFind extends Command {
 
 
   /**
-   * Gets a set of all absolute paths to instances of files with the name
-   * "name"
+   * Gets a set of all absolute paths to instances of files with the name "name"
    *
    * @param dir The current directory
    * @param name The wanted file name
@@ -209,8 +210,7 @@ public class CmdFind extends Command {
    * @return Returns the set
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-                                                        String name)
-      throws FileNotFoundException {
+      String name) throws FileNotFoundException {
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
@@ -254,13 +254,15 @@ public class CmdFind extends Command {
    */
   public boolean isValidArgs(CommandArgs args) {
     return args.getCommandName().equals(NAME)
-        && args.getCommandParameters().length > 0
+        && args.getNumberOfCommandParameters() > 0
+        && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 2
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
-        && args.getRedirectOperator().length() == 0
-        && args.getTargetDestination().length() == 0;
+            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        && (args.getRedirectOperator().equals("")
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

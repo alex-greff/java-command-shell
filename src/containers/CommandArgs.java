@@ -250,6 +250,15 @@ public class CommandArgs {
   }
 
   /**
+   * Gets the number of command parameters.
+   * 
+   * @return Returns the number of command parameters.
+   */
+  public int getNumberOfCommandParameters() {
+    return this.cmdParams.length;
+  }
+  
+  /**
    * Gets the number of named command parameters
    *
    * @return Returns the number of named command parameters
@@ -258,6 +267,15 @@ public class CommandArgs {
     return this.namedCmdParams.keySet().size();
   }
 
+  /**
+   * Gets the number of field parameters.
+   * 
+   * @return Returns the number of field parameters.
+   */
+  public int getNumberOfCommandFieldParameters() {
+    return this.cmdFlags.length;
+  }
+  
   /**
    * Gets the redirect operator or returns "" if there is none
    *
