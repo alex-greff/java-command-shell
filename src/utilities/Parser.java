@@ -33,6 +33,8 @@ import containers.CommandArgs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 
 /**
  * The parser class.
@@ -40,15 +42,6 @@ import java.util.List;
  * @author greff
  */
 public class Parser {
-
-  /**
-   * The overwrite operator character.
-   */
-  private static final String OVERWRITE_OPERATOR = ">";
-  /**
-   * The append operator character.
-   */
-  private static final String APPEND_OPERATOR = ">>";
   /**
    * The type argument indicator character.
    */
