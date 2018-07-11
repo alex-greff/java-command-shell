@@ -1,0 +1,7 @@
+Class name: JShellConstants
+Parent class:
+
+Responsibilities:
+* a container storing global constants
+
+Collaborators:

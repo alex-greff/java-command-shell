@@ -1,4 +1,4 @@
-Class name: NonPersistentFileSystem
+Class name: InMemoryFileSystem
 Parent class:
 
 Responsibilities:
