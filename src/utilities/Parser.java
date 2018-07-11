@@ -33,8 +33,7 @@ import containers.CommandArgs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import static utilities.JShellConstants.APPEND_OPERATOR;
-import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+import static utilities.JShellConstants.*;
 
 /**
  * The parser class.
@@ -129,10 +128,26 @@ public class Parser {
    * @return Returns a CommandArgs object or null if the given input is invalid.
    */
   private static CommandArgs constructCommandArgs(List<String> inputSplit) {
-    // Get command name
+
+    // Get command name    
     String cmdName = inputSplit.get(0);
+    
     // Initialize an array list for all the command parameter
     List<String> paramsArrayList = new ArrayList<>();
+    
+    // If the command is the recall command (ie is prefixed with "!")
+    if (cmdName.startsWith(COMMAND_RECALL_CHAR)) {
+      // Get the suffix after "!"
+      String param = cmdName.substring(1, cmdName.length());
+      // If there is no string then the string is invalid
+      if (param.isEmpty())
+          return null;
+      // Add the string to the params list
+      paramsArrayList.add(param);
+      // Set the command name to "!"
+      cmdName = COMMAND_RECALL_CHAR;
+    }
+    
     // Initialize an array list for all flags
     List<String> flagsArrayList = new ArrayList<>();
     // Initialize the hash map for the named type parameters

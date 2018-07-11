@@ -327,4 +327,44 @@ public class ParserTest {
     CommandArgs c_wanted = new CommandArgs("echo", new String[] {"some\ntext"});
     assertEquals(p, c_wanted);
   }
+
+  @Test
+  public void testUserInputWithRecallCommandWithSmallNumber() {
+    CommandArgs p = Parser.parseUserInput("!3");
+
+    CommandArgs c_wanted = new CommandArgs("!", new String[] {"3"});
+    assertEquals(p, c_wanted);
+  }
+
+  @Test
+  public void testUserInputWithRecallCommandWithLargeNumber() {
+    CommandArgs p = Parser.parseUserInput("!567");
+
+    CommandArgs c_wanted = new CommandArgs("!", new String[] {"567"});
+    assertEquals(p, c_wanted);
+  }
+
+  @Test
+  public void testInvalidUserInputWithRecallCommandWithNoNumber() {
+    CommandArgs p = Parser.parseUserInput("!");
+
+    assertNull(p);
+  }
+
+  @Test
+  public void testUserInputWithRecallCommandWithSmallNumberWithMultSpaces() {
+    CommandArgs p = Parser.parseUserInput("\t  !3 \t \t    ");
+
+    CommandArgs c_wanted = new CommandArgs("!", new String[] {"3"});
+    assertEquals(p, c_wanted);
+  }
+
+  @Test
+  public void testUserInputWithRecallCommandWithOtherParams() {
+    CommandArgs p = Parser.parseUserInput("!567 lol \"hi there\"");
+
+    CommandArgs c_wanted =
+        new CommandArgs("!", new String[] {"567", "lol", "hi there"});
+    assertEquals(p, c_wanted);
+  }
 }

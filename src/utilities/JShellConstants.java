@@ -16,4 +16,9 @@ public final class JShellConstants {
    * The append operator character.
    */
   public static final String APPEND_OPERATOR = ">>";
+  
+  /**
+   * The character for the recall command.
+   */
+  public static final String COMMAND_RECALL_CHAR = "!";
 }
