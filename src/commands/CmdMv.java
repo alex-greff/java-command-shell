@@ -51,6 +51,12 @@ import utilities.ExitCode;
  */
 public class CmdMv extends Command {
 
+  /**
+   * Constructs a new command instance.
+   *
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
   public CmdMv(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
@@ -63,13 +69,39 @@ public class CmdMv extends Command {
   /**
    * Container built for the command's description
    */
-  private static final CommandDescription DESCRIPTION = null;
+  private static final CommandDescription DESCRIPTION =
+      new CommandDescription.DescriptionBuilder(
+          "Move contents of a file to another.", "mv OLDFILE NEWFILE")
+          .additionalComment(
+              "Paths of OLDFILE and NEWFILE can be relative or absolute.")
+          .additionalComment(
+              "The OLDFILE gets removed, and replaces the content of NEWFILE.")
+          .additionalComment(
+              "If NEWFILE doesn't exist yet, it will be created.")
+          .build();
 
+  /**
+   * Executes the mv command with the given arguments. Mv moves the contents of
+   * one file to another. Error messages if the path of the source/old file is
+   * invalid, or the file does not exist.
+   *
+   * @param args The command arguments container
+   * @param out Writable for Standard Output
+   * @param errOut Writable for Error Output
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
-
+    return ExitCode.SUCCESS;
   }
 
+  /**
+   * Helper function to check if the arguments passed are valid for this
+   * command. Mv expects exactly 2 arguments
+   *
+   * @param args The command arguments container.
+   * @return Returns true iff the arguments are valid, false otherwise
+   */
   @Override
   public boolean isValidArgs(CommandArgs args) {
     // Make sure the NAME matches, and there are exactly 2 arguments
@@ -81,5 +113,4 @@ public class CmdMv extends Command {
         || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
         || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
-
 }

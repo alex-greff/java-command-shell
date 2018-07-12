@@ -70,7 +70,7 @@ public class CmdPwd extends Command {
 
   /**
    * Executes the pwd command with the given arguments. Pwd prints the working
-   * directory
+   * directory.
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
