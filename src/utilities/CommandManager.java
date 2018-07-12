@@ -31,6 +31,7 @@ package utilities;
 
 import commands.CmdCat;
 import commands.CmdCd;
+import commands.CmdCp;
 import commands.CmdEcho;
 import commands.CmdExit;
 import commands.CmdFind;
@@ -38,6 +39,7 @@ import commands.CmdHistory;
 import commands.CmdLs;
 import commands.CmdMan;
 import commands.CmdMkdir;
+import commands.CmdMv;
 import commands.CmdPopd;
 import commands.CmdPushd;
 import commands.CmdPwd;
@@ -115,17 +117,19 @@ public class CommandManager {
   public void initializeCommands() {
     cmdMap.put("cat", new CmdCat(fileSystem, this));
     cmdMap.put("cd", new CmdCd(fileSystem, this));
+    cmdMap.put("cp", new CmdCp(fileSystem, this));
     cmdMap.put("echo", new CmdEcho(fileSystem, this));
     cmdMap.put("exit", new CmdExit(fileSystem, this));
+    cmdMap.put("find", new CmdFind(fileSystem, this));
     cmdMap.put("history", new CmdHistory(fileSystem, this));
     cmdMap.put("ls", new CmdLs(fileSystem, this));
     cmdMap.put("man", new CmdMan(fileSystem, this));
     cmdMap.put("mkdir", new CmdMkdir(fileSystem, this));
+    cmdMap.put("mv", new CmdMv(fileSystem, this));
     cmdMap.put("popd", new CmdPopd(fileSystem, this));
     cmdMap.put("pushd", new CmdPushd(fileSystem, this));
     cmdMap.put("pwd", new CmdPwd(fileSystem, this));
     cmdMap.put("tree", new CmdTree(fileSystem, this));
-    cmdMap.put("find", new CmdFind(fileSystem, this));
   }
 
   /**
