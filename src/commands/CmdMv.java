@@ -34,6 +34,7 @@ import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.Directory;
 import filesystem.File;
 import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
@@ -107,6 +108,16 @@ public class CmdMv extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+    Path oldPath, newPath;
+
+    try {
+      oldPath = new Path(args.getCommandParameters()[0]);
+      newPath = new Path(args.getCommandParameters()[1]);
+
+    } catch (MalformedPathException e) {
+      errOut.write("Invalid path(s) given");
+    }
+
     return ExitCode.SUCCESS;
   }
 
