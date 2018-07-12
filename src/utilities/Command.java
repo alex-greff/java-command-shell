@@ -189,7 +189,8 @@ public abstract class Command {
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
       FileNotFoundException, FileAlreadyExistsException {
-
+    boolean absolutePath = filePathStr.startsWith("/");
+    
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
     String fileName = fileSplit[fileSplit.length - 1];
@@ -203,7 +204,10 @@ public abstract class Command {
 
     // If the file is in the root
     if (dirPathStr.equals("")) {
-      dirPathStr = "/";
+      if (absolutePath)
+        dirPathStr = "/";
+      else
+        dirPathStr = fileSystem.getWorkingDirPath();
     }
 
     // Get the directory at the path

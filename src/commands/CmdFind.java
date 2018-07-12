@@ -128,16 +128,14 @@ public class CmdFind extends Command {
 
         // If we're looking for file occurrences
         if (type.equals(TYPE_FILE))
-        // Search recursively for the file
-        {
-          outputPaths = findFileInDirectoryStructure(currDir, expr);
-        }
+          // Search recursively for the file
+          outputPaths =
+              findFileInDirectoryStructure(currDir, dirStrPath, expr, errOut);
         // If we're looking for directory occurrences
         else if (type.equals(TYPE_DIR))
-        // Search recursively for the directory
-        {
-          outputPaths = findDirectoryInDirectoryStructure(currDir, expr);
-        }
+          // Search recursively for the directory
+          outputPaths = findDirectoryInDirectoryStructure(currDir, dirStrPath,
+              expr, errOut);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -168,10 +166,13 @@ public class CmdFind extends Command {
    * Gets a set of all absolute paths to instances of files with the name "name"
    *
    * @param dir The current directory
+   * @param dirStrPath The path of the current directory
    * @param name The wanted file name
+   * @errOut The error console
    * @return Returns the set
    */
-  private Set<String> findFileInDirectoryStructure(Directory dir, String name)
+  private Set<String> findFileInDirectoryStructure(Directory dir,
+      String dirStrPath, String name, Writable errOut)
       throws FileNotFoundException {
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
@@ -184,13 +185,13 @@ public class CmdFind extends Command {
 
       // If the directory is the root directory
       if (dirAbsPath.equals("/"))
-      // Remove the extra "/" character
-      {
+        // Remove the extra "/" character
         dirAbsPath = "";
-      }
 
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name);
+    } else {
+      errOut.writeln("Error: file not found: " + dirStrPath + "/" + name);
     }
 
     // Iterate through each child directory
@@ -198,10 +199,12 @@ public class CmdFind extends Command {
     for (String childDirName : childDirNames) {
       // Get the child directory object
       Directory childDir = dir.getDirByName(childDirName);
+      String childDirStrPath = dirStrPath + "/" + childDirName;
 
       // Call the function recursively again on the child directory and add any
       // instances of the file to the current return set
-      ret_set.addAll(findFileInDirectoryStructure(childDir, name));
+      ret_set.addAll(findFileInDirectoryStructure(childDir, childDirStrPath,
+          name, errOut));
     }
 
     // Return the set
@@ -213,11 +216,14 @@ public class CmdFind extends Command {
    * "name"
    *
    * @param dir The current directory
+   * @param dirStrPath The path of the current directory
    * @param name The wanted directory name
+   * @errOut The error console
    * @return Returns the set
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-      String name) throws FileNotFoundException {
+      String dirStrPath, String name, Writable errOut)
+      throws FileNotFoundException {
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
@@ -229,13 +235,13 @@ public class CmdFind extends Command {
 
       // If the directory is the root directory
       if (dirAbsPath.equals("/"))
-      // Remove the extra "/" character
-      {
+        // Remove the extra "/" character
         dirAbsPath = "";
-      }
 
       // Add the file's path to the return set
       ret_set.add(dirAbsPath + "/" + name + "/");
+    } else {
+      errOut.writeln("Error: directory not found: " + dirStrPath + "/" + name);
     }
 
     // Iterate through each child directory
@@ -243,10 +249,12 @@ public class CmdFind extends Command {
     for (String childDirName : childDirNames) {
       // Get the child directory object
       Directory childDir = dir.getDirByName(childDirName);
+      String childDirStrPath = dirStrPath + "/" + childDirName;
 
       // Call the function recursively again on the child directory and add any
       // instances of the directory to the current return set
-      ret_set.addAll(findDirectoryInDirectoryStructure(childDir, name));
+      ret_set.addAll(findDirectoryInDirectoryStructure(childDir,
+          childDirStrPath, name, errOut));
     }
 
     // Return the set
