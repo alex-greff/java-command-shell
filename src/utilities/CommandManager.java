@@ -32,6 +32,7 @@ package utilities;
 import commands.CmdCat;
 import commands.CmdCd;
 import commands.CmdCp;
+import commands.CmdCurl;
 import commands.CmdEcho;
 import commands.CmdExit;
 import commands.CmdFind;
@@ -67,8 +68,7 @@ public class CommandManager {
    * @return Returns a new instance of a command manager.
    */
   public static CommandManager constructCommandManager(Writable out,
-                                                       Writable errorOut,
-                                                       FileSystem fileSystem) {
+      Writable errorOut, FileSystem fileSystem) {
     return new CommandManager(out, errorOut, fileSystem);
   }
 
@@ -102,7 +102,7 @@ public class CommandManager {
    * Private constructor for singleton
    */
   private CommandManager(Writable out, Writable errorOut,
-                         FileSystem fileSystem) {
+      FileSystem fileSystem) {
     this.out = out;
     this.errorOut = errorOut;
     this.fileSystem = fileSystem;
@@ -130,6 +130,7 @@ public class CommandManager {
     cmdMap.put("pushd", new CmdPushd(fileSystem, this));
     cmdMap.put("pwd", new CmdPwd(fileSystem, this));
     cmdMap.put("tree", new CmdTree(fileSystem, this));
+    cmdMap.put("curl", new CmdCurl(fileSystem, this));
   }
 
   /**
@@ -179,7 +180,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   * exists, or null
+   *         exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String
