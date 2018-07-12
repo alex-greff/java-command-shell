@@ -111,7 +111,7 @@ public class CmdCat extends Command {
     }
 
     // Write all the contents read to the Console and return SUCCESS always
-    out.writeln(result.toString().trim());
+    out.write(result.toString().trim() + "\n");
     return ExitCode.SUCCESS;
   }
 

@@ -100,7 +100,7 @@ public class CmdCd extends Command {
 
     } catch (FileNotFoundException e) {
       // No Directory at the Path of the argument given, return FAILURE
-      errOut.writeln("Error: File does not exist");
+      errOut.writeln("Error: Directory does not exist");
       return ExitCode.FAILURE;
     }
 

@@ -123,7 +123,7 @@ public class CmdHistory extends Command {
       // if the parameter was 0, an empty string is returned
     }
 
-    out.writeln(result.toString());
+    out.write(result.toString().trim() + "\n");
     return ExitCode.SUCCESS;
   }
 
