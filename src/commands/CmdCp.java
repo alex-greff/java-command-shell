@@ -65,15 +65,27 @@ public class CmdCp extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Copy contents of a file to another.", "cp OLDPATH NEWPATH")
+          "Copies contents of a file to another.", "cp OLDPATH NEWPATH")
           .additionalComment(
               "Paths of OLDPATH and NEWPATH can be relative or absolute.")
           .additionalComment(
-              "File at OLDPATH is kept, and replaces the content at NEWPATH.")
+              "File(s) at OLDPATH is kept, and replaces the content at"
+                  + " NEWPATH.")
           .additionalComment(
-              "If NEWPATH doesn't exist yet, it will be created.")
+              "If both the old and new paths are files, the content of the old"
+                  + " file is copied to the new file. The old file must exist,"
+                  + " but the new file is created if it does not yet exist")
           .additionalComment(
-              "If OLDPATH is a directory, all contents inside are recursively copied")
+              "If the old path is a file, and the new path is a directory, the"
+                  + " file is copied into the directory. The file and directory"
+                  + " must exist")
+          .additionalComment(
+              "If both the old and new paths are directories, all files in the"
+                  + " old directory are copied into the new directory. The"
+                  + " directories must exist")
+          .additionalComment(
+              "No functionality if the old path is a directory and the new path"
+                  + " is a file at the same time")
           .build();
 
   /**
