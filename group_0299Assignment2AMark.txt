@@ -1,0 +1,151 @@
+==== A2 phase I marking ====
+
+This assignment is marked by TA (name and email):
+Bryan Tam, bryan.tam@mail.utoronto.ca
+
+Group number: 299
+UTORID usernames of members: greffal1, kamins42, sankarch, ursualex
+Total deductions: -4
+Grade: B
+
+The instructor has increased your assignment 2A letter grade by +2 and your new grade is: A-
+
+Individual grade: kamins42: -1 for not completing CATME -> B+
+
+
+Your team's Phase II grade is based on this scale:
+
+    http://www.artsandscience.utoronto.ca/ofr/calendar/rules.htm#grading
+
+The way we graded is as follows: your team starts with an A+. When errors and
+problems are found, you will lose 0, 1, 2, or 3 letter steps, depending on the
+severity. As an example, if you lost two steps, your team would earn an A-:
+
+     A+ -> A
+     A -> A-
+
+You were asked to follow the Scrum process. A big part of that is to maintain
+a product backlog and a sprint backlog. 
+
+==== Product and Sprint backlogs ==== [up to -6]
+
+No deduction in this section.
+
+==== Java Style ==== [up to -6]
+
+Steps can be lost for these kinds of issues:
+
+No deduction in this section.
+
+==== Design ==== [up to -6]
+
+Several steps can be lost for these kinds of issues:
+
+	redirection doesn't easily incorporate new commands -2
+		* redirection logic is embedded in Echo
+		* which makes it harder to implement redirection to other commands
+	
+
+==== Correctness ==== [up to -6]
+
+    [-2] We have deducted -1 for every three failing test cases.
+
+Failed testcase:
+1. ls multiple directories
+The output format is not following what specified in the handout,
+and the output of your program has no way to tell which part belongs to which folder.
+
+Input:
+mkdir /A
+mkdir /A/B
+mkdir /A/B/C
+ls A A/B
+
+Expected output:
+A:
+B
+
+A/B:
+C
+
+Actual output:
+B
+
+C
+
+
+2. history a small number
+The history outputted should show the number in the whole history log,
+and should not reset to 1
+
+Input:
+(Many other commands)
+history 1
+
+Expected output:
+57. history 1
+
+Actual output:
+1. history
+
+
+3. echo without quotation
+
+Input:
+echo hello
+
+Expected output:
+Invalid argument (or similar error)
+
+Actual output:
+hello
+
+
+4. echo to file
+The file path should be relative to the current directoy, not root
+
+Input:
+mkdir A
+cd /A
+echo "test" > test
+
+Expected output:
+/# ls /A
+test
+
+Actual output:
+/# ls /A
+
+/# ls /
+A
+test
+
+5. find file with wrong type
+
+Input:
+mkdir /TestFolder
+cd TestFolder
+echo “hello world” > targetFile
+find /TestFolder -type d -name “targetFile”
+
+Expected output:
+targetFile: file not found (or similar error)
+
+Actual output:
+(Prompted for new input without error produced)
+
+
+6. find non-existing file
+
+Input:
+mkdir /TestFolder
+cd TestFolder
+echo “hello world” > targetFile
+find /TestFolder -type d -name “otherFile”
+
+
+Expected output:
+otherFile: file not found (or similar error)
+
+Actual output:
+(Prompted for new input without error produced)
