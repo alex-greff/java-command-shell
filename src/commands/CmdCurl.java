@@ -51,15 +51,11 @@ public class CmdCurl extends Command {
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
     try {
-      // Instantiate the readers
-      URL url = null;
-      BufferedReader br = null;
-
       // Get the url
-      url = new URL(args.getCommandParameters()[0]);
+      URL url = new URL(args.getCommandParameters()[0]);
 
       // Open the url file in a buffered reader
-      br = new BufferedReader(new InputStreamReader(url.openStream()));
+      BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 
       // Write the contents of the url file to the contents string
       StringBuilder contents = new StringBuilder();
