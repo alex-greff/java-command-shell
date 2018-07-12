@@ -116,7 +116,9 @@ public class CmdMan extends Command {
     }
 
     // Construct the result string
-    String resultStr = output.toString() + "\n";
+    String resultStr = output.toString();
+    if (!resultStr.isEmpty())
+      resultStr += "\n";
 
     // If a redirect is given then attempt to write to file and return exit code
     if (!args.getRedirectOperator().isEmpty())

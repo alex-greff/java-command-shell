@@ -124,7 +124,9 @@ public class CmdHistory extends Command {
     }
 
     // Get the result string
-    String resultStr = result.toString().trim() + "\n";
+    String resultStr = result.toString().trim();
+    if (!resultStr.isEmpty())
+      resultStr += "\n";
 
     // If a redirect is given then attempt to write to file and return exit code
     if (!args.getRedirectOperator().isEmpty())
