@@ -100,25 +100,23 @@ public class CmdHistory extends Command {
     }
     // the case where they want a specific amount of history
     else if (params.length == 1) {
-      // check if the parameter is an int
-      if (!params[0].matches("\\d+")) {
+      // check if the parameter is a valid positive int
+      if (! checkNumber(params[0])){
         return ExitCode.FAILURE;
       }
       int paramInt = Integer.parseInt(params[0]);
-      if (paramInt < 0) {
-        // error if a negative integer is passed as an argument
-        return ExitCode.FAILURE;
-      }
+      // index will be the int to get the last "paramInt" history entries
       int index = history.size() - paramInt;
       // in the case that the parameter int is bigger than the size of history
       // resort to printing the whole history rather than throwing error
       ArrayList<String> newList =
           new ArrayList<>(history.subList(Math.max(index, 0), history.size()));
-
+      i = Math.max(index, 0);
       for (String item : newList) {
+        i++;
         result.append(Integer.toString(i)).append(". ").append(item)
             .append("\n");
-        i++;
+
       }
       // if the parameter was 0, an empty string is returned
     }
@@ -138,6 +136,21 @@ public class CmdHistory extends Command {
     out.write(resultStr);
     return ExitCode.SUCCESS;
   }
+
+  /**
+   *
+   * @param arg the string of the supposed number
+   * @return true if the string represents a positive integer, false otherwise
+   */
+  private boolean checkNumber(String arg){
+    // check if arg is a valid string for an int
+    if (arg.matches("\\d+")){
+      int num = Integer.parseInt(arg);
+      return (num >= 0);
+    }
+    else{return false;}
+  }
+
 
   /**
    * @param args The command arguments.
