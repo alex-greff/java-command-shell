@@ -96,8 +96,9 @@ public class CmdMv extends Command {
 
   /**
    * Executes the mv command with the given arguments. Mv moves the contents of
-   * one file to another. Error messages if the path of the source/old file is
-   * invalid, or the file does not exist.
+   * one file to another, one file to a directory, or all contents of a
+   * directory to another. Error messages if the path of the old file/directory
+   * or new directory is invalid, or does not exist.
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output

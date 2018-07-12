@@ -51,6 +51,12 @@ import utilities.ExitCode;
  */
 public class CmdCp extends Command {
 
+  /**
+   * Constructs a new command instance
+   *
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
   public CmdCp(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
@@ -90,9 +96,9 @@ public class CmdCp extends Command {
 
   /**
    * Executes the cp command with the given arguments. Cp copies the contents of
-   * one file to another, or recursively copies the contents of all files in a
-   * directory. Error messages if the path of the source/old file/directory is
-   * invalid, or the file/directory does not exist.
+   * one file to another, one file to a directory, or all contents of a
+   * directory to another. Error messages if the path of the old file/directory
+   * or new directory is invalid, or does not exist.
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
