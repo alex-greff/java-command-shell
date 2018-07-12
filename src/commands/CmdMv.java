@@ -71,13 +71,15 @@ public class CmdMv extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Move contents of a file to another.", "mv OLDFILE NEWFILE")
+          "Move contents of a file to another.", "mv OLDPATH NEWPATH")
           .additionalComment(
-              "Paths of OLDFILE and NEWFILE can be relative or absolute.")
+              "Paths of OLDPATH and NEWPATH can be relative or absolute.")
           .additionalComment(
-              "The OLDFILE gets removed, and replaces the content of NEWFILE.")
+              "File at OLDPATH gets removed, and replaces the content at NEWPATH.")
           .additionalComment(
-              "If NEWFILE doesn't exist yet, it will be created.")
+              "If NEWPATH doesn't exist yet, it will be created.")
+          .additionalComment(
+              "If NEWPATH is a directory, the contents of the file at OLDPATH are simply moved to a new file of the same name in NEWPATH")
           .build();
 
   /**
@@ -99,7 +101,7 @@ public class CmdMv extends Command {
    * Helper function to check if the arguments passed are valid for this
    * command. Mv expects exactly 2 arguments
    *
-   * @param args The command arguments container.
+   * @param args The command arguments container
    * @return Returns true iff the arguments are valid, false otherwise
    */
   @Override
