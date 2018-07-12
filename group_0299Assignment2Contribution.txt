@@ -1,0 +1,1503 @@
++++ASSIGNMENT2 TEAM MEMBER CONTRIBUTION+++
+
+
+
+PART 1) +++SVN CHECKOUT ON YOUR ASSIGNMENT1+++
+Redirecting to URL 'https://markus.utsc.utoronto.ca/svn/cscb07s18/group_0299/Assignment2':
+A    Assignment2/crcCards
+A    Assignment2/dailyScrumMeetings
+A    Assignment2/dailyScrumMeetings/greffal1Sprint2June27.txt
+A    Assignment2/dailyScrumMeetings/kamins42Sprint1June18.txt
+A    Assignment2/dailyScrumMeetings/kamins42Sprint2June27.txt
+A    Assignment2/dailyScrumMeetings/readMeDailyScrumMeetings.txt
+A    Assignment2/dailyScrumMeetings/sankarchSprint2June24.txt
+A    Assignment2/crcCards/cmdMkdir.txt
+A    Assignment2/crcCards/cmdPushd.txt
+A    Assignment2/crcCards/cmdTree.txt
+A    Assignment2/dailyScrumMeetings/greffal1Sprint1June18.txt
+A    Assignment2/dailyScrumMeetings/greffal1Sprint2June24.txt
+A    Assignment2/dailyScrumMeetings/greffal1Sprint3July02.txt
+A    Assignment2/crcCards/Command.txt
+A    Assignment2/crcCards/CommandArgs
+A    Assignment2/crcCards/CommandDescription.txt
+A    Assignment2/crcCards/CommandManager.txt
+A    Assignment2/crcCards/Console.txt
+A    Assignment2/crcCards/Directory.txt
+A    Assignment2/doc
+A    Assignment2/doc/commands
+A    Assignment2/doc/commands/class-use
+A    Assignment2/dailyScrumMeetings/ursualexSprint1June18.txt
+A    Assignment2/dailyScrumMeetings/ursualexSprint3July01.txt
+A    Assignment2/doc/commands/class-use/CmdEcho.html
+A    Assignment2/dailyScrumMeetings/ursualexSprint1June21.txt
+A    Assignment2/dailyScrumMeetings/ursualexSprint3July02.txt
+A    Assignment2/doc/commands/class-use/CmdExit.html
+A    Assignment2/dailyScrumMeetings/kamins42Sprint2June24.txt
+A    Assignment2/dailyScrumMeetings/kamins42Sprint3July02.txt
+A    Assignment2/dailyScrumMeetings/sankarchSprint1June21.txt
+A    Assignment2/dailyScrumMeetings/sankarchSprint3July01.txt
+A    Assignment2/dailyScrumMeetings/ursualexSprint2June27.txt
+A    Assignment2/doc/commands/class-use/CmdCd.html
+A    Assignment2/crcCards/DirectoryStack.txt
+A    Assignment2/crcCards/ErrorConsole.txt
+A    Assignment2/crcCards/File.txt
+A    Assignment2/crcCards/FileAlreadyExistsException.txt
+A    Assignment2/crcCards/FileNotFoundException.txt
+A    Assignment2/crcCards/FileSystem.txt
+A    Assignment2/doc/commands/class-use/CmdLs.html
+A    Assignment2/doc/commands/class-use/CmdMan.html
+A    Assignment2/doc/commands/class-use/CmdHistory.html
+A    Assignment2/doc/commands/class-use/CmdPopd.html
+A    Assignment2/doc/commands/class-use/CmdPushd.html
+A    Assignment2/doc/containers
+A    Assignment2/doc/commands/class-use/CmdPwd.html
+A    Assignment2/doc/commands/CmdCat.html
+A    Assignment2/doc/commands/CmdFind.html
+A    Assignment2/doc/commands/CmdCd.html
+A    Assignment2/doc/commands/CmdHistory.html
+A    Assignment2/crcCards/JShell.txt
+A    Assignment2/crcCards/MalformedPathException.txt
+A    Assignment2/crcCards/Parser.txt
+A    Assignment2/crcCards/Path.txt
+A    Assignment2/crcCards/TestConsole.txt
+A    Assignment2/crcCards/cmdCat.txt
+A    Assignment2/doc/containers/class-use
+A    Assignment2/doc/driver
+A    Assignment2/doc/driver/class-use
+A    Assignment2/doc/commands/CmdEcho.html
+A    Assignment2/doc/commands/CmdLs.html
+A    Assignment2/doc/commands/CmdPopd.html
+A    Assignment2/doc/commands/package-frame.html
+A    Assignment2/doc/commands/CmdPushd.html
+A    Assignment2/doc/commands/package-summary.html
+A    Assignment2/doc/filesystem
+A    Assignment2/doc/commands/CmdMkdir.html
+A    Assignment2/doc/commands/CmdTree.html
+A    Assignment2/doc/commands/package-use.html
+A    Assignment2/doc/containers/CommandArgs.html
+A    Assignment2/doc/containers/class-use/CommandArgs.html
+A    Assignment2/doc/filesystem/class-use
+A    Assignment2/doc/containers/class-use/CommandDescription.DescriptionBuilder.html
+A    Assignment2/doc/containers/package-summary.html
+A    Assignment2/crcCards/cmdCd.txt
+A    Assignment2/crcCards/cmdEcho.txt
+A    Assignment2/crcCards/cmdExit.txt
+A    Assignment2/crcCards/cmdFind.txt
+A    Assignment2/crcCards/cmdHistory.txt
+A    Assignment2/crcCards/cmdLs.txt
+A    Assignment2/doc/driver/JShell.html
+A    Assignment2/doc/driver/package-use.html
+A    Assignment2/doc/filesystem/class-use/FileAlreadyExistsException.html
+A    Assignment2/doc/containers/CommandDescription.DescriptionBuilder.html
+A    Assignment2/doc/containers/package-tree.html
+A    Assignment2/doc/driver/package-frame.html
+A    Assignment2/doc/containers/CommandDescription.html
+A    Assignment2/doc/containers/package-use.html
+A    Assignment2/doc/driver/package-summary.html
+A    Assignment2/doc/filesystem/class-use/DirectoryStack.html
+A    Assignment2/doc/index-files
+A    Assignment2/doc/filesystem/class-use/Directory.html
+A    Assignment2/doc/filesystem/class-use/FileNotFoundException.html
+A    Assignment2/doc/filesystem/class-use/Path.html
+A    Assignment2/doc/filesystem/class-use/FileSystem.html
+A    Assignment2/doc/filesystem/FileAlreadyExistsException.html
+A    Assignment2/doc/filesystem/Path.html
+A    Assignment2/doc/filesystem/Directory.html
+A    Assignment2/doc/filesystem/FileNotFoundException.html
+A    Assignment2/doc/filesystem/package-frame.html
+A    Assignment2/doc/index-files/index-1.html
+A    Assignment2/doc/filesystem/DirectoryStack.html
+A    Assignment2/doc/filesystem/FileSystem.html
+A    Assignment2/doc/filesystem/package-use.html
+A    Assignment2/doc/index-files/index-12.html
+A    Assignment2/crcCards/cmdMan.txt
+A    Assignment2/crcCards/cmdPopd.txt
+A    Assignment2/crcCards/cmdPwd.txt
+A    Assignment2/crcCards/readMeForCrcCards.txt
+A    Assignment2/dailyScrumMeetings/greffal1Sprint1June21.txt
+A    Assignment2/dailyScrumMeetings/greffal1Sprint3July01.txt
+A    Assignment2/doc/io
+A    Assignment2/doc/io/class-use
+A    Assignment2/doc/index-files/index-13.html
+A    Assignment2/doc/index-files/index-17.html
+A    Assignment2/doc/index-files/index-4.html
+A    Assignment2/doc/index-files/index-8.html
+A    Assignment2/doc/index-files/index-16.html
+A    Assignment2/doc/index-files/index-3.html
+A    Assignment2/doc/index-files/index-7.html
+A    Assignment2/doc/filesystem/package-summary.html
+A    Assignment2/doc/index-files/index-10.html
+A    Assignment2/doc/index-files/index-14.html
+A    Assignment2/doc/index-files/index-18.html
+A    Assignment2/doc/unitTests
+A    Assignment2/doc/unitTests/class-use
+A    Assignment2/dailyScrumMeetings/kamins42Sprint1June21.txt
+A    Assignment2/dailyScrumMeetings/kamins42Sprint3July01.txt
+A    Assignment2/dailyScrumMeetings/sankarchSprint1June18.txt
+A    Assignment2/dailyScrumMeetings/sankarchSprint2June27.txt
+A    Assignment2/dailyScrumMeetings/ursualexSprint2June24.txt
+A    Assignment2/doc/commands/class-use/CmdCat.html
+A    Assignment2/doc/commands/class-use/CmdFind.html
+A    Assignment2/doc/index-files/index-5.html
+A    Assignment2/doc/io/class-use/Readable.html
+A    Assignment2/doc/io/class-use/ErrorConsole.html
+A    Assignment2/doc/commands/class-use/CmdMkdir.html
+A    Assignment2/doc/commands/class-use/CmdTree.html
+A    Assignment2/doc/index-files/index-9.html
+A    Assignment2/doc/io/class-use/Writable.html
+A    Assignment2/doc/commands/CmdExit.html
+A    Assignment2/doc/commands/CmdMan.html
+A    Assignment2/doc/io/Readable.html
+A    Assignment2/doc/io/package-tree.html
+A    Assignment2/doc/unitTests/class-use/CmdEchoTest.html
+A    Assignment2/doc/io/ErrorConsole.html
+A    Assignment2/doc/io/package-summary.html
+A    Assignment2/doc/unitTests/class-use/CmdCdTest.html
+A    Assignment2/doc/io/Writable.html
+A    Assignment2/doc/io/package-use.html
+A    Assignment2/doc/unitTests/class-use/CmdExitTest.html
+A    Assignment2/doc/commands/CmdPwd.html
+A    Assignment2/doc/commands/package-tree.html
+A    Assignment2/doc/containers/class-use/CommandDescription.html
+A    Assignment2/doc/unitTests/class-use/CmdLsTest.html
+A    Assignment2/doc/unitTests/class-use/CmdPushdTest.html
+A    Assignment2/doc/unitTests/class-use/CommandManagerTest.html
+A    Assignment2/doc/unitTests/class-use/CmdHistoryTest.html
+A    Assignment2/doc/unitTests/class-use/CmdPopdTest.html
+A    Assignment2/doc/unitTests/class-use/CommandDescriptionTest.html
+A    Assignment2/doc/unitTests/class-use/CmdManTest.html
+A    Assignment2/doc/unitTests/class-use/CmdPwdTest.html
+A    Assignment2/doc/unitTests/class-use/FileSystemTest.html
+A    Assignment2/doc/utilities
+A    Assignment2/doc/unitTests/class-use/TestingConsoleTest.html
+A    Assignment2/doc/unitTests/CmdExitTest.html
+A    Assignment2/doc/unitTests/CmdManTest.html
+A    Assignment2/doc/unitTests/class-use/TestingConsole.html
+A    Assignment2/doc/unitTests/CmdEchoTest.html
+A    Assignment2/doc/containers/package-frame.html
+A    Assignment2/doc/driver/class-use/JShell.html
+A    Assignment2/doc/driver/package-tree.html
+A    Assignment2/doc/utilities/class-use
+A    Assignment2/doc/unitTests/CmdPwdTest.html
+A    Assignment2/doc/unitTests/CmdCatTest.html
+A    Assignment2/doc/unitTests/CmdFindTest.html
+A    Assignment2/doc/unitTests/CmdLsTest.html
+A    Assignment2/doc/unitTests/CmdPushdTest.html
+A    Assignment2/doc/filesystem/class-use/File.html
+A    Assignment2/doc/filesystem/class-use/MalformedPathException.html
+A    Assignment2/doc/unitTests/FileSystemTest.html
+A    Assignment2/doc/unitTests/package-frame.html
+A    Assignment2/doc/unitTests/CmdMkdirTest.html
+A    Assignment2/doc/unitTests/CommandArgsTest.html
+A    Assignment2/doc/unitTests/CommandManagerTest.html
+A    Assignment2/doc/unitTests/TestingConsoleTest.html
+A    Assignment2/doc/filesystem/File.html
+A    Assignment2/doc/filesystem/MalformedPathException.html
+A    Assignment2/doc/utilities/class-use/Command.html
+A    Assignment2/doc/unitTests/package-use.html
+A    Assignment2/doc/utilities/class-use/Parser.html
+A    Assignment2/doc/unitTests/ParserTest.html
+A    Assignment2/doc/unitTests/package-summary.html
+A    Assignment2/doc/utilities/class-use/CommandManager.html
+A    Assignment2/doc/filesystem/package-tree.html
+A    Assignment2/doc/index-files/index-11.html
+A    Assignment2/productBacklog
+A    Assignment2/sprints
+A    Assignment2/doc/utilities/CommandManager.html
+A    Assignment2/doc/utilities/Command.html
+A    Assignment2/doc/utilities/package-frame.html
+A    Assignment2/doc/allclasses-frame.html
+A    Assignment2/doc/utilities/Parser.html
+A    Assignment2/doc/utilities/package-use.html
+A    Assignment2/doc/deprecated-list.html
+A    Assignment2/src
+A    Assignment2/src/commands
+A    Assignment2/doc/index-files/index-15.html
+A    Assignment2/doc/index-files/index-2.html
+A    Assignment2/doc/index-files/index-6.html
+A    Assignment2/doc/help-doc.html
+A    Assignment2/doc/overview-tree.html
+A    Assignment2/doc/io/class-use/Console.html
+A    Assignment2/doc/utilities/package-summary.html
+A    Assignment2/doc/allclasses-noframe.html
+A    Assignment2/doc/index.html
+A    Assignment2/doc/package-list
+A    Assignment2/src/containers
+A    Assignment2/src/driver
+A    Assignment2/src/filesystem
+A    Assignment2/doc/overview-summary.html
+A    Assignment2/doc/serialized-form.html
+A    Assignment2/sprints/Sprint1Backlog.txt
+A    Assignment2/doc/stylesheet.css
+A    Assignment2/sprints/Sprint2Backlog.txt
+A    Assignment2/src/commands/CmdCd.java
+A    Assignment2/productBacklog/productBacklogFor2A.txt
+A    Assignment2/sprints/Sprint3Backlog.txt
+A    Assignment2/src/commands/CmdEcho.java
+A    Assignment2/src/commands/CmdCat.java
+A    Assignment2/src/commands/CmdFind.java
+A    Assignment2/src/io
+A    Assignment2/doc/io/Console.html
+A    Assignment2/doc/io/package-frame.html
+A    Assignment2/doc/unitTests/class-use/CmdCatTest.html
+A    Assignment2/doc/unitTests/class-use/CmdFindTest.html
+A    Assignment2/src/commands/CmdHistory.java
+A    Assignment2/src/commands/CmdPopd.java
+A    Assignment2/src/unitTests
+A    Assignment2/src/commands/CmdLs.java
+A    Assignment2/src/commands/CmdPushd.java
+A    Assignment2/doc/unitTests/class-use/CmdMkdirTest.html
+A    Assignment2/doc/unitTests/class-use/CommandArgsTest.html
+A    Assignment2/src/commands/CmdMkdir.java
+A    Assignment2/src/commands/CmdTree.java
+A    Assignment2/src/filesystem/Directory.java
+A    Assignment2/src/containers/CommandArgs.java
+A    Assignment2/src/filesystem/DirectoryStack.java
+A    Assignment2/src/filesystem/FileSystem.java
+A    Assignment2/doc/unitTests/class-use/ParserTest.html
+A    Assignment2/doc/unitTests/CmdCdTest.html
+A    Assignment2/src/containers/CommandDescription.java
+A    Assignment2/src/filesystem/File.java
+A    Assignment2/src/filesystem/MalformedPathException.java
+A    Assignment2/src/io/Readable.java
+A    Assignment2/src/filesystem/FileNotFoundException.java
+A    Assignment2/src/io/Console.java
+A    Assignment2/src/unitTests/CmdCatTest.java
+A    Assignment2/src/utilities
+A    Assignment2/doc/unitTests/CmdHistoryTest.html
+A    Assignment2/doc/unitTests/CmdPopdTest.html
+A    Assignment2/doc/unitTests/CommandDescriptionTest.html
+A    Assignment2/doc/unitTests/TestingConsole.html
+A    Assignment2/src/io/ErrorConsole.java
+A    Assignment2/src/unitTests/CmdCdTest.java
+A    Assignment2/src/unitTests/CmdHistoryTest.java
+A    Assignment2/src/unitTests/CmdPopdTest.java
+A    Assignment2/src/unitTests/CmdEchoTest.java
+A    Assignment2/src/unitTests/CmdLsTest.java
+A    Assignment2/src/unitTests/CmdPushdTest.java
+A    Assignment2/src/unitTests/CommandManagerTest.java
+A    Assignment2/src/unitTests/CmdFindTest.java
+A    Assignment2/src/unitTests/CmdMkdirTest.java
+A    Assignment2/src/unitTests/CommandArgsTest.java
+A    Assignment2/src/unitTests/ParserTest.java
+A    Assignment2/doc/unitTests/package-tree.html
+A    Assignment2/doc/utilities/class-use/ExitCode.html
+A    Assignment2/src/utilities/Command.java
+A    Assignment2/hcode.sh
+A    Assignment2/src/unitTests/CommandDescriptionTest.java
+A    Assignment2/src/unitTests/README_installing_JUnit.txt
+A    Assignment2/src/utilities/CommandManager.java
+A    Assignment2/honorcode.txt
+A    Assignment2/src/unitTests/TestingConsole.java
+A    Assignment2/src/utilities/ExitCode.java
+A    Assignment2/readMeAssignment2A.txt
+A    Assignment2/doc/utilities/ExitCode.html
+A    Assignment2/doc/utilities/package-tree.html
+A    Assignment2/doc/constant-values.html
+A    Assignment2/doc/overview-frame.html
+A    Assignment2/doc/script.js
+A    Assignment2/productBacklog/readMeProductBacklog.txt
+A    Assignment2/sprints/readMeSprints.txt
+A    Assignment2/src/commands/CmdExit.java
+A    Assignment2/src/commands/CmdMan.java
+A    Assignment2/src/commands/CmdPwd.java
+A    Assignment2/src/driver/JShell.java
+A    Assignment2/src/filesystem/FileAlreadyExistsException.java
+A    Assignment2/src/filesystem/Path.java
+A    Assignment2/src/io/Writable.java
+A    Assignment2/src/unitTests/CmdExitTest.java
+A    Assignment2/src/unitTests/CmdManTest.java
+A    Assignment2/src/unitTests/CmdPwdTest.java
+A    Assignment2/src/unitTests/FileSystemTest.java
+A    Assignment2/src/unitTests/TestingConsoleTest.java
+A    Assignment2/src/utilities/Parser.java
+Checked out revision 265.
+
+
+
+PART 2) +++SVN COMMIT LOGS ARE+++
+Marks Deductions here (-.5 max): 
+------------------------------------------------------------------------
+r265 | greffal1@UTORONTO.CA | 2018-07-02 23:45:01 -0400 (Mon, 02 Jul 2018) | 2 lines
+
+More slight changes to docstrings.
+Regenerated the javadocs.
+------------------------------------------------------------------------
+r264 | greffal1@UTORONTO.CA | 2018-07-02 23:32:34 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Committed generated Javadocs.
+------------------------------------------------------------------------
+r263 | greffal1@UTORONTO.CA | 2018-07-02 23:31:54 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Finalizing docstrings.
+------------------------------------------------------------------------
+r262 | greffal1@UTORONTO.CA | 2018-07-02 23:19:25 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Finalized docstrings for all file system classes.
+------------------------------------------------------------------------
+r261 | ursualex@UTORONTO.CA | 2018-07-02 22:43:38 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Google Styling
+------------------------------------------------------------------------
+r260 | greffal1@UTORONTO.CA | 2018-07-02 22:39:36 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Small updates to docstring and internal comments of JShell.
+------------------------------------------------------------------------
+r259 | greffal1@UTORONTO.CA | 2018-07-02 22:30:00 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Made small updates to the class dostrings (ie adding author names if necessary)
+------------------------------------------------------------------------
+r258 | kamins42@UTORONTO.CA | 2018-07-02 22:29:26 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Add missing crc cards
+------------------------------------------------------------------------
+r257 | greffal1@UTORONTO.CA | 2018-07-02 22:13:09 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Small tweaks to CRC cards.
+------------------------------------------------------------------------
+r256 | kamins42@UTORONTO.CA | 2018-07-02 22:06:25 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Add tests fix existing tests
+------------------------------------------------------------------------
+r255 | sankarch@UTORONTO.CA | 2018-07-02 22:03:43 -0400 (Mon, 02 Jul 2018) | 1 line
+
+added javadoc for JShell
+------------------------------------------------------------------------
+r254 | sankarch@UTORONTO.CA | 2018-07-02 22:00:32 -0400 (Mon, 02 Jul 2018) | 1 line
+
+fixed up ls yet again
+------------------------------------------------------------------------
+r253 | kamins42@UTORONTO.CA | 2018-07-02 21:55:38 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Daily scrum meeting
+------------------------------------------------------------------------
+r252 | kamins42@UTORONTO.CA | 2018-07-02 21:34:48 -0400 (Mon, 02 Jul 2018) | 2 lines
+
+Pull up the Name and Command Description to the Command superclass to avoid duplication.
+Remove redundant getters for name and description from each command
+------------------------------------------------------------------------
+r251 | greffal1@UTORONTO.CA | 2018-07-02 18:36:07 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Added final daily scrum meeting (yay!)
+------------------------------------------------------------------------
+r250 | ursualex@UTORONTO.CA | 2018-07-02 18:07:07 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Final Scrum Meeting
+------------------------------------------------------------------------
+r249 | ursualex@UTORONTO.CA | 2018-07-02 17:50:32 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Google Style Guide Applied
+------------------------------------------------------------------------
+r248 | ursualex@UTORONTO.CA | 2018-07-02 17:48:32 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Fixed test file for cat to account for file system reset. minor adjustments to the test files of cat, cd, and pwd
+------------------------------------------------------------------------
+r247 | ursualex@UTORONTO.CA | 2018-07-02 17:42:23 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Replaced JavaDoc that got overwritten, and fixed test file for cd to take into account the file system reset
+------------------------------------------------------------------------
+r246 | greffal1@UTORONTO.CA | 2018-07-02 17:37:31 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Small code reformats to slim down the line count.
+------------------------------------------------------------------------
+r245 | kamins42@UTORONTO.CA | 2018-07-02 17:04:31 -0400 (Mon, 02 Jul 2018) | 5 lines
+
+-Change the command description to use the builder pattern
+-Make unit tests independent of each other by resetting filesystem before each test
+-Fix formatting in all files
+-Fix some tests
+-Change all commands to use the builder for command description
+------------------------------------------------------------------------
+r244 | ursualex@UTORONTO.CA | 2018-07-02 16:30:26 -0400 (Mon, 02 Jul 2018) | 1 line
+
+google formatting and typos
+------------------------------------------------------------------------
+r243 | ursualex@UTORONTO.CA | 2018-07-02 16:20:41 -0400 (Mon, 02 Jul 2018) | 1 line
+
+JavaDoc for classes and instance variables
+------------------------------------------------------------------------
+r242 | sankarch@UTORONTO.CA | 2018-07-02 15:57:43 -0400 (Mon, 02 Jul 2018) | 1 line
+
+made docs for everything in history tree ls. yeee
+------------------------------------------------------------------------
+r241 | ursualex@UTORONTO.CA | 2018-07-02 15:12:09 -0400 (Mon, 02 Jul 2018) | 1 line
+
+edits to javadoc
+------------------------------------------------------------------------
+r240 | greffal1@UTORONTO.CA | 2018-07-02 14:58:35 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Added honor code to test files (if not already done).
+------------------------------------------------------------------------
+r239 | sankarch@UTORONTO.CA | 2018-07-02 14:49:49 -0400 (Mon, 02 Jul 2018) | 1 line
+
+submitted scrum meeting
+------------------------------------------------------------------------
+r238 | greffal1@UTORONTO.CA | 2018-07-02 14:49:09 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Made test case methods camel cased for CmdEchoTest, CmdExitTest, CmdFindTest, CmdManTest, CommandArgsTest, CommandDescriptionTest, ParserTest, TestingConsoleTest.
+------------------------------------------------------------------------
+r237 | ursualex@UTORONTO.CA | 2018-07-02 14:42:17 -0400 (Mon, 02 Jul 2018) | 1 line
+
+formatting
+------------------------------------------------------------------------
+r236 | ursualex@UTORONTO.CA | 2018-07-02 14:28:04 -0400 (Mon, 02 Jul 2018) | 1 line
+
+honor code
+------------------------------------------------------------------------
+r235 | ursualex@UTORONTO.CA | 2018-07-02 14:20:07 -0400 (Mon, 02 Jul 2018) | 1 line
+
+test file for CommandManager
+------------------------------------------------------------------------
+r234 | greffal1@UTORONTO.CA | 2018-07-02 14:12:10 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Added CRC card for TestConsole.
+------------------------------------------------------------------------
+r233 | greffal1@UTORONTO.CA | 2018-07-02 14:08:08 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Removed a junk text file.
+------------------------------------------------------------------------
+r232 | ursualex@UTORONTO.CA | 2018-07-02 14:05:15 -0400 (Mon, 02 Jul 2018) | 1 line
+
+isEmpty method for CommandManager
+------------------------------------------------------------------------
+r231 | greffal1@UTORONTO.CA | 2018-07-02 14:02:45 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Fully documented CmdEcho, CmdExit, CmdFind, CmdMan, CommandArgs, CommandDescription, Console, ErrorConsole, Readable, Writable, Parser, TestingConsole, Command and ExitCode.
+------------------------------------------------------------------------
+r230 | greffal1@UTORONTO.CA | 2018-07-02 13:35:12 -0400 (Mon, 02 Jul 2018) | 3 lines
+
+Small code format tweaks for CmdEcho, CmdFind and CmdMan.
+Fixed a bug in the parser where special characters like newlines would cause string parameters to be split at them.
+Small changes to the parser test file.
+------------------------------------------------------------------------
+r229 | ursualex@UTORONTO.CA | 2018-07-02 01:40:32 -0400 (Mon, 02 Jul 2018) | 1 line
+
+formatting on cat test case
+------------------------------------------------------------------------
+r228 | ursualex@UTORONTO.CA | 2018-07-02 01:39:45 -0400 (Mon, 02 Jul 2018) | 1 line
+
+extra test case for cat
+------------------------------------------------------------------------
+r227 | ursualex@UTORONTO.CA | 2018-07-02 01:22:12 -0400 (Mon, 02 Jul 2018) | 1 line
+
+Scrum meeting
+------------------------------------------------------------------------
+r226 | ursualex@UTORONTO.CA | 2018-07-02 00:54:17 -0400 (Mon, 02 Jul 2018) | 1 line
+
+test file for cat
+------------------------------------------------------------------------
+r225 | kamins42@UTORONTO.CA | 2018-07-01 22:06:46 -0400 (Sun, 01 Jul 2018) | 1 line
+
+Scrum meeting
+------------------------------------------------------------------------
+r224 | greffal1@UTORONTO.CA | 2018-07-01 21:21:05 -0400 (Sun, 01 Jul 2018) | 1 line
+
+Added daily scrum meeting for July 1
+------------------------------------------------------------------------
+r223 | greffal1@UTORONTO.CA | 2018-07-01 20:31:24 -0400 (Sun, 01 Jul 2018) | 1 line
+
+Small change to comments in CmdMan.
+------------------------------------------------------------------------
+r222 | greffal1@UTORONTO.CA | 2018-07-01 20:27:41 -0400 (Sun, 01 Jul 2018) | 1 line
+
+Updated comments for CmdMan.
+------------------------------------------------------------------------
+r221 | greffal1@UTORONTO.CA | 2018-07-01 14:21:56 -0400 (Sun, 01 Jul 2018) | 1 line
+
+Added tests for the commands Echo, Find, Man and Exit
+------------------------------------------------------------------------
+r220 | greffal1@UTORONTO.CA | 2018-07-01 13:29:39 -0400 (Sun, 01 Jul 2018) | 2 lines
+
+Small changes to TestingConsole.
+Made test cases for TestingConsole.
+------------------------------------------------------------------------
+r219 | ursualex@UTORONTO.CA | 2018-07-01 01:58:13 -0400 (Sun, 01 Jul 2018) | 1 line
+
+Updated test files for cd and pwd to use new TestingConsole
+------------------------------------------------------------------------
+r218 | greffal1@UTORONTO.CA | 2018-06-30 23:12:48 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Made/updated test cases for CommandArgs, CommandDescription and Parser.
+------------------------------------------------------------------------
+r217 | greffal1@UTORONTO.CA | 2018-06-30 11:31:54 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Added TestingConsole.
+------------------------------------------------------------------------
+r216 | ursualex@UTORONTO.CA | 2018-06-30 02:32:34 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Started test file for cat
+------------------------------------------------------------------------
+r215 | ursualex@UTORONTO.CA | 2018-06-30 02:29:15 -0400 (Sat, 30 Jun 2018) | 1 line
+
+More tests for cd
+------------------------------------------------------------------------
+r214 | ursualex@UTORONTO.CA | 2018-06-30 02:17:14 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Test file for cd fixed error throw
+------------------------------------------------------------------------
+r213 | ursualex@UTORONTO.CA | 2018-06-30 02:16:45 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Test file for cd fixed
+------------------------------------------------------------------------
+r212 | ursualex@UTORONTO.CA | 2018-06-30 02:07:48 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Test file for cd
+------------------------------------------------------------------------
+r211 | ursualex@UTORONTO.CA | 2018-06-30 01:59:58 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Test file for pwd
+------------------------------------------------------------------------
+r210 | sankarch@UTORONTO.CA | 2018-06-30 00:33:34 -0400 (Sat, 30 Jun 2018) | 4 lines
+
+fixed docs for ls history tree.
+made unit test for history
+docs for JShell added
+crc for JShell updated
+------------------------------------------------------------------------
+r209 | ursualex@UTORONTO.CA | 2018-06-30 00:07:03 -0400 (Sat, 30 Jun 2018) | 1 line
+
+Error message handling on CommandManager
+------------------------------------------------------------------------
+r208 | greffal1@UTORONTO.CA | 2018-06-29 23:54:46 -0400 (Fri, 29 Jun 2018) | 1 line
+
+Fixed a small bug where the error message was not printed when the args was null.
+------------------------------------------------------------------------
+r207 | greffal1@UTORONTO.CA | 2018-06-29 23:49:28 -0400 (Fri, 29 Jun 2018) | 2 lines
+
+Updated/added docstrings and finalized code commenting for echo, exit, find and man commands.
+
+------------------------------------------------------------------------
+r206 | greffal1@UTORONTO.CA | 2018-06-29 23:48:19 -0400 (Fri, 29 Jun 2018) | 2 lines
+
+Updated CRC card collaborators for all the commands.
+Added the DirectoryStack and Path CRC cards.
+------------------------------------------------------------------------
+r205 | ursualex@UTORONTO.CA | 2018-06-29 22:05:23 -0400 (Fri, 29 Jun 2018) | 1 line
+
+JavaDoc for CommandManager. Edits to JavaDoc for cat and cd
+------------------------------------------------------------------------
+r204 | ursualex@UTORONTO.CA | 2018-06-29 20:50:55 -0400 (Fri, 29 Jun 2018) | 1 line
+
+Honor Code
+------------------------------------------------------------------------
+r203 | ursualex@UTORONTO.CA | 2018-06-29 20:42:25 -0400 (Fri, 29 Jun 2018) | 1 line
+
+JavaDoc for cat, cd, and pwd
+------------------------------------------------------------------------
+r202 | ursualex@UTORONTO.CA | 2018-06-29 18:57:12 -0400 (Fri, 29 Jun 2018) | 1 line
+
+Internal Documentation for CommandManager
+------------------------------------------------------------------------
+r201 | ursualex@UTORONTO.CA | 2018-06-29 18:37:03 -0400 (Fri, 29 Jun 2018) | 1 line
+
+Internal Documentation for cat, cd, and pwd
+------------------------------------------------------------------------
+r200 | kamins42@UTORONTO.CA | 2018-06-29 17:49:52 -0400 (Fri, 29 Jun 2018) | 1 line
+
+Prevent existence of sibling file and directory with the same names
+------------------------------------------------------------------------
+r199 | sankarch@UTORONTO.CA | 2018-06-29 15:26:21 -0400 (Fri, 29 Jun 2018) | 1 line
+
+ls works with files now. Note that when printed, argument's contents are separated by empty newlines eh.
+------------------------------------------------------------------------
+r198 | ursualex@UTORONTO.CA | 2018-06-28 23:29:07 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Google Formatting, again.
+------------------------------------------------------------------------
+r197 | ursualex@UTORONTO.CA | 2018-06-28 23:28:07 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Google Formatting
+------------------------------------------------------------------------
+r196 | sankarch@UTORONTO.CA | 2018-06-28 23:07:18 -0400 (Thu, 28 Jun 2018) | 1 line
+
+fixed up tree newline bug, fixed up ls multiple parameter spacing, added docs for ls
+------------------------------------------------------------------------
+r195 | sankarch@UTORONTO.CA | 2018-06-28 22:08:23 -0400 (Thu, 28 Jun 2018) | 1 line
+
+made ls not print extra newline haha
+------------------------------------------------------------------------
+r194 | kamins42@UTORONTO.CA | 2018-06-28 21:34:51 -0400 (Thu, 28 Jun 2018) | 2 lines
+
+Add exitstatus type and reformat command execute to return an exitstatus
+Fix a small ls bug where empty directory printed an extra newline
+------------------------------------------------------------------------
+r193 | greffal1@UTORONTO.CA | 2018-06-28 21:06:29 -0400 (Thu, 28 Jun 2018) | 2 lines
+
+Added Sprint 3 backlog.
+Made CRC card for CommandDescription.
+------------------------------------------------------------------------
+r192 | ursualex@UTORONTO.CA | 2018-06-28 20:53:41 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Updated Description for cat, cd, and pwd
+------------------------------------------------------------------------
+r191 | greffal1@UTORONTO.CA | 2018-06-28 20:21:03 -0400 (Thu, 28 Jun 2018) | 9 lines
+
+Added CommandDescription container.
+Implemented the injection-based execution for Commands
+   - ie each command is given an output and an errorOutput to write what it needs to.
+   - This allows for future expandability (like piping)
+Fixed all commands to utilize the CommandDescription documentation system and the new injection system.
+Updated test files to work with the updated command execution system.
+Updated documentation for commands man, echo, find and exit.
+Added a task for the exit command (I forgot to put it in earlier) and assigned it to myself.
+Added CRC cards for Console and ErrorConsole.
+------------------------------------------------------------------------
+r190 | sankarch@UTORONTO.CA | 2018-06-28 20:05:14 -0400 (Thu, 28 Jun 2018) | 1 line
+
+formatted history ls and tree for man command. Nice
+------------------------------------------------------------------------
+r189 | kamins42@UTORONTO.CA | 2018-06-28 17:12:35 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Add mkdir command
+------------------------------------------------------------------------
+r188 | greffal1@UTORONTO.CA | 2018-06-28 15:50:18 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Small changes to cmd find error messaging. 
+------------------------------------------------------------------------
+r187 | greffal1@UTORONTO.CA | 2018-06-28 15:42:16 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Fixed a small typo where "/n" was printed instead of "\n"
+------------------------------------------------------------------------
+r186 | kamins42@UTORONTO.CA | 2018-06-28 15:33:45 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Fix bug with command manager singleton
+------------------------------------------------------------------------
+r185 | ursualex@UTORONTO.CA | 2018-06-28 15:29:38 -0400 (Thu, 28 Jun 2018) | 1 line
+
+catch error instead of null catch
+------------------------------------------------------------------------
+r184 | ursualex@UTORONTO.CA | 2018-06-28 15:28:23 -0400 (Thu, 28 Jun 2018) | 1 line
+
+split error handling in cd to be consistent with cat
+------------------------------------------------------------------------
+r183 | kamins42@UTORONTO.CA | 2018-06-28 15:23:43 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Fix tests with exceptions
+------------------------------------------------------------------------
+r182 | kamins42@UTORONTO.CA | 2018-06-28 15:21:10 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Add exceptions
+------------------------------------------------------------------------
+r181 | kamins42@UTORONTO.CA | 2018-06-28 15:11:09 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Add exceptions
+------------------------------------------------------------------------
+r180 | kamins42@UTORONTO.CA | 2018-06-28 11:07:48 -0400 (Thu, 28 Jun 2018) | 1 line
+
+Finish pushd fix singleton bugs
+------------------------------------------------------------------------
+r179 | greffal1@UTORONTO.CA | 2018-06-28 00:36:40 -0400 (Thu, 28 Jun 2018) | 12 lines
+
+Lots of bug fixes:
+FileSystem: - Fixed bug where only the storage for the working directory path was updated and not the actual Directory object.
+            - Added numerous null checks in FileSystem to avoid crashing the JShell (I really wish these were actually tested for).
+JShell: removed a null check for args that would stop CommandManager.executeCommand from being called if the parser returned a null CommandArgs.
+CmdEcho: small tweaks to avoid crashes (moslt were actually caused by errors in the FileSystem).
+CmdCd: added catch clause for NonExistentDirecotryException.
+CmdLs: tweaked isValid, tweaked error message to say "Error: Diretory <dir> was not found" instead of "Error: Path <dir> was not found"
+CommandManager: added null check for the resultant of the command call.
+CmdCd: - added(ANOTHER) null check to avoid trying to read from a non-existent file (which is returned as null).
+       - fixed a bug where the string builder was printing out the literal newline character '\n'.
+CmdFind: fixed a bug where an extra "/" would be added to the beginning of a found file path if the its directory was the root directory.
+CmdPopd: made the command write the "directory stack is empty" message to the error console.
+------------------------------------------------------------------------
+r178 | kamins42@UTORONTO.CA | 2018-06-27 23:10:59 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Fix scrum date
+------------------------------------------------------------------------
+r177 | kamins42@UTORONTO.CA | 2018-06-27 23:10:14 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Scrum meeting
+------------------------------------------------------------------------
+r176 | ursualex@UTORONTO.CA | 2018-06-27 21:58:24 -0400 (Wed, 27 Jun 2018) | 1 line
+
+renamed file
+------------------------------------------------------------------------
+r175 | ursualex@UTORONTO.CA | 2018-06-27 21:57:10 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Scrum meeting
+------------------------------------------------------------------------
+r174 | sankarch@UTORONTO.CA | 2018-06-27 21:54:48 -0400 (Wed, 27 Jun 2018) | 2 lines
+
+submitted scrum meeting June27
+Fixed tree tabspace issue
+------------------------------------------------------------------------
+r173 | greffal1@UTORONTO.CA | 2018-06-27 21:54:48 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Uploaded daily sprint.
+------------------------------------------------------------------------
+r172 | ursualex@UTORONTO.CA | 2018-06-27 21:51:57 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Description for Cat
+------------------------------------------------------------------------
+r171 | ursualex@UTORONTO.CA | 2018-06-27 21:43:46 -0400 (Wed, 27 Jun 2018) | 1 line
+
+implemented cat command
+------------------------------------------------------------------------
+r170 | greffal1@UTORONTO.CA | 2018-06-27 20:00:03 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Deleted more accidental IDE files
+------------------------------------------------------------------------
+r169 | greffal1@UTORONTO.CA | 2018-06-27 19:59:33 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Deleted accidental IDE files
+------------------------------------------------------------------------
+r168 | ursualex@UTORONTO.CA | 2018-06-27 19:56:34 -0400 (Wed, 27 Jun 2018) | 1 line
+
+began cat
+------------------------------------------------------------------------
+r167 | greffal1@UTORONTO.CA | 2018-06-27 19:53:33 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Made small changes to isValid methods for history, ls, popd and tree.
+------------------------------------------------------------------------
+r166 | sankarch@UTORONTO.CA | 2018-06-27 19:46:23 -0400 (Wed, 27 Jun 2018) | 1 line
+
+history takes in a param. fixed validation check
+------------------------------------------------------------------------
+r165 | greffal1@UTORONTO.CA | 2018-06-27 19:44:26 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Removed getInstance references from the headers
+------------------------------------------------------------------------
+r164 | greffal1@UTORONTO.CA | 2018-06-27 19:42:04 -0400 (Wed, 27 Jun 2018) | 3 lines
+
+Made changes with when CommandManager outputs error messages.
+Fixed a bug in man where a null reference of CommandManager was made.
+Fixed a bug in echo where it would crash if the target file was a relative path to the root directory.
+------------------------------------------------------------------------
+r163 | sankarch@UTORONTO.CA | 2018-06-27 19:34:48 -0400 (Wed, 27 Jun 2018) | 1 line
+
+made some tests for ls. ye
+------------------------------------------------------------------------
+r162 | greffal1@UTORONTO.CA | 2018-06-27 19:15:35 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Added writeln to the writable interface and adjusted the according class implementations of it. 
+------------------------------------------------------------------------
+r161 | greffal1@UTORONTO.CA | 2018-06-27 19:04:52 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Implemented exit command.
+------------------------------------------------------------------------
+r160 | ursualex@UTORONTO.CA | 2018-06-27 18:54:53 -0400 (Wed, 27 Jun 2018) | 1 line
+
+test for cd
+------------------------------------------------------------------------
+r159 | kamins42@UTORONTO.CA | 2018-06-27 13:35:41 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Complete popd command add filesystem and commandmanager singletons to command superclass to avoid repetition
+------------------------------------------------------------------------
+r158 | kamins42@UTORONTO.CA | 2018-06-27 13:02:06 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Change design to enforce command arg validation, run inspection, reformat code
+------------------------------------------------------------------------
+r157 | greffal1@UTORONTO.CA | 2018-06-27 00:36:52 -0400 (Wed, 27 Jun 2018) | 1 line
+
+Updated file setup to use new directory adding system.
+------------------------------------------------------------------------
+r156 | sankarch@UTORONTO.CA | 2018-06-26 22:10:33 -0400 (Tue, 26 Jun 2018) | 1 line
+
+fixed up ls newline spacing error
+------------------------------------------------------------------------
+r155 | kamins42@UTORONTO.CA | 2018-06-26 21:59:24 -0400 (Tue, 26 Jun 2018) | 1 line
+
+Add more tests fix bug
+------------------------------------------------------------------------
+r154 | ursualex@UTORONTO.CA | 2018-06-26 19:51:03 -0400 (Tue, 26 Jun 2018) | 1 line
+
+formatting
+------------------------------------------------------------------------
+r153 | ursualex@UTORONTO.CA | 2018-06-26 19:50:25 -0400 (Tue, 26 Jun 2018) | 1 line
+
+Description for cd command
+------------------------------------------------------------------------
+r152 | ursualex@UTORONTO.CA | 2018-06-26 19:42:59 -0400 (Tue, 26 Jun 2018) | 1 line
+
+made Console an instance variable of CommandManager
+------------------------------------------------------------------------
+r151 | ursualex@UTORONTO.CA | 2018-06-26 19:41:43 -0400 (Tue, 26 Jun 2018) | 1 line
+
+changed return value
+------------------------------------------------------------------------
+r150 | ursualex@UTORONTO.CA | 2018-06-26 19:40:09 -0400 (Tue, 26 Jun 2018) | 1 line
+
+Implemented cd command
+------------------------------------------------------------------------
+r149 | ursualex@UTORONTO.CA | 2018-06-26 19:07:15 -0400 (Tue, 26 Jun 2018) | 1 line
+
+test for new line
+------------------------------------------------------------------------
+r148 | ursualex@UTORONTO.CA | 2018-06-26 19:06:21 -0400 (Tue, 26 Jun 2018) | 1 line
+
+new line on return of pwd
+------------------------------------------------------------------------
+r147 | ursualex@UTORONTO.CA | 2018-06-26 19:00:23 -0400 (Tue, 26 Jun 2018) | 1 line
+
+Test for pwd
+------------------------------------------------------------------------
+r146 | greffal1@UTORONTO.CA | 2018-06-25 21:16:19 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Small tweak to JShell.
+------------------------------------------------------------------------
+r145 | greffal1@UTORONTO.CA | 2018-06-25 21:01:34 -0400 (Mon, 25 Jun 2018) | 3 lines
+
+Fixed a bug with Path.
+Fixed a bug where echo would not create files if missing.
+Added more tests for echo.
+------------------------------------------------------------------------
+r144 | sankarch@UTORONTO.CA | 2018-06-25 20:37:31 -0400 (Mon, 25 Jun 2018) | 1 line
+
+fixed bugs in tree command(bug that stripped away too many characters) and ls command(bug that falsely invalidated the arugments)
+------------------------------------------------------------------------
+r143 | sankarch@UTORONTO.CA | 2018-06-25 20:20:25 -0400 (Mon, 25 Jun 2018) | 1 line
+
+fixed bug in history command, where all items listed were numerated as 1.
+------------------------------------------------------------------------
+r142 | greffal1@UTORONTO.CA | 2018-06-25 19:12:03 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Small change to History documentation.
+------------------------------------------------------------------------
+r141 | greffal1@UTORONTO.CA | 2018-06-25 19:10:09 -0400 (Mon, 25 Jun 2018) | 3 lines
+
+Added newline ending in man docs for Ls, Pwd, and Tree.
+Added reference to tree and find commands in CommandManager.
+Changed ErrorConsole to use System.out due to print ordering error.
+------------------------------------------------------------------------
+r140 | greffal1@UTORONTO.CA | 2018-06-25 18:46:31 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Added args check to ls command.
+------------------------------------------------------------------------
+r139 | sankarch@UTORONTO.CA | 2018-06-25 17:48:23 -0400 (Mon, 25 Jun 2018) | 1 line
+
+fixed error handling in history, tree and ls. made ls work with multiple params.
+------------------------------------------------------------------------
+r138 | ursualex@UTORONTO.CA | 2018-06-25 15:35:51 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Handled writing to Console and ErrorConsole
+------------------------------------------------------------------------
+r137 | ursualex@UTORONTO.CA | 2018-06-25 15:28:09 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Write result to Console
+------------------------------------------------------------------------
+r136 | greffal1@UTORONTO.CA | 2018-06-25 14:31:08 -0400 (Mon, 25 Jun 2018) | 2 lines
+
+Small changes to Echo, Find and Man commands.
+Added tests for echo command.
+------------------------------------------------------------------------
+r135 | ursualex@UTORONTO.CA | 2018-06-25 13:48:25 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Console imports
+------------------------------------------------------------------------
+r134 | ursualex@UTORONTO.CA | 2018-06-25 13:47:22 -0400 (Mon, 25 Jun 2018) | 1 line
+
+honor code
+------------------------------------------------------------------------
+r133 | ursualex@UTORONTO.CA | 2018-06-25 13:45:51 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Description for pwd
+------------------------------------------------------------------------
+r132 | ursualex@UTORONTO.CA | 2018-06-25 13:39:00 -0400 (Mon, 25 Jun 2018) | 1 line
+
+format
+------------------------------------------------------------------------
+r131 | ursualex@UTORONTO.CA | 2018-06-25 13:38:35 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Completed pwd command
+------------------------------------------------------------------------
+r130 | greffal1@UTORONTO.CA | 2018-06-25 13:25:47 -0400 (Mon, 25 Jun 2018) | 2 lines
+
+Made Console a singleton.
+Created ErrorConsole.
+------------------------------------------------------------------------
+r129 | ursualex@UTORONTO.CA | 2018-06-25 13:16:16 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Started pwd command
+------------------------------------------------------------------------
+r128 | ursualex@UTORONTO.CA | 2018-06-25 13:11:42 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Store the stdout result of executing a command in a String variable for later use
+------------------------------------------------------------------------
+r127 | ursualex@UTORONTO.CA | 2018-06-25 13:08:56 -0400 (Mon, 25 Jun 2018) | 1 line
+
+CommandManager now checks for null argument in executeCommand
+------------------------------------------------------------------------
+r126 | greffal1@UTORONTO.CA | 2018-06-25 09:23:09 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Implemented CommandManager command execute call to JShell.
+------------------------------------------------------------------------
+r125 | greffal1@UTORONTO.CA | 2018-06-25 09:16:34 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Modified CmdTree to remove use of deleted method from Directory.
+------------------------------------------------------------------------
+r124 | greffal1@UTORONTO.CA | 2018-06-25 09:08:59 -0400 (Mon, 25 Jun 2018) | 2 lines
+
+Removed method in Directory that revealed implementation.
+Modified CmdFind to not use the removed method from Directory.
+------------------------------------------------------------------------
+r123 | greffal1@UTORONTO.CA | 2018-06-25 00:58:16 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Small update to unitTest package
+------------------------------------------------------------------------
+r122 | greffal1@UTORONTO.CA | 2018-06-25 00:26:26 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Small change to CommandArgs
+------------------------------------------------------------------------
+r121 | greffal1@UTORONTO.CA | 2018-06-25 00:05:08 -0400 (Mon, 25 Jun 2018) | 1 line
+
+Added test file CmdFindTest
+------------------------------------------------------------------------
+r120 | greffal1@UTORONTO.CA | 2018-06-25 00:04:17 -0400 (Mon, 25 Jun 2018) | 3 lines
+
+Coded find command.
+Publicly exposed getAbsolutePathOfDir in FileSystem.
+Some comments added to Directory.
+------------------------------------------------------------------------
+r119 | ursualex@UTORONTO.CA | 2018-06-24 23:16:12 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Scrum Meeting
+------------------------------------------------------------------------
+r118 | greffal1@UTORONTO.CA | 2018-06-24 22:41:22 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Commented CmdMan
+------------------------------------------------------------------------
+r117 | greffal1@UTORONTO.CA | 2018-06-24 22:36:40 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Added daily scrum meeting for June 24
+------------------------------------------------------------------------
+r116 | sankarch@UTORONTO.CA | 2018-06-24 21:51:27 -0400 (Sun, 24 Jun 2018) | 2 lines
+
+added daily scrum meeting
+also fixed text stripping error in CmdTree
+------------------------------------------------------------------------
+r115 | sankarch@UTORONTO.CA | 2018-06-24 21:28:13 -0400 (Sun, 24 Jun 2018) | 1 line
+
+added getter for the root directory in FileSystem. added getter for Child directories hashmap for Directory. implemented tree command.
+------------------------------------------------------------------------
+r114 | kamins42@UTORONTO.CA | 2018-06-24 21:04:57 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Add directory stack
+------------------------------------------------------------------------
+r113 | kamins42@UTORONTO.CA | 2018-06-24 20:39:54 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Fix bug in JShell
+------------------------------------------------------------------------
+r112 | greffal1@UTORONTO.CA | 2018-06-24 15:08:45 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Added header to echo and man command documentation.
+------------------------------------------------------------------------
+r111 | greffal1@UTORONTO.CA | 2018-06-24 15:04:06 -0400 (Sun, 24 Jun 2018) | 2 lines
+
+Coded echo command.
+Small changes to man command.
+------------------------------------------------------------------------
+r110 | greffal1@UTORONTO.CA | 2018-06-24 14:40:41 -0400 (Sun, 24 Jun 2018) | 3 lines
+
+Removed documentation package.
+Made small changes to description string in echo and man commands.
+
+------------------------------------------------------------------------
+r109 | greffal1@UTORONTO.CA | 2018-06-24 13:06:53 -0400 (Sun, 24 Jun 2018) | 2 lines
+
+Added getNumberOfNamedCommandParameters method to CommandArgs.
+Made small adjustment to CmdMan command args check.
+------------------------------------------------------------------------
+r108 | greffal1@UTORONTO.CA | 2018-06-24 13:01:31 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Coded man command
+------------------------------------------------------------------------
+r107 | ursualex@UTORONTO.CA | 2018-06-24 12:36:36 -0400 (Sun, 24 Jun 2018) | 1 line
+
+resolved conflict
+------------------------------------------------------------------------
+r106 | greffal1@UTORONTO.CA | 2018-06-24 12:28:21 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Changed method signature for getCommandDescription in CommandArgs 
+------------------------------------------------------------------------
+r105 | greffal1@UTORONTO.CA | 2018-06-24 12:23:51 -0400 (Sun, 24 Jun 2018) | 1 line
+
+Made CommandManager a singleton
+------------------------------------------------------------------------
+r104 | sankarch@UTORONTO.CA | 2018-06-22 23:19:00 -0400 (Fri, 22 Jun 2018) | 1 line
+
+added history command and man documentation. Need to implement error handling for negative integers.
+------------------------------------------------------------------------
+r103 | greffal1@UTORONTO.CA | 2018-06-22 21:07:28 -0400 (Fri, 22 Jun 2018) | 2 lines
+
+Updated toString() for CommandArgs. 
+Updated the parser to handle "-type value" style arguments.
+------------------------------------------------------------------------
+r102 | greffal1@UTORONTO.CA | 2018-06-22 19:30:00 -0400 (Fri, 22 Jun 2018) | 2 lines
+
+Updated CommandArgs to support named parameters.
+Updated test file accordingly as well. 
+------------------------------------------------------------------------
+r101 | greffal1@UTORONTO.CA | 2018-06-22 18:31:22 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Updated sprint 2 and product backlog.
+------------------------------------------------------------------------
+r100 | greffal1@UTORONTO.CA | 2018-06-22 18:25:50 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Updated CRC cards
+------------------------------------------------------------------------
+r99 | ursualex@UTORONTO.CA | 2018-06-22 18:20:42 -0400 (Fri, 22 Jun 2018) | 1 line
+
+updated method name
+------------------------------------------------------------------------
+r98 | ursualex@UTORONTO.CA | 2018-06-22 18:18:00 -0400 (Fri, 22 Jun 2018) | 1 line
+
+updated getDescription
+------------------------------------------------------------------------
+r97 | ursualex@UTORONTO.CA | 2018-06-22 18:15:58 -0400 (Fri, 22 Jun 2018) | 1 line
+
+getDescription method for CommandManager
+------------------------------------------------------------------------
+r96 | greffal1@UTORONTO.CA | 2018-06-22 18:14:56 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Added getDescription() method stubs to the commands
+------------------------------------------------------------------------
+r95 | ursualex@UTORONTO.CA | 2018-06-22 17:50:42 -0400 (Fri, 22 Jun 2018) | 1 line
+
+updated command name again
+------------------------------------------------------------------------
+r94 | ursualex@UTORONTO.CA | 2018-06-22 17:49:56 -0400 (Fri, 22 Jun 2018) | 1 line
+
+updated command name
+------------------------------------------------------------------------
+r93 | ursualex@UTORONTO.CA | 2018-06-22 17:49:24 -0400 (Fri, 22 Jun 2018) | 1 line
+
+manPage method of abstract Command Class
+------------------------------------------------------------------------
+r92 | kamins42@UTORONTO.CA | 2018-06-22 17:48:00 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Fix case
+------------------------------------------------------------------------
+r91 | ursualex@UTORONTO.CA | 2018-06-22 17:30:59 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Completed executeCommand method for CommandManager, Google formatting.
+------------------------------------------------------------------------
+r90 | ursualex@UTORONTO.CA | 2018-06-22 17:21:49 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Filled HashMap of CommandManager in constructor
+------------------------------------------------------------------------
+r89 | sankarch@UTORONTO.CA | 2018-06-22 17:12:57 -0400 (Fri, 22 Jun 2018) | 1 line
+
+implemented ls command, and added its documentation. Also added a getter method for FileSystem to be able to retireve the working directory
+------------------------------------------------------------------------
+r88 | ursualex@UTORONTO.CA | 2018-06-22 17:10:38 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Honor Code
+------------------------------------------------------------------------
+r87 | kamins42@UTORONTO.CA | 2018-06-22 13:10:38 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Complete filesystem
+------------------------------------------------------------------------
+r86 | greffal1@UTORONTO.CA | 2018-06-22 13:01:38 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Added documentation and comments to CmdMan
+------------------------------------------------------------------------
+r85 | kamins42@UTORONTO.CA | 2018-06-22 11:16:41 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Make path iterable
+------------------------------------------------------------------------
+r84 | kamins42@UTORONTO.CA | 2018-06-22 11:12:44 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Complete path class and add malformed path exception
+------------------------------------------------------------------------
+r83 | kamins42@UTORONTO.CA | 2018-06-22 10:49:55 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Add path class and add parent to directories
+------------------------------------------------------------------------
+r82 | kamins42@UTORONTO.CA | 2018-06-22 10:18:29 -0400 (Fri, 22 Jun 2018) | 1 line
+
+Add scrum meeting 2
+------------------------------------------------------------------------
+r81 | greffal1@UTORONTO.CA | 2018-06-22 01:13:34 -0400 (Fri, 22 Jun 2018) | 2 lines
+
+Added args parameter to Command abstract class. Updated inherited command classes. 
+Coded the first iteration of the man command.
+------------------------------------------------------------------------
+r80 | sankarch@UTORONTO.CA | 2018-06-21 23:14:43 -0400 (Thu, 21 Jun 2018) | 1 line
+
+added sprint backlog
+------------------------------------------------------------------------
+r79 | greffal1@UTORONTO.CA | 2018-06-21 21:49:11 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Added task assignments for the sprint 2 backlog
+------------------------------------------------------------------------
+r78 | ursualex@UTORONTO.CA | 2018-06-21 16:05:24 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Scrum Meeting for June 21st
+------------------------------------------------------------------------
+r77 | greffal1@UTORONTO.CA | 2018-06-21 14:09:16 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Added daily scrum for June 21
+------------------------------------------------------------------------
+r76 | sankarch@UTORONTO.CA | 2018-06-21 13:10:15 -0400 (Thu, 21 Jun 2018) | 1 line
+
+JShell stores history now, history arraylist is made public, to allow access for other classes to perform commands. also fixed up JShell crc
+------------------------------------------------------------------------
+r75 | greffal1@UTORONTO.CA | 2018-06-21 12:40:38 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Removed the IExecutable interface. Replaced it with an abstract class called Command that all commands inherit from.
+------------------------------------------------------------------------
+r74 | kamins42@UTORONTO.CA | 2018-06-21 12:24:37 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Add honor code to commands
+------------------------------------------------------------------------
+r73 | greffal1@UTORONTO.CA | 2018-06-21 00:37:52 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Small change to CommandManager, refactored attemptCommand to executeCommand.
+------------------------------------------------------------------------
+r72 | greffal1@UTORONTO.CA | 2018-06-21 00:34:54 -0400 (Thu, 21 Jun 2018) | 1 line
+
+Added documentation package with framework text files for the commands.
+------------------------------------------------------------------------
+r71 | greffal1@UTORONTO.CA | 2018-06-21 00:28:04 -0400 (Thu, 21 Jun 2018) | 2 lines
+
+Changed the naming convention of the interfaces to be prefixed with "I"
+Added the stub code for the command classes
+------------------------------------------------------------------------
+r70 | greffal1@UTORONTO.CA | 2018-06-20 19:52:01 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Sprint 2 backlog: Added unfinished item for JShell
+------------------------------------------------------------------------
+r69 | greffal1@UTORONTO.CA | 2018-06-20 19:49:14 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Sprint 2 backlog: Added unfinished items from Sprint 1
+------------------------------------------------------------------------
+r68 | greffal1@UTORONTO.CA | 2018-06-20 19:37:58 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Updated sprint 2 backlog
+------------------------------------------------------------------------
+r67 | greffal1@UTORONTO.CA | 2018-06-20 19:28:08 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Changed daily scrum meeting date to match with group members
+------------------------------------------------------------------------
+r66 | greffal1@UTORONTO.CA | 2018-06-20 18:15:35 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Added incomplete draft of sprint2
+------------------------------------------------------------------------
+r65 | kamins42@UTORONTO.CA | 2018-06-20 15:43:19 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Add honor code to all java files
+------------------------------------------------------------------------
+r64 | greffal1@UTORONTO.CA | 2018-06-20 12:46:54 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Updated Parser unit tests. Fixed a bug with the Parser where you couldn't have file/directory names like ">" or ">>" (specifically in quotes)
+------------------------------------------------------------------------
+r63 | greffal1@UTORONTO.CA | 2018-06-20 12:38:27 -0400 (Wed, 20 Jun 2018) | 2 lines
+
+Small change to the CommandArgs toString method.
+Fixed a bug in the Parser that wouldn't handle input with strings properly.
+------------------------------------------------------------------------
+r62 | kamins42@UTORONTO.CA | 2018-06-20 10:39:31 -0400 (Wed, 20 Jun 2018) | 1 line
+
+Simplify exit method
+------------------------------------------------------------------------
+r61 | kamins42@UTORONTO.CA | 2018-06-19 20:11:06 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Remove newline from prompt
+------------------------------------------------------------------------
+r60 | kamins42@UTORONTO.CA | 2018-06-19 19:04:59 -0400 (Tue, 19 Jun 2018) | 4 lines
+
+Add Readable interface, implement it in the File and Console classes
+Refactor JShell to use the console
+Fix formatting
+Add working directory path string to the filesystem
+------------------------------------------------------------------------
+r59 | sankarch@UTORONTO.CA | 2018-06-19 18:30:10 -0400 (Tue, 19 Jun 2018) | 1 line
+
+changed root directory name to "/", also began modifying JShell to work with new components which follow SRP
+------------------------------------------------------------------------
+r58 | greffal1@UTORONTO.CA | 2018-06-19 17:35:32 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Small naming update to Sprint1Backlog
+------------------------------------------------------------------------
+r57 | greffal1@UTORONTO.CA | 2018-06-19 17:15:02 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Updated the CRC cards for JShell and Parser
+------------------------------------------------------------------------
+r56 | greffal1@UTORONTO.CA | 2018-06-19 17:06:15 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Removed the mv command CRC card (since we're not implementing it)
+------------------------------------------------------------------------
+r55 | kamins42@UTORONTO.CA | 2018-06-19 10:33:04 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Add constructor to console
+------------------------------------------------------------------------
+r54 | kamins42@UTORONTO.CA | 2018-06-19 10:32:07 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Add Console class, remove Readable interface since it's not needed
+------------------------------------------------------------------------
+r53 | kamins42@UTORONTO.CA | 2018-06-19 10:27:56 -0400 (Tue, 19 Jun 2018) | 1 line
+
+Add more functionality to File, Directory and FileSystem
+------------------------------------------------------------------------
+r52 | kamins42@UTORONTO.CA | 2018-06-18 22:20:25 -0400 (Mon, 18 Jun 2018) | 1 line
+
+Run intellij inspection
+------------------------------------------------------------------------
+r51 | kamins42@UTORONTO.CA | 2018-06-18 22:15:24 -0400 (Mon, 18 Jun 2018) | 1 line
+
+Complete File and Directory classes, start work on FileSystem
+------------------------------------------------------------------------
+r50 | kamins42@UTORONTO.CA | 2018-06-18 21:17:45 -0400 (Mon, 18 Jun 2018) | 1 line
+
+Update crc cards and complete File class
+------------------------------------------------------------------------
+r49 | ursualex@UTORONTO.CA | 2018-06-18 13:34:23 -0400 (Mon, 18 Jun 2018) | 1 line
+
+Scrum Meeting for June 18th
+------------------------------------------------------------------------
+r48 | sankarch@UTORONTO.CA | 2018-06-18 11:43:14 -0400 (Mon, 18 Jun 2018) | 1 line
+
+submitted my  1st sprint log, June18th 2018. Also prepped JShell for new component additions
+------------------------------------------------------------------------
+r47 | greffal1@UTORONTO.CA | 2018-06-18 10:24:51 -0400 (Mon, 18 Jun 2018) | 1 line
+
+Removed commented debug code in Parser
+------------------------------------------------------------------------
+r45 | greffal1@UTORONTO.CA | 2018-06-17 21:24:07 -0400 (Sun, 17 Jun 2018) | 1 line
+
+Added daily scrum meeting 1 for myself
+------------------------------------------------------------------------
+r44 | ursualex@UTORONTO.CA | 2018-06-16 14:13:45 -0400 (Sat, 16 Jun 2018) | 1 line
+
+CRC Card update for Command, CommandArgs, and CommandManager
+------------------------------------------------------------------------
+r43 | kamins42@UTORONTO.CA | 2018-06-16 12:43:00 -0400 (Sat, 16 Jun 2018) | 1 line
+
+Initialise io and filesystem structure
+------------------------------------------------------------------------
+r42 | sankarch@UTORONTO.CA | 2018-06-16 12:18:29 -0400 (Sat, 16 Jun 2018) | 1 line
+
+
+------------------------------------------------------------------------
+r41 | kamins42@UTORONTO.CA | 2018-06-16 10:17:07 -0400 (Sat, 16 Jun 2018) | 1 line
+
+Run inspection on project, make minor fixes
+------------------------------------------------------------------------
+r40 | greffal1@UTORONTO.CA | 2018-06-15 23:15:17 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added a readme for install instructions on JUnit
+------------------------------------------------------------------------
+r39 | greffal1@UTORONTO.CA | 2018-06-15 23:05:40 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added public modifiers to methods in Command interface
+------------------------------------------------------------------------
+r38 | greffal1@UTORONTO.CA | 2018-06-15 23:04:19 -0400 (Fri, 15 Jun 2018) | 3 lines
+
+CommandArgs: small changes to toString() formatting. 
+Parser: finished coding the parser. 
+Added JUnit tests for CommandArgs and Parser
+------------------------------------------------------------------------
+r37 | ursualex@UTORONTO.CA | 2018-06-15 22:43:48 -0400 (Fri, 15 Jun 2018) | 1 line
+
+More base code on CommandManager class and Command Interface
+------------------------------------------------------------------------
+r36 | greffal1@UTORONTO.CA | 2018-06-15 22:32:23 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Refactored the getCommandArguments() to getCommandParameters() in CommandArgs
+------------------------------------------------------------------------
+r35 | ursualex@UTORONTO.CA | 2018-06-15 22:20:14 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Base code for Command Interface and CommandManager class
+------------------------------------------------------------------------
+r34 | ursualex@UTORONTO.CA | 2018-06-15 22:00:08 -0400 (Fri, 15 Jun 2018) | 1 line
+
+formatting and typo
+------------------------------------------------------------------------
+r33 | greffal1@UTORONTO.CA | 2018-06-15 21:48:50 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added unitTests package with CommandArgsTest and ParserTest tests
+------------------------------------------------------------------------
+r32 | greffal1@UTORONTO.CA | 2018-06-15 21:48:18 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added another constructor overload to CommandArgs as well as other small changes
+------------------------------------------------------------------------
+r31 | ursualex@UTORONTO.CA | 2018-06-15 21:46:51 -0400 (Fri, 15 Jun 2018) | 1 line
+
+typos and extra spaces
+------------------------------------------------------------------------
+r30 | greffal1@UTORONTO.CA | 2018-06-15 20:39:03 -0400 (Fri, 15 Jun 2018) | 2 lines
+
+Add unitTests package.
+Added utilities package and created Parser class.
+------------------------------------------------------------------------
+r29 | greffal1@UTORONTO.CA | 2018-06-15 20:36:06 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added overrides for toString() and equals() for CommandArgs
+------------------------------------------------------------------------
+r28 | kamins42@UTORONTO.CA | 2018-06-15 19:10:27 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Sign honor code
+------------------------------------------------------------------------
+r27 | sankarch@UTORONTO.CA | 2018-06-15 17:59:03 -0400 (Fri, 15 Jun 2018) | 1 line
+
+honor code filled
+------------------------------------------------------------------------
+r26 | greffal1@UTORONTO.CA | 2018-06-15 17:44:04 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Changed some CRC card names to remove question marks from the file names
+------------------------------------------------------------------------
+r25 | greffal1@UTORONTO.CA | 2018-06-15 15:58:05 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Made the CommandArgs container class
+------------------------------------------------------------------------
+r24 | greffal1@UTORONTO.CA | 2018-06-15 15:29:36 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Honor code
+------------------------------------------------------------------------
+r23 | greffal1@UTORONTO.CA | 2018-06-15 15:27:20 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Updated CommandArgs CRC card
+------------------------------------------------------------------------
+r22 | greffal1@UTORONTO.CA | 2018-06-15 15:18:54 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added more CRC cards and updated some existing ones
+------------------------------------------------------------------------
+r21 | greffal1@UTORONTO.CA | 2018-06-15 11:23:58 -0400 (Fri, 15 Jun 2018) | 1 line
+
+Added cmd prefix to command names
+------------------------------------------------------------------------
+r20 | sankarch@UTORONTO.CA | 2018-06-14 23:04:43 -0400 (Thu, 14 Jun 2018) | 1 line
+
+added starter crcCardsto be modified and reworked for a2
+------------------------------------------------------------------------
+r19 | ursualex@UTORONTO.CA | 2018-06-14 00:41:20 -0400 (Thu, 14 Jun 2018) | 1 line
+
+Honor Code
+------------------------------------------------------------------------
+r18 | greffal1@UTORONTO.CA | 2018-06-13 23:10:31 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Remove accidental java project files that were committed ealier
+------------------------------------------------------------------------
+r17 | greffal1@UTORONTO.CA | 2018-06-13 22:56:51 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Small update to product backlog. Corresponding update to sprint1backlog.
+------------------------------------------------------------------------
+r16 | greffal1@UTORONTO.CA | 2018-06-13 22:50:07 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Added another couple tasks for sprint1backlog and updated the task allocations.
+------------------------------------------------------------------------
+r15 | greffal1@UTORONTO.CA | 2018-06-13 22:43:41 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Added task allocations to the project members for sprint #1
+------------------------------------------------------------------------
+r14 | greffal1@UTORONTO.CA | 2018-06-13 18:42:09 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Small change to the Sprint1Backlog (again)
+------------------------------------------------------------------------
+r13 | greffal1@UTORONTO.CA | 2018-06-13 18:41:31 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Small changes to Sprint1Backlog
+------------------------------------------------------------------------
+r12 | greffal1@UTORONTO.CA | 2018-06-13 18:40:44 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Small changes to product backlog. Added the sprint 1 backlog.
+------------------------------------------------------------------------
+r11 | greffal1@UTORONTO.CA | 2018-06-13 18:07:36 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Small formatting change to product backlog
+------------------------------------------------------------------------
+r10 | greffal1@UTORONTO.CA | 2018-06-13 18:06:01 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Added first iteration of the product backlog
+------------------------------------------------------------------------
+r9 | greffal1@UTORONTO.CA | 2018-06-13 01:03:33 -0400 (Wed, 13 Jun 2018) | 1 line
+
+Created text file for product backlog
+------------------------------------------------------------------------
+r7 | attarwal@UTORONTO.CA | 2018-06-12 15:51:25 -0400 (Tue, 12 Jun 2018) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r6 | attarwal@UTORONTO.CA | 2018-06-12 15:51:25 -0400 (Tue, 12 Jun 2018) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r5 | attarwal@UTORONTO.CA | 2018-06-12 15:51:24 -0400 (Tue, 12 Jun 2018) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r4 | attarwal@UTORONTO.CA | 2018-06-12 15:51:23 -0400 (Tue, 12 Jun 2018) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r3 | attarwal@UTORONTO.CA | 2018-06-12 15:51:22 -0400 (Tue, 12 Jun 2018) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r2 | attarwal@UTORONTO.CA | 2018-06-12 15:51:21 -0400 (Tue, 12 Jun 2018) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r1 | Markus | 2018-06-12 15:33:16 -0400 (Tue, 12 Jun 2018) | 1 line
+
+
+------------------------------------------------------------------------
+
+
+
+Part 3) +++Work Distribution of Team Members+++
++++ON ALL SOURCE FILES+++
+   7 attarwal@U
+2485 greffal1@U
+2197 kamins42@U
+ 349 sankarch@U
+ 966 ursualex@U
++++ON CRC CARDS+++
+   8 attarwal@U
+ 221 greffal1@U
+  42 kamins42@U
+  70 sankarch@U
+   4 ursualex@U
++++ON DAILYSCRUMMEETINGS+++
+  33 attarwal@U
+  72 greffal1@U
+  77 kamins42@U
+  60 sankarch@U
+  71 ursualex@U
++++ON PRODUCT BACKLOG +++
+  11 attarwal@U
+  51 greffal1@U
++++ON SPRINTS+++
+  67 attarwal@U
+ 145 greffal1@U
+   1 kamins42@U
+   3 ursualex@U
+8007
+Part 4) SVN Commits
+
+
+On Sprints
+   1  attarwal@UTORONTO.CA 
+  15  greffal1@UTORONTO.CA 
+   1  kamins42@UTORONTO.CA 
+   3  ursualex@UTORONTO.CA 
+
+
+On CRC Cards
+   1  attarwal@UTORONTO.CA 
+  12  greffal1@UTORONTO.CA 
+   3  kamins42@UTORONTO.CA 
+   4  sankarch@UTORONTO.CA 
+   3  ursualex@UTORONTO.CA 
+
+
+On DailyScrumMeetings
+   1  attarwal@UTORONTO.CA 
+   7  greffal1@UTORONTO.CA 
+   7  kamins42@UTORONTO.CA 
+   5  sankarch@UTORONTO.CA 
+   6  ursualex@UTORONTO.CA 
+
+
+On ProductBacklog
+   1  attarwal@UTORONTO.CA 
+   6  greffal1@UTORONTO.CA 
+
+
+On source
+   1  attarwal@UTORONTO.CA 
+  73  greffal1@UTORONTO.CA 
+  39  kamins42@UTORONTO.CA 
+  25  sankarch@UTORONTO.CA 
+  68  ursualex@UTORONTO.CA 
