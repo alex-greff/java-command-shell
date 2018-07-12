@@ -93,7 +93,6 @@ public class CmdCat extends Command {
     StringBuilder result = new StringBuilder();
 
     for (String filePathStr : files) { // Iterate through FILES arguments
-
       try {
         // Get the File with the given Path
         File file = fileSystem.getFileByPath(new Path(filePathStr));
@@ -111,8 +110,17 @@ public class CmdCat extends Command {
       }
     }
 
+    // Get the result string
+    String resultStr = result.toString().trim() + "\n";
+
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile(resultStr, args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
-    out.write(result.toString().trim() + "\n");
+    out.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

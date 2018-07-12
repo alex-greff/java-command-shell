@@ -90,6 +90,13 @@ public class CmdPopd extends Command {
       // execute the cd command to go to the directory popped off
       // the stack
       commandManager.executeCommand(cdArgs);
+      
+      // If a redirect is given then attempt to write a blank string to file
+      // and return the exit code
+      if (!args.getRedirectOperator().isEmpty())
+        return writeToFile("", args.getRedirectOperator(),
+            args.getTargetDestination(), errorOut);
+
       // the command does not need to print anything
       return ExitCode.SUCCESS;
     } else {

@@ -123,7 +123,17 @@ public class CmdHistory extends Command {
       // if the parameter was 0, an empty string is returned
     }
 
-    out.write(result.toString().trim() + "\n");
+    // Get the result string
+    String resultStr = result.toString().trim() + "\n";
+
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile(resultStr, args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator then...
+    // Write all the contents read to the Console and return SUCCESS always
+    out.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

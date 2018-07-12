@@ -150,6 +150,13 @@ public class CmdFind extends Command {
         errOut.writeln("Error: file/directory not found");
       }
     }
+
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile(output.toString(), args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator is given then...
     // Print the output
     out.write(output.toString());
 

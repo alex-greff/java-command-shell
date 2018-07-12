@@ -122,12 +122,23 @@ public class CmdLs extends Command {
       result = new StringBuilder(addOn(curr));
     }
 
+    // Initialize the result string
+    String resultStr = "";
+
     if (result.length() > 0) {
       // trim final newline
       result.reverse().delete(0, 1).reverse();
-      out.write(result.toString());
+      resultStr = result.toString();
     }
 
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile(resultStr, args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator then...
+    // Write all the contents read to the Console and return SUCCESS always
+    out.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

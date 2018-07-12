@@ -104,6 +104,13 @@ public class CmdCd extends Command {
       return ExitCode.FAILURE;
     }
 
+    // If a redirect is given then attempt to write a blank string to file
+    // and return the exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile("", args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator then...
     // Nothing went wrong if this line is reached, return SUCCESS
     return ExitCode.SUCCESS;
   }

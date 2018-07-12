@@ -89,6 +89,13 @@ public class CmdPushd extends Command {
     CommandArgs cdArgs = new CommandArgs("cd", fileNameArg);
     // execute the cd command to go to the given directory
     commandManager.executeCommand(cdArgs);
+
+    // If a redirect is given then attempt to write a blank string to file
+    // and return the exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile("", args.getRedirectOperator(),
+          args.getTargetDestination(), errorOut);
+
     // this command does not print anything
     return ExitCode.SUCCESS;
   }

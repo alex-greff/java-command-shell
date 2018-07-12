@@ -115,10 +115,17 @@ public class CmdMan extends Command {
       }
     }
 
-    // Write the output to the given out
-    out.writeln(output.toString());
+    // Construct the result string
+    String resultStr = output.toString() + "\n";
 
-    // Return the success exit code
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile(resultStr, args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator then...
+    // Write all the contents read to the Console and return SUCCESS always
+    out.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

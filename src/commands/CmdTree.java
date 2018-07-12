@@ -89,6 +89,13 @@ public class CmdTree extends Command {
       // Do nothing
     }
 
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile(result, args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+
+    // If no redirect operator then...
+    // Write all the contents read to the Console and return SUCCESS always
     out.write(result);
 
     return ExitCode.SUCCESS;

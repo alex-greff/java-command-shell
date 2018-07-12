@@ -91,121 +91,22 @@ public class CmdEcho extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
-    // Initialize default command output
-    String output = "";
-    ExitCode exitValue = ExitCode.SUCCESS;
-
     // If there is a redirect operator provided
-    if (args.getRedirectOperator().length() > 0) {
-      // Write to the file
-      try {
-        // Attempt to write to the file
-        exitValue = writeToFile(args, out, errOut);
-      } catch (FileAlreadyExistsException e) {
-        // Set the failure exit code and print that the file already exists
-        exitValue = ExitCode.FAILURE;
-        errOut.writeln("File already exists");
-      }
-    }
-    // If not
-    else {
-      // Set the string parameter to the output
-      output = args.getCommandParameters()[0];
-    }
+    if (!args.getRedirectOperator().isEmpty())
+      // Write to the file and return the exit code
+      return writeToFile(args.getCommandParameters()[0],
+          args.getRedirectOperator(), args.getTargetDestination(), errOut);
+    
+    // If no redirect operator is given then...
+    // Set the string parameter to the output
+    String output = args.getCommandParameters()[0];
 
     // If there is any output for the standard out then write to it
-    if (!output.equals("")) {
+    if (!output.isEmpty())
       out.writeln(output);
-    }
 
-    // Return the output
-    return exitValue;
-  }
-
-  /**
-   * A helper function that writes the given command args to a file
-   *
-   * @param args The command args
-   * @param out The standard output to use.
-   * @param errOut The error output to use.
-   * @return Returns if the write succeeded or not
-   */
-  private ExitCode writeToFile(CommandArgs args, Writable out, Writable errOut)
-      throws FileAlreadyExistsException {
-    // Setup references
-    String redirOper = args.getRedirectOperator();
-    String strContents = args.getCommandParameters()[0];
-    String filePathStr = args.getTargetDestination();
-
-    // Get the File
-    File file;
-    try {
-      file = fileSystem.getFileByPath(new Path(filePathStr));
-      // If the file does not exist
-    } catch (FileNotFoundException e) {
-      // Attempt to make the file
-      try {
-        file = makeFile(filePathStr);
-        // Catch if the directory is not found
-      } catch (FileNotFoundException e1) {
-        errOut.writeln("Error: No directory found");
-        return ExitCode.FAILURE;
-        // Catch if the path is invalid
-      } catch (MalformedPathException e1) {
-        errOut.write("Error: Invalid path \"" + filePathStr + "\"");
-        return ExitCode.FAILURE;
-      }
-    } catch (MalformedPathException e1) {
-      errOut.writeln("Error: Not a valid file path");
-      return ExitCode.FAILURE;
-    }
-
-    // Wipe the file contents if the overwrite operator is given in the args
-    if (redirOper.equals(OVERWRITE_OPERATOR)) {
-      file.clear();
-    }
-
-    // Add the string contents to the file
-    file.write(strContents);
-
-    // Reaching this point means that the write to file executed successfully
+    // Return the success exit code
     return ExitCode.SUCCESS;
-  }
-
-
-  /**
-   * Attempts to make a file from the given file path string.
-   *
-   * @param filePathStr The file path string.
-   * @return Returns the created file.
-   */
-  private File makeFile(String filePathStr) throws MalformedPathException,
-      FileNotFoundException, FileAlreadyExistsException {
-
-    // Make the new file
-    String[] fileSplit = filePathStr.split("/");
-    String fileName = fileSplit[fileSplit.length - 1];
-    File file = new File(fileName);
-    // Get the index of the last "/"
-    int lastSlash = filePathStr.lastIndexOf('/');
-
-    // Get the directory that the file is in
-    String dirPathStr =
-        (lastSlash > -1) ? filePathStr.substring(0, lastSlash) : "";
-
-    // If the file is in the root
-    if (dirPathStr.equals("")) {
-      dirPathStr = "/";
-    }
-
-    // Get the directory at the path
-    Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
-
-    // Add the file to the directory
-    dirOfFile.addFile(file);
-
-    // Return the file
-    return file;
   }
 
   /**

@@ -110,6 +110,13 @@ public class CmdMkdir extends Command {
         return ExitCode.FAILURE;
       }
     }
+
+    // If a redirect is given then attempt to write a blank string to file
+    // and return the exit code
+    if (!args.getRedirectOperator().isEmpty())
+      return writeToFile("", args.getRedirectOperator(),
+          args.getTargetDestination(), errorOut);
+
     // if execution reaches here everything went wee and success is
     // returned as the exitcode
     return ExitCode.SUCCESS;
