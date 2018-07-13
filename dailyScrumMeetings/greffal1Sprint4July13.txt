@@ -1,0 +1,13 @@
+What did I do last time?
+    - Updated parser to meet new requirements
+    - Fixed a bug with file saving in the command redirect system
+    - Added the redirect system to all commands except Exit
+    - Coded curl command
+    - Updated test files for items being worked on
+
+What do I plan to do now?
+    - Bug fixes
+    - Work with team to polish up the project 
+
+Am I blocked on anything?
+    - No
