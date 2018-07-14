@@ -1,0 +1,12 @@
+What did I do last time?
+    - Created mv command (full documentation, missing execute method)
+    - Created cp command (full documentation, missing execute method)
+
+What do I plan to do now?
+    - Complete implementation of mv command
+    - Complete implementation of cp command
+    - Update cat command as needed
+    - Update unit tests of commands responsible for as needed
+
+Am I blocked on anything?
+    - Waiting on FileSystem update
