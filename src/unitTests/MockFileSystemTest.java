@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import filesystem.Directory;
 import filesystem.File;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementNotFoundException;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class MockFileSystemTest {
 
   @Test
   public void testChangeWorkingDirWithValidPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.changeWorkingDir(new Path("validPath"));
@@ -22,15 +22,15 @@ public class MockFileSystemTest {
 
   @Test(expected = MalformedPathException.class)
   public void testChangeWorkingDirWithInvalidPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.changeWorkingDir(new Path("invalidPath"));
   }
 
-  @Test(expected = FileNotFoundException.class)
+  @Test(expected = FSElementNotFoundException.class)
   public void testChangeWorkingDirWithNonExistentFilePath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.changeWorkingDir(new Path("nonExistentFilePath"));
@@ -52,7 +52,7 @@ public class MockFileSystemTest {
 
   @Test
   public void testGetFileByPathWithValidPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     File f = mfs.getFileByPath(new Path("validPath"));
@@ -62,15 +62,15 @@ public class MockFileSystemTest {
 
   @Test(expected = MalformedPathException.class)
   public void testGetFileByPathWithInvalidPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.getFileByPath(new Path("invalidPath"));
   }
 
-  @Test(expected = FileNotFoundException.class)
+  @Test(expected = FSElementNotFoundException.class)
   public void testGetFileByPathWithNonExistentFilePath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.getFileByPath(new Path("nonExistentFilePath"));
@@ -78,7 +78,7 @@ public class MockFileSystemTest {
 
   @Test
   public void testGetDirByPathWithValidPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     Directory d = mfs.getDirByPath(new Path("validPath"));
@@ -88,15 +88,15 @@ public class MockFileSystemTest {
 
   @Test(expected = MalformedPathException.class)
   public void testGetDirByPathWithInvalidPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.getDirByPath(new Path("invalidPath"));
   }
 
-  @Test(expected = FileNotFoundException.class)
+  @Test(expected = FSElementNotFoundException.class)
   public void testGetDirByPathWithNonExistentFilePath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
 
     MockFileSystem mfs = new MockFileSystem();
     mfs.getDirByPath(new Path("nonExistentFilePath"));

@@ -33,8 +33,8 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdCat;
 import containers.CommandArgs;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.File;
-import filesystem.FileAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import org.junit.Before;
@@ -64,7 +64,7 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testFileWithOneLine() throws FileAlreadyExistsException {
+  public void testFileWithOneLine() throws FSElementAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
     File file = new File("testFile", "hello");
     fs.getRoot().addFile(file);
@@ -81,7 +81,7 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testMultipleFilesWithOneLine() throws FileAlreadyExistsException {
+  public void testMultipleFilesWithOneLine() throws FSElementAlreadyExistsException {
     // Create two files with one line of content each, and add them to the root
     // directory
     File file1 = new File("testFile1", "hello");
@@ -101,7 +101,7 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testFileWithMultipleLines() throws FileAlreadyExistsException {
+  public void testFileWithMultipleLines() throws FSElementAlreadyExistsException {
     // Create a file with multiple lines of content, and add it to the root
     // directory
     File file = new File("testFile", "hello\nworld\nthis\nis\na\ntest");

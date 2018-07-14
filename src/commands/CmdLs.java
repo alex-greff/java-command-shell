@@ -32,8 +32,8 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
+import filesystem.FSElementNotFoundException;
 import filesystem.File;
-import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -104,12 +104,12 @@ public class CmdLs extends Command {
         try {
           curr = fileSystem.getDirByPath(new Path(name));
           result.append(addOn(curr));
-        } catch (MalformedPathException | FileNotFoundException m) {
+        } catch (MalformedPathException | FSElementNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
             File file = fileSystem.getFileByPath(new Path(name));
             result.append(addFileName(file));
-          } catch (FileNotFoundException | MalformedPathException e) {
+          } catch (FSElementNotFoundException | MalformedPathException e) {
             // only error out if the name was not found as either file or dir.
             errOut.writeln("Error: File \"" + name + "\" was not found");
           } // end catch for FileNotFound

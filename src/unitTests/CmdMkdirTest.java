@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import commands.CmdMkdir;
 import containers.CommandArgs;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import org.junit.Before;
@@ -53,7 +53,7 @@ public class CmdMkdirTest {
   }
 
   @Test
-  public void testMultipleNotInWorkingDir() throws FileNotFoundException {
+  public void testMultipleNotInWorkingDir() throws FSElementNotFoundException {
     // creating parent
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test1",
         "test1/test2"});

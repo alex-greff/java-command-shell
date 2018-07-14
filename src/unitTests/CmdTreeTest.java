@@ -35,7 +35,7 @@ import commands.CmdTree;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.File;
-import filesystem.FileAlreadyExistsException;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import org.junit.Before;
@@ -56,7 +56,7 @@ public class CmdTreeTest {
 
   @Before
   // Resets the file system for each test case
-  public void reset() throws FileAlreadyExistsException {
+  public void reset() throws FSElementAlreadyExistsException {
     testOut = new TestingConsole();
     testErrOut = new TestingConsole();
     fs = new InMemoryFileSystem();

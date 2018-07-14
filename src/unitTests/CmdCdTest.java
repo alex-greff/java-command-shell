@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdCd;
 import containers.CommandArgs;
-import filesystem.FileAlreadyExistsException;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import org.junit.Before;
@@ -63,7 +63,7 @@ public class CmdCdTest {
   }
 
   @Test
-  public void testChildDir() throws FileAlreadyExistsException {
+  public void testChildDir() throws FSElementAlreadyExistsException {
     // Create a directory and add it to the root directory
     fs.getRoot().createAndAddNewDir("testDir");
 
@@ -92,7 +92,7 @@ public class CmdCdTest {
   }
 
   @Test
-  public void testParentDir() throws FileAlreadyExistsException {
+  public void testParentDir() throws FSElementAlreadyExistsException {
     // Create a directory and add it to the root directory
     fs.getRoot().createAndAddNewDir("testDir");
 
@@ -114,7 +114,7 @@ public class CmdCdTest {
   }
 
   @Test
-  public void testAbsolutePathToDir() throws FileAlreadyExistsException {
+  public void testAbsolutePathToDir() throws FSElementAlreadyExistsException {
     // Create a directory and add it to the root directory
     fs.getRoot().createAndAddNewDir("testDir");
 
@@ -139,7 +139,7 @@ public class CmdCdTest {
   }
 
   @Test
-  public void testRelativePathToDir() throws FileAlreadyExistsException {
+  public void testRelativePathToDir() throws FSElementAlreadyExistsException {
     // Create two directories and add them to the root directory
     fs.getRoot().createAndAddNewDir("testDir");
     fs.getRoot().createAndAddNewDir("testDirAgain");

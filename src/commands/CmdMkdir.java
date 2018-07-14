@@ -34,8 +34,8 @@ import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
-import filesystem.FileAlreadyExistsException;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementAlreadyExistsException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -102,10 +102,10 @@ public class CmdMkdir extends Command {
       } catch (MalformedPathException e) {
         errorOut.writeln("Error: Invalid path " + pathString);
         return ExitCode.SUCCESS;
-      } catch (FileNotFoundException e) {
+      } catch (FSElementNotFoundException e) {
         errorOut.writeln("Error: Parent directory not found");
         return ExitCode.FAILURE;
-      } catch (FileAlreadyExistsException e) {
+      } catch (FSElementAlreadyExistsException e) {
         errorOut.writeln("Error: File already exists");
         return ExitCode.FAILURE;
       }

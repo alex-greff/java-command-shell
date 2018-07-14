@@ -1,8 +1,8 @@
 package unitTests;
 
 import filesystem.Directory;
+import filesystem.FSElementNotFoundException;
 import filesystem.File;
-import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -12,20 +12,20 @@ public class MockFileSystem implements FileSystem {
   /**
    * Simulates changing the working directory. Use "validPath" to simulate a
    * valid path behavior. Use "invalidPath" and "nonExistentFilePath" to throw
-   * MalformedPathException and FileNotFoundException, respectively.
+   * MalformedPathException and FSElementNotFoundException, respectively.
    *
    * @param path The path.
    */
   @Override
   public void changeWorkingDir(Path path)
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     switch (path.toString()) {
       case "validPath":
         break;
       case "invalidPath":
         throw new MalformedPathException();
       case "nonExistentFilePath":
-        throw new FileNotFoundException();
+        throw new FSElementNotFoundException();
     }
   }
 
@@ -43,8 +43,8 @@ public class MockFileSystem implements FileSystem {
   /**
    * Simulates getting a file by its path string. Use "validPath" to simulate a
    * valid path behavior. Use "invalidPath" and "nonExistentFilePath" to throw
-   * MalformedPathException and FileNotFoundException, respectively. Using any
-   * other string for pathString will throw a FileNotFoundException by default.
+   * MalformedPathException and FSElementNotFoundException, respectively. Using any
+   * other string for pathString will throw a FSElementNotFoundException by default.
    *
    * @param path The path.
    * @return Returns a file with the name "someFile" and the contents "some file
@@ -52,24 +52,24 @@ public class MockFileSystem implements FileSystem {
    */
   @Override
   public File getFileByPath(Path path)
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     switch (path.toString()) {
       case "validPath":
         return new File("someFile", "some file contents");
       case "invalidPath":
         throw new MalformedPathException();
       case "nonExistentFilePath":
-        throw new FileNotFoundException();
+        throw new FSElementNotFoundException();
       default:
-        throw new FileNotFoundException();
+        throw new FSElementNotFoundException();
     }
   }
 
   /**
    * Simulates getting a directory by its path string. Use "validPath" to
    * simulate a valid path behavior. Use "invalidPath" and "nonExistentFilePath"
-   * to throw MalformedPathException and FileNotFoundException, respectively.
-   * Using any other string for pathString will throw a FileNotFoundException by
+   * to throw MalformedPathException and FSElementNotFoundException, respectively.
+   * Using any other string for pathString will throw a FSElementNotFoundException by
    * default.
    *
    * @param path The path.
@@ -78,16 +78,16 @@ public class MockFileSystem implements FileSystem {
    */
   @Override
   public Directory getDirByPath(Path path)
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     switch (path.toString()) {
       case "validPath":
         return new Directory("someDirectory", null);
       case "invalidPath":
         throw new MalformedPathException();
       case "nonExistentFilePath":
-        throw new FileNotFoundException();
+        throw new FSElementNotFoundException();
       default:
-        throw new FileNotFoundException();
+        throw new FSElementNotFoundException();
     }
   }
 

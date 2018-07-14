@@ -30,12 +30,13 @@
 package utilities;
 
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
+import filesystem.FSElementAlreadyExistsException;
+import filesystem.FSElementNotFoundException;
 import filesystem.File;
-import filesystem.FileAlreadyExistsException;
-import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -47,6 +48,7 @@ import io.Writable;
  * @author greff
  */
 public abstract class Command {
+
   /**
    * The command's name
    */
@@ -86,7 +88,7 @@ public abstract class Command {
    * @param fileSystem The file system the command uses
    */
   public Command(String name, CommandDescription description,
-      FileSystem fileSystem, CommandManager commandManager) {
+                 FileSystem fileSystem, CommandManager commandManager) {
 
     this(fileSystem, commandManager);
     this.NAME = name;
@@ -102,7 +104,7 @@ public abstract class Command {
    * @return Returns the exit condition of the command.
    */
   public abstract ExitCode execute(CommandArgs args, Writable out,
-      Writable errorOut);
+                                   Writable errorOut);
 
   /**
    * Checks if the given args are valid for this command.
@@ -140,18 +142,18 @@ public abstract class Command {
    * @return Returns if the write succeeded or not.
    */
   protected ExitCode writeToFile(String content, String redirectOperator,
-      String targetDestination, Writable errOut) {
+                                 String targetDestination, Writable errOut) {
     // Get the File
     File file;
     try {
       file = fileSystem.getFileByPath(new Path(targetDestination));
       // If the file does not exist
-    } catch (FileNotFoundException e) {
+    } catch (FSElementNotFoundException e) {
       // Attempt to make the file
       try {
         file = makeFile(targetDestination);
         // Catch if the directory is not found
-      } catch (FileNotFoundException e1) {
+      } catch (FSElementNotFoundException e1) {
         errOut.writeln("Error: No directory found");
         return ExitCode.FAILURE;
         // Catch if the path is invalid
@@ -159,7 +161,7 @@ public abstract class Command {
         errOut.write("Error: Invalid path \"" + targetDestination + "\"");
         return ExitCode.FAILURE;
         // Catch if the file already exists
-      } catch (FileAlreadyExistsException e1) {
+      } catch (FSElementAlreadyExistsException e1) {
         errOut.writeln("File already exists");
         return ExitCode.FAILURE;
       }
@@ -187,10 +189,10 @@ public abstract class Command {
    * @param filePathStr The file path string.
    * @return Returns the created file.
    */
-  private File makeFile(String filePathStr) throws MalformedPathException,
-      FileNotFoundException, FileAlreadyExistsException {
+  private File makeFile(String filePathStr)
+      throws MalformedPathException, FSElementNotFoundException, FSElementAlreadyExistsException {
     boolean absolutePath = filePathStr.startsWith("/");
-    
+
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
     String fileName = fileSplit[fileSplit.length - 1];
@@ -204,10 +206,11 @@ public abstract class Command {
 
     // If the file is in the root
     if (dirPathStr.equals("")) {
-      if (absolutePath)
+      if (absolutePath) {
         dirPathStr = "/";
-      else
+      } else {
         dirPathStr = fileSystem.getWorkingDirPath();
+      }
     }
 
     // Get the directory at the path

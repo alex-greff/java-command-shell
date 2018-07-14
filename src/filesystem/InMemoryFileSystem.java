@@ -59,14 +59,15 @@ public class InMemoryFileSystem implements FileSystem {
    * Change the working dir to the dir given by the path
    *
    * @param path A path to the dir to change to
-   * @throws FileNotFoundException Thrown when the directory does not exist
+   * @throws FSElementNotFoundException Thrown when the directory does not
+   * exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public void changeWorkingDir(Path path)
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     Directory newWorkingDir = getDirByPath(path);
     if (newWorkingDir == null) {
-      throw new FileNotFoundException();
+      throw new FSElementNotFoundException();
     }
     workingDirPath = getAbsolutePathOfDir(newWorkingDir);
     workingDir = newWorkingDir;
@@ -100,14 +101,19 @@ public class InMemoryFileSystem implements FileSystem {
    * @param path The path of the wanted file, can be absolute or relative.
    * Absolute path must start with / indicating root directory.
    * @return The file located at the path
-   * @throws FileNotFoundException Thrown when the file does not exist
+   * @throws FSElementNotFoundException Thrown when the file does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public File getFileByPath(Path path)
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     String fileName = path.removeLast();
     Directory parent = getDirByPath(path);
-    return parent.getFileByName(fileName);
+    FSElement maybeFile = parent.getChildByName(fileName);
+    if (maybeFile instanceof File) {
+      return (File) maybeFile;
+    } else {
+      throw new FSElementNotFoundException();
+    }
   }
 
   /**
@@ -116,11 +122,12 @@ public class InMemoryFileSystem implements FileSystem {
    * @param path The path of the wanted file, can be absolute or relative.
    * Absolute path must start with / indicating root directory.
    * @return The directory located at the path
-   * @throws FileNotFoundException Thrown when the directory does not exist
+   * @throws FSElementNotFoundException Thrown when the directory does not
+   * exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public Directory getDirByPath(Path path)
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     Directory curr = workingDir;
     for (String segment : path) {
       if (segment.equals("/")) {
@@ -131,7 +138,12 @@ public class InMemoryFileSystem implements FileSystem {
           throw new MalformedPathException();
         }
       } else if (!segment.equals(".")) {
-        curr = curr.getDirByName(segment);
+        FSElement maybeDir = curr.getChildByName(segment);
+        if (maybeDir instanceof Directory) {
+          curr = (Directory) maybeDir;
+        } else {
+          throw new FSElementNotFoundException();
+        }
       }
     }
     return curr;

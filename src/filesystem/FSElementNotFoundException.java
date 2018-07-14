@@ -31,10 +31,10 @@
 package filesystem;
 
 /**
- * Exception raised when a file or directory already exists
+ * Thrown when a path with a non-existent file is called.
  *
  * @author anton
  */
-public class FileAlreadyExistsException extends Throwable {
+public class FSElementNotFoundException extends Throwable {
 
 }

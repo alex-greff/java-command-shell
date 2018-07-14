@@ -33,7 +33,7 @@ import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -98,7 +98,7 @@ public class CmdCd extends Command {
       errOut.writeln("Error: Invalid file path");
       return ExitCode.FAILURE;
 
-    } catch (FileNotFoundException e) {
+    } catch (FSElementNotFoundException e) {
       // No Directory at the Path of the argument given, return FAILURE
       errOut.writeln("Error: Directory does not exist");
       return ExitCode.FAILURE;

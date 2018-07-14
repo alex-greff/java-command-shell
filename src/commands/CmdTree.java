@@ -32,7 +32,7 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import io.Writable;
 import static utilities.JShellConstants.APPEND_OPERATOR;
@@ -85,7 +85,7 @@ public class CmdTree extends Command {
     String result = (root.getName() + "\n");
     try {
       result += (addOn(root, 1));
-    } catch (FileNotFoundException e) {
+    } catch (FSElementNotFoundException e) {
       // Do nothing
     }
 
@@ -122,7 +122,7 @@ public class CmdTree extends Command {
    * @return a block of String which represents the filesystem from the curr
    *         directory down.
    */
-  private String addOn(Directory curr, int tabs) throws FileNotFoundException {
+  private String addOn(Directory curr, int tabs) throws FSElementNotFoundException {
     // get proper amount of tabs
     StringBuilder spacing = new StringBuilder();
     for (int i = 0; i < tabs; i++) {

@@ -33,8 +33,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import filesystem.Directory;
-import filesystem.FileAlreadyExistsException;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementAlreadyExistsException;
+import filesystem.FSElementNotFoundException;
 import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -44,7 +44,7 @@ public class FileSystemTest {
 
   @Test
   public void testAddingNewDirectoryToWorkingDirectory()
-      throws FileAlreadyExistsException {
+      throws FSElementAlreadyExistsException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // make sure that the current working directory is root
     assertEquals("/", fs.getWorkingDirPath());
@@ -56,7 +56,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingAbsolutePathOfDirectory()
-      throws FileNotFoundException, FileAlreadyExistsException {
+      throws FSElementNotFoundException, FSElementAlreadyExistsException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
@@ -69,7 +69,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingRootDirectoryByPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // make a path for root
     Directory rt = fs.getDirByPath(new Path("/"));
@@ -79,7 +79,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingRootDirectoryWithConvolutedPath()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // make a convoluted path
     Directory spookyRoot = fs.getDirByPath(new Path("/./././././././"));
@@ -88,7 +88,7 @@ public class FileSystemTest {
 
   @Test
   public void testGettingNonRootDirectoryByPath()
-      throws MalformedPathException, FileNotFoundException, FileAlreadyExistsException {
+      throws MalformedPathException, FSElementNotFoundException, FSElementAlreadyExistsException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");

@@ -35,9 +35,9 @@ import static org.junit.Assert.assertSame;
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.FSElementNotFoundException;
 import filesystem.File;
-import filesystem.FileAlreadyExistsException;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
@@ -61,7 +61,7 @@ public class CmdEchoTest {
 
   @Before
   // Resets the file system for each test case
-  public void reset() throws FileAlreadyExistsException {
+  public void reset() throws FSElementAlreadyExistsException {
     tc = new TestingConsole();
     tc_err = new TestingConsole();
     fs = new InMemoryFileSystem();
@@ -97,7 +97,7 @@ public class CmdEchoTest {
 
   @Test
   public void testExecuteWriteToExistingFile()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
 
@@ -112,7 +112,7 @@ public class CmdEchoTest {
 
   @Test
   public void testExecuteAppendToFile()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
@@ -125,7 +125,7 @@ public class CmdEchoTest {
 
   @Test
   public void testExecuteCreateFile()
-      throws MalformedPathException, FileNotFoundException {
+      throws MalformedPathException, FSElementNotFoundException {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
 

@@ -34,8 +34,8 @@ import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.FSElementNotFoundException;
 import filesystem.File;
-import filesystem.FileNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -104,7 +104,7 @@ public class CmdCat extends Command {
         // Argument given is an improper Path
         errOut.writeln("Invalid file path");
 
-      } catch (FileNotFoundException e) {
+      } catch (FSElementNotFoundException e) {
         // No File at the Path of the argument given
         errOut.writeln("File does not exist");
       }

@@ -38,12 +38,8 @@ import io.Writable;
  *
  * @author anton
  */
-public class File implements Writable, Readable {
+public class File extends FSElement implements Writable, Readable {
 
-  /**
-   * The name of the file.
-   */
-  private String name;
   /**
    * The contents of the file.
    */
@@ -55,9 +51,10 @@ public class File implements Writable, Readable {
    * @param name The name by which the file is to be referred, may or may not
    * contain an extension
    * @param contents The text data stored inside the file
+   * @param parent The parent directory of this file
    */
-  public File(String name, String contents) {
-    this.name = name;
+  public File(String name, String contents, Directory parent) {
+    super(name, parent);
     this.contents = contents;
   }
 
@@ -66,28 +63,11 @@ public class File implements Writable, Readable {
    *
    * @param name The name by which the file is to be referred, may or may not
    * contain an extension
+   * @param parent The parent directory of this file
    */
-  public File(String name) {
-    this.name = name;
+  public File(String name, Directory parent) {
+    super(name, parent);
     this.contents = "";
-  }
-
-  /**
-   * Provides the name of the file
-   *
-   * @return The name of the file
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Allows renaming the file
-   *
-   * @param name The new name of the file
-   */
-  public void setName(String name) {
-    this.name = name;
   }
 
   /**

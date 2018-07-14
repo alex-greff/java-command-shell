@@ -31,32 +31,19 @@ package filesystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 /**
  * Represents a directory which can contain files and directories
  *
  * @author anton
  */
-public class Directory {
+public class Directory extends FSElement {
 
   /**
-   * The name of the directory.
+   * The map containing all the child elements.
    */
-  private String name;
-  /**
-   * The parent directory.
-   */
-  private Directory parent;
-  // Maps: <name of child directory> to <Directory object>
-  /**
-   * The map containing all the child directories.
-   */
-  private HashMap<String, Directory> childDirs = new HashMap<>();
-  // Maps: <name of child file> to <File object>
-  /**
-   * The map containing all the child files.
-   */
-  private HashMap<String, File> childFiles = new HashMap<>();
+  private HashMap<String, FSElement> children = new HashMap<>();
 
   /**
    * Creates a new directory given the name of the directory and its parent
@@ -65,8 +52,7 @@ public class Directory {
    * @param parent The parent of this directory
    */
   public Directory(String name, Directory parent) {
-    this.name = name;
-    this.parent = parent;
+    super(name, parent);
   }
 
   /**
@@ -75,16 +61,16 @@ public class Directory {
    *
    * @param name The name of the new child directory
    * @return Returns the new created directory
-   * @throws FileAlreadyExistsException Thrown when the directory already
+   * @throws FSElementAlreadyExistsException Thrown when the directory already
    * exists
    */
   public Directory createAndAddNewDir(String name)
-      throws FileAlreadyExistsException {
+      throws FSElementAlreadyExistsException {
     Directory newDir = new Directory(name, this);
-    if (!containsDir(name) && !containsFile(name)) {
-      this.childDirs.put(name, newDir);
+    if (!children.containsKey(name)) {
+      this.children.put(name, newDir);
     } else {
-      throw new FileAlreadyExistsException();
+      throw new FSElementAlreadyExistsException();
     }
     return newDir;
   }
@@ -93,90 +79,49 @@ public class Directory {
    * Adds a given file as a child of this directory if the file does not already
    * exist otherwise raises error
    *
-   * @param newFile The child file
-   * @throws FileAlreadyExistsException Thrown when the file already exists
+   * @param name The name of the child file to create
+   * @return The new file object that was created
+   * @throws FSElementAlreadyExistsException Thrown when the file already
+   * exists
    */
-  public void addFile(File newFile) throws FileAlreadyExistsException {
-    String fileName = newFile.getName();
-    if (!containsDir(fileName) && !containsFile(fileName)) {
-      this.childFiles.put(fileName, newFile);
+  public File createAndAddNewFile(String name)
+      throws FSElementAlreadyExistsException {
+    if (!children.containsKey(name)) {
+      File newFile = new File(name, this);
+      this.children.put(name, newFile);
+      return newFile;
     } else {
-      throw new FileAlreadyExistsException();
+      throw new FSElementAlreadyExistsException();
     }
   }
 
   /**
    * Removes a child directory with the given name if it exists
    *
-   * @param name The name of the directory to remove
-   * @throws FileNotFoundException Thrown if the directory is not found
+   * @param name The name of the child to remove
+   * @throws FSElementNotFoundException Thrown if the directory is not found
    */
-  public void removeDirByName(String name) throws FileNotFoundException {
-    if (!childDirs.containsKey(name)) {
-      throw new FileNotFoundException();
+  public void removeChildByName(String name)
+      throws FSElementNotFoundException {
+    if (!children.containsKey(name)) {
+      throw new FSElementNotFoundException();
     }
-    childDirs.remove(name);
-  }
-
-  /**
-   * Removes a child file with the given name if it exists
-   *
-   * @param name The name of the file to remove
-   * @throws FileNotFoundException Thrown if the file is not found
-   */
-  public void removeFileByName(String name) throws FileNotFoundException {
-    if (!childFiles.containsKey(name)) {
-      throw new FileNotFoundException();
-    }
-    childFiles.remove(name);
-  }
-
-  /**
-   * Checks if the file with the given name exits in this directory
-   *
-   * @param name The name of the file to look for
-   * @return True if the file exists, False otherwise
-   */
-  public boolean containsFile(String name) {
-    return this.childFiles.containsKey(name);
-  }
-
-  /**
-   * Checks if the directory with the given name exits in this directory
-   *
-   * @param name The name of the directory to look for
-   * @return True if the directory exists, False otherwise
-   */
-  public boolean containsDir(String name) {
-    return this.childDirs.containsKey(name);
+    children.remove(name);
   }
 
   /**
    * Returns a child directory by name
    *
-   * @param name The name of the directory wanted
-   * @return The directory with the given name
-   * @throws FileNotFoundException Thrown if the directory is not found
+   * @param name The name of the child wanted
+   * @return The child with the given name
+   * @throws FSElementNotFoundException Thrown if the directory is not found
    */
-  public Directory getDirByName(String name) throws FileNotFoundException {
-    if (!childDirs.containsKey(name)) {
-      throw new FileNotFoundException();
+  public FSElement getChildByName(String name)
+      throws FSElementNotFoundException {
+    if (!children.containsKey(name)) {
+      throw new FSElementNotFoundException();
     }
-    return childDirs.get(name);
-  }
-
-  /**
-   * Returns a child file by name
-   *
-   * @param name The name of the file wanted
-   * @return The file with the given name
-   * @throws FileNotFoundException Thrown when the file is not found
-   */
-  public File getFileByName(String name) throws FileNotFoundException {
-    if (!childFiles.containsKey(name)) {
-      throw new FileNotFoundException();
-    }
-    return childFiles.get(name);
+    return children.get(name);
   }
 
   /**
@@ -185,7 +130,7 @@ public class Directory {
    * @return A list of all the directory names inside this directory
    */
   public ArrayList<String> listDirNames() {
-    return new ArrayList<>(this.childDirs.keySet());
+    return new ArrayList<>(this.children.keySet());
   }
 
   /**
@@ -194,7 +139,9 @@ public class Directory {
    * @return A list of all the file names inside this directory
    */
   public ArrayList<String> listFiles() {
-    return new ArrayList<>(this.childFiles.keySet());
+    return children.keySet().stream()
+        .filter(name -> children.get(name) instanceof File)
+        .collect(Collectors.toCollection(ArrayList::new));
   }
 
   /**

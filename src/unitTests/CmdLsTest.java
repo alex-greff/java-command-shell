@@ -35,7 +35,7 @@ import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.File;
-import filesystem.FileAlreadyExistsException;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import org.junit.Before;
@@ -56,7 +56,7 @@ public class CmdLsTest {
 
   @Before
   // Resets the file system for each test case
-  public void reset() throws FileAlreadyExistsException {
+  public void reset() throws FSElementAlreadyExistsException {
     tc = new TestingConsole();
     tc_err = new TestingConsole();
     fs = new InMemoryFileSystem();

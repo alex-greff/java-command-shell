@@ -6,7 +6,7 @@ import commands.CmdPopd;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.DirectoryStack;
-import filesystem.FileAlreadyExistsException;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import org.junit.Before;
@@ -34,7 +34,7 @@ public class CmdPopdTest {
   }
 
   @Test
-  public void testPopdWithDirectory() throws FileAlreadyExistsException {
+  public void testPopdWithDirectory() throws FSElementAlreadyExistsException {
     DirectoryStack ds = DirectoryStack.getInstance();
     // add a new directory for testing
     Directory newDir = fs.getWorkingDir().createAndAddNewDir("test");

@@ -32,7 +32,7 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
-import filesystem.FileNotFoundException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -144,7 +144,7 @@ public class CmdFind extends Command {
 
       } catch (MalformedPathException e1) {
         errOut.writeln("Error: invalid path");
-      } catch (FileNotFoundException e2) {
+      } catch (FSElementNotFoundException e2) {
         errOut.writeln("Error: file/directory not found");
       }
     }
@@ -173,7 +173,7 @@ public class CmdFind extends Command {
    */
   private Set<String> findFileInDirectoryStructure(Directory dir,
       String dirStrPath, String name, Writable errOut)
-      throws FileNotFoundException {
+      throws FSElementNotFoundException {
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
@@ -223,7 +223,7 @@ public class CmdFind extends Command {
    */
   private Set<String> findDirectoryInDirectoryStructure(Directory dir,
       String dirStrPath, String name, Writable errOut)
-      throws FileNotFoundException {
+      throws FSElementNotFoundException {
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
