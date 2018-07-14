@@ -103,6 +103,7 @@ public class CmdExclamPoint extends Command {
     }
     String cmd = history.get(num-1); // minus one since the list starts at 1.
     // manually execute and add the command to history
+    history.remove(history.size()-1); //replaces the !num with actual cmd
     history.add(cmd);
     JShell.parseAndExecute(cmd);
     return ExitCode.SUCCESS;
