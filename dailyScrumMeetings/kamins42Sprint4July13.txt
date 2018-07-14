@@ -1,0 +1,11 @@
+What did I do last time?
+  - Add tests for commands
+  - Change the design of the filesystem to make implementing some
+  commands simpler
+
+What do I plan to do now?
+  - Fix compiler errors resulting from design change
+  - Work on mv command
+
+Am I blocked on anything?
+    - Nope
