@@ -143,7 +143,7 @@ public class CmdTree extends Command {
     for (String key : childs) {
       result.append(spacing).append(key).append("\n");
       // result+=addOn(childs.get(key), tabs+1);
-      result.append(addOn(curr.getDirByName(key), tabs + 1));
+      result.append(addOn(curr.getChildDirectoryByName(key), tabs + 1));
     }
     return result.toString();
   }

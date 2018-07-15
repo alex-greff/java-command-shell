@@ -62,7 +62,7 @@ public class Directory extends FSElement {
    * @param name The name of the new child directory
    * @return Returns the new created directory
    * @throws FSElementAlreadyExistsException Thrown when the directory already
-   * exists
+   *         exists
    */
   public Directory createAndAddNewDir(String name)
       throws FSElementAlreadyExistsException {
@@ -81,8 +81,7 @@ public class Directory extends FSElement {
    *
    * @param name The name of the child file to create
    * @return The new file object that was created
-   * @throws FSElementAlreadyExistsException Thrown when the file already
-   * exists
+   * @throws FSElementAlreadyExistsException Thrown when the file already exists
    */
   public File createAndAddNewFile(String name)
       throws FSElementAlreadyExistsException {
@@ -94,6 +93,24 @@ public class Directory extends FSElement {
       throw new FSElementAlreadyExistsException();
     }
   }
+  
+  /**
+   * Adds a given file as a child of this directory if the file does not already
+   * exist otherwise raises error
+   *
+   * @param name The name of the child file to create
+   * @param contents The initial contents of the new file
+   * @return The new file object that was created
+   * @throws FSElementAlreadyExistsException Thrown when the file already exists
+   */
+  public File createAndAddNewFile(String name, String contents)
+      throws FSElementAlreadyExistsException {
+    
+    File f = createAndAddNewFile(name);
+    f.write(contents);
+    
+    return f;
+  }
 
   /**
    * Removes a child directory with the given name if it exists
@@ -101,8 +118,7 @@ public class Directory extends FSElement {
    * @param name The name of the child to remove
    * @throws FSElementNotFoundException Thrown if the directory is not found
    */
-  public void removeChildByName(String name)
-      throws FSElementNotFoundException {
+  public void removeChildByName(String name) throws FSElementNotFoundException {
     if (!children.containsKey(name)) {
       throw new FSElementNotFoundException();
     }
@@ -110,11 +126,12 @@ public class Directory extends FSElement {
   }
 
   /**
-   * Returns a child directory by name
+   * Returns a child FS element by name
    *
    * @param name The name of the child wanted
    * @return The child with the given name
-   * @throws FSElementNotFoundException Thrown if the directory is not found
+   * @throws FSElementNotFoundException Thrown if the child FS element is not
+   *         found
    */
   public FSElement getChildByName(String name)
       throws FSElementNotFoundException {
@@ -122,6 +139,41 @@ public class Directory extends FSElement {
       throw new FSElementNotFoundException();
     }
     return children.get(name);
+  }
+
+  /**
+   * Returns a child directory by name
+   * 
+   * @param name The name of the child directory wanted
+   * @return The child directory with the given name
+   * @throws FSElementNotFoundException Thrown if the child directory is not
+   *         found
+   */
+  public Directory getChildDirectoryByName(String name)
+      throws FSElementNotFoundException {
+    FSElement fse = getChildByName(name);
+
+    if (!(fse instanceof Directory))
+      throw new FSElementNotFoundException();
+
+    return (Directory) fse;
+  }
+
+  /**
+   * Returns a child file by name
+   * 
+   * @param name The name of the child file wanted
+   * @return The child file with the given name
+   * @throws FSElementNotFoundException Thrown if the child file is not found
+   */
+  public File getChildFileByName(String name)
+      throws FSElementNotFoundException {
+    FSElement fse = getChildByName(name);
+
+    if (!(fse instanceof File))
+      throw new FSElementNotFoundException();
+
+    return (File) fse;
   }
 
   /**

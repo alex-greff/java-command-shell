@@ -160,8 +160,8 @@ public class CmdFind extends Command {
    * @param dir The current directory
    * @param dirStrPath The path of the current directory
    * @param name The wanted file name
-   * @errOut The error console
-   * @TYPE the type of the search (either "d" for directory or "f" for file)
+   * @param errOut The error console
+   * @param TYPE the type of the search (either "d" for directory or "f" for file)
    * @return Returns the set
    */
   private Set<String> findFSElementInDirectoryStructure(Directory dir,
