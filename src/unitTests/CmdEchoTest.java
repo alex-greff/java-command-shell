@@ -72,16 +72,16 @@ public class CmdEchoTest {
     Directory root = fs.getRoot();
     Directory dir1 = root.createAndAddNewDir("dir1");
     Directory dir2 = root.createAndAddNewDir("dir2");
-    File file1 = new File("file1", "file1's contents\n");
-    root.addFile(file1);
+    File file1 = root.createAndAddNewFile("file1");
+    file1.write("file1's contents\n");
     dir2.createAndAddNewDir("dir3");
-    File file2 = new File("file2", "file2's contents\n");
-    dir2.addFile(file2);
+    File file2 = dir2.createAndAddNewFile("file2");
+    file2.write("file2's contents\n");
     Directory dir4 = dir1.createAndAddNewDir("dir4");
-    File file3 = new File("file3", "file3's contents\n");
-    dir4.addFile(file3);
-    File file4 = new File("file4", "file4's contents\n");
-    dir4.addFile(file4);
+    File file3 = dir4.createAndAddNewFile("file3");
+    file3.write("file3's contents\n");
+    File file4 = dir4.createAndAddNewFile("file4");
+    file4.write("file4's contents\n");
   }
 
   @Test

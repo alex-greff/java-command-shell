@@ -32,7 +32,9 @@ package commands;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
+import filesystem.FSElement;
 import filesystem.FSElementNotFoundException;
+import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -124,18 +126,8 @@ public class CmdFind extends Command {
         Directory currDir = fileSystem.getDirByPath(new Path(dirStrPath));
 
         // Initialize the set of paths of the occurrences of <expression>
-        Set<String> outputPaths = new HashSet<>();
-
-        // If we're looking for file occurrences
-        if (type.equals(TYPE_FILE))
-          // Search recursively for the file
-          outputPaths =
-              findFileInDirectoryStructure(currDir, dirStrPath, expr, errOut);
-        // If we're looking for directory occurrences
-        else if (type.equals(TYPE_DIR))
-          // Search recursively for the directory
-          outputPaths = findDirectoryInDirectoryStructure(currDir, dirStrPath,
-              expr, errOut);
+        Set<String> outputPaths = findFSElementInDirectoryStructure(currDir,
+            dirStrPath, expr, errOut, type);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -161,100 +153,66 @@ public class CmdFind extends Command {
     return ExitCode.SUCCESS;
   }
 
-
   /**
-   * Gets a set of all absolute paths to instances of files with the name "name"
+   * Gets a set of all absolute paths to instances of files or directories with
+   * the name "name"
    *
    * @param dir The current directory
    * @param dirStrPath The path of the current directory
    * @param name The wanted file name
    * @errOut The error console
+   * @TYPE the type of the search (either "d" for directory or "f" for file)
    * @return Returns the set
    */
-  private Set<String> findFileInDirectoryStructure(Directory dir,
-      String dirStrPath, String name, Writable errOut)
-      throws FSElementNotFoundException {
+  private Set<String> findFSElementInDirectoryStructure(Directory dir,
+      String fseStrPath, String name, Writable errOut, final String TYPE) {
+
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
 
-    // If the current directory contains the wanted file then add the absolute
-    // path of the file to the return set
-    if (dir.containsFile(name)) {
-      // Get the absolute path of the directory
-      String dirAbsPath = fileSystem.getAbsolutePathOfDir(dir);
+    try {
+      FSElement fse = dir.getChildByName(name);
 
-      // If the directory is the root directory
-      if (dirAbsPath.equals("/"))
-        // Remove the extra "/" character
-        dirAbsPath = "";
+      if ((TYPE.equals(TYPE_FILE) && fse instanceof File)
+          || (TYPE.equals(TYPE_DIR) && fse instanceof Directory)) {
 
-      // Add the file's path to the return set
-      ret_set.add(dirAbsPath + "/" + name);
-    } else {
-      errOut.writeln("Error: file not found: " + dirStrPath + "/" + name);
+        // Get the absolute path of the directory
+        String fseAbsPath = fileSystem.getAbsolutePathOfDir(dir);
+
+        // If the directory is the root directory
+        if (fseAbsPath.equals("/"))
+          // Remove the extra "/" character
+          fseAbsPath = "";
+
+        // Add the file's path to the return set
+        ret_set.add(fseAbsPath + "/" + name);
+      }
+      // If no File or Directory (depending on what was wanted) was found
+      else {
+        // errOut.writeln("Error: file not found: " + dirStrPath + "/" + name);
+      }
+
+      // No FS element was found
+    } catch (FSElementNotFoundException e) {
+      // errOut.writeln("Error: file not found: " + dirStrPath + "/" + name);
     }
 
     // Iterate through each child directory
-    ArrayList<String> childDirNames = dir.listDirNames();
-    for (String childDirName : childDirNames) {
-      // Get the child directory object
-      Directory childDir = dir.getDirByName(childDirName);
-      String childDirStrPath = dirStrPath + "/" + childDirName;
+    ArrayList<String> childFseNames = dir.listDirNames();
+    for (String childFseName : childFseNames) {
+      String childDirStrPath = fseStrPath + "/" + childFseName;
 
-      // Call the function recursively again on the child directory and add any
-      // instances of the file to the current return set
-      ret_set.addAll(findFileInDirectoryStructure(childDir, childDirStrPath,
-          name, errOut));
-    }
-
-    // Return the set
-    return ret_set;
-  }
-
-  /**
-   * Gets a set of all absolute paths to instances of directories with the name
-   * "name"
-   *
-   * @param dir The current directory
-   * @param dirStrPath The path of the current directory
-   * @param name The wanted directory name
-   * @errOut The error console
-   * @return Returns the set
-   */
-  private Set<String> findDirectoryInDirectoryStructure(Directory dir,
-      String dirStrPath, String name, Writable errOut)
-      throws FSElementNotFoundException {
-    // Initialize return set
-    Set<String> ret_set = new HashSet<>();
-
-    // If the current directory contains the wanted directory then add the
-    // absolute path of the file to the return set
-    if (dir.containsDir(name)) {
-      // Get the absolute path of the directory
-      String dirAbsPath = fileSystem.getAbsolutePathOfDir(dir);
-
-      // If the directory is the root directory
-      if (dirAbsPath.equals("/"))
-        // Remove the extra "/" character
-        dirAbsPath = "";
-
-      // Add the file's path to the return set
-      ret_set.add(dirAbsPath + "/" + name + "/");
-    } else {
-      errOut.writeln("Error: directory not found: " + dirStrPath + "/" + name);
-    }
-
-    // Iterate through each child directory
-    ArrayList<String> childDirNames = dir.listDirNames();
-    for (String childDirName : childDirNames) {
-      // Get the child directory object
-      Directory childDir = dir.getDirByName(childDirName);
-      String childDirStrPath = dirStrPath + "/" + childDirName;
-
-      // Call the function recursively again on the child directory and add any
-      // instances of the directory to the current return set
-      ret_set.addAll(findDirectoryInDirectoryStructure(childDir,
-          childDirStrPath, name, errOut));
+      try {
+        FSElement child_fse = dir.getChildByName(childFseName);
+        if (child_fse instanceof Directory) {
+          // Call the function recursively again on the child directory and add
+          // any instances of the file to the current return set
+          ret_set.addAll(findFSElementInDirectoryStructure(
+              (Directory) child_fse, childDirStrPath, name, errOut, TYPE));
+        }
+      } catch (FSElementNotFoundException e) {
+        errOut.writeln("Error: child directory not found: " + childDirStrPath);
+      }
     }
 
     // Return the set

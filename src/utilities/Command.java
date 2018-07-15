@@ -196,7 +196,6 @@ public abstract class Command {
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
     String fileName = fileSplit[fileSplit.length - 1];
-    File file = new File(fileName);
     // Get the index of the last "/"
     int lastSlash = filePathStr.lastIndexOf('/');
 
@@ -217,7 +216,7 @@ public abstract class Command {
     Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
 
     // Add the file to the directory
-    dirOfFile.addFile(file);
+    File file = dirOfFile.createAndAddNewFile(fileName);
 
     // Return the file
     return file;
