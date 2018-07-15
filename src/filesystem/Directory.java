@@ -175,6 +175,36 @@ public class Directory extends FSElement {
 
     return (File) fse;
   }
+  
+  /**
+   * Gets if a directory with name is a child directory.
+   * 
+   * @param name The wanted name.
+   * @return Returns true iff a child directory with name exists.
+   */
+  public boolean containsChildDirectory(String name) {
+    try {
+      getChildDirectoryByName(name);
+    } catch (FSElementNotFoundException e) {
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+   * Gets if a file with name is a child file.
+   * 
+   * @param name The wanted name.
+   * @return Returns true iff a child file with name exists.
+   */
+  public boolean containsChildFile(String name) {
+    try {
+      getChildFileByName(name);
+    } catch (FSElementNotFoundException e) {
+      return false;
+    }
+    return true;
+  }
 
   /**
    * Lists all the directory names inside of this directory
