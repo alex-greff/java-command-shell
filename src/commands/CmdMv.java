@@ -34,6 +34,10 @@ import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.Directory;
+import filesystem.FSElement;
+import filesystem.FSElementAlreadyExistsException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -105,17 +109,43 @@ public class CmdMv extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
-    Path oldPath, newPath;
+    Path oldPath = null;
+    Path newPath = null;
 
     try {
       oldPath = new Path(args.getCommandParameters()[0]);
       newPath = new Path(args.getCommandParameters()[1]);
-
     } catch (MalformedPathException e) {
       errOut.write("Invalid path(s) given");
     }
 
+    FSElement oldElement = getElement(oldPath);
+    FSElement newElement = getElement(newPath);
+
     return ExitCode.SUCCESS;
+  }
+
+  /**
+   *
+   * @param wantedPath
+   * @return
+   */
+  private FSElement getElement(Path wantedPath) {
+    FSElement wantedElement = null;
+
+    try {
+      wantedElement = fileSystem.getFileByPath(wantedPath);
+    } catch (MalformedPathException | FSElementNotFoundException e) {
+    }
+
+    if (wantedElement == null) {
+      try {
+        wantedElement = fileSystem.getDirByPath(wantedPath);
+      } catch (MalformedPathException | FSElementNotFoundException e) {
+      }
+    }
+
+    return wantedElement;
   }
 
   /**
