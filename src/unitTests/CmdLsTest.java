@@ -67,12 +67,9 @@ public class CmdLsTest {
     Directory root = fs.getRoot();
     Directory dir1 = root.createAndAddNewDir("dir1");
     Directory dir2 = root.createAndAddNewDir("dir2");
-    File file1 = new File("file1", "file1's contents\n");
-    root.addFile(file1);
-    File file2 = new File("file2", "file2's contents\n");
-    root.addFile(file2);
-    File file3 = new File("file3", "file3's contents, dir2\n");
-    dir2.addFile(file3);
+    root.createAndAddNewFile("file1", "file1's contents\n");
+    root.createAndAddNewFile("file2", "file2's contents\n");
+    root.createAndAddNewFile("file3", "file3's contents, dir2\n");
   }
 
   @Test

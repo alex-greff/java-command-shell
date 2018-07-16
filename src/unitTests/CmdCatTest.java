@@ -66,8 +66,7 @@ public class CmdCatTest {
   @Test
   public void testFileWithOneLine() throws FSElementAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
-    File file = new File("testFile", "hello");
-    fs.getRoot().addFile(file);
+    File file = fs.getRoot().createAndAddNewFile("testFile", "hello");
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
@@ -81,13 +80,12 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testMultipleFilesWithOneLine() throws FSElementAlreadyExistsException {
+  public void testMultipleFilesWithOneLine()
+      throws FSElementAlreadyExistsException {
     // Create two files with one line of content each, and add them to the root
     // directory
-    File file1 = new File("testFile1", "hello");
-    File file2 = new File("testFile2", "world");
-    fs.getRoot().addFile(file1);
-    fs.getRoot().addFile(file2);
+    File file1 = fs.getRoot().createAndAddNewFile("testFile1", "hello");
+    File file2 = fs.getRoot().createAndAddNewFile("testFile2", "world");
 
     // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
@@ -101,11 +99,12 @@ public class CmdCatTest {
   }
 
   @Test
-  public void testFileWithMultipleLines() throws FSElementAlreadyExistsException {
+  public void testFileWithMultipleLines()
+      throws FSElementAlreadyExistsException {
     // Create a file with multiple lines of content, and add it to the root
     // directory
-    File file = new File("testFile", "hello\nworld\nthis\nis\na\ntest");
-    fs.getRoot().addFile(file);
+    fs.getRoot()
+        .createAndAddNewFile("testFile", "hello\nworld\nthis\nis\na\ntest");
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
