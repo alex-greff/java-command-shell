@@ -34,6 +34,7 @@ import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.Directory;
 import filesystem.FSElementNotFoundException;
 import filesystem.File;
 import filesystem.FileSystem;
@@ -84,6 +85,41 @@ public class CmdGrep extends Command {
 
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+    String[] cmdFlags = args.getCommandFlags();
+    String[] cmdParams = args.getCommandParameters();
+    Path srcPath;
+
+    try {
+      srcPath = new Path(cmdParams[1]);
+    } catch (MalformedPathException e) {
+      errOut.write("Invalid path given");
+      return ExitCode.FAILURE;
+    }
+
+    if (cmdFlags.length == 0) {
+      try {
+        File src = fileSystem.getFileByPath(srcPath);
+        return executeHelper(src, cmdParams[0]);
+      } catch (MalformedPathException | FSElementNotFoundException e) {
+        errOut.write("File not found");
+      }
+
+    } else if (cmdFlags.length == 1 && cmdFlags[0].equals("R")) {
+      try {
+        Directory src = fileSystem.getDirByPath(srcPath);
+        return executeHelper(src, cmdParams[0]);
+      } catch (MalformedPathException | FSElementNotFoundException e) {
+        errOut.write("Directory not found");
+      }
+    }
+    return ExitCode.FAILURE;
+  }
+
+  private ExitCode executeHelper(File src, String regex) {
+    return ExitCode.SUCCESS;
+  }
+
+  private ExitCode executeHelper(Directory src, String regex) {
     return ExitCode.SUCCESS;
   }
 
@@ -101,8 +137,8 @@ public class CmdGrep extends Command {
     // parameter
     return args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
-        && args.getNumberOfCommandFieldParameters() == 0
-        && args.getNumberOfNamedCommandParameters() <= 1
+        && args.getNumberOfCommandFieldParameters() <= 1
+        && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
         || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
         || args.getRedirectOperator().equals(APPEND_OPERATOR));
