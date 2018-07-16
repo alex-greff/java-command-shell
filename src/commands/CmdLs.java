@@ -150,7 +150,7 @@ public class CmdLs extends Command {
     StringBuilder result = new StringBuilder();
     // get lists of files and dirs of the current working path
     ArrayList<String> dirs = dir.listDirNames();
-    ArrayList<String> files = dir.listFiles();
+    ArrayList<String> files = dir.listFileNames();
     // now append the each string from the arraylists with a newline to result
     for (String name : dirs) {
       result.append(name).append("\n");

@@ -216,7 +216,9 @@ public class Directory extends FSElement {
    * @return A list of all the directory names inside this directory
    */
   public ArrayList<String> listDirNames() {
-    return new ArrayList<>(this.children.keySet());
+    return children.keySet().stream()
+        .filter(name -> children.get(name) instanceof Directory)
+        .collect(Collectors.toCollection(ArrayList::new));
   }
 
   /**
@@ -224,7 +226,7 @@ public class Directory extends FSElement {
    *
    * @return A list of all the file names inside this directory
    */
-  public ArrayList<String> listFiles() {
+  public ArrayList<String> listFileNames() {
     return children.keySet().stream()
         .filter(name -> children.get(name) instanceof File)
         .collect(Collectors.toCollection(ArrayList::new));

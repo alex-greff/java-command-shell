@@ -131,7 +131,7 @@ public class CmdTree extends Command {
     // the name of the curr dir gets inserted in the parent recursive call.
     StringBuilder result = new StringBuilder();
     // get the names of all the files in the directory
-    ArrayList<String> files = curr.listFiles();
+    ArrayList<String> files = curr.listFileNames();
     if (files.size() > 0) {
       for (String name : files) {
         result.append(spacing).append(name).append("\n");
