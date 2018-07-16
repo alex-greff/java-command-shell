@@ -36,6 +36,7 @@ import commands.CmdCurl;
 import commands.CmdEcho;
 import commands.CmdExit;
 import commands.CmdFind;
+import commands.CmdGrep;
 import commands.CmdHistory;
 import commands.CmdLs;
 import commands.CmdMan;
@@ -121,6 +122,7 @@ public class CommandManager {
     cmdMap.put("echo", new CmdEcho(fileSystem, this));
     cmdMap.put("exit", new CmdExit(fileSystem, this));
     cmdMap.put("find", new CmdFind(fileSystem, this));
+    cmdMap.put("grep", new CmdGrep(fileSystem, this));
     cmdMap.put("history", new CmdHistory(fileSystem, this));
     cmdMap.put("ls", new CmdLs(fileSystem, this));
     cmdMap.put("man", new CmdMan(fileSystem, this));
