@@ -1,55 +1,21 @@
-// **********************************************************
-// Assignment2:
-// Student1:
-// UTORID user_name: ursualex
-// UT Student #: 1004357199
-// Author: Alexander Ursu
-//
-// Student2:
-// UTORID user_name: greffal1
-// UT Student #: 1004254497
-// Author: Alexander Greff
-//
-// Student3:
-// UTORID user_name: sankarch
-// UT Student #: 1004174895
-// Author: Chedy Sankar
-//
-// Student4:
-// UTORID user_name: kamins42
-// UT Student #: 1004431992
-// Author: Anton Kaminsky
-//
-//
-// Honor Code: I pledge that this program represents my own
-// program code and that I have coded on my own. I received
-// help from no one in designing and debugging my program.
-// I have also read the plagiarism section in the course info
-// sheet of CSC B07 and understand the consequences.
-// *********************************************************
-
 package filesystem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Represents a path in the file system.
+ * Represents a path in the filesystem
  *
  * @author anton
  */
 public class Path implements Iterable<String> {
 
-  /**
-   * The list of tokens.
-   */
   private ArrayList<String> tokens = new ArrayList<>();
 
   /**
    * Creates a new path given a path string
    *
    * @param pathString A string representing a path
-   * @throws MalformedPathException Thrown when the path is invalid
    */
   public Path(String pathString) throws MalformedPathException {
     // if it's an absolute path add the root dir to the token list
@@ -79,6 +45,24 @@ public class Path implements Iterable<String> {
   }
 
   /**
+   * Removes the first token from the path and returns it
+   *
+   * @return The first token from the path
+   */
+  public String removeFirst() {
+    return this.tokens.remove(this.tokens.size() - 1);
+  }
+
+  /**
+   * Get the element at index n in the path
+   *
+   * @return the nth element of the path
+   */
+  public String get(int n) {
+    return this.tokens.get(n);
+  }
+
+  /**
    * The iterator override for path.
    */
   @Override
@@ -86,23 +70,7 @@ public class Path implements Iterable<String> {
     return this.tokens.iterator();
   }
 
-  /**
-   * Gets the string of the path stored.
-   *
-   * @return Returns the string of the path stored.
-   */
-  public String toString() {
-    String ret = "";
-
-    for (int i = 0; i < tokens.size(); i++) {
-      String t = tokens.get(i);
-      if (i == 0) {
-        ret += t;
-      } else {
-        ret += "/" + t;
-      }
-    }
-
-    return ret.trim();
+  public boolean isEmpty() {
+    return this.tokens.isEmpty();
   }
 }

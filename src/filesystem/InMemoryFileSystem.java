@@ -81,13 +81,12 @@ public class InMemoryFileSystem implements FileSystem {
    */
   public String getAbsolutePathOfFSElement(FSElement theElement) {
     String result = "";
-    if (theElement != root) {
-      result = getAbsolutePathOfFSElement(theElement.getParent()) +
-          theElement.getName();
+    if (theElement == root) {
+      return "/";
+    } else if (theElement.getParent() != root) {
+      result += getAbsolutePathOfFSElement(theElement.getParent());
     }
-    if (theElement instanceof Directory) {
-      result += "/";
-    }
+    result += "/" + theElement.getName();
     return result;
   }
 
@@ -102,14 +101,45 @@ public class InMemoryFileSystem implements FileSystem {
    */
   public File getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    String fileName = path.removeLast();
-    Directory parent = getDirByPath(path);
-    FSElement maybeFile = parent.getChildByName(fileName);
-    if (maybeFile instanceof File) {
-      return (File) maybeFile;
-    } else {
+    FSElement maybeDir = getFSElementByPath(path);
+    if (!(maybeDir instanceof File)) {
       throw new FSElementNotFoundException();
     }
+    return (File) maybeDir;
+  }
+
+  /**
+   * Provides directory located at given path to the caller
+   *
+   * @param path The path of the wanted file, can be absolute or relative.
+   * Absolute path must start with / indicating root directory.
+   * @return The directory located at the path
+   * @throws FSElementNotFoundException Thrown when the directory does not
+   * exist
+   * @throws MalformedPathException Thrown when the path is invalid
+   */
+  public FSElement getFSElementByPath(Path path)
+      throws MalformedPathException, FSElementNotFoundException {
+    Directory curr = workingDir;
+    while (!path.isEmpty()) {
+      String segment = path.removeFirst();
+      if (segment.equals("/")) {
+        curr = root;
+      } else if (segment.equals("..")) {
+        curr = curr.getParent();
+        if (curr == null) {
+          throw new MalformedPathException();
+        }
+      } else if (!segment.equals(".")) {
+        FSElement maybeDir = curr.getChildByName(segment);
+        if (maybeDir instanceof Directory) {
+          curr = (Directory) maybeDir;
+        } else if (!path.isEmpty()) {
+          throw new FSElementNotFoundException();
+        }
+      }
+    }
+    return curr;
   }
 
   /**
@@ -124,25 +154,11 @@ public class InMemoryFileSystem implements FileSystem {
    */
   public Directory getDirByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    Directory curr = workingDir;
-    for (String segment : path) {
-      if (segment.equals("/")) {
-        curr = root;
-      } else if (segment.equals("..")) {
-        curr = curr.getParent();
-        if (curr == null) {
-          throw new MalformedPathException();
-        }
-      } else if (!segment.equals(".")) {
-        FSElement maybeDir = curr.getChildByName(segment);
-        if (maybeDir instanceof Directory) {
-          curr = (Directory) maybeDir;
-        } else {
-          throw new FSElementNotFoundException();
-        }
-      }
+    FSElement maybeDir = getFSElementByPath(path);
+    if (!(maybeDir instanceof Directory)) {
+      throw new FSElementNotFoundException();
     }
-    return curr;
+    return (Directory) maybeDir;
   }
 
   /**

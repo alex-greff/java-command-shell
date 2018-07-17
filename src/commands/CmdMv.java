@@ -33,8 +33,6 @@ import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
-import filesystem.Directory;
-import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -114,24 +112,8 @@ public class CmdMv extends Command {
       errOut.write("Invalid path(s) given");
       return ExitCode.FAILURE;
     }
+    return null;
 
-    Path oldParentPath = oldPath;
-    oldParentPath.removeLast();
-    Path newParentPath = newPath;
-    newParentPath.removeLast();
-
-    Directory oldParent, newParent;
-
-    try {
-      oldParent = fileSystem.getDirByPath(oldParentPath);
-      newParent = fileSystem.getDirByPath(newParentPath);
-    } catch (MalformedPathException | FSElementNotFoundException e) {
-      errOut.write(
-          "Source not found and/or or path leading to destination not found");
-      return ExitCode.FAILURE;
-    }
-
-    return ExitCode.SUCCESS;
   }
 
   /**

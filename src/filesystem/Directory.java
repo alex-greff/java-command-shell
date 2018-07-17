@@ -118,12 +118,8 @@ public class Directory extends FSElement {
    * Removes a child directory with the given name if it exists
    *
    * @param name The name of the child to remove
-   * @throws FSElementNotFoundException Thrown if the directory is not found
    */
-  public void removeChildByName(String name) throws FSElementNotFoundException {
-    if (!children.containsKey(name)) {
-      throw new FSElementNotFoundException();
-    }
+  public void removeChildByName(String name) {
     children.remove(name);
   }
 
@@ -131,15 +127,9 @@ public class Directory extends FSElement {
    * Returns a child FS element by name
    *
    * @param name The name of the child wanted
-   * @return The child with the given name
-   * @throws FSElementNotFoundException Thrown if the child FS element is not
-   * found
+   * @return The child with the given name or null if it does not exist
    */
-  public FSElement getChildByName(String name)
-      throws FSElementNotFoundException {
-    if (!children.containsKey(name)) {
-      throw new FSElementNotFoundException();
-    }
+  public FSElement getChildByName(String name) {
     return children.get(name);
   }
 
@@ -147,37 +137,30 @@ public class Directory extends FSElement {
    * Returns a child directory by name
    *
    * @param name The name of the child directory wanted
-   * @return The child directory with the given name
-   * @throws FSElementNotFoundException Thrown if the child directory is not
-   * found
+   * @return The child directory with the given name or null if it does not exit
    */
-  public Directory getChildDirectoryByName(String name)
-      throws FSElementNotFoundException {
-    FSElement fse = getChildByName(name);
-
-    if (!(fse instanceof Directory)) {
-      throw new FSElementNotFoundException();
+  public Directory getChildDirectoryByName(String name) {
+    FSElement child = children.get(name);
+    if (child instanceof Directory) {
+      return (Directory) child;
+    } else {
+      return null;
     }
-
-    return (Directory) fse;
   }
 
   /**
    * Returns a child file by name
    *
    * @param name The name of the child file wanted
-   * @return The child file with the given name
-   * @throws FSElementNotFoundException Thrown if the child file is not found
+   * @return The child file with the given name or null if it does not exist
    */
-  public File getChildFileByName(String name)
-      throws FSElementNotFoundException {
-    FSElement fse = getChildByName(name);
-
-    if (!(fse instanceof File)) {
-      throw new FSElementNotFoundException();
+  public File getChildFileByName(String name) {
+    FSElement child = children.get(name);
+    if (child instanceof File) {
+      return (File) child;
+    } else {
+      return null;
     }
-
-    return (File) fse;
   }
 
   /**
@@ -187,12 +170,7 @@ public class Directory extends FSElement {
    * @return Returns true iff a child directory with name exists.
    */
   public boolean containsChildDirectory(String name) {
-    try {
-      getChildDirectoryByName(name);
-    } catch (FSElementNotFoundException e) {
-      return false;
-    }
-    return true;
+    return getChildDirectoryByName(name) != null;
   }
 
   /**
@@ -202,12 +180,7 @@ public class Directory extends FSElement {
    * @return Returns true iff a child file with name exists.
    */
   public boolean containsChildFile(String name) {
-    try {
-      getChildFileByName(name);
-    } catch (FSElementNotFoundException e) {
-      return false;
-    }
-    return true;
+    return getChildFileByName(name) != null;
   }
 
   /**
@@ -254,15 +227,12 @@ public class Directory extends FSElement {
     return children.containsKey(name);
   }
 
-  public Directory getDirByName(String name) throws FSElementNotFoundException {
-    FSElement maybeDir = null;
-    if (children.containsKey(name)) {
-      maybeDir = children.get(name);
-    }
+  public Directory getDirByName(String name) {
+    FSElement maybeDir = children.get(name);
     if (maybeDir instanceof Directory) {
       return (Directory) maybeDir;
     } else {
-      throw new FSElementNotFoundException();
+      return null;
     }
   }
 }
