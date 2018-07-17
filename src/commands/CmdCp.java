@@ -42,7 +42,7 @@ import utilities.ExitCode;
 /**
  * The cp command class that inherits from command
  *
- * @author ursu
+ * @author anton, ursu
  */
 public class CmdCp extends Command {
 
