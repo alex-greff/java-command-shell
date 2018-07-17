@@ -176,4 +176,16 @@ public class InMemoryFileSystem implements FileSystem {
     return root;
   }
 
+  public String getStringPath(File file) {
+    return getStringPath(file.getParent()) + "/" + file.getName();
+  }
+
+  public String getStringPath(Directory dir) {
+    if (dir == root) {
+      return getStringPath(dir.getParent()) + "/" + dir.getName();
+    } else {
+      return root.getName();
+    }
+  }
+
 }

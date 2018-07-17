@@ -41,6 +41,7 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
+import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -79,8 +80,9 @@ public class CmdGrep extends Command {
               "Regular Usage: PATH is a file, any lines in the file that"
                   + " contain the regex are printed.")
           .additionalComment(
-              "-r: PATH is a directory, any lines in any file in the directory"
-                  + " that contain the regex are printed.")
+              "-r: PATH is a directory, any lines in any file in the directory,"
+                  + " and any subdirectories, that contain the regex are"
+                  + " printed.")
           .build();
 
   @Override
@@ -88,6 +90,7 @@ public class CmdGrep extends Command {
     String[] cmdFlags = args.getCommandFlags();
     String[] cmdParams = args.getCommandParameters();
     Path srcPath;
+    ArrayList<String> matches = new ArrayList<>();
 
     try {
       srcPath = new Path(cmdParams[1]);
@@ -99,7 +102,7 @@ public class CmdGrep extends Command {
     if (cmdFlags.length == 0) {
       try {
         File src = fileSystem.getFileByPath(srcPath);
-        return executeHelper(src, cmdParams[0]);
+        matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
         errOut.write("File not found");
       }
@@ -107,20 +110,48 @@ public class CmdGrep extends Command {
     } else if (cmdFlags.length == 1 && cmdFlags[0].equals("R")) {
       try {
         Directory src = fileSystem.getDirByPath(srcPath);
-        return executeHelper(src, cmdParams[0]);
+        matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
         errOut.write("Directory not found");
       }
     }
-    return ExitCode.FAILURE;
-  }
 
-  private ExitCode executeHelper(File src, String regex) {
+    if (!matches.isEmpty()) {
+      for (String match : matches) {
+        out.writeln(match);
+      }
+    }
+
     return ExitCode.SUCCESS;
   }
 
-  private ExitCode executeHelper(Directory src, String regex) {
-    return ExitCode.SUCCESS;
+  private ArrayList<String> executeHelper(File src, String regex) {
+    ArrayList<String> matches = new ArrayList<>();
+    String[] fileLines = src.read().split("\n");
+
+    for (String line : fileLines) {
+      if (line.matches(regex)) {
+        matches.add(line);
+      }
+    }
+
+    return matches;
+  }
+
+  private ArrayList<String> executeHelper(Directory src, String regex) {
+    ArrayList<String> matches = new ArrayList<>();
+    ArrayList<String> containedFiles = src.listFileNames();
+    ArrayList<String> containedDirs = src.listDirNames();
+
+    for (String fileName : containedFiles) {
+      try {
+        File fileSrc = src.getChildFileByName(fileName);
+        ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
+      } catch (FSElementNotFoundException e) {
+      }
+    }
+
+    return matches;
   }
 
   /**
