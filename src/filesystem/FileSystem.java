@@ -36,4 +36,8 @@ public interface FileSystem {
   public String getWorkingDirPath();
 
   public Directory getRoot();
+
+  public String getStringPath(File file);
+
+  public String getStringPath(Directory dir);
 }

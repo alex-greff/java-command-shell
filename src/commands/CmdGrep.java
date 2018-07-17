@@ -147,6 +147,11 @@ public class CmdGrep extends Command {
       try {
         File fileSrc = src.getChildFileByName(fileName);
         ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
+
+        for (String match : fileMatches) {
+          matches.add(fileSystem.getStringPath(fileSrc) + ": " + match);
+        }
+
       } catch (FSElementNotFoundException e) {
       }
     }
