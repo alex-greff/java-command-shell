@@ -29,7 +29,7 @@ d-1. (CmdCp) Code the copy command
 d-2. (CmdCp) Add man documentation
 d-3. (CmdCp) Provide internal comments and docstrings as you code
 d-4  (CmdCpTest) Update and clean up unit tests
-e-1. (CmdCat) Update to display multiple files at one (already done)
+e-1. (CmdCat) Update to display multiple files at once (already done)
 e-2. (CmdCat) Update the man documentation, if needed
 e-3. (CmdCat) Provide any additional internal comments and docstrings if necessary
 e-4. (CmdCatTest) Update and clean up unit tests
