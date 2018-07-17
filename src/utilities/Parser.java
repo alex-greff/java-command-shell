@@ -169,7 +169,8 @@ public class Parser {
         // Set the redirect operator
         redirOperator = inputSplit.get(i);
         // Set the target destination (without any quotes)
-        targetDest = inputSplit.get(i + 1).replace("\"", "");
+        //targetDest = inputSplit.get(i + 1).replace("\"", ""); // TODO: remove
+        targetDest = inputSplit.get(i + 1);
         // Break out of the for loop
         break;
       }
@@ -194,7 +195,8 @@ public class Parser {
           if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR))
             return null;
           // Remove any quoutes and set the value's value
-          String val = inputSplit.get(i + 1).replace("\"", "");
+          //String val = inputSplit.get(i + 1).replace("\"", ""); // TODO: remove
+          String val = inputSplit.get(i + 1); 
           // Add to the hashmap
           namedParamsMap.put(key, val);
           // Force increment i by 1 (since we already dealt with index i + 1)
@@ -206,7 +208,8 @@ public class Parser {
         }
       } else {
         // Add the parameters to the array list (without any quotes
-        paramsArrayList.add(inputSplit.get(i).replace("\"", ""));
+        //paramsArrayList.add(inputSplit.get(i).replace("\"", "")); // TODO: remove
+        paramsArrayList.add(inputSplit.get(i));
       }
     }
 

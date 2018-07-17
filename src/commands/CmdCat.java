@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FSElementNotFoundException;
@@ -72,9 +71,9 @@ public class CmdCat extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print contents of file(s).",
           "cat FILES")
-          .additionalComment("Path of FILE can be relative or absolute.")
-          .additionalComment("Can take more than one FILE as arguments.")
-          .build();
+              .additionalComment("Path of FILE can be relative or absolute.")
+              .additionalComment("Can take more than one FILE as arguments.")
+              .build();
 
   /**
    * Executes the cat command with the given arguments. Cat prints the contents
@@ -135,13 +134,22 @@ public class CmdCat extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    // Make sure the NAME matches, and at least 1 argument
-    return args.getCommandName().equals(NAME)
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() > 0
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+    }
+        
+    // Return the result
+    return paramsMatches && stringParamsMatches;
   }
 }

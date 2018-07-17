@@ -96,7 +96,7 @@ public class CmdLs extends Command {
     StringBuilder result = new StringBuilder();
     Directory curr = fileSystem.getWorkingDir();
     Path path;
-    boolean rec = args.getCommandFlags()[0]=="R";
+    boolean rec = args.getCommandFlags()[0] == "R";
     // check parameters
 
     String[] params = args.getCommandParameters();
@@ -154,15 +154,14 @@ public class CmdLs extends Command {
     ArrayList<String> files = dir.listFileNames();
     // now append the each string from the arraylists with a newline to result
     for (String name : dirs) {
-      if (recursive){
-        try{
-          result.append(addOn((Directory)dir.getChildByName(name),
-              true));
-        }catch(FSElementNotFoundException e){
+      if (recursive) {
+        try {
+          result.append(addOn((Directory) dir.getChildByName(name), true));
+        } catch (FSElementNotFoundException e) {
           return "";
         }
 
-      }else{
+      } else {
         result.append(name).append("\n");
       }
     }
@@ -184,7 +183,7 @@ public class CmdLs extends Command {
    * @param in the stringbuilder input
    * @return a properly formatted string with no extra newlines
    */
-  private String buildStr(StringBuilder in){
+  private String buildStr(StringBuilder in) {
     String resultStr = "";
 
     if (in.length() > 0) {
@@ -202,13 +201,24 @@ public class CmdLs extends Command {
    * @return Returns true iff args is a valid for this command
    */
   public boolean isValidArgs(CommandArgs args) {
-    return args.getCommandName().equals(NAME)
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
+        && args.getNumberOfCommandParameters() >= 0
         && ((args.getNumberOfCommandFieldParameters() == 1
-            && args.getCommandFlags()[0] == RECURSIVE_FLAG)
-            || args.getNumberOfCommandFieldParameters() == 0)
+        && args.getCommandFlags()[0] == RECURSIVE_FLAG)
+        || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
             || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
             || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+    }
+    
+    // Return the result
+    return paramsMatches && stringParamsMatches;
   }
 }

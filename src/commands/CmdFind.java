@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -69,8 +68,8 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-          .additionalComment("Nothing is printed if no files are found")
-          .build();
+              .additionalComment("Nothing is printed if no files are found")
+              .build();
   /**
    * The identifier for the type flag.
    */
@@ -89,6 +88,7 @@ public class CmdFind extends Command {
    * The directory type character option.
    */
   private final String TYPE_DIR = "d";
+
   /**
    * Constructs a new command instance.
    *
@@ -112,7 +112,8 @@ public class CmdFind extends Command {
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
-    String expr = args.getNamedCommandParameter(NAME_IDENTIFIER);
+    String expr =
+        args.getNamedCommandParameter(NAME_IDENTIFIER).replaceAll("\"", "");
 
     // Initialize a new string builder
     StringBuilder output = new StringBuilder();
@@ -128,10 +129,7 @@ public class CmdFind extends Command {
 
         // Initialize the set of paths of the occurrences of <expression>
         Set<String> outputPaths = findFSElementInDirectoryStructure(currDir,
-                                                                    dirStrPath,
-                                                                    expr,
-                                                                    errOut,
-                                                                    type);
+            dirStrPath, expr, errOut, type);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -148,7 +146,7 @@ public class CmdFind extends Command {
     // If a redirect is given then attempt to write to file and return exit code
     if (!args.getRedirectOperator().isEmpty()) {
       return writeToFile(output.toString(), args.getRedirectOperator(),
-                         args.getTargetDestination(), errOut);
+          args.getTargetDestination(), errOut);
     }
 
     // If no redirect operator is given then...
@@ -167,14 +165,11 @@ public class CmdFind extends Command {
    * @param name The wanted file name
    * @param errOut The error console
    * @param TYPE the type of the search (either "d" for directory or "f" for
-   * file)
+   *        file)
    * @return Returns the set
    */
   private Set<String> findFSElementInDirectoryStructure(Directory dir,
-                                                        String fseStrPath,
-                                                        String name,
-                                                        Writable errOut,
-                                                        final String TYPE) {
+      String fseStrPath, String name, Writable errOut, final String TYPE) {
 
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
@@ -237,16 +232,33 @@ public class CmdFind extends Command {
    * @return Returns true iff args is a valid for this command
    */
   public boolean isValidArgs(CommandArgs args) {
-    return args.getCommandName().equals(NAME)
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() > 0
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 2
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+    }
+
+    // Check that the named parameters match
+    boolean namedStringParamsMatches = true;
+    namedStringParamsMatches = namedStringParamsMatches
+        && isStringParam(args.getNamedCommandParameter(NAME_IDENTIFIER));
+    namedStringParamsMatches = namedStringParamsMatches
+        && !isStringParam(args.getNamedCommandParameter(TYPE_IDENTIFIER));
+
+    // Return the result
+    return paramsMatches && stringParamsMatches && namedStringParamsMatches;
   }
 }

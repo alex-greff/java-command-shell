@@ -101,7 +101,7 @@ public class CmdHistory extends Command {
     // the case where they want a specific amount of history
     else if (params.length == 1) {
       // check if the parameter is a valid positive int
-      if (! checkNumber(params[0])){
+      if (!checkNumber(params[0])) {
         return ExitCode.FAILURE;
       }
       int paramInt = Integer.parseInt(params[0]);
@@ -142,13 +142,14 @@ public class CmdHistory extends Command {
    * @param arg the string of the supposed number
    * @return true if the string represents a positive integer, false otherwise
    */
-  private boolean checkNumber(String arg){
+  private boolean checkNumber(String arg) {
     // check if arg is a valid string for an int
-    if (arg.matches("\\d+")){
+    if (arg.matches("\\d+")) {
       int num = Integer.parseInt(arg);
       return (num >= 0);
+    } else {
+      return false;
     }
-    else{return false;}
   }
 
 
@@ -158,12 +159,22 @@ public class CmdHistory extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return args.getCommandName().equals(NAME)
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() <= 1
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
             || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
             || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+    }
+
+    // Return the result
+    return paramsMatches && stringParamsMatches;
   }
 }

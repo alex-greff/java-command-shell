@@ -124,13 +124,22 @@ public class CmdCd extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    // Make sure the NAME matches, and just 1 argument, nothing else
-    return args.getCommandName().equals(NAME)
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 1
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
             || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
             || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+    }
+
+    // Return the result
+    return paramsMatches && stringParamsMatches;
   }
 }

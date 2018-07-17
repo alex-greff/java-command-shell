@@ -88,9 +88,9 @@ public class CmdEcho extends Command {
     // If there is a redirect operator provided
     if (!args.getRedirectOperator().isEmpty())
       // Write to the file and return the exit code
-      return writeToFile(args.getCommandParameters()[0],
+      return writeToFile(args.getCommandParameters()[0].replaceAll("\"", ""),
           args.getRedirectOperator(), args.getTargetDestination(), errOut);
-    
+
     // If no redirect operator is given then...
     // Set the string parameter to the output
     String output = args.getCommandParameters()[0];
@@ -111,12 +111,22 @@ public class CmdEcho extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return args.getCommandName().equals(NAME)
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 1
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
             || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
             || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && isStringParam(p);
+    }
+
+    // Return the result
+    return paramsMatches && stringParamsMatches;
   }
 }

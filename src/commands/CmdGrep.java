@@ -184,14 +184,27 @@ public class CmdGrep extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    // Make sure the NAME matches, exactly 2 arguments, and at most 1 optional
-    // parameter
-    return args.getCommandName().equals(NAME)
+ // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
         && args.getNumberOfCommandFieldParameters() <= 1
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+    
+    int i = 1;
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      if (i == 1)
+        stringParamsMatches = stringParamsMatches && isStringParam(p);
+      else
+        stringParamsMatches = stringParamsMatches && !isStringParam(p);
+      i++;
+    }
+        
+    // Return the result
+    return paramsMatches && stringParamsMatches;
   }
 }

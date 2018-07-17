@@ -32,7 +32,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import driver.JShell;
 import containers.CommandArgs;
 import containers.CommandDescription;
@@ -45,6 +44,7 @@ import utilities.ExitCode;
 
 /**
  * the !number command, otherwise known as ExclamPoint..
+ * 
  * @author chedy
  */
 public class CmdRecall extends Command {
@@ -56,19 +56,18 @@ public class CmdRecall extends Command {
   /**
    * The name of this command
    */
-  private static final String NAME="!";
+  private static final String NAME = "!";
   /**
    * command description
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "This command executes the n'th last command executed",
-          "history")
-          .usage("history [int]")
-          .additionalComment("The history command itself will "
-              + "always take place as the latest entry in history "
-              + "\n(i.e. history 1 prints: \n 1. history 1)")
-          .build();
+          "This command executes the n'th last command executed", "history")
+              .usage("history [int]")
+              .additionalComment("The history command itself will "
+                  + "always take place as the latest entry in history "
+                  + "\n(i.e. history 1 prints: \n 1. history 1)")
+              .build();
 
   /**
    * Constructs a new CmdRecall instance
@@ -89,21 +88,21 @@ public class CmdRecall extends Command {
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
     String[] params = args.getCommandParameters();
-    String strNum=params[0];
+    String strNum = params[0];
     // check if the argument is an int;
     int num;
-    if (isInt(strNum)){
+    if (isInt(strNum)) {
       num = Integer.parseInt(strNum);
-    }else{
+    } else {
       return ExitCode.FAILURE;
     }
     // get the command at the num's index. If the num is too big, exits on fail
-    if (num > history.size()){
+    if (num > history.size()) {
       return ExitCode.FAILURE;
     }
-    String cmd = history.get(num-1); // minus one since the list starts at 1.
+    String cmd = history.get(num - 1); // minus one since the list starts at 1.
     // manually execute and add the command to history
-    history.remove(history.size()-1); //replaces the !num with actual cmd
+    history.remove(history.size() - 1); // replaces the !num with actual cmd
     history.add(cmd);
     JShell.parseAndExecute(cmd);
     return ExitCode.SUCCESS;
@@ -114,11 +113,11 @@ public class CmdRecall extends Command {
    * @param word the string to be checked if its a valid number
    * @return true iff word can be parsed into an int
    */
-  private boolean isInt(String word){
-    try{
-      int i=Integer.parseInt(word);
+  private boolean isInt(String word) {
+    try {
+      int i = Integer.parseInt(word);
       return true;
-    }catch(NumberFormatException e){
+    } catch (NumberFormatException e) {
       return false;
     }
   }
@@ -130,12 +129,23 @@ public class CmdRecall extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
-    return args.getCommandName()==NAME
-        && args.getNumberOfCommandParameters() ==1 // we only want number param
+    // Check that the form matches for the args
+    boolean paramsMatches = args.getCommandName().equals(NAME)
+        && args.getNumberOfCommandParameters() == 1
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
+    // Check that the parameters are not strings
+    boolean stringParamsMatches = true;
+    for (String p : args.getCommandParameters()) {
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+    }
+
+    // Return the result
+    return paramsMatches && stringParamsMatches;
+
   }
 }

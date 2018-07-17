@@ -214,4 +214,16 @@ public abstract class Command {
     // Return the file
     return file;
   }
+  
+  /**
+   * Returns if the the given string is a string parameter (ie it starts and ends with "). 
+   * 
+   * @param s The string.
+   * @return Returns true iff s is a string parameter.
+   */
+  protected boolean isStringParam(String s) {
+    if (s == null)
+      return false;
+    return s.startsWith("\"") && s.endsWith("\"");
+  }
 }
