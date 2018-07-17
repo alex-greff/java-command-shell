@@ -47,7 +47,7 @@ import utilities.ExitCode;
  * the !number command, otherwise known as ExclamPoint..
  * @author chedy
  */
-public class CmdExclamPoint extends Command {
+public class CmdRecall extends Command {
 
   /**
    * The arraylist of history that this command depends on
@@ -71,12 +71,12 @@ public class CmdExclamPoint extends Command {
           .build();
 
   /**
-   * Constructs a new CmdExclamPoint instance
+   * Constructs a new CmdRecall instance
    *
    * @param fileSystem the filesystem that the command uses
    * @param commandManager the commandManager that the command uses
    */
-  public CmdExclamPoint(FileSystem fileSystem, CommandManager commandManager) {
+  public CmdRecall(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
 
