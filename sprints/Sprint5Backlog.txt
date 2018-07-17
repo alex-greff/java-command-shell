@@ -47,7 +47,7 @@ h-3. (CmdGrep) Provide internal comments and docstrings as you code
 h-4. (CmdGrepTest) Add unit tests for this command
 
 Specific tasks to be accomplished: 
-y-1. Finialize project (clean-up code, docstrings, unit tests, etc)
+y-1. Finalize project (clean-up code, docstrings, unit tests, etc)
 y-2. Construct ANT make file 
 
 
