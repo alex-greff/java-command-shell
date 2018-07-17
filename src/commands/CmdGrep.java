@@ -144,6 +144,7 @@ public class CmdGrep extends Command {
     ArrayList<String> containedDirs = src.listDirNames();
 
     for (String fileName : containedFiles) {
+
       try {
         File fileSrc = src.getChildFileByName(fileName);
         ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
@@ -154,6 +155,19 @@ public class CmdGrep extends Command {
 
       } catch (FSElementNotFoundException e) {
       }
+
+    }
+
+    for (String dirName : containedDirs) {
+
+      try {
+        Directory dirSrc = src.getChildDirectoryByName(dirName);
+        ArrayList<String> inDirMatches = executeHelper(dirSrc, regex);
+        matches.addAll(inDirMatches);
+
+      } catch (FSElementNotFoundException e) {
+      }
+
     }
 
     return matches;
