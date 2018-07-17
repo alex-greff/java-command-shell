@@ -162,8 +162,8 @@ public class CmdGrep extends Command {
   /**
    * Helper function for grep's execute. Given a directory and a regex,
    * executeHelper calls itself on every file found in the directory, as well as
-   * every subdirectory. Matches found in files have their path added before
-   * the matching line.
+   * every subdirectory. Matches found in files have their path added before the
+   * matching line.
    *
    * @param src The source directory
    * @param regex The regex to compare against
@@ -215,26 +215,27 @@ public class CmdGrep extends Command {
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
- // Check that the form matches for the args
+    // Check that the form matches for the args
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
         && args.getNumberOfCommandFieldParameters() <= 1
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
-    
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+
     int i = 1;
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
     for (String p : args.getCommandParameters()) {
-      if (i == 1)
+      if (i == 1) {
         stringParamsMatches = stringParamsMatches && isStringParam(p);
-      else
+      } else {
         stringParamsMatches = stringParamsMatches && !isStringParam(p);
+      }
       i++;
     }
-        
+
     // Return the result
     return paramsMatches && stringParamsMatches;
   }
