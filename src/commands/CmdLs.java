@@ -38,11 +38,9 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
-
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
-
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -75,14 +73,14 @@ public class CmdLs extends Command {
               + "working directory. Can take multiple "
               + "filenames/directory \n names as arguments",
           "ls").usage("ls [Directory]").usage("ls [File]")
-          .usage("ls [Directory] [File]")
-          .additionalComment(
-              "If given a filename, ls will simply print back that "
-                  + "name")
-          .additionalComment(
-              "ls separates multiple argument's content with an "
-                  + "extra newline")
-          .build();
+              .usage("ls [Directory] [File]")
+              .additionalComment(
+                  "If given a filename, ls will simply print back that "
+                      + "name")
+              .additionalComment(
+                  "ls separates multiple argument's content with an "
+                      + "extra newline")
+              .build();
 
   /**
    * @param args The command Arguments.
@@ -155,11 +153,10 @@ public class CmdLs extends Command {
     // now append the each string from the arraylists with a newline to result
     for (String name : dirs) {
       if (recursive) {
-        try {
-          result.append(addOn((Directory) dir.getChildByName(name), true));
-        } catch (FSElementNotFoundException e) {
+        Directory d = dir.getDirByName(name);
+        if (d == null)
           return "";
-        }
+        result.append(addOn(d, true));
 
       } else {
         result.append(name).append("\n");
@@ -204,12 +201,12 @@ public class CmdLs extends Command {
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() >= 0
         && ((args.getNumberOfCommandFieldParameters() == 1
-        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
-        || args.getNumberOfCommandFieldParameters() == 0)
+            && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+            || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

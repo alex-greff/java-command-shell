@@ -86,8 +86,7 @@ public class CmdEchoTest {
 
   @Test
   public void testExecuteEchoToConsole() {
-    CommandArgs args =
-        new CommandArgs("echo", new String[]{"nice sentence you got there"});
+    CommandArgs args = Parser.parseUserInput("echo \"nice sentence you got there\"");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 

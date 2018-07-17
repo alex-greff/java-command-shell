@@ -44,6 +44,7 @@ import io.Writable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -122,13 +123,15 @@ public class CmdFind extends Command {
     String[] dirStrPaths = args.getCommandParameters();
 
     // Iterate through each of the directory paths
-    for (String dirStrPath : dirStrPaths) {
+    for (String dirStrPath : dirStrPaths) { // ur mom gay
       try {
         // Get the current directory
         Directory currDir = fileSystem.getDirByPath(new Path(dirStrPath));
 
+        dirStrPath = (dirStrPath.equals("/")) ? "" : dirStrPath;
+
         // Initialize the set of paths of the occurrences of <expression>
-        Set<String> outputPaths = findFSElementInDirectoryStructure(currDir,
+        TreeSet<String> outputPaths = findFSElementInDirectoryStructure(currDir,
             dirStrPath, expr, errOut, type);
 
         // Print out the set as a string with each entry on a new line
@@ -168,39 +171,27 @@ public class CmdFind extends Command {
    *        file)
    * @return Returns the set
    */
-  private Set<String> findFSElementInDirectoryStructure(Directory dir,
+  private TreeSet<String> findFSElementInDirectoryStructure(Directory dir,
       String fseStrPath, String name, Writable errOut, final String TYPE) {
 
     // Initialize return set
-    Set<String> ret_set = new HashSet<>();
+    TreeSet<String> ret_set = new TreeSet<>();
 
-    try {
-      FSElement fse = dir.getChildByName(name);
+    FSElement fse = dir.getChildByName(name);
 
-      if ((TYPE.equals(TYPE_FILE) && fse instanceof File)
-          || (TYPE.equals(TYPE_DIR) && fse instanceof Directory)) {
+    if ((TYPE.equals(TYPE_FILE) && fse instanceof File)
+        || (TYPE.equals(TYPE_DIR) && fse instanceof Directory)) {
 
-        // Get the absolute path of the directory
-        String fseAbsPath = fileSystem.getAbsolutePathOfFSElement(dir);
+      // Get the absolute path of the directory
+      String fseAbsPath = fileSystem.getAbsolutePathOfFSElement(dir);
 
-        // If the directory is the root directory
-        if (fseAbsPath.equals("/"))
-        // Remove the extra "/" character
-        {
-          fseAbsPath = "";
-        }
+      // If the directory is the root directory
+      // Then remove the extra "/" character
+      if (fseAbsPath.equals("/"))
+        fseAbsPath = "";
 
-        // Add the file's path to the return set
-        ret_set.add(fseAbsPath + "/" + name);
-      }
-      // If no File or Directory (depending on what was wanted) was found
-      else {
-        // errOut.writeln("Error: file not found: " + dirStrPath + "/" + name);
-      }
-
-      // No FS element was found
-    } catch (FSElementNotFoundException e) {
-      // errOut.writeln("Error: file not found: " + dirStrPath + "/" + name);
+      // Add the file's path to the return set
+      ret_set.add(fseAbsPath + "/" + name);
     }
 
     // Iterate through each child directory
@@ -208,15 +199,15 @@ public class CmdFind extends Command {
     for (String childFseName : childFseNames) {
       String childDirStrPath = fseStrPath + "/" + childFseName;
 
-      try {
-        FSElement child_fse = dir.getChildByName(childFseName);
-        if (child_fse instanceof Directory) {
-          // Call the function recursively again on the child directory and add
-          // any instances of the file to the current return set
-          ret_set.addAll(findFSElementInDirectoryStructure(
-              (Directory) child_fse, childDirStrPath, name, errOut, TYPE));
-        }
-      } catch (FSElementNotFoundException e) {
+      FSElement child_fse = dir.getChildByName(childFseName);
+      if (child_fse instanceof Directory) {
+        // Call the function recursively again on the child directory and add
+        // any instances of the file to the current return set
+        ret_set.addAll(findFSElementInDirectoryStructure((Directory) child_fse,
+            childDirStrPath, name, errOut, TYPE));
+      }
+
+      if (child_fse == null) {
         errOut.writeln("Error: child directory not found: " + childDirStrPath);
       }
     }

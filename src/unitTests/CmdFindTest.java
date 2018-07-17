@@ -133,9 +133,8 @@ public class CmdFindTest {
     CommandArgs args = Parser.parseUserInput("find / -type d -name \"dir1\"");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1/dir4/dir1\n/dir1\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1\n/dir1/dir4/dir1\n\n", tc.getAllWritesAsString());
   }
 
   @Test

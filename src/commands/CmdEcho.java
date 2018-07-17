@@ -93,7 +93,7 @@ public class CmdEcho extends Command {
 
     // If no redirect operator is given then...
     // Set the string parameter to the output
-    String output = args.getCommandParameters()[0];
+    String output = args.getCommandParameters()[0].replaceAll("\"", "");
 
     // If there is any output for the standard out then write to it
     if (!output.isEmpty())
