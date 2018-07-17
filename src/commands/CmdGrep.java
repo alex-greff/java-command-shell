@@ -100,14 +100,17 @@ public class CmdGrep extends Command {
    */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+    // Obtain the String arrays for the Command Flags and Parameters
     String[] cmdFlags = args.getCommandFlags();
     String[] cmdParams = args.getCommandParameters();
+    // Create a null path object for the source
     Path srcPath;
+    // Create an empty ArrayList of Strings to hold matching lines
     ArrayList<String> matches = new ArrayList<>();
 
-    try {
+    try { // Try to create a path object from the second parameter
       srcPath = new Path(cmdParams[1]);
-    } catch (MalformedPathException e) {
+    } catch (MalformedPathException e) { // Error if the path parses incorrectly
       errOut.write("Invalid path given");
       return ExitCode.FAILURE;
     }
@@ -117,7 +120,7 @@ public class CmdGrep extends Command {
         File src = fileSystem.getFileByPath(srcPath);
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
-        errOut.write("File not found");
+        errOut.writeln("File not found");
       }
 
     } else if (cmdFlags.length == 1 && cmdFlags[0].equals("R")) {
@@ -125,8 +128,11 @@ public class CmdGrep extends Command {
         Directory src = fileSystem.getDirByPath(srcPath);
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
-        errOut.write("Directory not found");
+        errOut.writeln("Directory not found");
       }
+
+    } else {
+      errOut.writeln("Invalid command syntax");
     }
 
     if (!matches.isEmpty()) {
