@@ -31,6 +31,7 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+import static utilities.JShellConstants.RECURSIVE_FLAG;
 
 import containers.CommandArgs;
 import containers.CommandDescription;
@@ -130,9 +131,6 @@ public class CmdGrep extends Command {
       } catch (MalformedPathException | FSElementNotFoundException e) {
         errOut.writeln("Directory not found");
       }
-
-    } else {
-      errOut.writeln("Invalid command syntax");
     }
 
     if (!matches.isEmpty()) {
@@ -224,7 +222,9 @@ public class CmdGrep extends Command {
     // Check that the form matches for the args
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
-        && args.getNumberOfCommandFieldParameters() <= 1
+        && ((args.getNumberOfCommandFieldParameters() == 1
+        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+        || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
         || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
