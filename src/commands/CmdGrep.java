@@ -150,7 +150,7 @@ public class CmdGrep extends Command {
         ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
 
         for (String match : fileMatches) {
-          matches.add(fileSystem.getStringPath(fileSrc) + ": " + match);
+          matches.add(fileSystem.getAbsolutePathOfFSElement(fileSrc) + ": " + match);
         }
 
       } catch (FSElementNotFoundException e) {
