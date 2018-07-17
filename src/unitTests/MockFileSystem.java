@@ -1,6 +1,7 @@
 package unitTests;
 
 import filesystem.Directory;
+import filesystem.FSElement;
 import filesystem.FSElementNotFoundException;
 import filesystem.File;
 import filesystem.FileSystem;
@@ -30,21 +31,22 @@ public class MockFileSystem implements FileSystem {
   }
 
   /**
-   * Simulates getting the absolute path of a directory.
+   * Simulates getting the absolute path of an element in the filesystem.
    *
-   * @param theDir The wanted directory.
+   * @param theElement The wanted element.
    * @return Returns "/some/valid/directory/[theDir.getName()]"
    */
   @Override
-  public String getAbsolutePathOfDir(Directory theDir) {
-    return "/some/valid/directory/" + theDir.getName();
+  public String getAbsolutePathOfFSElement(FSElement theElement) {
+    return "/some/valid/directory/" + theElement.getName();
   }
 
   /**
    * Simulates getting a file by its path string. Use "validPath" to simulate a
    * valid path behavior. Use "invalidPath" and "nonExistentFilePath" to throw
-   * MalformedPathException and FSElementNotFoundException, respectively. Using any
-   * other string for pathString will throw a FSElementNotFoundException by default.
+   * MalformedPathException and FSElementNotFoundException, respectively. Using
+   * any other string for pathString will throw a FSElementNotFoundException by
+   * default.
    *
    * @param path The path.
    * @return Returns a file with the name "someFile" and the contents "some file
@@ -68,9 +70,9 @@ public class MockFileSystem implements FileSystem {
   /**
    * Simulates getting a directory by its path string. Use "validPath" to
    * simulate a valid path behavior. Use "invalidPath" and "nonExistentFilePath"
-   * to throw MalformedPathException and FSElementNotFoundException, respectively.
-   * Using any other string for pathString will throw a FSElementNotFoundException by
-   * default.
+   * to throw MalformedPathException and FSElementNotFoundException,
+   * respectively. Using any other string for pathString will throw a
+   * FSElementNotFoundException by default.
    *
    * @param path The path.
    * @return Returns a directory with the name "someDirectory" with no parent or

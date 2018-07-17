@@ -69,27 +69,27 @@ public class InMemoryFileSystem implements FileSystem {
     if (newWorkingDir == null) {
       throw new FSElementNotFoundException();
     }
-    workingDirPath = getAbsolutePathOfDir(newWorkingDir);
+    workingDirPath = getAbsolutePathOfFSElement(newWorkingDir);
     workingDir = newWorkingDir;
   }
 
   /**
-   * Given a directory returns its absolute path
+   * Given an fselement returns its absolute path in the filesystem
    *
-   * @param theDir The directory for which the path is wanted
+   * @param theElement The fselement for which the path is wanted
    * @return The absolute path to the directory
    */
-  public String getAbsolutePathOfDir(Directory theDir) {
+  public String getAbsolutePathOfFSElement(FSElement theElement) {
     StringBuilder path = new StringBuilder();
-    Directory curDir = theDir;
-    if (curDir.getName().equals("/")) {
+    FSElement curEl = theElement;
+    if (curEl.getName().equals("/")) {
       return "/";
     } else {
-      while (!curDir.getName().equals("/")) {
+      while (!curEl.getName().equals("/")) {
         String segment =
-            new StringBuilder("/" + curDir.getName()).reverse().toString();
+            new StringBuilder("/" + curEl.getName()).reverse().toString();
         path.append(segment);
-        curDir = curDir.getParent();
+        curEl = curEl.getParent();
       }
       return path.reverse().toString();
     }

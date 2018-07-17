@@ -64,13 +64,6 @@ public abstract class Command {
   protected CommandManager commandManager;
 
   /**
-   * Hide default constructor.
-   */
-  private Command() {
-
-  }
-
-  /**
    * Constructs a new command instance
    *
    * @param fileSystem The file system the command uses

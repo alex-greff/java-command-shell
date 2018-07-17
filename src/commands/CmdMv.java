@@ -35,10 +35,7 @@ import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
-import filesystem.FSElement;
-import filesystem.FSElementAlreadyExistsException;
 import filesystem.FSElementNotFoundException;
-import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -55,20 +52,9 @@ import utilities.ExitCode;
 public class CmdMv extends Command {
 
   /**
-   * Constructs a new command instance.
-   *
-   * @param fileSystem The file system that the command uses.
-   * @param commandManager The command manager that the command uses.
-   */
-  public CmdMv(FileSystem fileSystem, CommandManager commandManager) {
-    super(NAME, DESCRIPTION, fileSystem, commandManager);
-  }
-
-  /**
    * Constant instance variable for the command name
    */
   private static final String NAME = "mv";
-
   /**
    * Container built for the command's description
    */
@@ -96,6 +82,16 @@ public class CmdMv extends Command {
               "No functionality if the old path is a directory and the new path"
                   + " is a file at the same time")
           .build();
+
+  /**
+   * Constructs a new command instance.
+   *
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdMv(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * Executes the mv command with the given arguments. Mv moves the contents of
@@ -131,7 +127,8 @@ public class CmdMv extends Command {
       oldParent = fileSystem.getDirByPath(oldParentPath);
       newParent = fileSystem.getDirByPath(newParentPath);
     } catch (MalformedPathException | FSElementNotFoundException e) {
-      errOut.write("Source not found and/or or path leading to destination not found");
+      errOut.write(
+          "Source not found and/or or path leading to destination not found");
       return ExitCode.FAILURE;
     }
 

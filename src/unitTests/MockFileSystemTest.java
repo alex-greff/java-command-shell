@@ -39,14 +39,14 @@ public class MockFileSystemTest {
   @Test
   public void testGetAbsolutePathOfDirNormalDirectory() {
     MockFileSystem mfs = new MockFileSystem();
-    String path = mfs.getAbsolutePathOfDir(new Directory("myDir", null));
+    String path = mfs.getAbsolutePathOfFSElement(new Directory("myDir", null));
     assertEquals(path, "/some/valid/directory/myDir");
   }
 
   @Test
   public void testGetAbsolutePathOfDirRootDirectory() {
     MockFileSystem mfs = new MockFileSystem();
-    String path = mfs.getAbsolutePathOfDir(new Directory("root", null));
+    String path = mfs.getAbsolutePathOfFSElement(new Directory("root", null));
     assertEquals(path, "/some/valid/directory/root");
   }
 

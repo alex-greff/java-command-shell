@@ -12,18 +12,19 @@ public interface FileSystem {
    *
    * @param path The path of the new working directory.
    * @throws MalformedPathException Throws if the path is invalid.
-   * @throws FSElementNotFoundException Throws if the file/directory is not found.
+   * @throws FSElementNotFoundException Throws if the file/directory is not
+   * found.
    */
   public void changeWorkingDir(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
   /**
-   * Gets the absolute path to a directory.
+   * Gets the absolute path to an element in the filesystem.
    *
-   * @param theDir The target directory.
+   * @param theElement The target fselement.
    * @return Returns a string with the absolute path.
    */
-  public String getAbsolutePathOfDir(Directory theDir);
+  public String getAbsolutePathOfFSElement(FSElement theElement);
 
   public File getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException;

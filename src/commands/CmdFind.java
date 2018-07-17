@@ -29,6 +29,9 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -39,8 +42,6 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
-import static utilities.JShellConstants.APPEND_OPERATOR;
-import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,20 +57,11 @@ import utilities.ExitCode;
 public class CmdFind extends Command {
 
   /**
-   * Constructs a new command instance.
-   *
-   * @param fileSystem The file system that the command uses.
-   * @param commandManager The command manager that the command uses.
-   */
-  public CmdFind(FileSystem fileSystem, CommandManager commandManager) {
-    super(NAME, DESCRIPTION, fileSystem, commandManager);
-  }
-
-  // Setup command information
-  /**
    * The name of the command.
    */
   private static final String NAME = "find";
+
+  // Setup command information
   /**
    * The description of the command.
    */
@@ -77,18 +69,18 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-              .additionalComment("Nothing is printed if no files are found")
-              .build();
+          .additionalComment("Nothing is printed if no files are found")
+          .build();
   /**
    * The identifier for the type flag.
    */
   private final String TYPE_IDENTIFIER = "type";
-
-  // Setup flag constants
   /**
    * The identifier for the name flag.
    */
   private final String NAME_IDENTIFIER = "name";
+
+  // Setup flag constants
   /**
    * The file type character option.
    */
@@ -97,6 +89,15 @@ public class CmdFind extends Command {
    * The directory type character option.
    */
   private final String TYPE_DIR = "d";
+  /**
+   * Constructs a new command instance.
+   *
+   * @param fileSystem The file system that the command uses.
+   * @param commandManager The command manager that the command uses.
+   */
+  public CmdFind(FileSystem fileSystem, CommandManager commandManager) {
+    super(NAME, DESCRIPTION, fileSystem, commandManager);
+  }
 
   /**
    * Executes the find command which finds all files/directories in the given
@@ -127,7 +128,10 @@ public class CmdFind extends Command {
 
         // Initialize the set of paths of the occurrences of <expression>
         Set<String> outputPaths = findFSElementInDirectoryStructure(currDir,
-            dirStrPath, expr, errOut, type);
+                                                                    dirStrPath,
+                                                                    expr,
+                                                                    errOut,
+                                                                    type);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -142,9 +146,10 @@ public class CmdFind extends Command {
     }
 
     // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty())
+    if (!args.getRedirectOperator().isEmpty()) {
       return writeToFile(output.toString(), args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
+                         args.getTargetDestination(), errOut);
+    }
 
     // If no redirect operator is given then...
     // Print the output
@@ -158,14 +163,18 @@ public class CmdFind extends Command {
    * the name "name"
    *
    * @param dir The current directory
-   * @param dirStrPath The path of the current directory
+   * @param fseStrPath The path of the current fsElement
    * @param name The wanted file name
    * @param errOut The error console
-   * @param TYPE the type of the search (either "d" for directory or "f" for file)
+   * @param TYPE the type of the search (either "d" for directory or "f" for
+   * file)
    * @return Returns the set
    */
   private Set<String> findFSElementInDirectoryStructure(Directory dir,
-      String fseStrPath, String name, Writable errOut, final String TYPE) {
+                                                        String fseStrPath,
+                                                        String name,
+                                                        Writable errOut,
+                                                        final String TYPE) {
 
     // Initialize return set
     Set<String> ret_set = new HashSet<>();
@@ -177,12 +186,14 @@ public class CmdFind extends Command {
           || (TYPE.equals(TYPE_DIR) && fse instanceof Directory)) {
 
         // Get the absolute path of the directory
-        String fseAbsPath = fileSystem.getAbsolutePathOfDir(dir);
+        String fseAbsPath = fileSystem.getAbsolutePathOfFSElement(dir);
 
         // If the directory is the root directory
         if (fseAbsPath.equals("/"))
-          // Remove the extra "/" character
+        // Remove the extra "/" character
+        {
           fseAbsPath = "";
+        }
 
         // Add the file's path to the return set
         ret_set.add(fseAbsPath + "/" + name);
@@ -233,9 +244,9 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

@@ -62,9 +62,9 @@ public class FileSystemTest {
     fs.getWorkingDir().createAndAddNewDir("test");
     // the filesystem should now contain a directory called "test"
     Directory testDir = fs.getWorkingDir().getDirByName("test");
-    assertEquals("/test", fs.getAbsolutePathOfDir(testDir));
+    assertEquals("/test", fs.getAbsolutePathOfFSElement(testDir));
     // make sure it also works with the root
-    assertEquals("/", fs.getAbsolutePathOfDir(fs.getRoot()));
+    assertEquals("/", fs.getAbsolutePathOfFSElement(fs.getRoot()));
   }
 
   @Test
