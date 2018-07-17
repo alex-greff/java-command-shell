@@ -113,32 +113,43 @@ public class CmdGrep extends Command {
       srcPath = new Path(cmdParams[1]);
     } catch (MalformedPathException e) { // Error if the path parses incorrectly
       errOut.write("Invalid path given");
-      return ExitCode.FAILURE;
+      return ExitCode.FAILURE; // Stop the function here
     }
 
     if (cmdFlags.length == 0) {
-      try {
+      // If there is no recursive flag
+      try { // Try to obtain a file with the given path
         File src = fileSystem.getFileByPath(srcPath);
+        // matches is the result of the helper function on the file
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
+        // Error message if file not found at the given path
         errOut.writeln("File not found");
+        return ExitCode.FAILURE; // Stop the function here
       }
 
     } else if (cmdFlags.length == 1 && cmdFlags[0].equals("R")) {
-      try {
+      // If there is a recursive flag
+      try { // Try to obtain a directory with the given path
         Directory src = fileSystem.getDirByPath(srcPath);
+        // matches is the result of the helper function on the directory
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
+        // Error message if directory not found at the given path
         errOut.writeln("Directory not found");
+        return ExitCode.FAILURE; // Stop the function here
       }
     }
 
+    // If the matches ArrayList is populated with Strings, print them all to
+    // standard output
     if (!matches.isEmpty()) {
       for (String match : matches) {
         out.writeln(match);
       }
     }
 
+    // If this line is reached, nothing went wrong
     return ExitCode.SUCCESS;
   }
 
@@ -151,15 +162,21 @@ public class CmdGrep extends Command {
    * @return String ArrayList of all matching lines
    */
   private ArrayList<String> executeHelper(File src, String regex) {
+    // Create an empty ArrayList of Strings to hold matching lines
     ArrayList<String> matches = new ArrayList<>();
+    // Split the contents of the given file by every newline character into a
+    // String array
     String[] fileLines = src.read().split("\n");
 
+    // For every String (line) in our String array (fileLines), if it matches
+    // the given regex, add the line to the matches String ArrayList
     for (String line : fileLines) {
       if (line.matches(regex)) {
         matches.add(line);
       }
     }
 
+    // Return the String ArrayList of matching lines
     return matches;
   }
 
@@ -174,16 +191,23 @@ public class CmdGrep extends Command {
    * @return String ArrayList of paths to each file and their matching line(s)
    */
   private ArrayList<String> executeHelper(Directory src, String regex) {
+    // Create an empty ArrayList of Strings to hold matching lines
     ArrayList<String> matches = new ArrayList<>();
+    // Get the String ArrayLists for the names of all files and directories
+    // contained in the given directory
     ArrayList<String> containedFiles = src.listFileNames();
     ArrayList<String> containedDirs = src.listDirNames();
 
+    // Iterate through the names of all contained files
     for (String fileName : containedFiles) {
 
-      try {
+      try { // Obtain an instance of a file by its name
         File fileSrc = src.getChildFileByName(fileName);
+        // Obtain all matching lines from the file
         ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
 
+        // Prefix each matching line from the file with its path before adding
+        // it to our String ArrayList of all matches
         for (String match : fileMatches) {
           matches.add(
               fileSystem.getAbsolutePathOfFSElement(fileSrc) + ": " + match);
@@ -194,11 +218,15 @@ public class CmdGrep extends Command {
 
     }
 
+    // Iterate through the names of all contained directories
     for (String dirName : containedDirs) {
 
-      try {
+      try { // Obtain an instance of a directory by its name
         Directory dirSrc = src.getChildDirectoryByName(dirName);
+        // Obtain all matching lines from the directory
         ArrayList<String> inDirMatches = executeHelper(dirSrc, regex);
+        // Add all the matching lines from the directory to our String ArrayList
+        // of all matches
         matches.addAll(inDirMatches);
 
       } catch (FSElementNotFoundException e) {
@@ -206,6 +234,7 @@ public class CmdGrep extends Command {
 
     }
 
+    // Return the String ArrayList of matching lines
     return matches;
   }
 
