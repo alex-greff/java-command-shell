@@ -200,33 +200,28 @@ public class CmdGrep extends Command {
 
     // Iterate through the names of all contained files
     for (String fileName : containedFiles) {
+      // Obtain an instance of a file by its name
+      File fileSrc = src.getChildFileByName(fileName);
+      // Obtain all matching lines from the file
+      ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
 
-        // Obtain an instance of a file by its name
-        File fileSrc = src.getChildFileByName(fileName);
-        // Obtain all matching lines from the file
-        ArrayList<String> fileMatches = executeHelper(fileSrc, regex);
-      //TODO: might be null
-
-        // Prefix each matching line from the file with its path before adding
-        // it to our String ArrayList of all matches
-        for (String match : fileMatches) {
-          matches.add(
-              fileSystem.getAbsolutePathOfFSElement(fileSrc) + ": " + match);
-        }
-
+      // Prefix each matching line from the file with its path before adding
+      // it to our String ArrayList of all matches
+      for (String match : fileMatches) {
+        matches.add(
+            fileSystem.getAbsolutePathOfFSElement(fileSrc) + ": " + match);
+      }
     }
 
     // Iterate through the names of all contained directories
     for (String dirName : containedDirs) {
-
-        // Obtain an instance of a directory by its name
-        Directory dirSrc = src.getChildDirectoryByName(dirName);
-        // Obtain all matching lines from the directory
-        ArrayList<String> inDirMatches = executeHelper(dirSrc, regex);
-        // Add all the matching lines from the directory to our String ArrayList
-        // of all matches
-        matches.addAll(inDirMatches);
-
+      // Obtain an instance of a directory by its name
+      Directory dirSrc = src.getChildDirectoryByName(dirName);
+      // Obtain all matching lines from the directory
+      ArrayList<String> inDirMatches = executeHelper(dirSrc, regex);
+      // Add all the matching lines from the directory to our String ArrayList
+      // of all matches
+      matches.addAll(inDirMatches);
     }
 
     // Return the String ArrayList of matching lines
