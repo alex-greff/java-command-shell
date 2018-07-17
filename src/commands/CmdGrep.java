@@ -85,6 +85,19 @@ public class CmdGrep extends Command {
                   + " printed.")
           .build();
 
+  /**
+   * Executes the grep command with the given arguments. Grep prints all lines
+   * of a file that match a given regex. Grep also has the option to recursively
+   * traverse through a directory and all its subdirectories to find matches
+   * within multiple files. The path to every file will be printed alongside
+   * each matching line found. Error messages if the file or directory path is
+   * invalid, or the file or directory does not exist.
+   *
+   * @param args The command arguments container
+   * @param out Writable for Standard Output
+   * @param errOut Writable for Error Output
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   */
   @Override
   public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
     String[] cmdFlags = args.getCommandFlags();
@@ -125,6 +138,14 @@ public class CmdGrep extends Command {
     return ExitCode.SUCCESS;
   }
 
+  /**
+   * Helper function for grep's execute. Given a file and a regex, executeHelper
+   * finds all lines in a file that match the regex.
+   *
+   * @param src The source file
+   * @param regex The regex to compare against
+   * @return String ArrayList of all matching lines
+   */
   private ArrayList<String> executeHelper(File src, String regex) {
     ArrayList<String> matches = new ArrayList<>();
     String[] fileLines = src.read().split("\n");
@@ -138,6 +159,16 @@ public class CmdGrep extends Command {
     return matches;
   }
 
+  /**
+   * Helper function for grep's execute. Given a directory and a regex,
+   * executeHelper calls itself on every file found in the directory, as well as
+   * every subdirectory. Matches found in files have their path added before
+   * the matching line.
+   *
+   * @param src The source directory
+   * @param regex The regex to compare against
+   * @return String ArrayList of paths to each file and their matching line(s)
+   */
   private ArrayList<String> executeHelper(Directory src, String regex) {
     ArrayList<String> matches = new ArrayList<>();
     ArrayList<String> containedFiles = src.listFileNames();

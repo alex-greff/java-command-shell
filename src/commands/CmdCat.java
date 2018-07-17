@@ -77,7 +77,7 @@ public class CmdCat extends Command {
 
   /**
    * Executes the cat command with the given arguments. Cat prints the contents
-   * of files. Error messages if the file path is invalid, or the file does not
+   * of files. Error messages if a file path is invalid, or a file does not
    * exist.
    *
    * @param args The command arguments container
