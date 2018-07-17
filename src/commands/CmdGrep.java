@@ -141,13 +141,22 @@ public class CmdGrep extends Command {
       }
     }
 
-    // If the matches ArrayList is populated with Strings, print them all to
-    // standard output
-    if (!matches.isEmpty()) {
-      for (String match : matches) {
-        out.writeln(match);
-      }
+    // Create result String for easy printing or redirecting
+    String resultStr = "";
+
+    // Add Strings from the matches ArrayList together into the result string
+    for (String match : matches) {
+      resultStr += match + "\n";
     }
+
+    // If a redirect is given then attempt to write to file and return exit code
+    if (!args.getRedirectOperator().isEmpty()) {
+      return writeToFile(resultStr, args.getRedirectOperator(),
+          args.getTargetDestination(), errOut);
+    }
+
+    // If no redirect operator then write the result String to the Console
+    out.write(resultStr);
 
     // If this line is reached, nothing went wrong
     return ExitCode.SUCCESS;
