@@ -49,7 +49,7 @@ public class CmdCurl extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
     try {
       // Get the url
       URL url = new URL(args.getCommandParameters()[0]);
@@ -70,13 +70,6 @@ public class CmdCurl extends Command {
       // Get result string
       String resultStr = contents.toString();
 
-      // If a redirect is given then attempt to write to file and return exit
-      // code
-      if (!args.getRedirectOperator().isEmpty())
-        return writeToFile(resultStr, args.getRedirectOperator(),
-            args.getTargetDestination(), errorOut);
-
-      // If no redirect operator then...
       // Write all the contents read to the Console and return SUCCESS always
       out.write(resultStr);
       return ExitCode.SUCCESS;

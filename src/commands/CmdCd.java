@@ -85,7 +85,7 @@ public class CmdCd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];
 
@@ -104,13 +104,6 @@ public class CmdCd extends Command {
       return ExitCode.FAILURE;
     }
 
-    // If a redirect is given then attempt to write a blank string to file
-    // and return the exit code
-    if (!args.getRedirectOperator().isEmpty())
-      return writeToFile("", args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-
-    // If no redirect operator then...
     // Nothing went wrong if this line is reached, return SUCCESS
     return ExitCode.SUCCESS;
   }

@@ -145,7 +145,7 @@ public class Parser {
       // Add the string to the params list
       paramsArrayList.add(param);
       // Set the command name to "!"
-      cmdName = COMMAND_RECALL_CHAR;
+      cmdName = COMMAND_RECALL_NAME;
     }
     
     // Initialize an array list for all flags

@@ -21,6 +21,11 @@ public final class JShellConstants {
    * The character for the recall command.
    */
   public static final String COMMAND_RECALL_CHAR = "!";
+  
+  /**
+   * The name of the recall command.
+   */
+  public static final String COMMAND_RECALL_NAME = "recall";
 
   /**
    * The string for the recursive flag option.

@@ -37,6 +37,7 @@ import commands.CmdMan;
 import containers.CommandArgs;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -47,8 +48,8 @@ public class CmdManTest {
 
   //Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole tc;
-  private TestingConsole tc_err;
+  private BufferedConsole tc;
+  private BufferedConsole tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -56,8 +57,8 @@ public class CmdManTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    tc = new TestingConsole();
-    tc_err = new TestingConsole();
+    tc = new BufferedConsole();
+    tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdMan(fs, cm);
@@ -69,7 +70,7 @@ public class CmdManTest {
   public void testExecuteGetManDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -80,7 +81,7 @@ public class CmdManTest {
   public void testExecuteGetEchoDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -91,7 +92,7 @@ public class CmdManTest {
   public void testExecuteGetNonExistentCommandDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"nonExistentCmd"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals(0, tc.getAllWritesAsString().length());

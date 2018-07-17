@@ -7,6 +7,7 @@ import containers.CommandArgs;
 import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -14,8 +15,8 @@ import utilities.CommandManager;
 
 public class CmdMkdirTest {
 
-  private TestingConsole tc;
-  private TestingConsole tc_err;
+  private BufferedConsole tc;
+  private BufferedConsole tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command mkdirCmd;
@@ -23,8 +24,8 @@ public class CmdMkdirTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    tc = new TestingConsole();
-    tc_err = new TestingConsole();
+    tc = new BufferedConsole();
+    tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     mkdirCmd = new CmdMkdir(fs, cm);
@@ -36,7 +37,7 @@ public class CmdMkdirTest {
     // only creating the test directory
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test"});
     // execute mkdir
-    mkdirCmd.execute(cargs, tc, tc_err);
+    mkdirCmd.run(cargs, tc, tc_err);
     // make sure the directory exists
     assertTrue(fs.getWorkingDir().containsDir("test"));
   }
@@ -46,7 +47,7 @@ public class CmdMkdirTest {
     // creating multiple directories
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test", "test2"});
     // execute mkdir
-    mkdirCmd.execute(cargs, tc, tc_err);
+    mkdirCmd.run(cargs, tc, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsDir("test"));
     assertTrue(fs.getWorkingDir().containsDir("test2"));
@@ -58,7 +59,7 @@ public class CmdMkdirTest {
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test1",
         "test1/test2"});
     // execute mkdir
-    mkdirCmd.execute(cargs, tc, tc_err);
+    mkdirCmd.run(cargs, tc, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsDir("test1"));
     assertTrue(fs.getWorkingDir().getDirByName("test1").containsDir("test2"));

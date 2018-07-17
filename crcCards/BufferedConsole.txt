@@ -1,4 +1,4 @@
-Class name: TestConsole
+Class name: BufferedConsole
 Parent class:
 Subclasses:
 

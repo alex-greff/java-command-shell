@@ -84,20 +84,13 @@ public class CmdEcho extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
-    // If there is a redirect operator provided
-    if (!args.getRedirectOperator().isEmpty())
-      // Write to the file and return the exit code
-      return writeToFile(args.getCommandParameters()[0].replaceAll("\"", ""),
-          args.getRedirectOperator(), args.getTargetDestination(), errOut);
-
-    // If no redirect operator is given then...
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Set the string parameter to the output
     String output = args.getCommandParameters()[0].replaceAll("\"", "");
 
     // If there is any output for the standard out then write to it
     if (!output.isEmpty())
-      out.writeln(output);
+      out.writeln(output + "\n");
 
     // Return the success exit code
     return ExitCode.SUCCESS;

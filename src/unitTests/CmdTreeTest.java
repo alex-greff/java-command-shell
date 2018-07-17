@@ -38,6 +38,7 @@ import filesystem.File;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -48,8 +49,8 @@ public class CmdTreeTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole testOut;
-  private TestingConsole testErrOut;
+  private BufferedConsole testOut;
+  private BufferedConsole testErrOut;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -57,8 +58,8 @@ public class CmdTreeTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    testOut = new TestingConsole();
-    testErrOut = new TestingConsole();
+    testOut = new BufferedConsole();
+    testErrOut = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdTree(fs, cm);
@@ -75,9 +76,9 @@ public class CmdTreeTest {
   public void testTree() {
     CommandArgs args = new CommandArgs("tree");
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    BufferedConsole tc = new BufferedConsole();
+    BufferedConsole tc_err = new BufferedConsole();
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertEquals("/\n\tfile2\n\tfile1\n\tdir2\n\t\tfile3\n\tdir1\n\n",
                  tc.getAllWritesAsString());

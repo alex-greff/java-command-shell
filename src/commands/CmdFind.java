@@ -110,7 +110,7 @@ public class CmdFind extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
     String expr =
@@ -146,13 +146,6 @@ public class CmdFind extends Command {
       }
     }
 
-    // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty()) {
-      return writeToFile(output.toString(), args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-    }
-
-    // If no redirect operator is given then...
     // Print the output
     out.write(output.toString());
 

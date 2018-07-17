@@ -100,7 +100,7 @@ public class CmdGrep extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the String arrays for the Command Flags and Parameters
     String[] cmdFlags = args.getCommandFlags();
     String[] cmdParams = args.getCommandParameters();
@@ -148,14 +148,8 @@ public class CmdGrep extends Command {
     for (String match : matches) {
       resultStr += match + "\n";
     }
-
-    // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty()) {
-      return writeToFile(resultStr, args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-    }
-
-    // If no redirect operator then write the result String to the Console
+    
+    // Write the result String to the Console
     out.write(resultStr);
 
     // If this line is reached, nothing went wrong

@@ -102,7 +102,7 @@ public class CmdMv extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     Path oldPath, newPath;
 
     try {

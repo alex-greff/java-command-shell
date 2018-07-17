@@ -27,19 +27,18 @@
 // I have also read the plagiarism section in the course info
 // sheet of CSC B07 and understand the consequences.
 // *********************************************************
-package unitTests;
+package io;
 
-import io.Writable;
 import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * A console for testing commands. Allows for easy lookup for the output of
+ * A console for buffering input. Allows for easy lookup for the output of
  * commands.
  *
- * @author ajg
+ * @author greff
  */
-public class TestingConsole implements Writable {
+public class BufferedConsole implements Writable {
 
   /**
    * The stack storing all the write inputs.
@@ -78,7 +77,7 @@ public class TestingConsole implements Writable {
    * Gets the most recent write to the console.
    *
    * @return returns the most recent write to the console or null if no writes
-   * exist.
+   *         exist.
    */
   public String getLastWrite() {
     if (inputs.isEmpty()) {
@@ -111,6 +110,9 @@ public class TestingConsole implements Writable {
     for (String s : input_arr) {
       ret_str.append(s).append("\n");
     }
+
+    if (ret_str.length() > 0)
+      ret_str.deleteCharAt(ret_str.length() - 1); // Remove last \n
 
     return ret_str.toString();
   }

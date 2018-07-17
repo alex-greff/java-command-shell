@@ -30,7 +30,6 @@
 package utilities;
 
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -40,6 +39,7 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.BufferedConsole;
 import io.Writable;
 
 /**
@@ -81,12 +81,42 @@ public abstract class Command {
    * @param fileSystem The file system the command uses
    */
   public Command(String name, CommandDescription description,
-                 FileSystem fileSystem, CommandManager commandManager) {
+      FileSystem fileSystem, CommandManager commandManager) {
 
     this(fileSystem, commandManager);
     this.NAME = name;
     this.DESCRIPTION = description;
   }
+
+  /**
+   * Executes the the argument check and command function as well has handling
+   * file redirecting.
+   *
+   * @param args The arguments for the command call.
+   * @param out The standard output console.
+   * @param errorOut The error output console.
+   * @return Returns the exit condition of the command.
+   */
+  public final ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
+    if (!isValidArgs(args)) {
+      errorOut.writeln("Error: Invalid arguments");
+      return ExitCode.FAILURE;
+    }
+  
+    Writable bufferedOut = new BufferedConsole();  
+    ExitCode cmdExitCode = run(args, bufferedOut, errorOut);
+    
+    String resultStr = ((BufferedConsole) bufferedOut).getAllWritesAsString(); 
+    
+    if (!args.getRedirectOperator().isEmpty()) {
+      return writeToFile(resultStr, args.getRedirectOperator(),
+          args.getTargetDestination(), errorOut);
+    }
+    
+    out.write(resultStr);
+    return cmdExitCode;
+  }
+
 
   /**
    * Executes the command's function.
@@ -96,8 +126,10 @@ public abstract class Command {
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
-  public abstract ExitCode execute(CommandArgs args, Writable out,
-                                   Writable errorOut);
+  public abstract ExitCode run(CommandArgs args, Writable out,
+      Writable errorOut);
+
+
 
   /**
    * Checks if the given args are valid for this command.
@@ -135,7 +167,7 @@ public abstract class Command {
    * @return Returns if the write succeeded or not.
    */
   protected ExitCode writeToFile(String content, String redirectOperator,
-                                 String targetDestination, Writable errOut) {
+      String targetDestination, Writable errOut) {
     // Get the File
     File file;
     try {
@@ -182,8 +214,8 @@ public abstract class Command {
    * @param filePathStr The file path string.
    * @return Returns the created file.
    */
-  private File makeFile(String filePathStr)
-      throws MalformedPathException, FSElementNotFoundException, FSElementAlreadyExistsException {
+  private File makeFile(String filePathStr) throws MalformedPathException,
+      FSElementNotFoundException, FSElementAlreadyExistsException {
     boolean absolutePath = filePathStr.startsWith("/");
 
     // Make the new file
@@ -214,9 +246,10 @@ public abstract class Command {
     // Return the file
     return file;
   }
-  
+
   /**
-   * Returns if the the given string is a string parameter (ie it starts and ends with "). 
+   * Returns if the the given string is a string parameter (ie it starts and
+   * ends with ").
    * 
    * @param s The string.
    * @return Returns true iff s is a string parameter.

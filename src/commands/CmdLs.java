@@ -89,11 +89,14 @@ public class CmdLs extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     StringBuilder result = new StringBuilder();
     Directory curr = fileSystem.getWorkingDir();
     Path path;
-    boolean rec = args.getCommandFlags()[0] == "R";
+    boolean rec = false;
+
+    if (args.getNumberOfCommandFieldParameters() > 0)
+      rec = args.getCommandFlags()[0] == "R";
     // check parameters
 
     String[] params = args.getCommandParameters();
@@ -129,13 +132,6 @@ public class CmdLs extends Command {
       resultStr = result.toString();
     }
 
-    // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty()) {
-      return writeToFile(resultStr, args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-    }
-
-    // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
     out.write(resultStr);
     return ExitCode.SUCCESS;

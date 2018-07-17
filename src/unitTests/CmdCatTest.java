@@ -37,6 +37,7 @@ import filesystem.FSElementAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -47,8 +48,8 @@ public class CmdCatTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole testOut;
-  private TestingConsole testErrOut;
+  private BufferedConsole testOut;
+  private BufferedConsole testErrOut;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -56,8 +57,8 @@ public class CmdCatTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    testOut = new TestingConsole();
-    testErrOut = new TestingConsole();
+    testOut = new BufferedConsole();
+    testErrOut = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdCat(fs, cm);
@@ -71,7 +72,7 @@ public class CmdCatTest {
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and just the one line of
     // content was printed
@@ -90,7 +91,7 @@ public class CmdCatTest {
     // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that both lines of
     // content were printed, with 2 blank lines in between
@@ -109,7 +110,7 @@ public class CmdCatTest {
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that every line of
     // content was printed

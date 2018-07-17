@@ -76,7 +76,7 @@ public class CmdMan extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the description of the command
@@ -120,12 +120,6 @@ public class CmdMan extends Command {
     if (!resultStr.isEmpty())
       resultStr += "\n";
 
-    // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty())
-      return writeToFile(resultStr, args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-
-    // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
     out.write(resultStr);
     return ExitCode.SUCCESS;

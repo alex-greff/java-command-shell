@@ -86,7 +86,7 @@ public class CmdCat extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
@@ -114,12 +114,6 @@ public class CmdCat extends Command {
     if (!resultStr.isEmpty())
       resultStr += "\n";
 
-    // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty())
-      return writeToFile(resultStr, args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-
-    // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
     out.write(resultStr);
     return ExitCode.SUCCESS;

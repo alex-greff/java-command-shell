@@ -78,7 +78,7 @@ public class CmdPopd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
     DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {
@@ -90,12 +90,6 @@ public class CmdPopd extends Command {
       // execute the cd command to go to the directory popped off
       // the stack
       commandManager.executeCommand(cdArgs);
-      
-      // If a redirect is given then attempt to write a blank string to file
-      // and return the exit code
-      if (!args.getRedirectOperator().isEmpty())
-        return writeToFile("", args.getRedirectOperator(),
-            args.getTargetDestination(), errorOut);
 
       // the command does not need to print anything
       return ExitCode.SUCCESS;

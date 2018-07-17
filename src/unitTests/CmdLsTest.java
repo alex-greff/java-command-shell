@@ -38,6 +38,7 @@ import filesystem.File;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -48,8 +49,8 @@ public class CmdLsTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole tc;
-  private TestingConsole tc_err;
+  private BufferedConsole tc;
+  private BufferedConsole tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -57,8 +58,8 @@ public class CmdLsTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    tc = new TestingConsole();
-    tc_err = new TestingConsole();
+    tc = new BufferedConsole();
+    tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdLs(fs, cm);
@@ -77,9 +78,9 @@ public class CmdLsTest {
   public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    BufferedConsole tc = new BufferedConsole();
+    BufferedConsole tc_err = new BufferedConsole();
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertEquals("dir2\ndir1\nfile2\nfile1\n\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -91,9 +92,9 @@ public class CmdLsTest {
     params[0] = "dir1";
     CommandArgs args = new CommandArgs("ls", params);
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    BufferedConsole tc = new BufferedConsole();
+    BufferedConsole tc_err = new BufferedConsole();
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertEquals("\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -105,9 +106,9 @@ public class CmdLsTest {
     params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
 
-    TestingConsole tc = new TestingConsole();
-    TestingConsole tc_err = new TestingConsole();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    BufferedConsole tc = new BufferedConsole();
+    BufferedConsole tc_err = new BufferedConsole();
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertEquals("file3\n\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);

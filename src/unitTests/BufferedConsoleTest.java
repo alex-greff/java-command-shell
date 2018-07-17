@@ -35,12 +35,13 @@ import static org.junit.Assert.assertNull;
 
 import java.util.Collections;
 import org.junit.Test;
+import io.BufferedConsole;
 
-public class TestingConsoleTest {
+public class BufferedConsoleTest {
 
   @Test
   public void testConsoleWriteln() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
     tc.writeln("some line 1");
     tc.writeln("some line 2");
 
@@ -49,7 +50,7 @@ public class TestingConsoleTest {
 
   @Test
   public void testConsoleWrite() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
 
@@ -58,7 +59,7 @@ public class TestingConsoleTest {
 
   @Test
   public void testConsoleGetAllWrites() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
     tc.writeln("c");
@@ -68,14 +69,14 @@ public class TestingConsoleTest {
 
   @Test
   public void testConsoleGetAllWritesNoWrites() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
 
     assertEquals(Collections.emptyList(), tc.getAllWrites());
   }
 
   @Test
   public void testConsoleGetLastWrite() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
     tc.writeln("c");
@@ -85,14 +86,14 @@ public class TestingConsoleTest {
 
   @Test
   public void testConsoleGetLastWriteNoWrites() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
 
     assertNull(tc.getLastWrite());
   }
 
   @Test
   public void testConsoleGetAllWritesAsString() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
     tc.writeln("c");
@@ -102,7 +103,7 @@ public class TestingConsoleTest {
 
   @Test
   public void testConsoleGetAllWritesAsStringNoWrites() {
-    TestingConsole tc = new TestingConsole();
+    BufferedConsole tc = new BufferedConsole();
 
     assertEquals("", tc.getAllWritesAsString());
   }

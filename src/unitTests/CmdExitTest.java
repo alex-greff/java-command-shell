@@ -36,6 +36,7 @@ import commands.CmdExit;
 import containers.CommandArgs;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -47,8 +48,8 @@ public class CmdExitTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole tc;
-  private TestingConsole tc_err;
+  private BufferedConsole tc;
+  private BufferedConsole tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -56,8 +57,8 @@ public class CmdExitTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    tc = new TestingConsole();
-    tc_err = new TestingConsole();
+    tc = new BufferedConsole();
+    tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdExit(fs, cm);
@@ -68,7 +69,7 @@ public class CmdExitTest {
   public void testExecuteExit() {
     CommandArgs args = Parser.parseUserInput("exit");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals(0, tc.getAllWritesAsString().length());

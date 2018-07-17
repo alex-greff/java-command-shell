@@ -36,6 +36,7 @@ import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -46,8 +47,8 @@ public class CmdCdTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole testOut;
-  private TestingConsole testErrOut;
+  private BufferedConsole testOut;
+  private BufferedConsole testErrOut;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -55,8 +56,8 @@ public class CmdCdTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    testOut = new TestingConsole();
-    testErrOut = new TestingConsole();
+    testOut = new BufferedConsole();
+    testErrOut = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdCd(fs, cm);
@@ -70,7 +71,7 @@ public class CmdCdTest {
     // Attempt to change into the child directory created
     String argParam[] = {"testDir"};
     CommandArgs args = new CommandArgs("cd", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the child directory which we created
@@ -83,7 +84,7 @@ public class CmdCdTest {
     // Attempt to change into the current directory
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is still the root directory
@@ -100,12 +101,12 @@ public class CmdCdTest {
     // to the parent directory
     String argParam1[] = {"testDir"};
     CommandArgs args1 = new CommandArgs("cd", argParam1);
-    cmd.execute(args1, testOut, testErrOut);
+    cmd.run(args1, testOut, testErrOut);
 
     // Attempt to change into the parent directory
     String argParam2[] = {".."};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
-    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the root directory again
@@ -121,7 +122,7 @@ public class CmdCdTest {
     // Change into the child directory we created, so we can make another in it
     String argParam1[] = {"testDir"};
     CommandArgs args1 = new CommandArgs("cd", argParam1);
-    cmd.execute(args1, testOut, testErrOut);
+    cmd.run(args1, testOut, testErrOut);
 
     // Create a directory and add it to the directory we are currently in
     fs.getWorkingDir().createAndAddNewDir("testDirAgain");
@@ -130,7 +131,7 @@ public class CmdCdTest {
     // starting from the root
     String argParam2[] = {"/testDir/testDirAgain"};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
-    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the grandchild directory which we created
@@ -148,13 +149,13 @@ public class CmdCdTest {
     // sibling from it
     String argParam1[] = {"testDir"};
     CommandArgs args1 = new CommandArgs("cd", argParam1);
-    cmd.execute(args1, testOut, testErrOut);
+    cmd.run(args1, testOut, testErrOut);
 
     // Attempt to change into the sibling directory, giving in a path that goes
     // up to the parent first, and then to the sibling
     String argParam2[] = {"../testDirAgain"};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
-    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
+    ExitCode exitVal = cmd.run(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the second sibling directory which we created

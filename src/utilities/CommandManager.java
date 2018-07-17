@@ -45,6 +45,7 @@ import commands.CmdMv;
 import commands.CmdPopd;
 import commands.CmdPushd;
 import commands.CmdPwd;
+import commands.CmdRecall;
 import commands.CmdTree;
 import containers.CommandArgs;
 import containers.CommandDescription;
@@ -133,6 +134,9 @@ public class CommandManager {
     cmdMap.put("pwd", new CmdPwd(fileSystem, this));
     cmdMap.put("tree", new CmdTree(fileSystem, this));
     cmdMap.put("curl", new CmdCurl(fileSystem, this));
+    cmdMap.put("mv", new CmdMv(fileSystem, this));
+    cmdMap.put("cp", new CmdCp(fileSystem, this));
+    cmdMap.put("recall", new CmdRecall(fileSystem, this));
   }
 
   /**
@@ -158,17 +162,11 @@ public class CommandManager {
         // Then get the instance of the command from the HashMap
         Command cmd = cmdMap.get(cmdName);
 
-        if (cmd.isValidArgs(cArgs)) { // If the args are valid for the command
+        // Execute the command with the given args, remembering the exit value
+        lastExitCode = cmd.execute(cArgs, out, errorOut);
+        // Does nothing with the exit value (perhaps a future update)
 
-          // Execute the command with the given args, remembering the exit value
-          lastExitCode = cmd.execute(cArgs, out, errorOut);
-          // Does nothing with the exit value (perhaps a future update)
-
-          return; // End here since we've done all we need to do
-
-        } else {
-          errMsg = "Error: Invalid arguments"; // Change the error message
-        }
+        return; // End here since we've done all we need to do
       }
     }
 

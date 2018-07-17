@@ -37,6 +37,7 @@ import filesystem.FSElementAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -47,8 +48,8 @@ public class CmdGrepTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole testOut;
-  private TestingConsole testErrOut;
+  private BufferedConsole testOut;
+  private BufferedConsole testErrOut;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -56,8 +57,8 @@ public class CmdGrepTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    testOut = new TestingConsole();
-    testErrOut = new TestingConsole();
+    testOut = new BufferedConsole();
+    testErrOut = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdCat(fs, cm);

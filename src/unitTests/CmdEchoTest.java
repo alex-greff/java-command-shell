@@ -42,6 +42,7 @@ import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -53,8 +54,8 @@ public class CmdEchoTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private TestingConsole tc;
-  private TestingConsole tc_err;
+  private BufferedConsole tc;
+  private BufferedConsole tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -62,8 +63,8 @@ public class CmdEchoTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    tc = new TestingConsole();
-    tc_err = new TestingConsole();
+    tc = new BufferedConsole();
+    tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdEcho(fs, cm);
@@ -88,7 +89,7 @@ public class CmdEchoTest {
   public void testExecuteEchoToConsole() {
     CommandArgs args = Parser.parseUserInput("echo \"nice sentence you got there\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("nice sentence you got there\n", tc.getAllWritesAsString());
@@ -100,7 +101,7 @@ public class CmdEchoTest {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" > /dir1/dir4/file4");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file4"));
 
@@ -114,7 +115,7 @@ public class CmdEchoTest {
       throws MalformedPathException, FSElementNotFoundException {
     CommandArgs args = Parser.parseUserInput("echo \"some string\" >> /file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     File file = fs.getFileByPath(new Path("/file1"));
 
@@ -128,7 +129,7 @@ public class CmdEchoTest {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" >> /fileBlahBlahBlah");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
 
@@ -141,7 +142,7 @@ public class CmdEchoTest {
     CommandArgs args =
         Parser.parseUserInput("echo \"some string\" >> /wrongDir/f1.txt");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.run(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
   }

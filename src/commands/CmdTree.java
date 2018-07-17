@@ -80,7 +80,7 @@ public class CmdTree extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode execute(CommandArgs args, Writable out, Writable errOut) {
+  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
@@ -89,12 +89,6 @@ public class CmdTree extends Command {
       // Do nothing
     }
 
-    // If a redirect is given then attempt to write to file and return exit code
-    if (!args.getRedirectOperator().isEmpty())
-      return writeToFile(result, args.getRedirectOperator(),
-          args.getTargetDestination(), errOut);
-
-    // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
     out.write(result);
 
