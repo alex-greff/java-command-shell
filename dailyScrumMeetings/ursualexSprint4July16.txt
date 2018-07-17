@@ -1,6 +1,6 @@
 What did I do last time?
     - Created new methods for filesystem to get string representation of the path
-    leading to a file or directory
+    leading to a file or directory (then refactored into an older method)
     - Completed implementation for the grep command (switched tasks since last meeting)
     - Completed most documentation for the grep command
 
