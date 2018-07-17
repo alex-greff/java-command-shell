@@ -1,0 +1,66 @@
+//Sprint 5 Backlog.
+July 17 to July 23
+
+User Stories from Product Backlog that we will address in this sprint:
+a) ID: #1 "As a user I should be able to redirect the output of every command
+       (except exit) to a file"
+b) ID: #2a "I am able to list all directories and files recursively or non-recursively"
+c) ID: #2b "I am able to move directories and files from one place to another"
+d) ID: #2c "I am able to copy directories and files from one place to another"
+e) ID: #2d "I am able to display the contents of multiple files at once"
+f) ID: #2e "I am able to retrieve and display the contents of files from URL sources"
+g) ID: #2f "I am able to execute previously run commands using the ![number] notation"
+h) ID: #2g "I am able to find expressions in specific files or recursively in directories"
+
+Tasks needed to be completed from Sprint 4
+x-1. Update and clean up unit tests for the classes assigned to you in Assignment 2A
+z-1. (Parser, CommandArgs) Update the parser and command args to handle the new command input requirements.
+z-2. Update the file system to support operations needed for the new commands
+a-1. Add file redirection system to be global to all commands except exit
+b-1. (CmdLs) Update to implement the -R recursive option flag
+b-2. (CmdLs) Update the man documentation
+b-3. (CmdLs) Provide internal comments and docstrings as you code
+b-4  (CmdLsTest) Update and/or clean up unit tests 
+c-1. (CmdMv) Code the move command
+c-2. (CmdMv) Add man documentation
+c-3. (CmdMv) Provide internal comments and docstrings as you code
+c-4. (CmdMvTest) Update and clean up unit tests 
+d-1. (CmdCp) Code the copy command
+d-2. (CmdCp) Add man documentation
+d-3. (CmdCp) Provide internal comments and docstrings as you code
+d-4  (CmdCpTest) Update and clean up unit tests
+e-1. (CmdCat) Update to display multiple files at one (already done)
+e-2. (CmdCat) Update the man documentation, if needed
+e-3. (CmdCat) Provide any additional internal comments and docstrings if necessary
+e-4. (CmdCatTest) Update and clean up unit tests
+f-1. (CmdCurl) Code the curl command
+f-2. (CmdCurl) Add man documentation
+f-3. (CmdCurl) Provide internal comments and docstrings as you code
+f-4  (CmdCurlTest) Add unit tests for this command
+g-1. (CmdExclamPoint) Code the ![number] command
+g-2. (CmdExclamPoint) Add man documentation
+g-3. (CmdExclamPoint) Provide internal comments and docstrings as you code
+g-4. (CmdExclamPointTest) Add unit tests for this command
+h-1. (CmdGrep) Code the grep command
+h-2. (CmdGrep) Add man documentation
+h-3. (CmdGrep) Provide internal comments and docstrings as you code
+h-4. (CmdGrepTest) Add unit tests for this command
+
+Specific tasks to be accomplished: 
+y-1. Finialize project (clean-up code, docstrings, unit tests, etc)
+y-2. Construct ANT make file 
+
+
+These tasks are assigned as follows:
+
+User: Anton Kaminsky
+Tasks: x-1, y-1, z-2, c-*, d-* 
+
+User: Chedy Sankar
+Tasks: x-1, y-1, y-2, b-*, g-*
+
+User: Alexander Ursu
+Tasks: x-1, y-1, e-*, h-*
+
+User: Alexander Greff
+Tasks: x-1, y-1, y-2, z-1, a-1, f-*,
