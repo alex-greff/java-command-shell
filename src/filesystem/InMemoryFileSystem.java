@@ -80,19 +80,15 @@ public class InMemoryFileSystem implements FileSystem {
    * @return The absolute path to the directory
    */
   public String getAbsolutePathOfFSElement(FSElement theElement) {
-    StringBuilder path = new StringBuilder();
-    FSElement curEl = theElement;
-    if (curEl.getName().equals("/")) {
-      return "/";
-    } else {
-      while (!curEl.getName().equals("/")) {
-        String segment =
-            new StringBuilder("/" + curEl.getName()).reverse().toString();
-        path.append(segment);
-        curEl = curEl.getParent();
-      }
-      return path.reverse().toString();
+    String result = "";
+    if (theElement != root) {
+      result = getAbsolutePathOfFSElement(theElement.getParent()) +
+          theElement.getName();
     }
+    if (theElement instanceof Directory) {
+      result += "/";
+    }
+    return result;
   }
 
   /**
@@ -174,30 +170,6 @@ public class InMemoryFileSystem implements FileSystem {
    */
   public Directory getRoot() {
     return root;
-  }
-
-  /**
-   * Gets a string representation of the path to the given file
-   *
-   * @param file The given file object
-   * @return a string representing the file's path
-   */
-  public String getStringPath(File file) {
-    return getStringPath(file.getParent()) + "/" + file.getName();
-  }
-
-  /**
-   * Gets a string representation of the path to the given directory
-   *
-   * @param dir The given directory object
-   * @return a string representing the directory's path
-   */
-  public String getStringPath(Directory dir) {
-    if (dir == root) {
-      return getStringPath(dir.getParent()) + "/" + dir.getName();
-    } else {
-      return root.getName();
-    }
   }
 
 }

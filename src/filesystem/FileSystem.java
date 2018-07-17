@@ -15,7 +15,7 @@ public interface FileSystem {
    * @throws FSElementNotFoundException Throws if the file/directory is not
    * found.
    */
-  public void changeWorkingDir(Path path)
+  void changeWorkingDir(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
   /**
@@ -24,21 +24,17 @@ public interface FileSystem {
    * @param theElement The target fselement.
    * @return Returns a string with the absolute path.
    */
-  public String getAbsolutePathOfFSElement(FSElement theElement);
+  String getAbsolutePathOfFSElement(FSElement theElement);
 
-  public File getFileByPath(Path path)
+  File getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
-  public Directory getDirByPath(Path path)
+  Directory getDirByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
-  public Directory getWorkingDir();
+  Directory getWorkingDir();
 
-  public String getWorkingDirPath();
+  String getWorkingDirPath();
 
-  public Directory getRoot();
-
-  public String getStringPath(File file);
-
-  public String getStringPath(Directory dir);
+  Directory getRoot();
 }
