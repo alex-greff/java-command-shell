@@ -47,7 +47,7 @@ import utilities.ExitCode;
 /**
  * The mv command class that inherits from command
  *
- * @author ursu
+ * @author anton, ursu
  */
 public class CmdMv extends Command {
 

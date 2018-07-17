@@ -1,0 +1,11 @@
+What did I do last time?
+  - Fix compiler errors resulting from design change
+  - Add more features to the filesystem
+  - Work on mv command
+
+What do I plan to do now?
+  - Finish mv command
+  - Work on cp command
+
+Am I blocked on anything?
+    - Nope
