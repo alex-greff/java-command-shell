@@ -96,6 +96,7 @@ public class CmdLs extends Command {
     StringBuilder result = new StringBuilder();
     Directory curr = fileSystem.getWorkingDir();
     Path path;
+    boolean rec = args.getCommandFlags()[0]=="R";
     // check parameters
 
     String[] params = args.getCommandParameters();
@@ -103,7 +104,7 @@ public class CmdLs extends Command {
       for (String name : params) {
         try {
           curr = fileSystem.getDirByPath(new Path(name));
-          result.append(addOn(curr));
+          result.append(curr.getName()).append(":\n").append(addOn(curr, rec));
         } catch (MalformedPathException | FSElementNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
@@ -119,7 +120,7 @@ public class CmdLs extends Command {
 
     // if no parameters are given, perform command on current working dir
     else {
-      result = new StringBuilder(addOn(curr));
+      result = new StringBuilder(addOn(curr, false));
     }
 
     // Initialize the result string
@@ -146,14 +147,24 @@ public class CmdLs extends Command {
    * @param dir The directory whose contents will be represented by a string
    * @return The string representation of the directories contents
    */
-  private String addOn(Directory dir) {
+  private String addOn(Directory dir, boolean recursive) {
     StringBuilder result = new StringBuilder();
     // get lists of files and dirs of the current working path
     ArrayList<String> dirs = dir.listDirNames();
     ArrayList<String> files = dir.listFileNames();
     // now append the each string from the arraylists with a newline to result
     for (String name : dirs) {
-      result.append(name).append("\n");
+      if (recursive){
+        try{
+          result.append(addOn((Directory)dir.getChildByName(name),
+              true));
+        }catch(FSElementNotFoundException e){
+          return "";
+        }
+
+      }else{
+        result.append(name).append("\n");
+      }
     }
     for (String name : files) {
       result.append(name).append("\n");
@@ -166,6 +177,22 @@ public class CmdLs extends Command {
     String name = file.getName();
     res = name + "\n\n";
     return res;
+  }
+
+  /**
+   *
+   * @param in the stringbuilder input
+   * @return a properly formatted string with no extra newlines
+   */
+  private String buildStr(StringBuilder in){
+    String resultStr = "";
+
+    if (in.length() > 0) {
+      // trim final newline
+      in.reverse().delete(0, 1).reverse();
+      resultStr = in.toString();
+    }
+    return resultStr;
   }
 
   /**
