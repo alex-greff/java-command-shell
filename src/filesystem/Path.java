@@ -50,7 +50,7 @@ public class Path implements Iterable<String> {
    * @return The first token from the path
    */
   public String removeFirst() {
-    return this.tokens.remove(this.tokens.size() - 1);
+    return this.tokens.remove(0);
   }
 
   /**
