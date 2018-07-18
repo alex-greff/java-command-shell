@@ -5,27 +5,51 @@ package filesystem;
  */
 public class FSElement {
 
-  public Directory getParent() {
-    return parent;
-  }
-
-  public String getName() {
-    return name;
-  }
-
+  /**
+   * The parent of this element in the filesystem
+   */
   protected Directory parent;
+  /**
+   * The name of this element in the filesystem
+   */
   protected String name;
 
+  /**
+   * Constructs a new element
+   *
+   * @param name The name of this element
+   * @param parent The parent directory of this element
+   */
   public FSElement(String name, Directory parent) {
     this.parent = parent;
     this.name = name;
   }
 
-  public void setName(String name) {
+  /**
+   * Provides the parent of this element
+   *
+   * @return The parent of the fselement
+   */
+  public Directory getParent() {
+    return parent;
+  }
+
+  /**
+   * Provides the name of this element
+   *
+   * @return The name of the fselement
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Renames this element
+   *
+   * @param name The new name of this element
+   */
+  public void rename(String name) {
     this.name = name;
   }
 
-  public void setParent(Directory parent) {
-    this.parent = parent;
-  }
 }

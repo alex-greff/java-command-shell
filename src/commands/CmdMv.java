@@ -121,40 +121,30 @@ public class CmdMv extends Command {
       errOut.writeln("One or more paths are not valid");
       return ExitCode.FAILURE;
     }
-    // delete file from its parent
-    from.getParent().removeChildByName(from.getName());
-    // if we are moving a file to
-    if (from instanceof File) {
-      if (to instanceof File) {
-        // rename the file
-        from.setName(to.getName());
-        // change parent
-        from.setParent(to.getParent());
-        // overwrite the file moving to
-        to.getParent().addChild(from);
-      } else if (to instanceof Directory) {
-        // add it to the directory overwrite if another file exists there
-        // change parent
-        Directory newParent = (Directory) to;
-        from.setParent(newParent);
-        // add this file to the directory overwriting if another file with
-        // same name exists there
-        newParent.addChild(from);
-      }
-    } else if (from instanceof Directory) {
-      if (to instanceof File) {
-        // can't do this write error and return failure
-        errOut.writeln("Cannot overwrite file with directory");
-        return ExitCode.FAILURE;
-      } else if (to instanceof Directory) {
-        // rename this directory
-        from.setName(to.getName());
-        // change parent
-        from.setParent(to.getParent());
-        // replace the directory with this one
-        to.getParent().addChild(from);
-      }
+    // make sure we are not moving from directory to file
+    if (from instanceof Directory && to instanceof File) {
+      // can't do this write error and return failure
+      errOut.writeln("Cannot overwrite file with directory");
+      return ExitCode.FAILURE;
     }
+    // initialize new and old parent
+    Directory newParent, oldParent = from.getParent();
+    // delete file from its old parent
+    oldParent.removeChildByName(from.getName());
+    // if we are moving a to a file we need to rename it and set the new parent
+    if (to instanceof File) {
+      // rename the file to the name of the file given as newpath
+      from.rename(to.getName());
+      // the new parent is the parent of the file given as newpath
+      newParent = to.getParent();
+    } else { // we are moving to a Directory so the new parent should be the
+      // directory we are moving to and no renaming is necessary
+      // new parent is the directory given as newpath
+      newParent = (Directory) to;
+    }
+    // move the element into its new parent overwriting any element sharing
+    // its name
+    newParent.addChild(from);
     return ExitCode.SUCCESS;
   }
 

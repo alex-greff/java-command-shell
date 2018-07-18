@@ -61,6 +61,7 @@ public class Directory extends FSElement {
    */
   public void addChild(FSElement child) {
     this.children.put(child.getName(), child);
+    child.parent = this;
   }
 
   /**
