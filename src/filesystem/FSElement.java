@@ -49,6 +49,7 @@ public class FSElement {
    * @param name The new name of this element
    */
   public void rename(String name) {
+    this.parent.notifyRename(this.name, name);
     this.name = name;
   }
 

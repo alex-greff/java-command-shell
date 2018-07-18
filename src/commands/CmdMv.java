@@ -36,6 +36,7 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FSElement;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FSElementNotFoundException;
 import filesystem.File;
 import filesystem.FileSystem;
@@ -84,6 +85,8 @@ public class CmdMv extends Command {
           .additionalComment(
               "No functionality if the old path is a directory and the new path"
                   + " is a file at the same time. This is undefined behaviour.")
+          .additionalComment("No functionality if the old path and new path "
+                                 + "point to the same element")
           .build();
 
   /**
@@ -109,42 +112,88 @@ public class CmdMv extends Command {
    */
   @Override
   protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+    // Get the elements by the given paths if they exist
     Path oldPath, newPath;
     FSElement from, to;
-
     try {
+      // make sure the paths are good
       oldPath = new Path(args.getCommandParameters()[0]);
       newPath = new Path(args.getCommandParameters()[1]);
+      // make sure that the element we are moving from exists
       from = fileSystem.getFSElementByPath(oldPath);
-      to = fileSystem.getFSElementByPath(newPath);
-    } catch (MalformedPathException | FSElementNotFoundException s) {
-      errOut.writeln("One or more paths are not valid");
+    } catch (MalformedPathException s) {
+      errOut.writeln("Invalid path(s) given");
+      return ExitCode.FAILURE;
+    } catch (FSElementNotFoundException s) {
+      errOut.writeln("You can only move an existing element");
       return ExitCode.FAILURE;
     }
-    // make sure we are not moving from directory to file
+
+    // check if the element we are moving to exists
+    try {
+      to = fileSystem.getFSElementByPath(newPath);
+    } catch (MalformedPathException e) {
+      errOut.writeln("Invalid destination path given");
+      return ExitCode.FAILURE;
+    } catch (FSElementNotFoundException e) {
+      // if it does not exist we will try to make it exist by creating the
+      // element with the name equal to the last segment of the path in the
+      // directory given by the path not including the last segment
+      try {
+        String wantedName = newPath.removeLast();
+        to = fileSystem.getDirByPath(newPath);
+        // make sure that you are not moving to a child of itself
+        if (fileSystem.getAbsolutePathOfFSElement(to)
+            .startsWith(fileSystem.getAbsolutePathOfFSElement(from))) {
+          errOut.writeln("Cannot move element to its child or itself");
+          return ExitCode.FAILURE;
+        }
+        // rename the from item to the wanted name
+        from.rename(wantedName);
+      } catch (MalformedPathException e1) {
+        errOut.writeln("Invalid destination path given");
+        return ExitCode.FAILURE;
+      } catch (FSElementNotFoundException e1) {
+        errOut.writeln("Destination path does not exist.");
+        return ExitCode.FAILURE;
+      }
+    }
+    // make sure we aren't moving directory to a file
     if (from instanceof Directory && to instanceof File) {
       // can't do this write error and return failure
-      errOut.writeln("Cannot overwrite file with directory");
+      errOut.writeln("Cannot move directory to file");
+      return ExitCode.FAILURE;
+    }
+    // make sure we are not moving an element to itself or a child of itself
+    if (fileSystem.getAbsolutePathOfFSElement(to)
+        .startsWith(fileSystem.getAbsolutePathOfFSElement(from))) {
+      errOut.writeln("Cannot move element to its child or itself");
       return ExitCode.FAILURE;
     }
     // initialize new and old parent
     Directory newParent, oldParent = from.getParent();
-    // delete file from its old parent
-    oldParent.removeChildByName(from.getName());
-    // if we are moving a to a file we need to rename it and set the new parent
     if (to instanceof File) {
+      // if we moving to a file
       // rename the file to the name of the file given as newpath
       from.rename(to.getName());
       // the new parent is the parent of the file given as newpath
       newParent = to.getParent();
+      // delete the file given as newpath
+      to.getParent().removeChildByName(to.getName());
     } else { // we are moving to a Directory so the new parent should be the
       // directory we are moving to and no renaming is necessary
       // new parent is the directory given as newpath
       newParent = (Directory) to;
     }
-    // move the element into its new parent overwriting any element sharing
-    // its name
-    newParent.addChild(from);
+    try {
+      // try to move the element into its new parent
+      newParent.moveInto(from);
+    } catch (FSElementAlreadyExistsException e) {
+      errOut.writeln("Element with given name already exists in NEWPATH");
+      return ExitCode.FAILURE;
+    }
+    // delete element being moved from its old parent
+    oldParent.removeChildByName(from.getName());
     return ExitCode.SUCCESS;
   }
 

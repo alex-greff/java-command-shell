@@ -65,6 +65,23 @@ public class Directory extends FSElement {
   }
 
   /**
+   * Moves the given fselement into the current directory as long as nothing
+   * with the same name already exists
+   *
+   * @param newChild The child to move into this directory
+   * @throws FSElementAlreadyExistsException if there is already a child with
+   * the same name
+   */
+  public void moveInto(FSElement newChild)
+      throws FSElementAlreadyExistsException {
+    if (!children.containsKey(name)) {
+      this.children.put(newChild.getName(), newChild);
+    } else {
+      throw new FSElementAlreadyExistsException();
+    }
+  }
+
+  /**
    * Adds a given directory as a child of this directory if the directory does
    * not already exist
    *
@@ -243,5 +260,16 @@ public class Directory extends FSElement {
     } else {
       return null;
     }
+  }
+
+  /**
+   * Changes the key for an FSElement when it is renamed
+   *
+   * @param oldName The old name of the child
+   * @param newName The new name of the child
+   */
+  public void notifyRename(String oldName, String newName) {
+    FSElement child = this.children.remove(oldName);
+    this.children.put(newName, child);
   }
 }

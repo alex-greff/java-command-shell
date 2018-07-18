@@ -129,6 +129,7 @@ public class InMemoryFileSystem implements FileSystem {
       } else if (segment.equals("..")) {
         curr = curr.getParent();
         if (curr == null) {
+          // can't get roots parent
           throw new MalformedPathException();
         }
       } else if (!segment.equals(".")) {
