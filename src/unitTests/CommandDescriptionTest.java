@@ -39,7 +39,7 @@ import org.junit.Test;
 public class CommandDescriptionTest {
 
   @Test
-  public void test_getters_container_with_description_and_usages() {
+  public void testGettersContainerWithDescriptionAndUsages() {
     CommandDescription cd =
         new CommandDescription.DescriptionBuilder(
             "some basic description",
@@ -53,7 +53,7 @@ public class CommandDescriptionTest {
   }
 
   @Test
-  public void test_getters_container_with_additional_comments() {
+  public void testGettersContainerWithAdditionalComments() {
     CommandDescription cd =
         new CommandDescription.DescriptionBuilder(
             "some basic description",
