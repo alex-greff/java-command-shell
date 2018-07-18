@@ -38,4 +38,5 @@ public interface FileSystem {
 
   Directory getRoot();
 
+  FSElement getFSElementByPath(Path path) throws MalformedPathException, FSElementNotFoundException;
 }

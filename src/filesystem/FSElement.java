@@ -21,4 +21,11 @@ public class FSElement {
     this.name = name;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setParent(Directory parent) {
+    this.parent = parent;
+  }
 }

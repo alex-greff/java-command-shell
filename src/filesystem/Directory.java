@@ -56,6 +56,14 @@ public class Directory extends FSElement {
   }
 
   /**
+   * Adds the given fselement child to itself overwriting if something with the
+   * same name existed before
+   */
+  public void addChild(FSElement child) {
+    this.children.put(child.getName(), child);
+  }
+
+  /**
    * Adds a given directory as a child of this directory if the directory does
    * not already exist
    *

@@ -31,8 +31,13 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.Directory;
+import filesystem.FSElement;
+import filesystem.FSElementNotFoundException;
+import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
@@ -58,27 +63,28 @@ public class CmdMv extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Move contents of a file to another.", "mv OLDPATH NEWPATH")
-              .additionalComment(
-                  "Paths of OLDPATH and NEWPATH can be relative or absolute.")
-              .additionalComment(
-                  "File(s) at OLDPATH gets removed, and replaces the content at"
-                      + " NEWPATH.")
-              .additionalComment(
-                  "If both the old and new paths are files, the content of the old"
-                      + " file is moved to the new file. The old file must exist,"
-                      + " but the new file is created if it does not yet exist")
-              .additionalComment(
-                  "If the old path is a file, and the new path is a directory, the"
-                      + " file is moved into the directory. The file and directory"
-                      + " must exist")
-              .additionalComment(
-                  "If both the old and new paths are directories, all files in the"
-                      + " old directory are moved into the new directory. The"
-                      + " directories must exist")
-              .additionalComment(
-                  "No functionality if the old path is a directory and the new path"
-                      + " is a file at the same time")
-              .build();
+          .additionalComment(
+              "Paths of OLDPATH and NEWPATH can be relative or absolute.")
+          .additionalComment(
+              "File(s) at OLDPATH gets removed, and replaces the content at"
+                  + " NEWPATH.")
+          .additionalComment(
+              "If both the old and new paths are files, the content of the old"
+                  + " file overwrites the new file. The old file must exist,"
+                  + " but the new file is created if it does not yet exist")
+          .additionalComment(
+              "If the old path is a file, and the new path is a directory, the"
+                  + " file is moved into the directory. The file and directory"
+                  + " must exist")
+          .additionalComment(
+              "If both the old and new paths are directories, the"
+                  + " old directory is moved into the new directories parent "
+                  + "overwriting the directory that was there before. The"
+                  + " directories must exist")
+          .additionalComment(
+              "No functionality if the old path is a directory and the new path"
+                  + " is a file at the same time. This is undefined behaviour.")
+          .build();
 
   /**
    * Constructs a new command instance.
@@ -104,16 +110,52 @@ public class CmdMv extends Command {
   @Override
   protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     Path oldPath, newPath;
+    FSElement from, to;
 
     try {
       oldPath = new Path(args.getCommandParameters()[0]);
       newPath = new Path(args.getCommandParameters()[1]);
-    } catch (MalformedPathException e) {
-      errOut.write("Invalid path(s) given");
+      from = fileSystem.getFSElementByPath(oldPath);
+      to = fileSystem.getFSElementByPath(newPath);
+    } catch (MalformedPathException | FSElementNotFoundException s) {
+      errOut.writeln("One or more paths are not valid");
       return ExitCode.FAILURE;
     }
-    return null;
-
+    // delete file from its parent
+    from.getParent().removeChildByName(from.getName());
+    // if we are moving a file to
+    if (from instanceof File) {
+      if (to instanceof File) {
+        // rename the file
+        from.setName(to.getName());
+        // change parent
+        from.setParent(to.getParent());
+        // overwrite the file moving to
+        to.getParent().addChild(from);
+      } else if (to instanceof Directory) {
+        // add it to the directory overwrite if another file exists there
+        // change parent
+        Directory newParent = (Directory) to;
+        from.setParent(newParent);
+        // add this file to the directory overwriting if another file with
+        // same name exists there
+        newParent.addChild(from);
+      }
+    } else if (from instanceof Directory) {
+      if (to instanceof File) {
+        // can't do this write error and return failure
+        errOut.writeln("Cannot overwrite file with directory");
+        return ExitCode.FAILURE;
+      } else if (to instanceof Directory) {
+        // rename this directory
+        from.setName(to.getName());
+        // change parent
+        from.setParent(to.getParent());
+        // replace the directory with this one
+        to.getParent().addChild(from);
+      }
+    }
+    return ExitCode.SUCCESS;
   }
 
   /**
@@ -131,8 +173,8 @@ public class CmdMv extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

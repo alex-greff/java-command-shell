@@ -132,7 +132,7 @@ public class InMemoryFileSystem implements FileSystem {
         FSElement maybeDir = curr.getChildByName(segment);
         if (maybeDir instanceof Directory) {
           curr = (Directory) maybeDir;
-        } else if (!path.isEmpty()) {
+        } else if (maybeDir == null || !path.isEmpty()) {
           throw new FSElementNotFoundException();
         }
       }
