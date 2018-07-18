@@ -50,19 +50,16 @@ import utilities.ExitCode;
 public class CmdRecall extends Command {
 
   /**
-   * The arraylist of history that this command depends on
-   */
-  private static ArrayList<String> history = JShell.getHistory();
-  /**
    * The name of this command
    */
-  private static final String NAME = "!";
+  private static final String NAME = "recall";
   /**
    * command description
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "This command executes the n'th last command executed", "history")
+          "This command executes the n'th last command executed",
+          "history")
               .usage("history [int]")
               .additionalComment("The history command itself will "
                   + "always take place as the latest entry in history "
@@ -87,6 +84,8 @@ public class CmdRecall extends Command {
    */
   @Override
   protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+    ArrayList<String> history = JShell.getHistory();
+    history.remove(history.size() - 1); // remove the recall from history
     String[] params = args.getCommandParameters();
     String strNum = params[0];
     // check if the argument is an int;
@@ -102,7 +101,6 @@ public class CmdRecall extends Command {
     }
     String cmd = history.get(num - 1); // minus one since the list starts at 1.
     // manually execute and add the command to history
-    history.remove(history.size() - 1); // replaces the !num with actual cmd
     history.add(cmd);
     JShell.parseAndExecute(cmd);
     return ExitCode.SUCCESS;
