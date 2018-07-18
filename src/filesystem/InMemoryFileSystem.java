@@ -103,7 +103,10 @@ public class InMemoryFileSystem implements FileSystem {
       throws MalformedPathException, FSElementNotFoundException {
     String fileName = path.removeLast();
     Directory parent = getDirByPath(path);
-    return parent.getChildFileByName(fileName);
+    File f = parent.getChildFileByName(fileName); 
+    if (f == null)
+      throw new FSElementNotFoundException();
+    return f;
   }
 
   /**

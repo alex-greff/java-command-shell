@@ -186,7 +186,7 @@ public abstract class Command {
         file = makeFile(targetDestination);
         // Catch if the directory is not found
       } catch (FSElementNotFoundException e1) {
-        errOut.writeln("Error: No directory found");
+        errOut.writeln("Error: No file/directory found");
         return ExitCode.FAILURE;
         // Catch if the path is invalid
       } catch (MalformedPathException e1) {
@@ -194,7 +194,7 @@ public abstract class Command {
         return ExitCode.FAILURE;
         // Catch if the file already exists
       } catch (FSElementAlreadyExistsException e1) {
-        errOut.writeln("File already exists");
+        errOut.writeln("Error: File/directory already exists");
         return ExitCode.FAILURE;
       }
     } catch (MalformedPathException e1) {
@@ -223,11 +223,30 @@ public abstract class Command {
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
       FSElementNotFoundException, FSElementAlreadyExistsException {
+    
+    boolean pathIsADirectory = true;
+    try {
+      fileSystem.getDirByPath(new Path(filePathStr));
+    } catch (FSElementNotFoundException e) {
+      pathIsADirectory = false;
+    }
+    
+    if (pathIsADirectory)
+      throw new FSElementAlreadyExistsException();
+    
+    
     boolean absolutePath = filePathStr.startsWith("/");
 
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
-    String fileName = fileSplit[fileSplit.length - 1];
+    
+    String fileName = "";
+    if (fileSplit.length > 0) 
+      fileName = fileSplit[fileSplit.length - 1];
+    
+    if (fileName.equals(".") || fileName.equals("..") || fileName.equals("") || filePathStr.endsWith("/"))
+      throw new FSElementNotFoundException();
+    
     // Get the index of the last "/"
     int lastSlash = filePathStr.lastIndexOf('/');
 
@@ -246,7 +265,7 @@ public abstract class Command {
 
     // Get the directory at the path
     Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
-
+    
     // Add the file to the directory
     File file = dirOfFile.createAndAddNewFile(fileName);
 

@@ -79,7 +79,7 @@ public class CmdCurl extends Command {
       errorOut.writeln("Error: invalid URL given");
     } catch (IOException e) {
       // Catch if there was an error opening the url file
-      errorOut.writeln("Error: invalid URL given");
+      errorOut.writeln("Error: unable to load URL given");
     }
     // If it gets down here then an error occured so return the failure exit
     // code

@@ -46,7 +46,7 @@ import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
 
-public class CmdExclamPointTest {
+public class CmdRecallTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole tc;
