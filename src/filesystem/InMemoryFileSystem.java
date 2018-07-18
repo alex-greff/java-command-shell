@@ -101,11 +101,9 @@ public class InMemoryFileSystem implements FileSystem {
    */
   public File getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    FSElement maybeDir = getFSElementByPath(path);
-    if (!(maybeDir instanceof File)) {
-      throw new FSElementNotFoundException();
-    }
-    return (File) maybeDir;
+    String fileName = path.removeLast();
+    Directory parent = getDirByPath(path);
+    return parent.getChildFileByName(fileName);
   }
 
   /**

@@ -61,8 +61,8 @@ public class Directory extends FSElement {
    *
    * @param name The name of the new child directory
    * @return Returns the new created directory
-   * @throws FSElementAlreadyExistsException Thrown when the directory already
-   * exists
+   * @throws FSElementAlreadyExistsException Thrown when there is already an
+   * element with this name
    */
   public Directory createAndAddNewDir(String name)
       throws FSElementAlreadyExistsException {
