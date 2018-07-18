@@ -97,24 +97,30 @@ public abstract class Command {
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
-  public final ExitCode execute(CommandArgs args, Writable out, Writable errorOut) {
+  public final ExitCode execute(CommandArgs args, Writable out,
+      Writable errorOut) {
     if (!isValidArgs(args)) {
       errorOut.writeln("Error: Invalid arguments");
       return ExitCode.FAILURE;
     }
-  
-    Writable bufferedOut = new BufferedConsole();  
+
+    Writable bufferedOut = new BufferedConsole();
     ExitCode cmdExitCode = run(args, bufferedOut, errorOut);
-    
-    String resultStr = ((BufferedConsole) bufferedOut).getAllWritesAsString(); 
-    
+
+    String resultStr = ((BufferedConsole) bufferedOut).getAllWritesAsString();
+
+    ExitCode writeExitCode = ExitCode.SUCCESS;
     if (!args.getRedirectOperator().isEmpty()) {
-      return writeToFile(resultStr, args.getRedirectOperator(),
+      writeExitCode = writeToFile(resultStr, args.getRedirectOperator(),
           args.getTargetDestination(), errorOut);
+    } else {
+      out.write(resultStr);
     }
-    
-    out.write(resultStr);
-    return cmdExitCode;
+
+    if (cmdExitCode == ExitCode.SUCCESS && writeExitCode == ExitCode.SUCCESS)
+      return ExitCode.SUCCESS;
+
+    return ExitCode.FAILURE;
   }
 
 
@@ -172,6 +178,7 @@ public abstract class Command {
     File file;
     try {
       file = fileSystem.getFileByPath(new Path(targetDestination));
+
       // If the file does not exist
     } catch (FSElementNotFoundException e) {
       // Attempt to make the file

@@ -20,7 +20,7 @@ public class MockFileSystem implements FileSystem {
   @Override
   public void changeWorkingDir(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    switch (path.toString()) {
+    switch (path.removeFirst()) {
       case "validPath":
         break;
       case "invalidPath":
@@ -50,12 +50,12 @@ public class MockFileSystem implements FileSystem {
    *
    * @param path The path.
    * @return Returns a file with the name "someFile" and the contents "some file
-   * contents".
+   *         contents".
    */
   @Override
   public File getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    switch (path.toString()) {
+    switch (path.removeFirst()) {
       case "validPath":
         return new File("someFile", "some file contents", null);
       case "invalidPath":
@@ -76,14 +76,39 @@ public class MockFileSystem implements FileSystem {
    *
    * @param path The path.
    * @return Returns a directory with the name "someDirectory" with no parent or
-   * children.
+   *         children.
    */
   @Override
   public Directory getDirByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    switch (path.toString()) {
+    switch (path.removeFirst()) {
       case "validPath":
         return new Directory("someDirectory", null);
+      case "invalidPath":
+        throw new MalformedPathException();
+      case "nonExistentFilePath":
+        throw new FSElementNotFoundException();
+      default:
+        throw new FSElementNotFoundException();
+    }
+  }
+
+  /**
+   * Simulates getting a FS element by its path string. Use "validPath" to
+   * simulate a valid path behavior. Use "invalidPath" and "nonExistentFilePath"
+   * to throw MalformedPathException and FSElementNotFoundException,
+   * respectively. Using any other string for pathString will throw a
+   * FSElementNotFoundException by default.
+   *
+   * @param path The path.
+   * @return Returns an FS element with the name "someFSElement"
+   */
+  @Override
+  public FSElement getFSElementByPath(Path path)
+      throws MalformedPathException, FSElementNotFoundException {
+    switch (path.removeFirst()) {
+      case "validPath":
+        return new FSElement("someFSElement", null);
       case "invalidPath":
         throw new MalformedPathException();
       case "nonExistentFilePath":
@@ -97,7 +122,7 @@ public class MockFileSystem implements FileSystem {
    * Simulates getting the working directory.
    *
    * @return Returns a directory with name "myWorkingDirectory" with no parent
-   * or children.
+   *         or children.
    */
   @Override
   public Directory getWorkingDir() {

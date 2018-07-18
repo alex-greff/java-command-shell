@@ -94,7 +94,7 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1/dir4/file4\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1/dir4/file4\n", tc.getAllWritesAsString());
   }
 
   @Test
@@ -104,7 +104,7 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1/dir4/file1\n/file1\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1/dir4/file1\n/file1\n", tc.getAllWritesAsString());
   }
 
   @Test
@@ -115,7 +115,7 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("\n", tc.getAllWritesAsString());
+    assertEquals("", tc.getAllWritesAsString());
   }
 
   @Test
@@ -126,7 +126,7 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1/dir4\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1/dir4\n", tc.getAllWritesAsString());
   }
 
   @Test
@@ -135,7 +135,7 @@ public class CmdFindTest {
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("/dir1\n/dir1/dir4/dir1\n\n", tc.getAllWritesAsString());
+    assertEquals("/dir1\n/dir1/dir4/dir1\n", tc.getAllWritesAsString());
   }
 
   @Test
@@ -146,6 +146,6 @@ public class CmdFindTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("\n", tc.getAllWritesAsString());
+    assertEquals("", tc.getAllWritesAsString());
   }
 }
