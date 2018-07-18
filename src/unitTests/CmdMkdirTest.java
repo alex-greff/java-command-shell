@@ -29,7 +29,6 @@ public class CmdMkdirTest {
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     mkdirCmd = new CmdMkdir(fs, cm);
-    cm.initializeCommands();
   }
 
   @Test

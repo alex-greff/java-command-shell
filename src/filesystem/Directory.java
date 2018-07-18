@@ -74,7 +74,7 @@ public class Directory extends FSElement {
    */
   public void moveInto(FSElement newChild)
       throws FSElementAlreadyExistsException {
-    if (!children.containsKey(name)) {
+    if (!children.containsKey(newChild.getName())) {
       this.children.put(newChild.getName(), newChild);
     } else {
       throw new FSElementAlreadyExistsException();

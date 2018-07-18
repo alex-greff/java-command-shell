@@ -121,6 +121,11 @@ public class CmdMv extends Command {
       newPath = new Path(args.getCommandParameters()[1]);
       // make sure that the element we are moving from exists
       from = fileSystem.getFSElementByPath(oldPath);
+      // make sure that we aren't trying to move the root directory
+      if (from == fileSystem.getRoot()) {
+        errOut.writeln("Cannot move the root directory");
+        return ExitCode.FAILURE;
+      }
     } catch (MalformedPathException s) {
       errOut.writeln("Invalid path(s) given");
       return ExitCode.FAILURE;
@@ -186,14 +191,21 @@ public class CmdMv extends Command {
       newParent = (Directory) to;
     }
     try {
-      // try to move the element into its new parent
-      newParent.moveInto(from);
+      // edge case if we are moving to same directory
+      if (oldParent != newParent) {
+        // try to move the element into its new parent
+        newParent.moveInto(from);
+      } else {
+        newParent.addChild(from);
+      }
     } catch (FSElementAlreadyExistsException e) {
       errOut.writeln("Element with given name already exists in NEWPATH");
       return ExitCode.FAILURE;
     }
     // delete element being moved from its old parent
-    oldParent.removeChildByName(from.getName());
+    if (oldParent != newParent) {
+      oldParent.removeChildByName(from.getName());
+    }
     return ExitCode.SUCCESS;
   }
 

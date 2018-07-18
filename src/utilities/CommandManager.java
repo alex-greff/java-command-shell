@@ -62,39 +62,22 @@ import java.util.HashMap;
 public class CommandManager {
 
   /**
-   * Factory method constructing a new instance of a command manager.
-   *
-   * @param out The standard output console.
-   * @param errorOut The standard error console.
-   * @param fileSystem The file system to be used.
-   * @return Returns a new instance of a command manager.
-   */
-  public static CommandManager constructCommandManager(Writable out,
-      Writable errorOut, FileSystem fileSystem) {
-    return new CommandManager(out, errorOut, fileSystem);
-  }
-
-  /**
    * HashMap container for command names mapped to command instances, initially
    * empty
    */
   private HashMap<String, Command> cmdMap = new HashMap<>();
-
   /**
    * The standard output console.
    */
   private Writable out;
-
   /**
    * The standard error output console.
    */
   private Writable errorOut;
-
   /**
    * The file system used.
    */
   private FileSystem fileSystem;
-
   /**
    * The exit code of the last command run
    */
@@ -113,13 +96,25 @@ public class CommandManager {
   }
 
   /**
+   * Factory method constructing a new instance of a command manager.
+   *
+   * @param out The standard output console.
+   * @param errorOut The standard error console.
+   * @param fileSystem The file system to be used.
+   * @return Returns a new instance of a command manager.
+   */
+  public static CommandManager constructCommandManager(Writable out,
+      Writable errorOut, FileSystem fileSystem) {
+    return new CommandManager(out, errorOut, fileSystem);
+  }
+
+  /**
    * Populates cmdMap with all known commands as they are expected to be typed
    * in String format, mapped to an instance of the respective command
    */
   public void initializeCommands() {
     cmdMap.put("cat", new CmdCat(fileSystem, this));
     cmdMap.put("cd", new CmdCd(fileSystem, this));
-    cmdMap.put("cp", new CmdCp(fileSystem, this));
     cmdMap.put("echo", new CmdEcho(fileSystem, this));
     cmdMap.put("exit", new CmdExit(fileSystem, this));
     cmdMap.put("find", new CmdFind(fileSystem, this));
@@ -128,7 +123,6 @@ public class CommandManager {
     cmdMap.put("ls", new CmdLs(fileSystem, this));
     cmdMap.put("man", new CmdMan(fileSystem, this));
     cmdMap.put("mkdir", new CmdMkdir(fileSystem, this));
-    cmdMap.put("mv", new CmdMv(fileSystem, this));
     cmdMap.put("popd", new CmdPopd(fileSystem, this));
     cmdMap.put("pushd", new CmdPushd(fileSystem, this));
     cmdMap.put("pwd", new CmdPwd(fileSystem, this));
@@ -180,7 +174,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   *         exists, or null
+   * exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

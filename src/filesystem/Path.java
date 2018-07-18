@@ -36,6 +36,15 @@ public class Path implements Iterable<String> {
   }
 
   /**
+   * Copy constructor for path objects
+   *
+   * @param basePath The path to copy
+   */
+  public Path(Path basePath) {
+    this.tokens = new ArrayList<>(basePath.tokens);
+  }
+
+  /**
    * Removes the last token from the path and returns it
    *
    * @return The last token from the path

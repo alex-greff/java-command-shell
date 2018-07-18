@@ -101,8 +101,9 @@ public class InMemoryFileSystem implements FileSystem {
    */
   public File getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
-    String fileName = path.removeLast();
-    Directory parent = getDirByPath(path);
+    Path copyPath = new Path(path);
+    String fileName = copyPath.removeLast();
+    Directory parent = getDirByPath(copyPath);
     File f = parent.getChildFileByName(fileName); 
     if (f == null)
       throw new FSElementNotFoundException();
@@ -112,15 +113,17 @@ public class InMemoryFileSystem implements FileSystem {
   /**
    * Provides directory located at given path to the caller
    *
-   * @param path The path of the wanted file, can be absolute or relative.
+   * @param thePath The path of the wanted file, can be absolute or relative.
    * Absolute path must start with / indicating root directory.
    * @return The directory located at the path
    * @throws FSElementNotFoundException Thrown when the directory does not
    * exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
-  public FSElement getFSElementByPath(Path path)
+  public FSElement getFSElementByPath(Path thePath)
       throws MalformedPathException, FSElementNotFoundException {
+    // don't mutate the original path
+    Path path = new Path(thePath);
     Directory curr = workingDir;
     while (!path.isEmpty()) {
       String segment = path.removeFirst();
