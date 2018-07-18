@@ -143,9 +143,6 @@ public class CommandManager {
    * @param cArgs The command arguments container
    */
   public void executeCommand(CommandArgs cArgs) {
-    // Default error message
-    String errMsg = "Error: Invalid command, please try again";
-
     if (cArgs != null) { // Make sure the command args parsed properly
 
       // Get the name of the command the user inputted
@@ -166,7 +163,7 @@ public class CommandManager {
 
     // If this line is reached the command failed to execute, so print the
     // corresponding error message
-    errorOut.writeln(errMsg);
+    errorOut.writeln("Error: Invalid command, please try again");
   }
 
   /**
