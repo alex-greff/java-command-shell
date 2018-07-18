@@ -141,16 +141,10 @@ public class CmdGrep extends Command {
       }
     }
 
-    // Create result String for easy printing or redirecting
-    String resultStr = "";
-
-    // Add Strings from the matches ArrayList together into the result string
+    // Print Strings from the matches ArrayList to standard output
     for (String match : matches) {
-      resultStr += match + "\n";
+      out.writeln(match);
     }
-    
-    // Write the result String to the Console
-    out.write(resultStr);
 
     // If this line is reached, nothing went wrong
     return ExitCode.SUCCESS;
