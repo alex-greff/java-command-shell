@@ -69,7 +69,7 @@ public class CmdExitTest {
   public void testExecuteExit() {
     CommandArgs args = Parser.parseUserInput("exit");
 
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals(0, tc.getAllWritesAsString().length());

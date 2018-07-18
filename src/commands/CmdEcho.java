@@ -84,7 +84,7 @@ public class CmdEcho extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Set the string parameter to the output
     String output = args.getCommandParameters()[0].replaceAll("\"", "");
 

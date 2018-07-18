@@ -81,7 +81,7 @@ public class CmdPushd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with

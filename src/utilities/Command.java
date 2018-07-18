@@ -126,7 +126,7 @@ public abstract class Command {
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
-  public abstract ExitCode run(CommandArgs args, Writable out,
+  protected abstract ExitCode run(CommandArgs args, Writable out,
       Writable errorOut);
 
 

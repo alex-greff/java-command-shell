@@ -110,7 +110,7 @@ public class CmdFind extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
     String expr =

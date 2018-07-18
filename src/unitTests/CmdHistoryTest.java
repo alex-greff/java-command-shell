@@ -79,7 +79,7 @@ public class CmdHistoryTest {
     BufferedConsole tc = new BufferedConsole();
     BufferedConsole tc_err = new BufferedConsole();
 
-    ExitCode exc = cmd.run(args, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc_err);
 
     assertEquals("", tc.getLastWrite());
     assertEquals(exc, ExitCode.SUCCESS);

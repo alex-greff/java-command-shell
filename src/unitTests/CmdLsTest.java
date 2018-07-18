@@ -80,7 +80,7 @@ public class CmdLsTest {
 
     BufferedConsole tc = new BufferedConsole();
     BufferedConsole tc_err = new BufferedConsole();
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("dir2\ndir1\nfile2\nfile1\n\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -94,7 +94,7 @@ public class CmdLsTest {
 
     BufferedConsole tc = new BufferedConsole();
     BufferedConsole tc_err = new BufferedConsole();
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -108,7 +108,7 @@ public class CmdLsTest {
 
     BufferedConsole tc = new BufferedConsole();
     BufferedConsole tc_err = new BufferedConsole();
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("file3\n\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);

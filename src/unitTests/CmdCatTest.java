@@ -72,7 +72,7 @@ public class CmdCatTest {
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and just the one line of
     // content was printed
@@ -91,7 +91,7 @@ public class CmdCatTest {
     // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that both lines of
     // content were printed, with 2 blank lines in between
@@ -110,7 +110,7 @@ public class CmdCatTest {
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that every line of
     // content was printed

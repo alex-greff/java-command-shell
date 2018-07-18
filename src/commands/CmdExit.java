@@ -76,7 +76,7 @@ public class CmdExit extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS.
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Tell the JShell to exit
     JShell.exit();
     return ExitCode.SUCCESS;

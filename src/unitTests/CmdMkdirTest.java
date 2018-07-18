@@ -37,7 +37,7 @@ public class CmdMkdirTest {
     // only creating the test directory
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test"});
     // execute mkdir
-    mkdirCmd.run(cargs, tc, tc_err);
+    mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directory exists
     assertTrue(fs.getWorkingDir().containsDir("test"));
   }
@@ -47,7 +47,7 @@ public class CmdMkdirTest {
     // creating multiple directories
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test", "test2"});
     // execute mkdir
-    mkdirCmd.run(cargs, tc, tc_err);
+    mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsDir("test"));
     assertTrue(fs.getWorkingDir().containsDir("test2"));
@@ -59,7 +59,7 @@ public class CmdMkdirTest {
     CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test1",
         "test1/test2"});
     // execute mkdir
-    mkdirCmd.run(cargs, tc, tc_err);
+    mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsDir("test1"));
     assertTrue(fs.getWorkingDir().getDirByName("test1").containsDir("test2"));

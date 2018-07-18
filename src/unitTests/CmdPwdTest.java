@@ -66,7 +66,7 @@ public class CmdPwdTest {
   public void testRootDir() {
     // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
-    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the path of the
     // root directory was printed

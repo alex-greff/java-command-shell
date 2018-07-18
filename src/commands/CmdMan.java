@@ -76,7 +76,7 @@ public class CmdMan extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Get the description of the command

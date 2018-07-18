@@ -43,7 +43,7 @@ public class CmdPopdTest {
     ds.push("/test");
     // execute popd with no args
     CommandArgs cargs = new CommandArgs("popd");
-    popdCmd.run(cargs, tc, tc_err);
+    popdCmd.execute(cargs, tc, tc_err);
     // make sure the working dir has changed to the value in the stack
     assertEquals(fs.getWorkingDirPath(), "/test");
   }

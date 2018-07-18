@@ -70,7 +70,7 @@ public class CmdManTest {
   public void testExecuteGetManDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -81,7 +81,7 @@ public class CmdManTest {
   public void testExecuteGetEchoDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -92,7 +92,7 @@ public class CmdManTest {
   public void testExecuteGetNonExistentCommandDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"nonExistentCmd"});
 
-    ExitCode exitVal = cmd.run(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals(0, tc.getAllWritesAsString().length());

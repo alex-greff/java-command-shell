@@ -86,7 +86,7 @@ public class CmdCat extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();

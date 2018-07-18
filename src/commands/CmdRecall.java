@@ -86,7 +86,7 @@ public class CmdRecall extends Command {
    * @return the exitcode indicating success or failure of execution
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
     String[] params = args.getCommandParameters();
     String strNum = params[0];
     // check if the argument is an int;

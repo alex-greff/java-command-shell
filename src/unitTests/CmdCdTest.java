@@ -71,7 +71,7 @@ public class CmdCdTest {
     // Attempt to change into the child directory created
     String argParam[] = {"testDir"};
     CommandArgs args = new CommandArgs("cd", argParam);
-    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the child directory which we created
@@ -84,7 +84,7 @@ public class CmdCdTest {
     // Attempt to change into the current directory
     String argParam[] = {"."};
     CommandArgs args = new CommandArgs("cd", argParam);
-    ExitCode exitVal = cmd.run(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is still the root directory
@@ -101,12 +101,12 @@ public class CmdCdTest {
     // to the parent directory
     String argParam1[] = {"testDir"};
     CommandArgs args1 = new CommandArgs("cd", argParam1);
-    cmd.run(args1, testOut, testErrOut);
+    cmd.execute(args1, testOut, testErrOut);
 
     // Attempt to change into the parent directory
     String argParam2[] = {".."};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
-    ExitCode exitVal = cmd.run(args2, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the root directory again
@@ -122,7 +122,7 @@ public class CmdCdTest {
     // Change into the child directory we created, so we can make another in it
     String argParam1[] = {"testDir"};
     CommandArgs args1 = new CommandArgs("cd", argParam1);
-    cmd.run(args1, testOut, testErrOut);
+    cmd.execute(args1, testOut, testErrOut);
 
     // Create a directory and add it to the directory we are currently in
     fs.getWorkingDir().createAndAddNewDir("testDirAgain");
@@ -131,7 +131,7 @@ public class CmdCdTest {
     // starting from the root
     String argParam2[] = {"/testDir/testDirAgain"};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
-    ExitCode exitVal = cmd.run(args2, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the grandchild directory which we created
@@ -149,13 +149,13 @@ public class CmdCdTest {
     // sibling from it
     String argParam1[] = {"testDir"};
     CommandArgs args1 = new CommandArgs("cd", argParam1);
-    cmd.run(args1, testOut, testErrOut);
+    cmd.execute(args1, testOut, testErrOut);
 
     // Attempt to change into the sibling directory, giving in a path that goes
     // up to the parent first, and then to the sibling
     String argParam2[] = {"../testDirAgain"};
     CommandArgs args2 = new CommandArgs("cd", argParam2);
-    ExitCode exitVal = cmd.run(args2, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args2, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the working
     // directory is now the second sibling directory which we created

@@ -49,7 +49,7 @@ public class CmdCurl extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  public ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+  protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
     try {
       // Get the url
       URL url = new URL(args.getCommandParameters()[0]);
