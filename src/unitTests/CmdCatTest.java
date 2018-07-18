@@ -65,6 +65,22 @@ public class CmdCatTest {
   }
 
   @Test
+  public void testInvalidArgsNumberOfParameters() {
+  }
+
+  @Test
+  public void testInvalidArgsFlagsGiven() {
+  }
+
+  @Test
+  public void testInvalidPath() {
+  }
+
+  @Test
+  public void testFileNotFound() {
+  }
+
+  @Test
   public void testFileWithOneLine() throws FSElementAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
     File file = fs.getRoot().createAndAddNewFile("testFile", "hello");

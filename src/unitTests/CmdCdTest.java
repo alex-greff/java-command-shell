@@ -64,6 +64,22 @@ public class CmdCdTest {
   }
 
   @Test
+  public void testInvalidArgsNumberOfParameters() {
+  }
+
+  @Test
+  public void testInvalidArgsFlagsGiven() {
+  }
+
+  @Test
+  public void testInvalidPath() {
+  }
+
+  @Test
+  public void testDirNotFound() {
+  }
+
+  @Test
   public void testChildDir() throws FSElementAlreadyExistsException {
     // Create a directory and add it to the root directory
     fs.getRoot().createAndAddNewDir("testDir");

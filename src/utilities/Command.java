@@ -30,6 +30,7 @@
 package utilities;
 
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -117,12 +118,12 @@ public abstract class Command {
       out.write(resultStr);
     }
 
-    if (cmdExitCode == ExitCode.SUCCESS && writeExitCode == ExitCode.SUCCESS)
+    if (cmdExitCode == ExitCode.SUCCESS && writeExitCode == ExitCode.SUCCESS) {
       return ExitCode.SUCCESS;
+    }
 
     return ExitCode.FAILURE;
   }
-
 
   /**
    * Executes the command's function.
@@ -134,8 +135,6 @@ public abstract class Command {
    */
   protected abstract ExitCode run(CommandArgs args, Writable out,
       Writable errorOut);
-
-
 
   /**
    * Checks if the given args are valid for this command.
@@ -223,30 +222,33 @@ public abstract class Command {
    */
   private File makeFile(String filePathStr) throws MalformedPathException,
       FSElementNotFoundException, FSElementAlreadyExistsException {
-    
+
     boolean pathIsADirectory = true;
     try {
       fileSystem.getDirByPath(new Path(filePathStr));
     } catch (FSElementNotFoundException e) {
       pathIsADirectory = false;
     }
-    
-    if (pathIsADirectory)
+
+    if (pathIsADirectory) {
       throw new FSElementAlreadyExistsException();
-    
-    
+    }
+
     boolean absolutePath = filePathStr.startsWith("/");
 
     // Make the new file
     String[] fileSplit = filePathStr.split("/");
-    
+
     String fileName = "";
-    if (fileSplit.length > 0) 
+    if (fileSplit.length > 0) {
       fileName = fileSplit[fileSplit.length - 1];
-    
-    if (fileName.equals(".") || fileName.equals("..") || fileName.equals("") || filePathStr.endsWith("/"))
+    }
+
+    if (fileName.equals(".") || fileName.equals("..") || fileName.equals("")
+        || filePathStr.endsWith("/")) {
       throw new FSElementNotFoundException();
-    
+    }
+
     // Get the index of the last "/"
     int lastSlash = filePathStr.lastIndexOf('/');
 
@@ -265,7 +267,7 @@ public abstract class Command {
 
     // Get the directory at the path
     Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
-    
+
     // Add the file to the directory
     File file = dirOfFile.createAndAddNewFile(fileName);
 
@@ -276,13 +278,14 @@ public abstract class Command {
   /**
    * Returns if the the given string is a string parameter (ie it starts and
    * ends with ").
-   * 
+   *
    * @param s The string.
    * @return Returns true iff s is a string parameter.
    */
   protected boolean isStringParam(String s) {
-    if (s == null)
+    if (s == null) {
       return false;
+    }
     return s.startsWith("\"") && s.endsWith("\"");
   }
 }

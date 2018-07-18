@@ -63,6 +63,14 @@ public class CmdPwdTest {
   }
 
   @Test
+  public void testInvalidArgsNumberOfParameters() {
+  }
+
+  @Test
+  public void testInvalidArgsFlagsGiven() {
+  }
+
+  @Test
   public void testRootDir() {
     // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
@@ -72,6 +80,10 @@ public class CmdPwdTest {
     // root directory was printed
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getLastWrite(), "/");
+  }
+
+  @Test
+  public void testChildDir() {
   }
 
 }
