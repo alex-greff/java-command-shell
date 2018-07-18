@@ -145,4 +145,23 @@ public class CmdMvTest {
     // kid2 should exist and contain kid 1
     assertTrue(daddy.getDirByName("kid2").containsDir("kid1"));
   }
+
+  @Test
+  public void test_moving_directory_into_its_child()
+      throws FSElementAlreadyExistsException {
+      Directory root = fs.getRoot();
+      Directory hello = root.createAndAddNewDir("hello");
+      hello.createAndAddNewDir("hi");
+      // mv hello hello/hi
+      CommandArgs args =
+          new CommandArgs("mv", new String[]{"hello", "hello/hi"});
+      ExitCode mvExit = mvCmd.execute(args, tc, tc_err);
+      // this should fail
+      assertEquals(ExitCode.FAILURE, mvExit);
+      // hello should still exist
+      assertTrue(root.containsDir("hello"));
+      // hello/hi should still exist
+      assertTrue(hello.containsDir("hi"));
+      assertEquals("Cannot move element to its child or itself", tc_err.getLastWrite());
+  }
 }
