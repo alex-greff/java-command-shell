@@ -84,6 +84,7 @@ public class CmdRecall extends Command {
   protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
     // Get JShell's command history
     ArrayList<String> history = JShell.getHistory();
+    history.remove(history.size() - 1); // erases the !num cmd
     String[] params = args.getCommandParameters();
     String strNum = params[0];
     // check if the argument is an int;
@@ -91,15 +92,20 @@ public class CmdRecall extends Command {
     if (isInt(strNum)) {
       num = Integer.parseInt(strNum);
     } else {
+      errorOut.writeln("error: argument must be integer");
       return ExitCode.FAILURE;
     }
     // get the command at the num's index. If the num is too big, exits on fail
     if (num > history.size()) {
+      errorOut.writeln("error: recalled too far");
+      return ExitCode.FAILURE;
+    }
+    else if (num <= 0){
+      errorOut.writeln("error: recalled invalid number");
       return ExitCode.FAILURE;
     }
     String cmd = history.get(num - 1); // minus one since the list starts at 1.
     // manually execute and add the command to history
-    history.remove(history.size() - 1); // replaces the !num with actual cmd
     history.add(cmd);
     JShell.parseAndExecute(cmd);
     return ExitCode.SUCCESS;

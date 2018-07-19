@@ -1,0 +1,12 @@
+What did I do last time?
+    - implemented the -R option for ls
+    - implemented the recall command
+    - fixed bugs in ls
+
+What do I plan to do now?
+    - Make build.xml for ant
+    - finalize ls output format
+
+
+Am I blocked on anything?
+    - nope
