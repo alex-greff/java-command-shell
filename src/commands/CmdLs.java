@@ -96,7 +96,7 @@ public class CmdLs extends Command {
     boolean rec = false;
 
     if (args.getNumberOfCommandFieldParameters() > 0)
-      rec = args.getCommandFlags()[0] == "R";
+      rec = args.getCommandFlags()[0].equals("R");
     // check parameters
 
     String[] params = args.getCommandParameters();
@@ -104,7 +104,8 @@ public class CmdLs extends Command {
       for (String name : params) {
         try {
           curr = fileSystem.getDirByPath(new Path(name));
-          result.append(curr.getName()).append(":\n").append(addOn(curr, rec));
+          result.append(curr.getName()).append(":\n").
+              append(addOn(curr, rec, 0));
         } catch (MalformedPathException | FSElementNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
@@ -120,15 +121,15 @@ public class CmdLs extends Command {
 
     // if no parameters are given, perform command on current working dir
     else {
-      result = new StringBuilder(addOn(curr, false));
+      result = new StringBuilder(addOn(curr, rec, 0));
     }
 
     // Initialize the result string
     String resultStr = "";
 
-    if (result.length() > 0) {
-      // trim final newline
-      result.reverse().delete(0, 1).reverse();
+    if (result.length() > 1) {
+      // trim all final newlines
+      trimNewlinesLeaveOne(result);
       resultStr = result.toString();
     }
 
@@ -139,31 +140,45 @@ public class CmdLs extends Command {
 
   /**
    * @param dir The directory whose contents will be represented by a string
+   * @param tabNum the amount of tabs needed for spacing in recursive calls
    * @return The string representation of the directories contents
    */
-  private String addOn(Directory dir, boolean recursive) {
+  private String addOn(Directory dir, boolean recursive, int tabNum) {
     StringBuilder result = new StringBuilder();
     // get lists of files and dirs of the current working path
     ArrayList<String> dirs = dir.listDirNames();
     ArrayList<String> files = dir.listFileNames();
+    // initialize tabspaces
+    StringBuilder tabs = new StringBuilder();
+    for (int i=0; i < tabNum; i++){
+      tabs.append("\t");
+    }
     // now append the each string from the arraylists with a newline to result
     for (String name : dirs) {
       if (recursive) {
         Directory d = dir.getChildDirectoryByName(name);
         if (d == null)
           return "";
-        result.append(addOn(d, true));
-
-      } else {
-        result.append(name).append("\n");
+        result.append(tabs).append(name).append(":\n");
+        result.append(addOn(d, true, tabNum+1));
+      }else{
+        result.append(name);
+        result.append("\n");
       }
     }
     for (String name : files) {
+      if (recursive)
+        result.append(tabs);
       result.append(name).append("\n");
     }
     return (result.toString() + "\n");
   }
 
+  /**
+   *
+   * @param file that will get printed by ls
+   * @return the string of the filename followed by newlines
+   */
   private String addFileName(File file) {
     String res;
     String name = file.getName();
@@ -173,17 +188,15 @@ public class CmdLs extends Command {
 
   /**
    * @param in the stringbuilder input
-   * @return a properly formatted string with no extra newlines
    */
-  private String buildStr(StringBuilder in) {
-    String resultStr = "";
-
-    if (in.length() > 0) {
-      // trim final newline
-      in.reverse().delete(0, 1).reverse();
-      resultStr = in.toString();
+  private void trimNewlinesLeaveOne(StringBuilder in) {
+    in.reverse();
+    while (in.substring(0,1).equals("\n")){
+      in=in.delete(0,1);
     }
-    return resultStr;
+    //unreverse it
+    in.reverse().append("\n");
+    //return in;
   }
 
   /**
