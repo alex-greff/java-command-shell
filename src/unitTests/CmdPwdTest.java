@@ -64,10 +64,11 @@ public class CmdPwdTest {
 
   @Test
   public void testInvalidArgsNumberOfParameters() {
-  }
-
-  @Test
-  public void testInvalidArgsFlagsGiven() {
+    String argParam[] = {"unwantedParam"};
+    CommandArgs args = new CommandArgs("pwd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
 
   @Test
@@ -78,8 +79,8 @@ public class CmdPwdTest {
 
     // Assert that the command successfully executed, and that the path of the
     // root directory was printed
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getLastWrite(), "/");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/\n", testOut.getAllWritesAsString());
   }
 
   @Test

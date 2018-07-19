@@ -64,11 +64,21 @@ public class CmdCdTest {
   }
 
   @Test
-  public void testInvalidArgsNumberOfParameters() {
+  public void testInvalidArgsNumberOfParametersLess() {
+    String argParam[] = {};
+    CommandArgs args = new CommandArgs("pwd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
 
   @Test
-  public void testInvalidArgsFlagsGiven() {
+  public void testInvalidArgsNumberOfParametersMore() {
+    String argParam[] = {"wantedParam", "unwantedParam"};
+    CommandArgs args = new CommandArgs("pwd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
 
   @Test

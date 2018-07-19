@@ -66,10 +66,11 @@ public class CmdCatTest {
 
   @Test
   public void testInvalidArgsNumberOfParameters() {
-  }
-
-  @Test
-  public void testInvalidArgsFlagsGiven() {
+    String argParam[] = {};
+    CommandArgs args = new CommandArgs("pwd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
 
   @Test
@@ -132,7 +133,7 @@ public class CmdCatTest {
     // content was printed
     assertEquals(exitVal, ExitCode.SUCCESS);
     assertEquals(testOut.getAllWritesAsString(),
-                 "hello\nworld\nthis\nis\na\ntest\n");
+        "hello\nworld\nthis\nis\na\ntest\n");
   }
 
 }
