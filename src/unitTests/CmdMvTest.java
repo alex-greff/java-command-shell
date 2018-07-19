@@ -51,9 +51,9 @@ public class CmdMvTest {
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be inside_test as a child of root
-    assertFalse(root.containsDir("inside_test"));
+    assertFalse(root.containsChildElement("inside_test"));
     // inside_test should now be inside test
-    assertTrue(root.getDirByName("test").containsDir("inside_test"));
+    assertTrue(root.getChildDirectoryByName("test").containsChildElement("inside_test"));
   }
 
   @Test
@@ -68,9 +68,9 @@ public class CmdMvTest {
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be inside_test as a child of root
-    assertFalse(root.containsDir("inside_test"));
+    assertFalse(root.containsChildElement("inside_test"));
     // there should now only be test inside of root
-    assertTrue(root.containsDir("test"));
+    assertTrue(root.containsChildElement("test"));
   }
 
   @Test
@@ -86,7 +86,7 @@ public class CmdMvTest {
     assertEquals("Cannot move element to its child or itself",
         tc_err.getLastWrite());
     // nothing should happen to the directory
-    assertTrue(root.containsDir("test"));
+    assertTrue(root.containsChildElement("test"));
   }
 
   @Test
@@ -102,9 +102,9 @@ public class CmdMvTest {
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be seeyalater as a child of root
-    assertFalse(root.containsDir("seeyalater"));
+    assertFalse(root.containsChildElement("seeyalater"));
     // there should now be heythere inside getinme
-    assertTrue(root.getDirByName("getinme").containsDir("heythere"));
+    assertTrue(root.getChildDirectoryByName("getinme").containsChildElement("heythere"));
   }
 
   @Test
@@ -120,12 +120,12 @@ public class CmdMvTest {
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be daddy as a child of root
-    assertFalse(root.containsDir("daddy"));
+    assertFalse(root.containsChildElement("daddy"));
     // there should now only be mommy inside of root
-    assertTrue(root.containsDir("mommy"));
+    assertTrue(root.containsChildElement("mommy"));
     // make sure the kids don't get aborted
-    assertTrue(root.getDirByName("mommy").containsDir("kid1"));
-    assertTrue(root.getDirByName("mommy").containsDir("kid2"));
+    assertTrue(root.getChildDirectoryByName("mommy").containsChildElement("kid1"));
+    assertTrue(root.getChildDirectoryByName("mommy").containsChildElement("kid2"));
   }
 
   @Test
@@ -141,9 +141,9 @@ public class CmdMvTest {
     // this should succeed
     assertEquals(ExitCode.SUCCESS, mvExit);
     // daddy kid 1 should no longer exist
-    assertFalse(daddy.containsDir("kid1"));
+    assertFalse(daddy.containsChildElement("kid1"));
     // kid2 should exist and contain kid 1
-    assertTrue(daddy.getDirByName("kid2").containsDir("kid1"));
+    assertTrue(daddy.getChildDirectoryByName("kid2").containsChildElement("kid1"));
   }
 
   @Test
@@ -159,9 +159,9 @@ public class CmdMvTest {
     // this should fail
     assertEquals(ExitCode.FAILURE, mvExit);
     // hello should still exist
-    assertTrue(root.containsDir("hello"));
+    assertTrue(root.containsChildElement("hello"));
     // hello/hi should still exist
-    assertTrue(hello.containsDir("hi"));
+    assertTrue(hello.containsChildElement("hi"));
     assertEquals("Cannot move element to its child or itself",
         tc_err.getLastWrite());
   }

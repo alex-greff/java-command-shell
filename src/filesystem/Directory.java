@@ -60,6 +60,8 @@ public class Directory extends FSElement {
    * same name existed before
    */
   public void addChild(FSElement child) {
+    if (child == null)
+      return;
     this.children.put(child.getName(), child);
     child.parent = this;
   }
@@ -74,8 +76,13 @@ public class Directory extends FSElement {
    */
   public void moveInto(FSElement newChild)
       throws FSElementAlreadyExistsException {
+    if (newChild == null)
+      return;
     if (!children.containsKey(newChild.getName())) {
+      // Add the new child
       this.children.put(newChild.getName(), newChild);
+      // Set this directory as child's parent
+      newChild.changeParent(this);
     } else {
       throw new FSElementAlreadyExistsException();
     }
@@ -190,6 +197,16 @@ public class Directory extends FSElement {
   }
 
   /**
+   * Gets if an element with name is a child of the directory.
+   * 
+   * @param name The name of the child.
+   * @return Returns true iff a child element with name exists. 
+   */
+  public boolean containsChildElement(String name) {
+    return children.containsKey(name);
+  }
+
+  /**
    * Gets if a directory with name is a child directory.
    *
    * @param name The wanted name.
@@ -209,6 +226,15 @@ public class Directory extends FSElement {
     return getChildFileByName(name) != null;
   }
 
+  /**
+   * Lists all children names (files and directories) inside of this directory
+   * 
+   * @return A list of all children names inside this directory
+   */
+  public ArrayList<String> listAllChildrenNames() {
+    return new ArrayList<String>(children.keySet());
+  }
+  
   /**
    * Lists all the directory names inside of this directory
    *
@@ -247,19 +273,6 @@ public class Directory extends FSElement {
    */
   public Directory getParent() {
     return parent;
-  }
-
-  public boolean containsDir(String name) {
-    return children.containsKey(name);
-  }
-
-  public Directory getDirByName(String name) {
-    FSElement maybeDir = children.get(name);
-    if (maybeDir instanceof Directory) {
-      return (Directory) maybeDir;
-    } else {
-      return null;
-    }
   }
 
   /**

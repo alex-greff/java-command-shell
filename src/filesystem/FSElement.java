@@ -33,6 +33,15 @@ public class FSElement {
   public Directory getParent() {
     return parent;
   }
+  
+  /**
+   * Sets the current fselement's parent to newParent
+   * 
+   * @param newParent The new parent.
+   */
+  public void changeParent(Directory newParent) {
+    this.parent = newParent;
+  }
 
   /**
    * Provides the name of this element
@@ -49,7 +58,8 @@ public class FSElement {
    * @param name The new name of this element
    */
   public void rename(String name) {
-    this.parent.notifyRename(this.name, name);
+    if (this.parent != null)
+      this.parent.notifyRename(this.name, name);
     this.name = name;
   }
 

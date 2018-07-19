@@ -149,7 +149,7 @@ public class CmdLs extends Command {
     // now append the each string from the arraylists with a newline to result
     for (String name : dirs) {
       if (recursive) {
-        Directory d = dir.getDirByName(name);
+        Directory d = dir.getChildDirectoryByName(name);
         if (d == null)
           return "";
         result.append(addOn(d, true));

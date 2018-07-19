@@ -38,7 +38,7 @@ public class CmdMkdirTest {
     // execute mkdir
     mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directory exists
-    assertTrue(fs.getWorkingDir().containsDir("test"));
+    assertTrue(fs.getWorkingDir().containsChildElement("test"));
   }
 
   @Test
@@ -48,8 +48,8 @@ public class CmdMkdirTest {
     // execute mkdir
     mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directories exist
-    assertTrue(fs.getWorkingDir().containsDir("test"));
-    assertTrue(fs.getWorkingDir().containsDir("test2"));
+    assertTrue(fs.getWorkingDir().containsChildElement("test"));
+    assertTrue(fs.getWorkingDir().containsChildElement("test2"));
   }
 
   @Test
@@ -60,7 +60,7 @@ public class CmdMkdirTest {
     // execute mkdir
     mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directories exist
-    assertTrue(fs.getWorkingDir().containsDir("test1"));
-    assertTrue(fs.getWorkingDir().getDirByName("test1").containsDir("test2"));
+    assertTrue(fs.getWorkingDir().containsChildElement("test1"));
+    assertTrue(fs.getWorkingDir().getChildDirectoryByName("test1").containsChildElement("test2"));
   }
 }

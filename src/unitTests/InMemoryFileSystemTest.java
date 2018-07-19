@@ -40,7 +40,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import org.junit.Test;
 
-public class FileSystemTest {
+public class InMemoryFileSystemTest {
 
   @Test
   public void testAddingNewDirectoryToWorkingDirectory()
@@ -51,7 +51,7 @@ public class FileSystemTest {
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
     // ensure that this directory is now in the working directory
-    assertTrue(fs.getWorkingDir().containsDir("test"));
+    assertTrue(fs.getWorkingDir().containsChildElement("test"));
   }
 
   @Test
@@ -61,7 +61,7 @@ public class FileSystemTest {
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
     // the filesystem should now contain a directory called "test"
-    Directory testDir = fs.getWorkingDir().getDirByName("test");
+    Directory testDir = fs.getWorkingDir().getChildDirectoryByName("test");
     assertEquals("/test", fs.getAbsolutePathOfFSElement(testDir));
     // make sure it also works with the root
     assertEquals("/", fs.getAbsolutePathOfFSElement(fs.getRoot()));
@@ -92,7 +92,7 @@ public class FileSystemTest {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");
-    Directory expected = fs.getRoot().getDirByName("test");
+    Directory expected = fs.getRoot().getChildDirectoryByName("test");
     Directory actual = fs.getDirByPath(new Path("/test/"));
     assertEquals(expected, actual);
   }
