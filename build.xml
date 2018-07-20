@@ -14,21 +14,21 @@
 
 	<target name = "compile" depends="clean">
 		<mkdir dir="build"/>
-		<javac srcdir="${src.dir}";
-						"${src.commands.dir}";
-						"${src.containers.dir}";
-						"${src.driver.dir}";
-						"${src.filesystem.dir}";
-						"${src.io.dir}";
-						"${src.utilities.dir}";	
-						destdir="build"/>
+		<javac destdir="bin">
+			<src path="${src.commands.dir}"/>
+			<src path="${src.containers.dir}"/>
+			<src path="${src.driver.dir}"/>
+			<src path="${src.filesystem.dir}"/>
+			<src path="${src.io.dir}"/>
+			<src path="${src.utilities.dir}"/>
+		</javac>
 	</target>
 
 	<target name ="jar" depends="compile">
 		<mkdir dir="jars"/>
 		<jar destfile="jars/A2.jar" basedir="build">
 			<manifest>
-				<attribute name="Main-Class" value ="driver">
+				<attribute name="Main-Class" value ="driver"/>
 			</manifest>
 		</jar>
 	</target>
