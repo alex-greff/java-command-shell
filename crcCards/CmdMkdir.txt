@@ -1,9 +1,9 @@
-Class name: cmdLs
+Class name: CmdMkdir
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* list all of the files/directories within the given directory/file
+* create a new directory at the given path, default is in the current directory
 
 Collaborators:
 * CommandArgs

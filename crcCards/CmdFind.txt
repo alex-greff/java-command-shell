@@ -1,9 +1,9 @@
-Class name: cmdTree
+Class name: CmdFind
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* Displays a tree of the entire file system
+* finds and lists the files/directories of the inputed name
 
 Collaborators:
 * CommandArgs

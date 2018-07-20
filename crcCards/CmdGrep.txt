@@ -1,12 +1,15 @@
-Class name: cmdCurl
+Class name: CmdGrep
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* gets the text of a file from a URL
+* prints any lines containing an expression in the given path(s)
 
 Collaborators:
 * CommandArgs
 * CommandDescription
+* File
+* Directory
+* InMemoryFileSystem
 * Console
 * ErrorConsole

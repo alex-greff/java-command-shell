@@ -7,6 +7,7 @@ import filesystem.Directory;
 import filesystem.File;
 import filesystem.FSElementNotFoundException;
 import filesystem.MalformedPathException;
+import filesystem.MockFileSystem;
 import filesystem.Path;
 import org.junit.Test;
 

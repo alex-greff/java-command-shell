@@ -1,4 +1,4 @@
-Class name: cmdExit
+Class name: CmdExit
 Parent class: Command
 Subclasses:
 

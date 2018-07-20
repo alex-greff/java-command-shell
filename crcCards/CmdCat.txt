@@ -1,13 +1,15 @@
-Class name: cmdHistory
+Class name: CmdCat
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* lists the most recent user command inputs
+* display the contents of files
 
 Collaborators:
 * CommandArgs
 * CommandDescription
-* JShell
+* File
+* Directory
+* InMemoryFileSystem
 * Console
 * ErrorConsole

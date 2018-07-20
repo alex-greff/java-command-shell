@@ -1,13 +1,15 @@
-Class name: cmdMan
+Class name: CmvPwd
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* display documentation for a given command
+* show the path of the current working directory
 
 Collaborators:
 * CommandArgs
 * CommandDescription
-* CommandManager
+* File
+* Directory
+* InMemoryFileSystem
 * Console
 * ErrorConsole

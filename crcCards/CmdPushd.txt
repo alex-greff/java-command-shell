@@ -1,4 +1,4 @@
-Class name: cmdPushd
+Class name: CmdPushd
 Parent class: Command
 Subclasses:
 

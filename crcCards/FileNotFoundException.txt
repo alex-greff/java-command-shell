@@ -1,6 +1,0 @@
-Class name: FileNotFoundException
-Parent class: Exception
-Subclasses:
-
-Responsibilities:
-* Represents failure when a file is not found in the filesystem

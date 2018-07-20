@@ -1,9 +1,9 @@
-Class name: cmdCat
+Class name: CmdEcho
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* display the contents of files
+* prints the given string argument to the console or to a file
 
 Collaborators:
 * CommandArgs

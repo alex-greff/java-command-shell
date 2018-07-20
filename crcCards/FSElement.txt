@@ -1,0 +1,10 @@
+Class name: FSElement
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* a general structure that can represent a file or directory 
+
+Collaborators:
+* File
+* Directory

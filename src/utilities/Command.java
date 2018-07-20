@@ -100,28 +100,38 @@ public abstract class Command {
    */
   public final ExitCode execute(CommandArgs args, Writable out,
       Writable errorOut) {
+    // Check if the arguments are invalid for the current command
     if (!isValidArgs(args)) {
       errorOut.writeln("Error: Invalid arguments");
       return ExitCode.FAILURE;
     }
 
+    // Initialize the buffered output console
     Writable bufferedOut = new BufferedConsole();
+    
+    // Run the command and store the exit code
     ExitCode cmdExitCode = run(args, bufferedOut, errorOut);
 
+    // Construct a string of all the output of the command
     String resultStr = ((BufferedConsole) bufferedOut).getAllWritesAsString();
 
+    // Run the redirect operator, if needed
     ExitCode writeExitCode = ExitCode.SUCCESS;
     if (!args.getRedirectOperator().isEmpty()) {
       writeExitCode = writeToFile(resultStr, args.getRedirectOperator(),
           args.getTargetDestination(), errorOut);
-    } else {
+    }
+    // If no redirect operator then just write to the console
+    else {
       out.write(resultStr);
     }
 
+    // If both the command and redirect succeeded then return a success
     if (cmdExitCode == ExitCode.SUCCESS && writeExitCode == ExitCode.SUCCESS) {
       return ExitCode.SUCCESS;
     }
 
+    // Else return a failure
     return ExitCode.FAILURE;
   }
 

@@ -1,0 +1,12 @@
+Class name: CmdCurl
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* gets the text of a file from a URL
+
+Collaborators:
+* CommandArgs
+* CommandDescription
+* Console
+* ErrorConsole

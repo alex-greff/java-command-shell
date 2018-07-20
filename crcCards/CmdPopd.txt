@@ -1,4 +1,4 @@
-Class name: cmdPopd
+Class name: CmdPopd
 Parent class: Command
 Subclasses:
 

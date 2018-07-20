@@ -1,0 +1,13 @@
+Class name: CmdHistory
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* lists the most recent user command inputs
+
+Collaborators:
+* CommandArgs
+* CommandDescription
+* JShell
+* Console
+* ErrorConsole

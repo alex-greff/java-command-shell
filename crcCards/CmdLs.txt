@@ -1,9 +1,9 @@
-Class name: cmdCd
+Class name: CmdLs
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* changes the current directory that the JShell operates in
+* list all of the files/directories within the given directory/file, recursively or non-recursively
 
 Collaborators:
 * CommandArgs

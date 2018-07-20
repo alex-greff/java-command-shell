@@ -1,0 +1,15 @@
+Class name: CmdRecall
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* executes a previously run command
+
+Collaborators:
+* CommandArgs
+* CommandDescription
+* File
+* Directory
+* InMemoryFileSystem
+* Console
+* ErrorConsole

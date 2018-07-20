@@ -96,4 +96,79 @@ public class InMemoryFileSystemTest {
     Directory actual = fs.getDirByPath(new Path("/test/"));
     assertEquals(expected, actual);
   }
+  
+  @Test
+  public void testGetWorkingDirectoryWithRoot() {
+    
+  }
+  
+  @Test
+  public void testGetWorkingDirectoryWithRegularDirectory() {
+    
+  }
+  
+  @Test
+  public void testGetWorkingDirectoryPathWithRoot() {
+    
+  }
+  
+  @Test
+  public void testGetWorkingDirectoryPathWithRegularDirectory() {
+    
+  }
+  
+  @Test
+  public void testChangeWorkingDirectoryToRoot() {
+    
+  }
+  
+  @Test
+  public void testChangeWorkingDirectoryToFile() {
+    
+  }
+  
+  @Test
+  public void testChangeWorkingDirectoryToDirectory() {
+    
+  }
+  
+  @Test
+  public void testChangeWorkingDirectoryToFSElement() {
+    
+  }
+  
+  @Test
+  public void testGetFileByPathNonExistentFile() {
+    
+  }
+  
+  @Test
+  public void testGetFileByPathWithPathToFile() {
+    
+  }
+  
+  @Test
+  public void testGetFileByPathWithPathToDirectory() {
+    
+  }
+  
+  @Test
+  public void testGetDirectoryByPathToNonExistentDirectory() {
+    
+  }
+  
+  @Test
+  public void testGetDirectoryByPathWithPathToFile() {
+    
+  }
+  
+  @Test
+  public void testGetDirectoryByPathWithPathToDirectory() {
+    
+  }
+  
+  @Test
+  public void testGetRoot() {
+    
+  }
 }

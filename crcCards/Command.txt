@@ -9,3 +9,6 @@ Responsibilities:
 
 Collaborators:
 * CommandArgs
+* BufferedConsole
+* Console
+* ErrorConsole

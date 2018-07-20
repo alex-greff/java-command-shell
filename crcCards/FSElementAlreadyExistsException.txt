@@ -1,0 +1,7 @@
+Class name: FSElementAlreadyExistsException
+Parent class: Exception
+Subclasses:
+
+Responsibilities:
+* Represent failure when user attempts to create a file or directory that already
+  exists

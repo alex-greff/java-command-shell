@@ -1,9 +1,9 @@
-Class name: cmdEcho
+Class name: CmdCd
 Parent class: Command
 Subclasses:
 
 Responsibilities:
-* prints the given string argument to the console or to a file
+* changes the current directory that the JShell operates in
 
 Collaborators:
 * CommandArgs

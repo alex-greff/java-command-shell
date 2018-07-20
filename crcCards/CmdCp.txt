@@ -1,0 +1,15 @@
+Class name: CmdCp
+Parent class: Command
+Subclasses:
+
+Responsibilities:
+* copies a file/directory to a new location
+
+Collaborators:
+* CommandArgs
+* CommandDescription
+* File
+* Directory
+* InMemoryFileSystem
+* Console
+* ErrorConsole

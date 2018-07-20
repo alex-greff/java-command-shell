@@ -1,0 +1,6 @@
+Class name: FSElementNotFoundException
+Parent class: Exception
+Subclasses:
+
+Responsibilities:
+* Represents failure when a file or directory is not found in the file system
