@@ -1,0 +1,11 @@
+What did I do last time?
+    - fixed the output of ls -R to be more readable
+    - fixed some spacing bugs in ls
+
+
+What do I plan to do now?
+    - Make build.xml for ant
+
+
+Am I blocked on anything?
+    - nope

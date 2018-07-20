@@ -67,6 +67,10 @@ public class CmdLs extends Command {
    * name of the command
    */
   private static final String NAME = "ls";
+
+  /**
+   * the documentation of the command
+   */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Lists all of the files and directories in the current\n"
