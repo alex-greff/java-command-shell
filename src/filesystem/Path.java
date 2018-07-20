@@ -45,6 +45,15 @@ public class Path implements Iterable<String> {
   }
 
   /**
+   * Gets the number of tokens in the path
+   * 
+   * @return Returns the number of tokens in the path
+   */
+  public int getNumberOfTokens() {
+    return this.tokens.size();
+  }
+  
+  /**
    * Removes the last token from the path and returns it
    *
    * @return The last token from the path

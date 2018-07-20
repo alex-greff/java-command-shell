@@ -44,6 +44,7 @@ import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import utilities.Parser;
 
 public class CmdLsTest {
 
@@ -114,4 +115,14 @@ public class CmdLsTest {
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
+  
+  @Test
+  public void testWithFileAsParam() throws FSElementAlreadyExistsException {
+    CommandArgs args = Parser.parseUserInput("ls file1");
+    
+    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("file1\n", tc.getAllWritesAsString());
+  }
 }

@@ -52,15 +52,13 @@ public class InMemoryFileSystem implements FileSystem {
   /**
    * Public default constructor.
    */
-  public InMemoryFileSystem() {
-  }
+  public InMemoryFileSystem() {}
 
   /**
    * Change the working dir to the dir given by the path
    *
    * @param path A path to the dir to change to
-   * @throws FSElementNotFoundException Thrown when the directory does not
-   * exist
+   * @throws FSElementNotFoundException Thrown when the directory does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public void changeWorkingDir(Path path)
@@ -94,7 +92,7 @@ public class InMemoryFileSystem implements FileSystem {
    * Provides file located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
+   *        Absolute path must start with / indicating root directory.
    * @return The file located at the path
    * @throws FSElementNotFoundException Thrown when the file does not exist
    * @throws MalformedPathException Thrown when the path is invalid
@@ -104,7 +102,7 @@ public class InMemoryFileSystem implements FileSystem {
     Path copyPath = new Path(path);
     String fileName = copyPath.removeLast();
     Directory parent = getDirByPath(copyPath);
-    File f = parent.getChildFileByName(fileName); 
+    File f = parent.getChildFileByName(fileName);
     if (f == null)
       throw new FSElementNotFoundException();
     return f;
@@ -114,10 +112,9 @@ public class InMemoryFileSystem implements FileSystem {
    * Provides directory located at given path to the caller
    *
    * @param thePath The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
+   *        Absolute path must start with / indicating root directory.
    * @return The directory located at the path
-   * @throws FSElementNotFoundException Thrown when the directory does not
-   * exist
+   * @throws FSElementNotFoundException Thrown when the directory does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public FSElement getFSElementByPath(Path thePath)
@@ -136,10 +133,24 @@ public class InMemoryFileSystem implements FileSystem {
           throw new MalformedPathException();
         }
       } else if (!segment.equals(".")) {
-        FSElement maybeDir = curr.getChildByName(segment);
-        if (maybeDir instanceof Directory) {
-          curr = (Directory) maybeDir;
-        } else if (maybeDir == null || !path.isEmpty()) {
+        // Attempt to get the child of current
+        FSElement maybeFSE = curr.getChildByName(segment);
+        // If its a directory then set it to the current and keep on iterating
+        if (maybeFSE instanceof Directory) {
+          curr = (Directory) maybeFSE;
+        }
+        // If we've found a file child FSElement
+        else if (maybeFSE instanceof File) {
+          // If its the final token in the path then return it as the element
+          if (path.getNumberOfTokens() == 0)
+            return (File) maybeFSE;
+          // If there are more tokens remaining then the path is invalid and
+          // throw and exception
+          else
+            throw new MalformedPathException();
+        }
+        // If there is not child element or the the path is not empty
+        else if (maybeFSE == null || !path.isEmpty()) {
           throw new FSElementNotFoundException();
         }
       }
@@ -151,10 +162,9 @@ public class InMemoryFileSystem implements FileSystem {
    * Provides directory located at given path to the caller
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
+   *        Absolute path must start with / indicating root directory.
    * @return The directory located at the path
-   * @throws FSElementNotFoundException Thrown when the directory does not
-   * exist
+   * @throws FSElementNotFoundException Thrown when the directory does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
   public Directory getDirByPath(Path path)
