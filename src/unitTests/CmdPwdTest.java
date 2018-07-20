@@ -33,8 +33,12 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdPwd;
 import containers.CommandArgs;
+import filesystem.FSElementAlreadyExistsException;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import filesystem.MalformedPathException;
+import filesystem.Path;
 import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,7 +88,22 @@ public class CmdPwdTest {
   }
 
   @Test
-  public void testChildDir() {
+  public void testChildDir() throws FSElementAlreadyExistsException,
+      MalformedPathException, FSElementNotFoundException {
+    // Create a directory, add it to the root directory, and make it the working
+    // directory
+    fs.getRoot().createAndAddNewDir("testDir");
+    Path dirPath = new Path("/testDir");
+    fs.changeWorkingDir(dirPath);
+
+    // Attempt to display the current working directory
+    CommandArgs args = new CommandArgs("pwd");
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and that the path of the
+    // directory created was printed
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/testDir\n", testOut.getAllWritesAsString());
   }
 
 }

@@ -34,7 +34,6 @@ import static org.junit.Assert.assertEquals;
 import commands.CmdCat;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
-import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
@@ -67,7 +66,7 @@ public class CmdCatTest {
   @Test
   public void testInvalidArgsNumberOfParameters() {
     String argParam[] = {};
-    CommandArgs args = new CommandArgs("pwd", argParam);
+    CommandArgs args = new CommandArgs("cat", argParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
@@ -75,16 +74,27 @@ public class CmdCatTest {
 
   @Test
   public void testInvalidPath() {
+    String argParam[] = {"invalid//path"};
+    CommandArgs args = new CommandArgs("cat", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("Error: Invalid file path", testErrOut.getAllWritesAsString());
   }
 
   @Test
   public void testFileNotFound() {
+    String argParam[] = {"file/does/not/exist"};
+    CommandArgs args = new CommandArgs("cat", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("Error: File does not exist",
+        testErrOut.getAllWritesAsString());
   }
 
   @Test
   public void testFileWithOneLine() throws FSElementAlreadyExistsException {
     // Create a file with one line of content, and add it to the root directory
-    File file = fs.getRoot().createAndAddNewFile("testFile", "hello");
+    fs.getRoot().createAndAddNewFile("testFile", "hello");
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
@@ -93,8 +103,8 @@ public class CmdCatTest {
 
     // Assert that the command successfully executed, and just the one line of
     // content was printed
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(), "hello\n");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("hello\n", testOut.getAllWritesAsString());
   }
 
   @Test
@@ -102,8 +112,8 @@ public class CmdCatTest {
       throws FSElementAlreadyExistsException {
     // Create two files with one line of content each, and add them to the root
     // directory
-    File file1 = fs.getRoot().createAndAddNewFile("testFile1", "hello");
-    File file2 = fs.getRoot().createAndAddNewFile("testFile2", "world");
+    fs.getRoot().createAndAddNewFile("testFile1", "hello");
+    fs.getRoot().createAndAddNewFile("testFile2", "world");
 
     // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
@@ -112,8 +122,8 @@ public class CmdCatTest {
 
     // Assert that the command successfully executed, and that both lines of
     // content were printed, with 2 blank lines in between
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(), "hello\n\n\nworld\n");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("hello\n\n\nworld\n", testOut.getAllWritesAsString());
   }
 
   @Test
@@ -131,9 +141,9 @@ public class CmdCatTest {
 
     // Assert that the command successfully executed, and that every line of
     // content was printed
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(testOut.getAllWritesAsString(),
-        "hello\nworld\nthis\nis\na\ntest\n");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("hello\nworld\nthis\nis\na\ntest\n",
+        testOut.getAllWritesAsString());
   }
 
 }

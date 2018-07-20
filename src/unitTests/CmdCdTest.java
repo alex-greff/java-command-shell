@@ -66,7 +66,7 @@ public class CmdCdTest {
   @Test
   public void testInvalidArgsNumberOfParametersLess() {
     String argParam[] = {};
-    CommandArgs args = new CommandArgs("pwd", argParam);
+    CommandArgs args = new CommandArgs("cd", argParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
@@ -75,7 +75,7 @@ public class CmdCdTest {
   @Test
   public void testInvalidArgsNumberOfParametersMore() {
     String argParam[] = {"wantedParam", "unwantedParam"};
-    CommandArgs args = new CommandArgs("pwd", argParam);
+    CommandArgs args = new CommandArgs("cd", argParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
@@ -83,10 +83,20 @@ public class CmdCdTest {
 
   @Test
   public void testInvalidPath() {
+    String argParam[] = {"invalid//path"};
+    CommandArgs args = new CommandArgs("cd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid directory path", testErrOut.getAllWritesAsString());
   }
 
   @Test
   public void testDirNotFound() {
+    String argParam[] = {"dir/does/not/exist"};
+    CommandArgs args = new CommandArgs("cd", argParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Directory does not exist", testErrOut.getAllWritesAsString());
   }
 
   @Test
@@ -101,8 +111,8 @@ public class CmdCdTest {
 
     // Assert that the command successfully executed, and that the working
     // directory is now the child directory which we created
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(fs.getWorkingDirPath(), "/testDir");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/testDir", fs.getWorkingDirPath());
   }
 
   @Test
@@ -114,8 +124,8 @@ public class CmdCdTest {
 
     // Assert that the command successfully executed, and that the working
     // directory is still the root directory
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(fs.getWorkingDirPath(), "/");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/", fs.getWorkingDirPath());
   }
 
   @Test
@@ -136,8 +146,8 @@ public class CmdCdTest {
 
     // Assert that the command successfully executed, and that the working
     // directory is now the root directory again
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(fs.getWorkingDirPath(), "/");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/", fs.getWorkingDirPath());
   }
 
   @Test
@@ -161,8 +171,8 @@ public class CmdCdTest {
 
     // Assert that the command successfully executed, and that the working
     // directory is now the grandchild directory which we created
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(fs.getWorkingDirPath(), "/testDir/testDirAgain");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/testDir/testDirAgain", fs.getWorkingDirPath());
   }
 
   @Test
@@ -185,8 +195,8 @@ public class CmdCdTest {
 
     // Assert that the command successfully executed, and that the working
     // directory is now the second sibling directory which we created
-    assertEquals(exitVal, ExitCode.SUCCESS);
-    assertEquals(fs.getWorkingDirPath(), "/testDirAgain");
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/testDirAgain", fs.getWorkingDirPath());
   }
 
 }

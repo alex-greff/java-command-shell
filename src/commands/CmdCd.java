@@ -95,7 +95,7 @@ public class CmdCd extends Command {
 
     } catch (MalformedPathException e) {
       // Argument given is an improper Path, return FAILURE
-      errOut.writeln("Error: Invalid file path");
+      errOut.writeln("Error: Invalid directory path");
       return ExitCode.FAILURE;
 
     } catch (FSElementNotFoundException e) {

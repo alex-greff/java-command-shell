@@ -101,11 +101,11 @@ public class CmdCat extends Command {
 
       } catch (MalformedPathException e) {
         // Argument given is an improper Path
-        errOut.writeln("Invalid file path");
+        errOut.writeln("Error: Invalid file path");
 
       } catch (FSElementNotFoundException e) {
         // No File at the Path of the argument given
-        errOut.writeln("File does not exist");
+        errOut.writeln("Error: File does not exist");
       }
     }
 
