@@ -110,6 +110,9 @@ public class CmdRecallTest {
     cmd = new CmdRecall(fs, cm);
 
     ExitCode exc = cmd.execute(args, tc, tc_err);
+    // in the case that i want to change the error message wording,
+    // only check for the general "Error:" statement.
+    assertTrue(tc_err.getAllWritesAsString().contains("Error:"));
   }
 
 }
