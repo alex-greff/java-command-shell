@@ -31,13 +31,14 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 
-import commands.CmdCat;
+import commands.CmdGrep;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -61,11 +62,19 @@ public class CmdGrepTest {
     testErrOut = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
-    cmd = new CmdCat(fs, cm);
+    cmd = new CmdGrep(fs, cm);
   }
 
   @Test
   public void testInvalidArgsNumberOfParameters() {
+    String argParam[] = {};
+    String argFlags[] = {};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
 
   @Test
