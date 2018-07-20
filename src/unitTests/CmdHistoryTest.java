@@ -30,6 +30,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import commands.CmdHistory;
 import containers.CommandArgs;
@@ -55,9 +56,11 @@ public class CmdHistoryTest {
   private CommandManager cm;
   private Command cmd;
 
+
   @Before
   // Resets the file system for each test case
   public void reset() {
+
     tc = new BufferedConsole();
     tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
@@ -71,7 +74,7 @@ public class CmdHistoryTest {
   }
 
   @Test
-  public void testHistory1() {
+  public void testHistory1SingleEntry() {
     String[] params = new String[1];
     params[0] = "1";
     CommandArgs args = new CommandArgs("history", params);
@@ -82,6 +85,25 @@ public class CmdHistoryTest {
     ExitCode exc = cmd.execute(args, tc, tc_err);
 
     assertEquals("", tc.getLastWrite());
+    assertEquals(exc, ExitCode.SUCCESS);
+  }
+
+  @Test
+  public void testMultipleEntriesAllHistory() {
+    String[] params = new String[0];
+    CommandArgs args = new CommandArgs("history", params);
+
+    BufferedConsole tc = new BufferedConsole();
+    BufferedConsole tc_err = new BufferedConsole();
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("first entry");
+    hist.add("second entry");
+    hist.add("third entry");
+    ExitCode exc = cmd.execute(args, tc, tc_err);
+
+    assertTrue(tc.getAllWritesAsString().contains("1. first entry\n"
+        + "2. second entry\n3. third entry"));
+    assertTrue(tc.getLastWrite().contains("3."));
     assertEquals(exc, ExitCode.SUCCESS);
   }
 }

@@ -31,12 +31,16 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import commands.CmdHistory;
+import commands.*;
 import containers.CommandArgs;
 import driver.JShell;
+import filesystem.Directory;
+import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
+import filesystem.MalformedPathException;
 import io.BufferedConsole;
 import java.util.ArrayList;
 import org.junit.Before;
@@ -45,6 +49,7 @@ import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import filesystem.Path;
 
 public class CmdRecallTest {
   // Create Testing Consoles, a command manager instance, an instance of the
@@ -62,7 +67,49 @@ public class CmdRecallTest {
     tc_err = new BufferedConsole();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
-    cmd = new CmdHistory(fs, cm);
+    cmd = new CmdRecall(fs, cm);
+  }
+
+  @Test
+  public void testRecallFirstEntryOnLs(){
+    // make some ls test
+    String paramsLs[] = new String[0];
+    CommandArgs lsargs = new CommandArgs("ls", paramsLs);
+    CmdLs LsCall = new CmdLs(fs, cm);
+    // end that
+
+    String params[] = new String[1];
+    params[0]="1";
+    CommandArgs args = new CommandArgs("recall", params);
+
+    BufferedConsole tc = new BufferedConsole();
+    BufferedConsole tc_err = new BufferedConsole();
+    // manually populate history with commands
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("ls"); hist.add("mkdir one");
+    // manually add the directory
+    Directory dir1 = new Directory("one", fs.getRoot());
+    Directory dir2 = new Directory("two", fs.getRoot());
+    hist.add("bad command");
+
+    // test to see if the recall command executed ls command
+    ExitCode excLs = LsCall.execute(lsargs, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc_err);
+    assertTrue(tc_err.getAllWritesAsString().length() == 0);
+    assertTrue(tc.getAllWrites().size() > 0);
+    assertTrue(tc.getAllWrites().get(0).equals("one"));
+
+
+  }
+
+  @Test
+  public void TestRecallOnNumberTooBig(){
+    String params[] = new String[1];
+    params[0] = "4";
+    CommandArgs args = new CommandArgs("recall",params);
+    cmd = new CmdRecall(fs, cm);
+
+    ExitCode exc = cmd.execute(args, tc, tc_err);
   }
 
 }
