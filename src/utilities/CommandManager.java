@@ -69,11 +69,11 @@ public class CommandManager {
   /**
    * The standard output console.
    */
-  private Writable out;
+  private Writable<String> out;
   /**
    * The standard error output console.
    */
-  private Writable errorOut;
+  private Writable<String> errorOut;
   /**
    * The file system used.
    */
@@ -86,7 +86,7 @@ public class CommandManager {
   /**
    * Private constructor for singleton
    */
-  private CommandManager(Writable out, Writable errorOut,
+  private CommandManager(Writable<String> out, Writable<String> errorOut,
       FileSystem fileSystem) {
     this.out = out;
     this.errorOut = errorOut;
@@ -103,8 +103,8 @@ public class CommandManager {
    * @param fileSystem The file system to be used.
    * @return Returns a new instance of a command manager.
    */
-  public static CommandManager constructCommandManager(Writable out,
-      Writable errorOut, FileSystem fileSystem) {
+  public static CommandManager constructCommandManager(Writable<String> out,
+      Writable<String> errorOut, FileSystem fileSystem) {
     return new CommandManager(out, errorOut, fileSystem);
   }
 

@@ -48,8 +48,8 @@ public class CmdGrepTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private BufferedConsole testOut;
-  private BufferedConsole testErrOut;
+  private BufferedConsole<String> testOut;
+  private BufferedConsole<String> testErrOut;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -57,8 +57,8 @@ public class CmdGrepTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    testOut = new BufferedConsole();
-    testErrOut = new BufferedConsole();
+    testOut = new BufferedConsole<String>();
+    testErrOut = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdCat(fs, cm);

@@ -36,7 +36,7 @@ import java.util.Scanner;
  *
  * @author greff
  */
-public class Console implements Writable, Readable {
+public class Console<T> implements Writable<T>, Readable {
 
   /**
    * The scanner.
@@ -55,12 +55,12 @@ public class Console implements Writable, Readable {
    * @param contents The text to be written
    */
   @Override
-  public void write(String contents) {
+  public void write(T contents) {
     System.out.print(contents);
   }
 
   @Override
-  public void writeln(String contents) {
+  public void writeln(T contents) {
     System.out.println(contents);
   }
 

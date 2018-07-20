@@ -30,7 +30,6 @@
 package utilities;
 
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -98,8 +97,8 @@ public abstract class Command {
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
-  public final ExitCode execute(CommandArgs args, Writable out,
-      Writable errorOut) {
+  public final ExitCode execute(CommandArgs args, Writable<String> out,
+      Writable<String> errorOut) {
     // Check if the arguments are invalid for the current command
     if (!isValidArgs(args)) {
       errorOut.writeln("Error: Invalid arguments");
@@ -107,13 +106,14 @@ public abstract class Command {
     }
 
     // Initialize the buffered output console
-    Writable bufferedOut = new BufferedConsole();
-    
+    Writable<String> bufferedOut = new BufferedConsole<String>();
+
     // Run the command and store the exit code
     ExitCode cmdExitCode = run(args, bufferedOut, errorOut);
 
     // Construct a string of all the output of the command
-    String resultStr = ((BufferedConsole) bufferedOut).getAllWritesAsString();
+    String resultStr =
+        ((BufferedConsole<String>) bufferedOut).getAllWritesAsString();
 
     // Run the redirect operator, if needed
     ExitCode writeExitCode = ExitCode.SUCCESS;
@@ -143,8 +143,8 @@ public abstract class Command {
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
-  protected abstract ExitCode run(CommandArgs args, Writable out,
-      Writable errorOut);
+  protected abstract ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errorOut);
 
   /**
    * Checks if the given args are valid for this command.
@@ -182,7 +182,7 @@ public abstract class Command {
    * @return Returns if the write succeeded or not.
    */
   protected ExitCode writeToFile(String content, String redirectOperator,
-      String targetDestination, Writable errOut) {
+      String targetDestination, Writable<String> errOut) {
     // Get the File
     File file;
     try {
@@ -192,7 +192,7 @@ public abstract class Command {
     } catch (FSElementNotFoundException e) {
       // Attempt to make the file
       try {
-        file = makeFile(targetDestination);
+        file = (File<String>) makeFile(targetDestination);
         // Catch if the directory is not found
       } catch (FSElementNotFoundException e1) {
         errOut.writeln("Error: No file/directory found");
@@ -204,6 +204,8 @@ public abstract class Command {
         // Catch if the file already exists
       } catch (FSElementAlreadyExistsException e1) {
         errOut.writeln("Error: File/directory already exists");
+        return ExitCode.FAILURE;
+      } catch (Exception e1) {
         return ExitCode.FAILURE;
       }
     } catch (MalformedPathException e1) {
@@ -230,7 +232,7 @@ public abstract class Command {
    * @param filePathStr The file path string.
    * @return Returns the created file.
    */
-  private File makeFile(String filePathStr) throws MalformedPathException,
+  private File<?> makeFile(String filePathStr) throws MalformedPathException,
       FSElementNotFoundException, FSElementAlreadyExistsException {
 
     boolean pathIsADirectory = true;
@@ -279,7 +281,7 @@ public abstract class Command {
     Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
 
     // Add the file to the directory
-    File file = dirOfFile.createAndAddNewFile(fileName);
+    File<?> file = dirOfFile.createAndAddNewFile(fileName);
 
     // Return the file
     return file;

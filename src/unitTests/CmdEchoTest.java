@@ -54,8 +54,8 @@ public class CmdEchoTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private BufferedConsole tc;
-  private BufferedConsole tc_err;
+  private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -63,8 +63,8 @@ public class CmdEchoTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    tc = new BufferedConsole();
-    tc_err = new BufferedConsole();
+    tc = new BufferedConsole<String>();
+    tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdEcho(fs, cm);
@@ -92,7 +92,7 @@ public class CmdEchoTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("nice sentence you got there\n", tc.getAllWritesAsString());
+    assertEquals("nice sentence you got there", tc.getAllWritesAsString());
   }
 
   @Test
@@ -106,7 +106,7 @@ public class CmdEchoTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file4"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("some string\n", file.read());
+    assertEquals("some string", file.read());
   }
 
 
@@ -120,7 +120,7 @@ public class CmdEchoTest {
     File file = fs.getFileByPath(new Path("/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contents\nsome string\n", file.read());
+    assertEquals("file1's contents\nsome string", file.read());
   }
 
   @Test
@@ -134,7 +134,7 @@ public class CmdEchoTest {
     File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("some string\n", file.read());
+    assertEquals("some string", file.read());
   }
 
   @Test

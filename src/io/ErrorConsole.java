@@ -34,7 +34,7 @@ package io;
  *
  * @author greff
  */
-public class ErrorConsole implements Writable {
+public class ErrorConsole<T> implements Writable<T> {
 
   /**
    * The constructor, defaulted to public visibility.
@@ -48,13 +48,13 @@ public class ErrorConsole implements Writable {
    * @param contents The output contents
    */
   @Override
-  public void write(String contents) {
+  public void write(T contents) {
     // System.err.println(contents);
     System.out.print(contents);
   }
 
   @Override
-  public void writeln(String contents) {
+  public void writeln(T contents) {
     System.out.println(contents);
   }
 }

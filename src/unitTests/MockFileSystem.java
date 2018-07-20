@@ -1,4 +1,12 @@
-package filesystem;
+package unitTests;
+
+import filesystem.Directory;
+import filesystem.FSElement;
+import filesystem.FSElementNotFoundException;
+import filesystem.File;
+import filesystem.FileSystem;
+import filesystem.MalformedPathException;
+import filesystem.Path;
 
 public class MockFileSystem implements FileSystem {
 

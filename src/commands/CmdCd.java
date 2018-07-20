@@ -85,7 +85,8 @@ public class CmdCd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];
 

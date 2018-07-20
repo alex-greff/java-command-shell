@@ -81,7 +81,8 @@ public class CmdPushd extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with
@@ -89,7 +90,7 @@ public class CmdPushd extends Command {
     CommandArgs cdArgs = new CommandArgs("cd", fileNameArg);
     // execute the cd command to go to the given directory
     commandManager.executeCommand(cdArgs);
-    
+
     // this command does not print anything
     return ExitCode.SUCCESS;
   }

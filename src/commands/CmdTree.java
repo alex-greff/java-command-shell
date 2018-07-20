@@ -80,7 +80,8 @@ public class CmdTree extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
@@ -116,7 +117,8 @@ public class CmdTree extends Command {
    * @return a block of String which represents the filesystem from the curr
    *         directory down.
    */
-  private String addOn(Directory curr, int tabs) throws FSElementNotFoundException {
+  private String addOn(Directory curr, int tabs)
+      throws FSElementNotFoundException {
     // get proper amount of tabs
     StringBuilder spacing = new StringBuilder();
     for (int i = 0; i < tabs; i++) {

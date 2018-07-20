@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -64,30 +63,31 @@ public class CmdMv extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Move contents of a file to another.", "mv OLDPATH NEWPATH")
-          .additionalComment(
-              "Paths of OLDPATH and NEWPATH can be relative or absolute.")
-          .additionalComment(
-              "File(s) at OLDPATH gets removed, and replaces the content at"
-                  + " NEWPATH.")
-          .additionalComment(
-              "If both the old and new paths are files, the content of the old"
-                  + " file overwrites the new file. The old file must exist,"
-                  + " but the new file is created if it does not yet exist")
-          .additionalComment(
-              "If the old path is a file, and the new path is a directory, the"
-                  + " file is moved into the directory. The file and directory"
-                  + " must exist")
-          .additionalComment(
-              "If both the old and new paths are directories, the"
-                  + " old directory is moved into the new directories parent "
-                  + "overwriting the directory that was there before. The"
-                  + " directories must exist")
-          .additionalComment(
-              "No functionality if the old path is a directory and the new path"
-                  + " is a file at the same time. This is undefined behaviour.")
-          .additionalComment("No functionality if the old path and new path "
-                                 + "point to the same element")
-          .build();
+              .additionalComment(
+                  "Paths of OLDPATH and NEWPATH can be relative or absolute.")
+              .additionalComment(
+                  "File(s) at OLDPATH gets removed, and replaces the content at"
+                      + " NEWPATH.")
+              .additionalComment(
+                  "If both the old and new paths are files, the content of the old"
+                      + " file overwrites the new file. The old file must exist,"
+                      + " but the new file is created if it does not yet exist")
+              .additionalComment(
+                  "If the old path is a file, and the new path is a directory, the"
+                      + " file is moved into the directory. The file and directory"
+                      + " must exist")
+              .additionalComment(
+                  "If both the old and new paths are directories, the"
+                      + " old directory is moved into the new directories parent "
+                      + "overwriting the directory that was there before. The"
+                      + " directories must exist")
+              .additionalComment(
+                  "No functionality if the old path is a directory and the new path"
+                      + " is a file at the same time. This is undefined behaviour.")
+              .additionalComment(
+                  "No functionality if the old path and new path "
+                      + "point to the same element")
+              .build();
 
   /**
    * Constructs a new command instance.
@@ -111,7 +111,8 @@ public class CmdMv extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     // Get the elements by the given paths if they exist
     Path oldPath, newPath;
     FSElement from, to;
@@ -224,8 +225,8 @@ public class CmdMv extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

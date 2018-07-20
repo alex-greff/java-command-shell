@@ -32,7 +32,6 @@ package commands;
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -76,15 +75,15 @@ public class CmdGrep extends Command {
       new CommandDescription.DescriptionBuilder(
           "Prints lines in a file containing the given regex.",
           "grep REGEX PATH").usage("grep -r REGEX PATH")
-          .additionalComment("The given PATH can be relative or absolute.")
-          .additionalComment(
-              "Regular Usage: PATH is a file, any lines in the file that"
-                  + " contain the regex are printed.")
-          .additionalComment(
-              "-r: PATH is a directory, any lines in any file in the directory,"
-                  + " and any subdirectories, that contain the regex are"
-                  + " printed.")
-          .build();
+              .additionalComment("The given PATH can be relative or absolute.")
+              .additionalComment(
+                  "Regular Usage: PATH is a file, any lines in the file that"
+                      + " contain the regex are printed.")
+              .additionalComment(
+                  "-r: PATH is a directory, any lines in any file in the directory,"
+                      + " and any subdirectories, that contain the regex are"
+                      + " printed.")
+              .build();
 
   /**
    * Executes the grep command with the given arguments. Grep prints all lines
@@ -100,7 +99,8 @@ public class CmdGrep extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     // Obtain the String arrays for the Command Flags and Parameters
     String[] cmdFlags = args.getCommandFlags();
     String[] cmdParams = args.getCommandParameters();
@@ -205,8 +205,8 @@ public class CmdGrep extends Command {
       // Prefix each matching line from the file with its path before adding
       // it to our String ArrayList of all matches
       for (String match : fileMatches) {
-        matches.add(
-            fileSystem.getAbsolutePathOfFSElement(fileSrc) + ": " + match);
+        matches
+            .add(fileSystem.getAbsolutePathOfFSElement(fileSrc) + ": " + match);
       }
     }
 
@@ -239,12 +239,12 @@ public class CmdGrep extends Command {
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
         && ((args.getNumberOfCommandFieldParameters() == 1
-        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
-        || args.getNumberOfCommandFieldParameters() == 0)
+            && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+            || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     int i = 1;
     // Check that the parameters are not strings

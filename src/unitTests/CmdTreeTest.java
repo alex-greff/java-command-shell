@@ -49,8 +49,8 @@ public class CmdTreeTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private BufferedConsole testOut;
-  private BufferedConsole testErrOut;
+  private BufferedConsole<String> testOut;
+  private BufferedConsole<String> testErrOut;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -58,8 +58,8 @@ public class CmdTreeTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    testOut = new BufferedConsole();
-    testErrOut = new BufferedConsole();
+    testOut = new BufferedConsole<String>();
+    testErrOut = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
     cmd = new CmdTree(fs, cm);
@@ -76,8 +76,8 @@ public class CmdTreeTest {
   public void testTree() {
     CommandArgs args = new CommandArgs("tree");
 
-    BufferedConsole tc = new BufferedConsole();
-    BufferedConsole tc_err = new BufferedConsole();
+    BufferedConsole<String> tc = new BufferedConsole<String>();
+    BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("/\n\tfile2\n\tfile1\n\tdir2\n\t\tfile3\n\tdir1\n\n",

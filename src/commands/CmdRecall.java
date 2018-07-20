@@ -81,7 +81,8 @@ public class CmdRecall extends Command {
    * @return the exitcode indicating success or failure of execution
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errorOut) {
     // Get JShell's command history
     ArrayList<String> history = JShell.getHistory();
     history.remove(history.size() - 1); // erases the !num cmd
@@ -99,8 +100,7 @@ public class CmdRecall extends Command {
     if (num > history.size()) {
       errorOut.writeln("error: recalled too far");
       return ExitCode.FAILURE;
-    }
-    else if (num <= 0){
+    } else if (num <= 0) {
       errorOut.writeln("error: recalled invalid number");
       return ExitCode.FAILURE;
     }

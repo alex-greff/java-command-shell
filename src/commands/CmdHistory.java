@@ -85,7 +85,8 @@ public class CmdHistory extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();
     // by default, get all of the history

@@ -78,10 +78,11 @@ public class CmdPwd extends Command {
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     // Set the result string as the working directory path
     String resultStr = fileSystem.getWorkingDirPath() + "\n";
-    
+
     // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
     out.write(resultStr);

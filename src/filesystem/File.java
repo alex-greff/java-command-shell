@@ -29,6 +29,10 @@
 // *********************************************************
 package filesystem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import io.Readable;
 import io.Writable;
 
@@ -38,36 +42,39 @@ import io.Writable;
  *
  * @author anton
  */
-public class File extends FSElement implements Writable, Readable {
+public class File<T> extends FSElement implements Writable<T>, Readable {
 
   /**
-   * The contents of the file.
+   * The contents of the file. Each item in the parent queue represents a "line"
+   * of data with the sub-queue items each representing a "part" of that line.
+   * Example: we implement with type String. The following string look like the
+   * following representation in the queue: The String: "First line Second line"
+   * Contents: { { "First", "line" }, { "Second line" } }
    */
-  private String contents;
+  private List<List<T>> contents = new ArrayList<List<T>>();
 
   /**
    * Create a new file given a name and the contents of the file
    *
    * @param name The name by which the file is to be referred, may or may not
-   * contain an extension
+   *        contain an extension
    * @param contents The text data stored inside the file
    * @param parent The parent directory of this file
    */
-  public File(String name, String contents, Directory parent) {
+  public File(String name, T contents, Directory parent) {
     super(name, parent);
-    this.contents = contents;
+    this.contents.add(new LinkedList<T>(Arrays.asList(contents)));
   }
 
   /**
    * Create a new file with the given name, and empty contents
    *
    * @param name The name by which the file is to be referred, may or may not
-   * contain an extension
+   *        contain an extension
    * @param parent The parent directory of this file
    */
   public File(String name, Directory parent) {
     super(name, parent);
-    this.contents = "";
   }
 
   /**
@@ -76,8 +83,11 @@ public class File extends FSElement implements Writable, Readable {
    * @param contents The data to be added to the file.
    */
   @Override
-  public void write(String contents) {
-    this.contents += contents;
+  public void write(T contents) {
+    if (this.contents.isEmpty())
+      this.contents.add(new ArrayList<T>(Arrays.asList(contents)));
+    else
+      this.contents.get(0).add(contents);
   }
 
   /**
@@ -87,24 +97,57 @@ public class File extends FSElement implements Writable, Readable {
    * @param contents The data to be added to the file.
    */
   @Override
-  public void writeln(String contents) {
-    this.contents += contents + "\n";
+  public void writeln(T contents) {
+    this.contents.add(new LinkedList<T>(Arrays.asList(contents)));
   }
 
   /**
-   * Allows for reading of data from the file.
+   * Allows for reading of the data as a string from the file.
    *
-   * @return The full contents of the file
+   * @return The full contents of the file. Returns an empty string if the file
+   *         is empty.
    */
   @Override
   public String read() {
-    return this.contents;
+    StringBuilder ret_str_bldr = new StringBuilder();
+
+    // Iterate through each line
+    for (int i = 0; i < contents.size(); i++) {
+      List<T> line = contents.get(i);
+
+      // Iterate through each item in the current line
+      for (int j = 0; j < line.size(); j++) {
+        T item = line.get(j);
+        // Add the item to the return string
+        ret_str_bldr.append(item);
+      }
+      // Add a newline to the return string
+      ret_str_bldr.append("\n");
+    }
+
+    String ret_str = ret_str_bldr.toString();
+
+    // Remove last newline if there is one
+    if (ret_str.length() > 0)
+      ret_str = ret_str.substring(0, ret_str.length() - 1);
+
+    // Return the string representation of the file data
+    return ret_str;
   }
 
   /**
    * Empties the contents of the file.
    */
   public void clear() {
-    this.contents = "";
+    this.contents = new ArrayList<List<T>>();
+  }
+
+  /**
+   * Gets if the file is empty.
+   * 
+   * @return Return true iff the file is empty.
+   */
+  public boolean isEmpty() {
+    return this.contents.size() == 0;
   }
 }

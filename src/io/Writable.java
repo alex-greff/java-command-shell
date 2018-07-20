@@ -34,19 +34,19 @@ package io;
  *
  * @author anton
  */
-public interface Writable {
+public interface Writable<T> {
 
   /**
    * Writes the contents.
    *
    * @param contents The contents string.
    */
-  void write(String contents);
+  public void write(T contents);
 
   /**
    * Writes the contents to a new line.
    *
    * @param contents The contents string.
    */
-  void writeln(String contents);
+  void writeln(T contents);
 }

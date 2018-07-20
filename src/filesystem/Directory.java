@@ -117,10 +117,10 @@ public class Directory extends FSElement {
    * @throws FSElementAlreadyExistsException Thrown when the file already
    * exists
    */
-  public File createAndAddNewFile(String name)
+  public File<?> createAndAddNewFile(String name)
       throws FSElementAlreadyExistsException {
     if (!children.containsKey(name)) {
-      File newFile = new File(name, this);
+      File<?> newFile = new File<>(name, this);
       this.children.put(name, newFile);
       return newFile;
     } else {
@@ -138,7 +138,7 @@ public class Directory extends FSElement {
    * @throws FSElementAlreadyExistsException Thrown when the file already
    * exists
    */
-  public File createAndAddNewFile(String name, String contents)
+  public File<?> createAndAddNewFile(String name, String contents)
       throws FSElementAlreadyExistsException {
 
     File f = createAndAddNewFile(name);

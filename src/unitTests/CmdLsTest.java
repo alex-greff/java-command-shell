@@ -50,8 +50,8 @@ public class CmdLsTest {
 
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
-  private BufferedConsole tc;
-  private BufferedConsole tc_err;
+  private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
   private Command cmd;
@@ -59,8 +59,8 @@ public class CmdLsTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    tc = new BufferedConsole();
-    tc_err = new BufferedConsole();
+    tc = new BufferedConsole<String>();
+    tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_err, fs);
     cmd = new CmdLs(fs, cm);
@@ -79,8 +79,8 @@ public class CmdLsTest {
   public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
 
-    BufferedConsole tc = new BufferedConsole();
-    BufferedConsole tc_err = new BufferedConsole();
+    BufferedConsole<String> tc = new BufferedConsole<String>();
+    BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("dir2\ndir1\nfile2\nfile1\n\n", tc.getAllWritesAsString());
@@ -93,8 +93,8 @@ public class CmdLsTest {
     params[0] = "dir1";
     CommandArgs args = new CommandArgs("ls", params);
 
-    BufferedConsole tc = new BufferedConsole();
-    BufferedConsole tc_err = new BufferedConsole();
+    BufferedConsole<String> tc = new BufferedConsole<String>();
+    BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("\n", tc.getAllWritesAsString());
@@ -107,8 +107,8 @@ public class CmdLsTest {
     params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
 
-    BufferedConsole tc = new BufferedConsole();
-    BufferedConsole tc_err = new BufferedConsole();
+    BufferedConsole<String> tc = new BufferedConsole<String>();
+    BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertEquals("file3\n\n", tc.getAllWritesAsString());

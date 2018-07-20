@@ -93,7 +93,8 @@ public class CmdLs extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     StringBuilder result = new StringBuilder();
     Directory curr = fileSystem.getWorkingDir();
     Path path;
@@ -108,8 +109,8 @@ public class CmdLs extends Command {
       for (String name : params) {
         try {
           curr = fileSystem.getDirByPath(new Path(name));
-          result.append(curr.getName()).append(":\n").
-              append(addOn(curr, rec, 0));
+          result.append(curr.getName()).append(":\n")
+              .append(addOn(curr, rec, 0));
         } catch (MalformedPathException | FSElementNotFoundException m) {
           // if name was not detected as directory, try searching for the file
           try {
@@ -154,7 +155,7 @@ public class CmdLs extends Command {
     ArrayList<String> files = dir.listFileNames();
     // initialize tabspaces
     StringBuilder tabs = new StringBuilder();
-    for (int i=0; i < tabNum; i++){
+    for (int i = 0; i < tabNum; i++) {
       tabs.append("\t");
     }
     // now append the each string from the arraylists with a newline to result
@@ -164,8 +165,8 @@ public class CmdLs extends Command {
         if (d == null)
           return "";
         result.append(tabs).append(name).append(":\n");
-        result.append(addOn(d, true, tabNum+1));
-      }else{
+        result.append(addOn(d, true, tabNum + 1));
+      } else {
         result.append(name);
         result.append("\n");
       }
@@ -195,12 +196,12 @@ public class CmdLs extends Command {
    */
   private void trimNewlinesLeaveOne(StringBuilder in) {
     in.reverse();
-    while (in.substring(0,1).equals("\n")){
-      in=in.delete(0,1);
+    while (in.substring(0, 1).equals("\n")) {
+      in = in.delete(0, 1);
     }
-    //unreverse it
+    // unreverse it
     in.reverse().append("\n");
-    //return in;
+    // return in;
   }
 
   /**

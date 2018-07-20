@@ -26,7 +26,7 @@ public interface FileSystem {
    */
   String getAbsolutePathOfFSElement(FSElement theElement);
 
-  File getFileByPath(Path path)
+  File<?> getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
   Directory getDirByPath(Path path)

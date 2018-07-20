@@ -97,12 +97,12 @@ public class InMemoryFileSystem implements FileSystem {
    * @throws FSElementNotFoundException Thrown when the file does not exist
    * @throws MalformedPathException Thrown when the path is invalid
    */
-  public File getFileByPath(Path path)
+  public File<?> getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
     Path copyPath = new Path(path);
     String fileName = copyPath.removeLast();
     Directory parent = getDirByPath(copyPath);
-    File f = parent.getChildFileByName(fileName);
+    File<?> f = parent.getChildFileByName(fileName);
     if (f == null)
       throw new FSElementNotFoundException();
     return f;
@@ -143,7 +143,7 @@ public class InMemoryFileSystem implements FileSystem {
         else if (maybeFSE instanceof File) {
           // If it's the final token in the path then return it as the element
           if (path.isEmpty())
-            return (File) maybeFSE;
+            return (File<?>) maybeFSE;
           // If there are more tokens remaining then the path is invalid and
           // throw and exception
           else

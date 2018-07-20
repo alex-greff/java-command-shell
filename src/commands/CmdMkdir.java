@@ -84,7 +84,8 @@ public class CmdMkdir extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable out, Writable errorOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errorOut) {
     // iterate over each given path
     for (String pathString : args.getCommandParameters()) {
       try {

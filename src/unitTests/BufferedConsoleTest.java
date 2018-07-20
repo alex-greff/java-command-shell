@@ -34,14 +34,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.util.Collections;
+import org.junit.Before;
 import org.junit.Test;
 import io.BufferedConsole;
 
 public class BufferedConsoleTest {
-
+  BufferedConsole<String> tc;
+  
+  @Before
+  public void setup() {
+    tc = new BufferedConsole<String>();
+  }
+  
+  
   @Test
   public void testConsoleWriteln() {
-    BufferedConsole tc = new BufferedConsole();
     tc.writeln("some line 1");
     tc.writeln("some line 2");
 
@@ -50,7 +57,6 @@ public class BufferedConsoleTest {
 
   @Test
   public void testConsoleWrite() {
-    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
 
@@ -59,7 +65,6 @@ public class BufferedConsoleTest {
 
   @Test
   public void testConsoleGetAllWrites() {
-    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
     tc.writeln("c");
@@ -69,14 +74,11 @@ public class BufferedConsoleTest {
 
   @Test
   public void testConsoleGetAllWritesNoWrites() {
-    BufferedConsole tc = new BufferedConsole();
-
     assertEquals(Collections.emptyList(), tc.getAllWrites());
   }
 
   @Test
   public void testConsoleGetLastWrite() {
-    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
     tc.writeln("c");
@@ -86,14 +88,11 @@ public class BufferedConsoleTest {
 
   @Test
   public void testConsoleGetLastWriteNoWrites() {
-    BufferedConsole tc = new BufferedConsole();
-
-    assertNull(tc.getLastWrite());
+    assertEquals("", tc.getLastWrite());
   }
 
   @Test
   public void testConsoleGetAllWritesAsString() {
-    BufferedConsole tc = new BufferedConsole();
     tc.write("a");
     tc.write("b");
     tc.writeln("c");
@@ -103,8 +102,6 @@ public class BufferedConsoleTest {
 
   @Test
   public void testConsoleGetAllWritesAsStringNoWrites() {
-    BufferedConsole tc = new BufferedConsole();
-
     assertEquals("", tc.getAllWritesAsString());
   }
 }
