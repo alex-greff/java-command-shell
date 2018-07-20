@@ -1,0 +1,41 @@
+<project>
+	<property name="src.dir" value="src"/>
+	<property name="src.commands.dir" value="src/commands"/>
+	<property name="src.containers.dir" value="src/containers"/>
+	<property name="src.driver.dir" value="src/driver"/>
+	<property name="src.filesystem.dir" value="src/filesystem"/>
+	<property name="src.io.dir" value="src/io"/>
+	<property name="src.unitTests.dir" value="src/unitTests"/>
+	<property name="src.utilities.dir" value="src/utilities"/>
+	
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
+	<target name = "compile" depends="clean">
+		<mkdir dir="build"/>
+		<javac srcdir="${src.dir}";
+						"${src.commands.dir}";
+						"${src.containers.dir}";
+						"${src.driver.dir}";
+						"${src.filesystem.dir}";
+						"${src.io.dir}";
+						"${src.utilities.dir}";	
+						destdir="build"/>
+	</target>
+
+	<target name ="jar" depends="compile">
+		<mkdir dir="jars"/>
+		<jar destfile="jars/A2.jar" basedir="build">
+			<manifest>
+				<attribute name="Main-Class" value ="driver">
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="run" depends="jar">
+		<java jar="jars/A2.jar" fork="true"/>
+	</target>
+	
+	
+</project>
