@@ -1,0 +1,6 @@
+Class name: InvalidBooleanInputException
+Parent class: Exception
+Subclasses:
+
+Responsibilities:
+* When a boolean string expression is considered invalid 

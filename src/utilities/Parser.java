@@ -129,25 +129,25 @@ public class Parser {
    */
   private static CommandArgs constructCommandArgs(List<String> inputSplit) {
 
-    // Get command name    
+    // Get command name
     String cmdName = inputSplit.get(0);
-    
+
     // Initialize an array list for all the command parameter
     List<String> paramsArrayList = new ArrayList<>();
-    
+
     // If the command is the recall command (ie is prefixed with "!")
     if (cmdName.startsWith(COMMAND_RECALL_CHAR)) {
       // Get the suffix after "!"
       String param = cmdName.substring(1, cmdName.length());
       // If there is no string then the string is invalid
       if (param.isEmpty())
-          return null;
+        return null;
       // Add the string to the params list
       paramsArrayList.add(param);
       // Set the command name to "!"
       cmdName = COMMAND_RECALL_NAME;
     }
-    
+
     // Initialize an array list for all flags
     List<String> flagsArrayList = new ArrayList<>();
     // Initialize the hash map for the named type parameters
@@ -169,7 +169,7 @@ public class Parser {
         // Set the redirect operator
         redirOperator = inputSplit.get(i);
         // Set the target destination (without any quotes)
-        //targetDest = inputSplit.get(i + 1).replace("\"", ""); // TODO: remove
+        // targetDest = inputSplit.get(i + 1).replace("\"", ""); // TODO: remove
         targetDest = inputSplit.get(i + 1);
         // Break out of the for loop
         break;
@@ -195,8 +195,9 @@ public class Parser {
           if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR))
             return null;
           // Remove any quoutes and set the value's value
-          //String val = inputSplit.get(i + 1).replace("\"", ""); // TODO: remove
-          String val = inputSplit.get(i + 1); 
+          // String val = inputSplit.get(i + 1).replace("\"", ""); // TODO:
+          // remove
+          String val = inputSplit.get(i + 1);
           // Add to the hashmap
           namedParamsMap.put(key, val);
           // Force increment i by 1 (since we already dealt with index i + 1)
@@ -208,7 +209,8 @@ public class Parser {
         }
       } else {
         // Add the parameters to the array list (without any quotes
-        //paramsArrayList.add(inputSplit.get(i).replace("\"", "")); // TODO: remove
+        // paramsArrayList.add(inputSplit.get(i).replace("\"", "")); // TODO:
+        // remove
         paramsArrayList.add(inputSplit.get(i));
       }
     }
@@ -221,5 +223,35 @@ public class Parser {
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, cmdFlags, namedParamsMap,
         redirOperator, targetDest);
+  }
+
+  private static final String[] trueOptions =
+      {"yes", "true", "y", "t", "1", "positive"};
+  private static final String[] falseOptions =
+      {"no", "false", "n", "f", "0", "negative"};
+
+  /**
+   * Parses a user input to determine if the query was a true or false option
+   * 
+   * @param input The user input
+   * @return Returns true of the user inputs a true expression and false if its
+   *         a false expression.
+   * @throws InvalidBooleanInputException Throws if the user inputs an invalid
+   *         true/false string expression.
+   */
+  public static boolean parseBooleanInput(String input)
+      throws InvalidBooleanInputException {
+    // Check for true expression
+    for (String s : trueOptions)
+      if (input.toLowerCase().equals(s))
+        return true;
+
+    // Check for false expression
+    for (String s : falseOptions)
+      if (input.toLowerCase().equals(s))
+        return false;
+
+    // No valid expression found so throw error
+    throw new InvalidBooleanInputException();
   }
 }
