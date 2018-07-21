@@ -1,0 +1,10 @@
+What did I do last time?
+  - 90% finish mv command
+  - Test mv command
+
+What do I plan to do now?
+  - Finish mv command
+  - Finish and test cp command
+
+Am I blocked on anything?
+    - Nope
