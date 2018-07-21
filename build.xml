@@ -8,6 +8,15 @@
 	<property name="src.io.dir" value="src/io"/>
 	<property name="src.unitTests.dir" value="src/unitTests"/>
 	<property name="src.utilities.dir" value="src/utilities"/>
+
+	<path id="classpath.base"/>
+
+	<path id="classpath.test">
+		<pathelement location = "jars/junit-4.12.jar"/>
+		<pathelement location = "${src.dir}"/>
+		<pathelement location = "bin/tests"/>
+		<path refid = "classpath.base"/>
+	</path>
 	
 	<target name="clean">
 		<delete dir="build"/>
@@ -17,6 +26,7 @@
 	<target name = "compile" depends="clean">
 		<mkdir dir="build"/>
 		<mkdir dir="bin"/>
+		<mkdir dir="bin/tests"/>
 		<javac destdir="bin">
 			<src path="${src.commands.dir}"/>
 			<src path="${src.containers.dir}"/>
@@ -39,6 +49,15 @@
 	<target name="run" depends="jar">
 		<java jar="jars/JShell.jar" fork="true"/>
 	</target>
-	
-	
+
+	<!--RUN JUNIT-->
+	<target name="junit" depends="compile">
+		<delete dir="testReports"/>
+		<mkdir dir="testReports"/>
+		<junit printsummary="yes" haltonfailure="no">
+			<test name="src.unitTests.CmdHistoryTest"/>
+		</junit>
+	</target>
+
+
 </project>
