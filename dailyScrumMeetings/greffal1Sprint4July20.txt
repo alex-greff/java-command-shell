@@ -1,0 +1,11 @@
+What did I do last time?
+    - Bug fixes
+    - Added generics to the file system
+    - Making unit tests
+
+What do I plan to do now?
+    - Continue making/completing unit tests
+    - Work with team to polish up the project 
+
+Am I blocked on anything?
+    - Mv and cp need to be finished so I can help test them
