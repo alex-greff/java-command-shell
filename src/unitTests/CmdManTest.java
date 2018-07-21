@@ -97,7 +97,7 @@ public class CmdManTest {
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals(0, tc.getAllWritesAsString().length());
     assertEquals(
-        "Error: No description found for command \"nonExistentCmd\"\n",
+        "Error: No description found for command \"nonExistentCmd\"",
         tc_err.getAllWritesAsString());
   }
 }

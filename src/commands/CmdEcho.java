@@ -65,8 +65,8 @@ public class CmdEcho extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Appends or writes a string to a file.", "echo STRING")
-              .usage("echo STRING [> OUTFILE]")
+          "Appends or writes a string to a file or prints directly to console.",
+          "echo STRING").usage("echo STRING [> OUTFILE]")
               .usage("echo STRING [>> OUTFILE]")
               .additionalComment(
                   "The \">\" character signals to overwrite the file "

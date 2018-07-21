@@ -75,7 +75,7 @@ public class CmdHistory extends Command {
               .usage("history [int]")
               .additionalComment("The history command itself will "
                   + "always take place as the latest entry in history "
-                  + "\n(i.e. history 1 prints: \n 1. history 1)")
+                  + "(i.e. history 1 prints: \"1. history 1\")")
               .build();
 
   /**

@@ -97,7 +97,7 @@ public class BufferedConsoleTest {
     tc.write("b");
     tc.writeln("c");
 
-    assertEquals("ab\nc\n", tc.getAllWritesAsString());
+    assertEquals("ab\nc", tc.getAllWritesAsString());
   }
 
   @Test

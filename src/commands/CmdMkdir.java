@@ -69,7 +69,7 @@ public class CmdMkdir extends Command {
       new CommandDescription.DescriptionBuilder(
           "Make a new directory given one or more paths to an "
               + "existing parent",
-          "mkdir PATH_LIST")
+          "mkdir PATH...")
               .additionalComment("The given path may be absolute or relative")
               .additionalComment("The path up to and not including the "
                   + "last segment must point to an existing directory")

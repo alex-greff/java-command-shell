@@ -70,6 +70,9 @@ public class CmdFind extends Command {
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
               .additionalComment("Nothing is printed if no files are found")
+              .additionalComment(
+                  "If an invalid path is found, it will print an error and "
+                  + "continue running.")
               .build();
   /**
    * The identifier for the type flag.
@@ -110,7 +113,8 @@ public class CmdFind extends Command {
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Writable<String> out,
+      Writable<String> errOut) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
     String expr =

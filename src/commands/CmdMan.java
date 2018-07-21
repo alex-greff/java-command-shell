@@ -29,8 +29,7 @@
 // *********************************************************
 package commands;
 
-import static utilities.JShellConstants.APPEND_OPERATOR;
-import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+import static utilities.JShellConstants.*;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -66,8 +65,10 @@ public class CmdMan extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Gets documentation for commands.", "man COMMAND")
-              .additionalComment("For some fun try \"man man\".").build();
+          "Gets documentation for commands.", "man COMMAND").additionalComment(
+              "Fun fact: running \"man man\" is called man-ception... which you"
+                  + " just discovered.")
+              .build();
 
   /**
    * Executes the man command with the arguments args
@@ -80,6 +81,10 @@ public class CmdMan extends Command {
       Writable<String> errOut) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
+    // Special case where "man !" is inputed change to "man recall" so the
+    // documentation can be found
+    if (cmdName.equals(COMMAND_RECALL_CHAR))
+      cmdName = COMMAND_RECALL_NAME;
     // Get the description of the command
     CommandDescription cmdDesc = commandManager.getCommandDescription(cmdName);
 
@@ -97,13 +102,16 @@ public class CmdMan extends Command {
     StringBuilder output = new StringBuilder();
 
     // Build the header for the command documentation
-    output.append("\"").append(cmdName).append("\" Command Documentation\n")
-        // Build the description section
-        .append("Description:\n\t").append(cmdDesc.getDescription())
-        .append("\n")
-        // Build the usage section
-        .append("Usage:");
+    output.append("\"").append(cmdName).append("\" Command Documentation\n");
 
+
+    // Build the description section
+    output.append("Description:");
+    for (String description : cmdDesc.getDescription())
+      output.append("\n\t- ").append(description);
+
+    // Build the usage section
+    output.append("\n").append("Usage:");
     for (String usage : cmdDesc.getUsages()) {
       output.append("\n\t- ").append(usage);
     }

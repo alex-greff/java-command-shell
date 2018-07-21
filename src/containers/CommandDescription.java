@@ -41,7 +41,7 @@ public class CommandDescription {
   /**
    * The description of the command.
    */
-  private String description;
+  private ArrayList<String> description;
   /**
    * The usages of the command.
    */
@@ -58,7 +58,7 @@ public class CommandDescription {
    * @param usages The usages for the command.
    * @param additionalComments Any additional comments.
    */
-  private CommandDescription(String description, ArrayList<String> usages,
+  private CommandDescription(ArrayList<String> description, ArrayList<String> usages,
                              ArrayList<String> additionalComments) {
     this.description = description;
     this.usages = usages;
@@ -70,7 +70,7 @@ public class CommandDescription {
    *
    * @return Returns the description.
    */
-  public String getDescription() {
+  public ArrayList<String> getDescription() {
     return description;
   }
 
@@ -104,7 +104,7 @@ public class CommandDescription {
     /**
      * The description.
      */
-    private String description;
+    private ArrayList<String> description = new ArrayList<>();
     /**
      * The usages.
      */
@@ -121,10 +121,15 @@ public class CommandDescription {
      * @param usage Usage info for the command
      */
     public DescriptionBuilder(String description, String usage) {
-      this.description = description;
+      this.description.add(description);
       usages.add(usage);
     }
 
+    public DescriptionBuilder description(String description) {
+      this.description.add(description);
+      return this;
+    }
+    
     /**
      * Adds additional usage info
      *

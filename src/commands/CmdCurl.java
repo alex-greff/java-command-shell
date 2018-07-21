@@ -38,7 +38,7 @@ public class CmdCurl extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Loads and displays a text file form a URL", "curl URL").build();
+          "Loads and displays the contents of a file from a URL", "curl URL").build();
 
   /**
    * Executes the curl command from the given URL location.

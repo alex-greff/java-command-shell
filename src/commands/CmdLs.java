@@ -73,11 +73,13 @@ public class CmdLs extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Lists all of the files and directories in the current\n"
-              + "working directory. Can take multiple "
-              + "filenames/directory \n names as arguments",
-          "ls").usage("ls [Directory]").usage("ls [File]")
-              .usage("ls [Directory] [File]")
+          "Lists all of the files and directories in "
+          + "the current working directory.",
+          "ls [-R]")
+              .description(
+                  "Can take multiple filenames/directory names as arguments.")
+              .usage("ls [-R] [Directory]...").usage("ls [-R] [File]...")
+              .usage("ls [-R] [Directory or File]...")
               .additionalComment(
                   "If given a filename, ls will simply print back that "
                       + "name")
