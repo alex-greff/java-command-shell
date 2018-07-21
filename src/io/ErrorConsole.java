@@ -49,10 +49,14 @@ public class ErrorConsole<T> implements Writable<T> {
    */
   @Override
   public void write(T contents) {
-    // System.err.println(contents);
     System.out.print(contents);
   }
 
+  /**
+   * Writes a string + \n to the error console
+   * 
+   * @param contents The output contents
+   */
   @Override
   public void writeln(T contents) {
     System.out.println(contents);

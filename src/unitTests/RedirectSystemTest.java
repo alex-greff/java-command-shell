@@ -72,7 +72,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -88,7 +88,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contentshi\n", file.read());
+    assertEquals("file1's contentshi", file.read());
   }
 
   @Test
@@ -104,7 +104,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -120,7 +120,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contentshi\n", file.read());
+    assertEquals("file1's contentshi", file.read());
   }
 
   @Test
@@ -136,7 +136,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -152,7 +152,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -168,7 +168,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -184,7 +184,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -278,7 +278,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi\n", file.read());
+    assertEquals("hi", file.read());
   }
 
   @Test
@@ -295,7 +295,7 @@ public class RedirectSystemTest {
     File file = fs.getFileByPath(new Path("/dir2/file2"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file2's contentshi\n", file.read());
+    assertEquals("file2's contentshi", file.read());
   }
 
   @Test

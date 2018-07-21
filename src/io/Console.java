@@ -39,11 +39,6 @@ import java.util.Scanner;
 public class Console<T> implements Writable<T>, Readable {
 
   /**
-   * The scanner.
-   */
-  private Scanner input = new Scanner(System.in);
-
-  /**
    * The constructor, defaulted to public visibility.
    */
   public Console() {
@@ -71,6 +66,8 @@ public class Console<T> implements Writable<T>, Readable {
    */
   @Override
   public String read() {
+    // Initialize new scanner object then read and return the input 
+    Scanner input = new Scanner(System.in);
     return input.nextLine();
   }
 }
