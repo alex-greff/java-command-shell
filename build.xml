@@ -1,4 +1,5 @@
 <project>
+
 	<property name="src.dir" value="src"/>
 	<property name="src.commands.dir" value="src/commands"/>
 	<property name="src.containers.dir" value="src/containers"/>
@@ -10,10 +11,12 @@
 	
 	<target name="clean">
 		<delete dir="build"/>
+		<delete dir="bin"/>
 	</target>
 
 	<target name = "compile" depends="clean">
 		<mkdir dir="build"/>
+		<mkdir dir="bin"/>
 		<javac destdir="bin">
 			<src path="${src.commands.dir}"/>
 			<src path="${src.containers.dir}"/>
@@ -26,15 +29,15 @@
 
 	<target name ="jar" depends="compile">
 		<mkdir dir="jars"/>
-		<jar destfile="jars/A2.jar" basedir="build">
+		<jar destfile="jars/JShell.jar" basedir="bin">
 			<manifest>
-				<attribute name="Main-Class" value ="driver"/>
+				<attribute name="Main-Class" value ="driver.JShell"/>
 			</manifest>
 		</jar>
 	</target>
 	
 	<target name="run" depends="jar">
-		<java jar="jars/A2.jar" fork="true"/>
+		<java jar="jars/JShell.jar" fork="true"/>
 	</target>
 	
 	
