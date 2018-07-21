@@ -1,0 +1,12 @@
+What did I do last time?
+    - Completed comments and documentation for the grep command
+    - Updated unit tests for pwd command
+    - Updated unit tests for cd command
+    - Updated unit tests for cat command
+
+What do I plan to do now?
+    - Complete unit tests for grep command
+    - Do some final checks across code responsible for (formatting, consistency, etc.)
+
+Am I blocked on anything?
+    - No
