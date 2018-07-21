@@ -53,11 +53,11 @@ public class MockFileSystem implements FileSystem {
    *         contents".
    */
   @Override
-  public File getFileByPath(Path path)
+  public File<?> getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
     switch (path.removeFirst()) {
       case "validPath":
-        return new File("someFile", "some file contents", null);
+        return new File<String>("someFile", "some file contents", null);
       case "invalidPath":
         throw new MalformedPathException();
       case "nonExistentFilePath":
