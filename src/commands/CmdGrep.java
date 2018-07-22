@@ -242,7 +242,7 @@ public class CmdGrep extends Command {
             && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
             || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
-        && (args.getRedirectOperator().equals("")
+        && (args.getRedirectOperator().isEmpty()
             || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
             || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
@@ -250,11 +250,7 @@ public class CmdGrep extends Command {
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
     for (String p : args.getCommandParameters()) {
-      if (i == 1) {
-        stringParamsMatches = stringParamsMatches && isStringParam(p);
-      } else {
-        stringParamsMatches = stringParamsMatches && !isStringParam(p);
-      }
+      stringParamsMatches = stringParamsMatches && !isStringParam(p);
       i++;
     }
 
