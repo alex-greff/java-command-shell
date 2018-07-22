@@ -229,27 +229,34 @@ public class Parser {
       {"yes", "true", "y", "t", "1", "positive"};
   private static final String[] falseOptions =
       {"no", "false", "n", "f", "0", "negative"};
+  private static final String[] cancelOptions = {"cancel", "c", "belay"};
 
   /**
    * Parses a user input to determine if the query was a true or false option
    * 
-   * @param input The user input
-   * @return Returns true of the user inputs a true expression and false if its
-   *         a false expression.
+   * @param input The user input.
+   * @param cancellable The flag indicating if the query is cancellable.
+   * @return Returns the decision of the user.
    * @throws InvalidBooleanInputException Throws if the user inputs an invalid
    *         true/false string expression.
    */
-  public static boolean parseBooleanInput(String input)
-      throws InvalidBooleanInputException {
+  public static UserDecision parseBooleanDecisionInput(String input,
+      boolean cancellable) throws InvalidBooleanInputException {
     // Check for true expression
     for (String s : trueOptions)
       if (input.toLowerCase().equals(s))
-        return true;
+        return UserDecision.YES;
 
     // Check for false expression
     for (String s : falseOptions)
       if (input.toLowerCase().equals(s))
-        return false;
+        return UserDecision.NO;
+
+    // Check if cancel option, if applicable
+    if (cancellable)
+      for (String s : cancelOptions)
+        if (input.toLowerCase().equals(s))
+          return UserDecision.CANCEL;
 
     // No valid expression found so throw error
     throw new InvalidBooleanInputException();
