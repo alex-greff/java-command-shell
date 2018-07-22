@@ -34,7 +34,9 @@ import static org.junit.Assert.assertNull;
 import containers.CommandArgs;
 import java.util.HashMap;
 import org.junit.Test;
+import utilities.InvalidBooleanInputException;
 import utilities.Parser;
+import utilities.UserDecision;
 
 public class ParserTest {
 
@@ -367,5 +369,56 @@ public class ParserTest {
     CommandArgs c_wanted =
         new CommandArgs("recall", new String[] {"567", "lol", "\"hi there\""});
     assertEquals(p, c_wanted);
+  }
+  
+  @Test
+  public void testBooleanDecisionInputWithTrueInput() throws InvalidBooleanInputException {
+    UserDecision ud = Parser.parseBooleanDecisionInput("yes", false);
+    assertEquals(UserDecision.YES, ud);
+    ud = Parser.parseBooleanDecisionInput("y", false);
+    assertEquals(UserDecision.YES, ud);
+    ud = Parser.parseBooleanDecisionInput("true", false);
+    assertEquals(UserDecision.YES, ud);
+    ud = Parser.parseBooleanDecisionInput("1", false);
+    assertEquals(UserDecision.YES, ud);
+    ud = Parser.parseBooleanDecisionInput("t", false);
+    assertEquals(UserDecision.YES, ud);
+    ud = Parser.parseBooleanDecisionInput("positive", false);
+    assertEquals(UserDecision.YES, ud);
+  }
+  
+  @Test
+  public void testBooleanDecisionInputWithFalseInput() throws InvalidBooleanInputException {
+    UserDecision ud = Parser.parseBooleanDecisionInput("no", false);
+    assertEquals(UserDecision.NO, ud);
+    ud = Parser.parseBooleanDecisionInput("n", false);
+    assertEquals(UserDecision.NO, ud);
+    ud = Parser.parseBooleanDecisionInput("false", false);
+    assertEquals(UserDecision.NO, ud);
+    ud = Parser.parseBooleanDecisionInput("0", false);
+    assertEquals(UserDecision.NO, ud);
+    ud = Parser.parseBooleanDecisionInput("f", false);
+    assertEquals(UserDecision.NO, ud);
+    ud = Parser.parseBooleanDecisionInput("negative", false);
+    assertEquals(UserDecision.NO, ud);
+  }
+  
+  @Test (expected = InvalidBooleanInputException.class)
+  public void testBooleanDecisionInputWithCancelWithNotCancellableOptionSet() throws InvalidBooleanInputException {
+    UserDecision ud = Parser.parseBooleanDecisionInput("cancel", false);
+  }
+  
+  @Test
+  public void testBooleanDecisionInputWithCancelWithCancellableOptionSet() throws InvalidBooleanInputException {
+    UserDecision ud = Parser.parseBooleanDecisionInput("cancel", true);
+    assertEquals(UserDecision.CANCEL, ud);
+    ud = Parser.parseBooleanDecisionInput("c", true);
+    assertEquals(UserDecision.CANCEL, ud);
+    ud = Parser.parseBooleanDecisionInput("belay", true);
+    assertEquals(UserDecision.CANCEL, ud);
+    ud = Parser.parseBooleanDecisionInput("2", true);
+    assertEquals(UserDecision.CANCEL, ud);
+    ud = Parser.parseBooleanDecisionInput("-1", true);
+    assertEquals(UserDecision.CANCEL, ud);
   }
 }

@@ -229,7 +229,8 @@ public class Parser {
       {"yes", "true", "y", "t", "1", "positive"};
   private static final String[] falseOptions =
       {"no", "false", "n", "f", "0", "negative"};
-  private static final String[] cancelOptions = {"cancel", "c", "belay"};
+  private static final String[] cancelOptions =
+      {"cancel", "c", "2", "-1", "belay"};
 
   /**
    * Parses a user input to determine if the query was a true or false option.
