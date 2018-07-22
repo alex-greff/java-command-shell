@@ -29,12 +29,12 @@
 // *********************************************************
 package filesystem;
 
+import io.Readable;
+import io.Writable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import io.Readable;
-import io.Writable;
 
 /**
  * This class represents a file object in the JShell It's contents can be read,
@@ -57,7 +57,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Create a new file given a name and the contents of the file
    *
    * @param name The name by which the file is to be referred, may or may not
-   *        contain an extension
+   * contain an extension
    * @param contents The text data stored inside the file
    * @param parent The parent directory of this file
    */
@@ -70,7 +70,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Create a new file with the given name, and empty contents
    *
    * @param name The name by which the file is to be referred, may or may not
-   *        contain an extension
+   * contain an extension
    * @param parent The parent directory of this file
    */
   public File(String name, Directory parent) {
@@ -84,10 +84,11 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    */
   @Override
   public void write(T contents) {
-    if (this.contents.isEmpty())
+    if (this.contents.isEmpty()) {
       this.contents.add(new ArrayList<T>(Arrays.asList(contents)));
-    else
+    } else {
       this.contents.get(0).add(contents);
+    }
   }
 
   /**
@@ -105,19 +106,16 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Allows for reading of the data as a string from the file.
    *
    * @return The full contents of the file. Returns an empty string if the file
-   *         is empty.
+   * is empty.
    */
   @Override
   public String read() {
     StringBuilder ret_str_bldr = new StringBuilder();
 
     // Iterate through each line
-    for (int i = 0; i < contents.size(); i++) {
-      List<T> line = contents.get(i);
-
+    for (List<T> line : contents) {
       // Iterate through each item in the current line
-      for (int j = 0; j < line.size(); j++) {
-        T item = line.get(j);
+      for (T item : line) {
         // Add the item to the return string
         ret_str_bldr.append(item);
       }
@@ -128,8 +126,9 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
     String ret_str = ret_str_bldr.toString();
 
     // Remove last newline if there is one
-    if (ret_str.length() > 0)
+    if (ret_str.length() > 0) {
       ret_str = ret_str.substring(0, ret_str.length() - 1);
+    }
 
     // Return the string representation of the file data
     return ret_str;
@@ -144,7 +143,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
 
   /**
    * Gets if the file is empty.
-   * 
+   *
    * @return Return true iff the file is empty.
    */
   public boolean isEmpty() {
