@@ -58,6 +58,7 @@ public class CmdMv extends Command {
    * Constant instance variable for the command name
    */
   private static final String NAME = "mv";
+  private Writable<String> errorOut;
   /**
    * Container built for the command's description
    */
@@ -103,6 +104,8 @@ public class CmdMv extends Command {
   @Override
   protected ExitCode run(CommandArgs args, Writable<String> out,
       Writable<String> errorOut) {
+    // save the error console to a field
+    this.errorOut = errorOut;
     Path fromPath, toPath;
     FSElement from, to;
     // rename flag for mv if the string is not empty a rename is required
@@ -111,21 +114,15 @@ public class CmdMv extends Command {
       // get the paths given in the arguments
       fromPath = new Path(args.getCommandParameters()[0]);
       toPath = new Path(args.getCommandParameters()[1]);
-      // make sure that the element we are moving from exists
-      from = fileSystem.getFSElementByPath(fromPath);
-      // make sure we aren't moving root
-      if (from == fileSystem.getRoot()) {
-        errorOut.writeln("Cannot move root directory");
-        return ExitCode.FAILURE;
-      }
-      if (from == fileSystem.getWorkingDir()) {
-        errorOut.writeln("Cannot move current working directory");
-      }
     } catch (MalformedPathException e) {
       errorOut.writeln("Invalid path(s) given");
       return ExitCode.FAILURE;
-    } catch (FSElementNotFoundException e) {
-      errorOut.writeln("You can only move an existing element");
+    }
+    // try to get the from element
+    from = tryGetFromEl(fromPath);
+    if (from == null) {
+      // if from is null then the helper errored and printed a message
+      // time to return failure exit code
       return ExitCode.FAILURE;
     }
     // we now have the from directory and so far are good to go
@@ -154,29 +151,90 @@ public class CmdMv extends Command {
       }
     }
     // set the rename flag depending on the value of the string
-    boolean rename = !newName.isEmpty();
+    boolean renaming = !newName.isEmpty();
     // we have now taken care of the to path and the from path
     // we now need to do some validity checks
-    // first we make sure we don't move directory to file
+    if (!isValidMove(from, to, renaming)) {
+      // if any of them fail then we need to exit with failure
+      return ExitCode.FAILURE;
+    }
+    // exit code for mv determined by the helpers
+    ExitCode mvExit;
+    // now we have done all the preprocessing to make sure that the move is valid
+    // we are ready to actually move the elements
+    // if we are renaming we will call the appropriate helper
+    if (renaming && from instanceof Directory) {
+      mvExit = moveDirWithRename(from, to, newName);
+    } else if (renaming && from instanceof File) {
+      mvExit = moveFileWithRename(from, to, newName);
+    } else {
+      // otherwise we are moving an fselement to an existing directory
+      mvExit = moveElToDir(from, to);
+    }
+    return mvExit;
+  }
+
+  /**
+   * Validates the move from given FSElement to given FSElement
+   *
+   * @param from The fselement to be moved
+   * @param to The destination fselement
+   * @param renaming Flag set true if renaming will occur false otherwise
+   * @return True iff not moving dir to file not moving parent to child not
+   * moving element to its parent (unless renaming) false otherwise
+   */
+  private boolean isValidMove(FSElement from, FSElement to, boolean renaming) {
+    // make sure we aren't moving directory to file
     if (from instanceof Directory && to instanceof File) {
       errorOut.writeln("Cannot move directory to file");
-      return ExitCode.FAILURE;
+      return false;
     }
     // second make sure we dont move an element to itself or its child
     String absFrom = fileSystem.getAbsolutePathOfFSElement(from);
     String absTo = fileSystem.getAbsolutePathOfFSElement(to);
     if (absTo.startsWith(absFrom)) {
       errorOut.writeln("Cannot move element to itself or to its child");
-      return ExitCode.FAILURE;
+      return false;
     }
     // third make sure we aren't moving an element to its parent
     // the only time this is permitted is if we are renaming
-    if (!rename && to == from.getParent()) {
+    if (!renaming && to == from.getParent()) {
       errorOut.writeln("The element being moved is already in the destination");
-      return ExitCode.FAILURE;
+      return false;
     }
-    ExitCode mvExit;
-    return ExitCode.SUCCESS;
+    return true;
+  }
+
+  /**
+   * Helper to get the from FSElement returns null on error
+   *
+   * @param fromPath The path of the from FSElement we are trying to get
+   * @return The FSElement at this path if it exists or null if it does not
+   * exist, is root or is the current working directory
+   */
+  private FSElement tryGetFromEl(Path fromPath) {
+    FSElement from;
+    try {
+      // make sure that the element we are moving from exists
+      from = fileSystem.getFSElementByPath(fromPath);
+      // make sure we aren't moving root
+      if (from == fileSystem.getRoot()) {
+        errorOut.writeln("Cannot move root directory");
+        return null;
+      }
+      // make sure we aren't moving current working dir
+      if (from == fileSystem.getWorkingDir()) {
+        errorOut.writeln("Cannot move current working directory");
+        return null;
+      }
+    } catch (MalformedPathException e) {
+      errorOut.writeln("Invalid path(s) given");
+      return null;
+    } catch (FSElementNotFoundException e) {
+      errorOut.writeln("You can only move an existing element");
+      return null;
+    }
+    return from;
   }
 
   /**
