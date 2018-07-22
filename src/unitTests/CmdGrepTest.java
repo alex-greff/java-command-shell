@@ -80,7 +80,7 @@ public class CmdGrepTest {
   @Test
   public void testInvalidArgsNumberOfParametersMore() {
     String argParam[] = {"regexArg", "pathArg", "unwantedArg"};
-    String argFlags[] = {"-R"};
+    String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args = new CommandArgs("grep", argParam, argFlags,
         argNamedParam);
@@ -92,7 +92,7 @@ public class CmdGrepTest {
   @Test
   public void testInvalidArgsWrongFlag() {
     String argParam[] = {"regexArg", "pathArg"};
-    String argFlags[] = {"-r"};
+    String argFlags[] = {"r"};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args = new CommandArgs("grep", argParam, argFlags,
         argNamedParam);
@@ -103,14 +103,40 @@ public class CmdGrepTest {
 
   @Test
   public void testInvalidPath() {
+    String argParam[] = {"regexArg", "invalid//path"};
+    String argFlags[] = {};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid file path", testErrOut.getAllWritesAsString());
   }
 
   @Test
   public void testFileNotFound() {
+    String argParam[] = {"regexArg", "file/does/not/exist"};
+    String argFlags[] = {};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: File does not exist",
+        testErrOut.getAllWritesAsString());
   }
 
   @Test
   public void testDirNotFound() {
+    String argParam[] = {"regexArg", "dir/does/not/exist"};
+    String argFlags[] = {"R"};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Directory does not exist",
+        testErrOut.getAllWritesAsString());
   }
 
   @Test

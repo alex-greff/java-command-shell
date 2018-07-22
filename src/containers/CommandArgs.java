@@ -129,13 +129,13 @@ public class CommandArgs {
    * operator and target destination
    *
    * @param cmdName the name of the command
-   * @param cmdArgs the command arguments
+   * @param cmdParams the command arguments
    * @param redirOperator the redirect operator
    * @param targetDest the target destination of the redirect
    */
-  public CommandArgs(String cmdName, String[] cmdArgs, String redirOperator,
+  public CommandArgs(String cmdName, String[] cmdParams, String redirOperator,
       String targetDest) {
-    this(cmdName, cmdArgs, new String[0], new HashMap<>(), redirOperator,
+    this(cmdName, cmdParams, new String[0], new HashMap<>(), redirOperator,
         targetDest);
   }
 

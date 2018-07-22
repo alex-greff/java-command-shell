@@ -74,13 +74,13 @@ public class CmdGrep extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Prints lines in a file containing the given regex.",
-          "grep REGEX PATH").usage("grep -r REGEX PATH")
+          "grep REGEX PATH").usage("grep -R REGEX PATH")
               .additionalComment("The given PATH can be relative or absolute.")
               .additionalComment(
                   "Regular Usage: PATH is a file, any lines in the file that"
                       + " contain the regex are printed.")
               .additionalComment(
-                  "-r: PATH is a directory, any lines in any file in the directory,"
+                  "-R: PATH is a directory, any lines in any file in the directory,"
                       + " and any subdirectories, that contain the regex are"
                       + " printed.")
               .build();
@@ -112,7 +112,7 @@ public class CmdGrep extends Command {
     try { // Try to create a path object from the second parameter
       srcPath = new Path(cmdParams[1]);
     } catch (MalformedPathException e) { // Error if the path parses incorrectly
-      errOut.write("Invalid path given");
+      errOut.writeln("Error: Invalid file path");
       return ExitCode.FAILURE; // Stop the function here
     }
 
@@ -124,11 +124,11 @@ public class CmdGrep extends Command {
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
         // Error message if file not found at the given path
-        errOut.writeln("File not found");
+        errOut.writeln("Error: File does not exist");
         return ExitCode.FAILURE; // Stop the function here
       }
 
-    } else if (cmdFlags.length == 1 && cmdFlags[0].equals("R")) {
+    } else if (cmdFlags.length == 1 && cmdFlags[0].equals(RECURSIVE_FLAG)) {
       // If there is a recursive flag
       try { // Try to obtain a directory with the given path
         Directory src = fileSystem.getDirByPath(srcPath);
@@ -136,7 +136,7 @@ public class CmdGrep extends Command {
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
         // Error message if directory not found at the given path
-        errOut.writeln("Directory not found");
+        errOut.writeln("Error: Directory does not exist");
         return ExitCode.FAILURE; // Stop the function here
       }
     }

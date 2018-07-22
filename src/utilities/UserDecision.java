@@ -1,7 +1,7 @@
 package utilities;
 
 /**
- * Used when prompting the user to make a binary (+ cancel) descision.
+ * Used when prompting the user to make a binary (+ cancel) decision.
  * 
  * @author greff
  *
