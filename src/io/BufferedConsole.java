@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.Stack;
 
 /**
@@ -42,7 +43,7 @@ import java.util.Stack;
  *
  * @author greff
  */
-public class BufferedConsole<T> implements Writable<T> {
+public class BufferedConsole<T> implements Writable<T>, Readable {
 
   /**
    * The queue storing all the write inputs.
@@ -153,5 +154,17 @@ public class BufferedConsole<T> implements Writable<T> {
     
     // Return the string representation of the file data
     return ret_str;
+  }
+
+  /**
+   * Read text from the console
+   *
+   * @return The text read from the console
+   */
+  @Override
+  public String read() {
+    // Initialize new scanner object then read and return the input 
+    Scanner input = new Scanner(System.in);
+    return input.nextLine();
   }
 }
