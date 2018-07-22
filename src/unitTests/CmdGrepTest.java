@@ -34,7 +34,6 @@ import static org.junit.Assert.assertEquals;
 import commands.CmdGrep;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
-import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
@@ -140,15 +139,64 @@ public class CmdGrepTest {
   }
 
   @Test
-  public void testFileNoMatches() {
+  public void testFileNoMatches() throws FSElementAlreadyExistsException {
+    // Create a file with some content and add it to the root directory
+    fs.getRoot().createAndAddNewFile("testFile",
+        "test line 1\ntest line 2\ntest line 3");
+
+    // Attempt to match a regex to the file
+    String argParam[] = {"test line 4", "testFile"};
+    String argFlags[] = {};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and no lines of content
+    // matched the regex
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("\n", testErrOut.getAllWritesAsString());
   }
 
   @Test
-  public void testFileOneMatch() {
+  public void testFileOneMatch() throws FSElementAlreadyExistsException {
+    // Create a file with some content and add it to the root directory
+    fs.getRoot().createAndAddNewFile("testFile",
+        "test line 1\ntest line 2\ntest line 3");
+
+    // Attempt to match a regex to the file
+    String argParam[] = {"test line 1", "testFile"};
+    String argFlags[] = {};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and one line of content
+    // matched the regex
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("test line 1\n", testErrOut.getAllWritesAsString());
   }
 
   @Test
-  public void testFileMultipleMatches() {
+  public void testFileMultipleMatches() throws FSElementAlreadyExistsException {
+    // Create a file with some content and add it to the root directory
+    fs.getRoot().createAndAddNewFile("testFile",
+        "test line 1\ntest line 2\ntest line 3");
+
+    // Attempt to match a regex to the file
+    String argParam[] = {"test line(.*)", "testFile"};
+    String argFlags[] = {};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and multiple lines of
+    // content matched the regex
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("test line 1\ntest line 2\ntest line 3\n",
+        testErrOut.getAllWritesAsString());
   }
 
   @Test

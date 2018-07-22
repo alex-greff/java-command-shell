@@ -242,16 +242,14 @@ public class CmdGrep extends Command {
             && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
             || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
-        && (args.getRedirectOperator().isEmpty()
+        && (args.getRedirectOperator().equals("")
             || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
             || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
-    int i = 1;
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
     for (String p : args.getCommandParameters()) {
       stringParamsMatches = stringParamsMatches && !isStringParam(p);
-      i++;
     }
 
     // Return the result
