@@ -58,7 +58,6 @@ public class CmdMv extends Command {
    * Constant instance variable for the command name
    */
   private static final String NAME = "mv";
-  private Writable<String> errorOut;
   /**
    * Container built for the command's description
    */
@@ -90,6 +89,7 @@ public class CmdMv extends Command {
               "No functionality if the old path and new path "
                   + "point to the same element")
           .build();
+  private Writable<String> errorOut;
 
   /**
    * Constructs a new command instance.
@@ -101,6 +101,17 @@ public class CmdMv extends Command {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
   }
 
+  /**
+   * Executes the mv command with the given arguments. Mv moves the contents of
+   * one file to another, one file to a directory, or all contents of a
+   * directory to another. Error messages if the path of the old file/directory
+   * or new directory is invalid, or does not exist.
+   *
+   * @param args The command arguments container
+   * @param out Writable for Standard Output
+   * @param errorOut Writable for Error Output
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   */
   @Override
   protected ExitCode run(CommandArgs args, Writable<String> out,
       Writable<String> errorOut) {
@@ -142,11 +153,8 @@ public class CmdMv extends Command {
       // we now attempt to get the element one level up
       try {
         to = fileSystem.getFSElementByPath(levelUp);
-      } catch (MalformedPathException e1) {
-        errorOut.writeln("Invalid destination path given");
-        return ExitCode.FAILURE;
-      } catch (FSElementNotFoundException e1) {
-        errorOut.writeln("Destination path does not exist.");
+      } catch (MalformedPathException | FSElementNotFoundException e1) {
+        errorOut.writeln("Destination path does not exist");
         return ExitCode.FAILURE;
       }
     }
@@ -164,14 +172,68 @@ public class CmdMv extends Command {
     // we are ready to actually move the elements
     // if we are renaming we will call the appropriate helper
     if (renaming && from instanceof Directory) {
-      mvExit = moveDirWithRename(from, to, newName);
+      mvExit = moveDirWithRename((Directory) from, (Directory) to, newName);
     } else if (renaming && from instanceof File) {
-      mvExit = moveFileWithRename(from, to, newName);
+      mvExit = moveFileWithRename((File) from, (Directory) to, newName);
+    } else if (from instanceof File && to instanceof File) {
+      mvExit = maybeOverwriteFile((File) from, (File) to);
     } else {
       // otherwise we are moving an fselement to an existing directory
-      mvExit = moveElToDir(from, to);
+      mvExit = moveElToDir(from, (Directory) to);
     }
     return mvExit;
+  }
+
+  /**
+   * Prompts the user if they wish to overwrite the file `to` with the file
+   * `from`
+   *
+   * @param from File to overwrite with
+   * @param to File to overwrite
+   * @return Exit code that mv should return success or failure
+   */
+  private ExitCode maybeOverwriteFile(File from, File to) {
+    return null;
+  }
+
+  /**
+   * Moves the given fselement to the given dir and renames the source fselement
+   * to the new name given
+   *
+   * @param from The fselement to move
+   * @param to The dir to move it to
+   * @return Exit code that mv should return success or failure
+   */
+  private ExitCode moveElToDir(FSElement from, Directory to) {
+    return null;
+  }
+
+  /**
+   * Moves the given file to the given dir and renames the source file to the
+   * new name given
+   *
+   * @param from The file to move
+   * @param to The dir to move it to
+   * @param newName The name the moved file should have
+   * @return Exit code that mv should return success or failure
+   */
+  private ExitCode moveFileWithRename(File from, Directory to,
+      String newName) {
+    return null;
+  }
+
+  /**
+   * Moves the given dir to the given dir and renames the source dir to the new
+   * name given
+   *
+   * @param from The dir to move
+   * @param to The dir to move it to
+   * @param newName The name the moved dir should have
+   * @return Exit code that mv should return success or failure
+   */
+  private ExitCode moveDirWithRename(Directory from, Directory to,
+      String newName) {
+    return null;
   }
 
   /**
@@ -237,17 +299,7 @@ public class CmdMv extends Command {
     return from;
   }
 
-  /**
-   * Executes the mv command with the given arguments. Mv moves the contents of
-   * one file to another, one file to a directory, or all contents of a
-   * directory to another. Error messages if the path of the old file/directory
-   * or new directory is invalid, or does not exist.
-   *
-   * @param args The command arguments container
-   * @param out Writable for Standard Output
-   * @param errOut Writable for Error Output
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
-   */
+  //TODO: https://pre00.deviantart.net/5c4f/th/pre/i/2017/350/3/a/delet_this_by_islandofsodorfilms-dbwv8wk.png
   protected ExitCode oldrun(CommandArgs args, Writable<String> out,
       Writable<String> errOut) {
     // Get the elements by the given paths if they exist
