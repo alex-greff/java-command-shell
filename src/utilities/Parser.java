@@ -232,13 +232,15 @@ public class Parser {
   private static final String[] cancelOptions = {"cancel", "c", "belay"};
 
   /**
-   * Parses a user input to determine if the query was a true or false option
+   * Parses a user input to determine if the query was a true or false option.
+   * Also handles a cancel option if needed.
+   *
    * 
    * @param input The user input.
    * @param cancellable The flag indicating if the query is cancellable.
    * @return Returns the decision of the user.
    * @throws InvalidBooleanInputException Throws if the user inputs an invalid
-   *         true/false string expression.
+   *         true/false (or cancel) string expression.
    */
   public static UserDecision parseBooleanDecisionInput(String input,
       boolean cancellable) throws InvalidBooleanInputException {
