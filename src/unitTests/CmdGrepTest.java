@@ -66,7 +66,7 @@ public class CmdGrepTest {
   }
 
   @Test
-  public void testInvalidArgsNumberOfParameters() {
+  public void testInvalidArgsNumberOfParametersLess() {
     String argParam[] = {};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
@@ -78,7 +78,27 @@ public class CmdGrepTest {
   }
 
   @Test
+  public void testInvalidArgsNumberOfParametersMore() {
+    String argParam[] = {"regexArg", "pathArg", "unwantedArg"};
+    String argFlags[] = {"-R"};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
+  }
+
+  @Test
   public void testInvalidArgsWrongFlag() {
+    String argParam[] = {"regexArg", "pathArg"};
+    String argFlags[] = {"-r"};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    assertEquals(ExitCode.FAILURE, exitVal);
+    assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
 
   @Test

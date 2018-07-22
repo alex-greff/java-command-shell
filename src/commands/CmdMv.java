@@ -176,6 +176,7 @@ public class CmdMv extends Command {
       return ExitCode.FAILURE;
     }
     ExitCode mvExit;
+    return ExitCode.SUCCESS;
   }
 
   /**
