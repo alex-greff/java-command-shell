@@ -303,4 +303,19 @@ public abstract class Command {
     }
     return s.startsWith("\"") && s.endsWith("\"");
   }
+  
+  /**
+   * Removes the surrounding quotes to a parameter.
+   * 
+   * @param s The original parameter string.
+   * @return Returns a string without the string quoutes.
+   */
+  protected String removeStringQuotes(String s) {
+    // If an already non-string string is given then just return the string
+    if (!isStringParam(s))
+      return s;
+   
+    // cut the first and last characters out (ie the "<string>" qoutes)
+    return s.substring(0, s.length()-1).substring(1);
+  }
 }

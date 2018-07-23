@@ -125,7 +125,7 @@ public class CmdGrep extends Command {
       try { // Try to obtain a file with the given path
         File src = fileSystem.getFileByPath(srcPath);
         // matches is the result of the helper function on the file
-        matches = executeHelper(src, cmdParams[0]);
+        matches = executeHelper(src, removeStringQuotes(cmdParams[0]));
       } catch (MalformedPathException | FSElementNotFoundException e) {
         // Error message if file not found at the given path
         errorConsole.writeln("Error: File does not exist");
@@ -137,7 +137,7 @@ public class CmdGrep extends Command {
       try { // Try to obtain a directory with the given path
         Directory src = fileSystem.getDirByPath(srcPath);
         // matches is the result of the helper function on the directory
-        matches = executeHelper(src, cmdParams[0]);
+        matches = executeHelper(src, removeStringQuotes(cmdParams[0]));
       } catch (MalformedPathException | FSElementNotFoundException e) {
         // Error message if directory not found at the given path
         errorConsole.writeln("Error: Directory does not exist");
@@ -255,8 +255,13 @@ public class CmdGrep extends Command {
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
+    int i = 0;
     for (String p : args.getCommandParameters()) {
-      stringParamsMatches = stringParamsMatches && !isStringParam(p);
+      if (i == 0)
+        stringParamsMatches = stringParamsMatches && isStringParam(p);
+      else
+        stringParamsMatches = stringParamsMatches && !isStringParam(p);
+      i++;
     }
 
     // Return the result

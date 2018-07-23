@@ -23,7 +23,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 import utilities.Parser;
 
-public class RedirectSystemTest {
+public class CommandTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
@@ -62,6 +62,13 @@ public class RedirectSystemTest {
     dir4.createAndAddNewDir("dir1");
   }
 
+  /*
+   * 
+   * Test redirect system
+   * 
+   * 
+   */
+  
   @Test
   public void testWriteToExistingFileRelativePath()
       throws MalformedPathException, FSElementNotFoundException {

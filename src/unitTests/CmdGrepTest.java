@@ -81,7 +81,7 @@ public class CmdGrepTest {
 
   @Test
   public void testInvalidArgsNumberOfParametersMore() {
-    String argParam[] = {"regexArg", "pathArg", "unwantedArg"};
+    String argParam[] = {"\"regexArg\"", "pathArg", "unwantedArg"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -93,7 +93,7 @@ public class CmdGrepTest {
 
   @Test
   public void testInvalidArgsWrongFlag() {
-    String argParam[] = {"regexArg", "pathArg"};
+    String argParam[] = {"\"regexArg\"", "pathArg"};
     String argFlags[] = {"r"};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -105,7 +105,7 @@ public class CmdGrepTest {
 
   @Test
   public void testInvalidPath() {
-    String argParam[] = {"regexArg", "invalid//path"};
+    String argParam[] = {"\"regexArg\"", "invalid//path"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -117,7 +117,7 @@ public class CmdGrepTest {
 
   @Test
   public void testFileNotFound() {
-    String argParam[] = {"regexArg", "file/does/not/exist"};
+    String argParam[] = {"\"regexArg\"", "file/does/not/exist"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -130,7 +130,7 @@ public class CmdGrepTest {
 
   @Test
   public void testDirNotFound() {
-    String argParam[] = {"regexArg", "dir/does/not/exist"};
+    String argParam[] = {"\"regexArg\"", "dir/does/not/exist"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -148,7 +148,7 @@ public class CmdGrepTest {
         "test line 1\ntest line 2\ntest line 3");
 
     // Attempt to match a regex to the file
-    String argParam[] = {"test line 4", "testFile"};
+    String argParam[] = {"\"test line 4\"", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -168,7 +168,7 @@ public class CmdGrepTest {
         "test line 1\ntest line 2\ntest line 3");
 
     // Attempt to match a regex to the file
-    String argParam[] = {"(.*)1", "testFile"};
+    String argParam[] = {"\"(.*)1\"", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -188,7 +188,7 @@ public class CmdGrepTest {
         "test line 1\ntest line 2\ntest line 3");
 
     // Attempt to match a regex to the file
-    String argParam[] = {"test line [0-9]", "testFile"};
+    String argParam[] = {"\"test line [0-9]\"", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -213,7 +213,7 @@ public class CmdGrepTest {
     dir.createAndAddNewFile("testFile3", "test line 3");
 
     // Attempt to match a regex to the directory
-    String argParam[] = {"test line 4", "testDir"};
+    String argParam[] = {"\"test line 4\"", "testDir"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -237,7 +237,7 @@ public class CmdGrepTest {
     dir.createAndAddNewFile("testFile3", "test line 3");
 
     // Attempt to match a regex to the directory
-    String argParam[] = {"(.*)1", "testDir"};
+    String argParam[] = {"\"(.*)1\"", "testDir"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
@@ -262,7 +262,7 @@ public class CmdGrepTest {
     dir.createAndAddNewFile("testFile3", "test line 3");
 
     // Attempt to match a regex to the directory
-    String argParam[] = {"test line [0-9]", "testDir"};
+    String argParam[] = {"\"test line [0-9]\"", "testDir"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =

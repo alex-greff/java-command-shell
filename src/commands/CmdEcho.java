@@ -90,7 +90,7 @@ public class CmdEcho extends Command {
   protected ExitCode run(CommandArgs args, Console<String> console,
       Console<String> queryConsole, Console<String> errorConsole) {
     // Set the string parameter to the output
-    String output = args.getCommandParameters()[0].replaceAll("\"", "");
+    String output = removeStringQuotes(args.getCommandParameters()[0]);
 
     // If there is any output for the standard out then write to it
     if (!output.isEmpty())
