@@ -178,6 +178,7 @@ public class CmdLs extends Command {
     for (String name : files) {
       if (recursive)
         result.append(tabs);
+
       result.append(name).append("\n");
     }
     return (result.toString() + "\n");

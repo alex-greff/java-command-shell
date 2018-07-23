@@ -49,6 +49,7 @@ import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import utilities.Parser;
 import filesystem.Path;
 
 public class CmdRecallTest {
@@ -73,8 +74,7 @@ public class CmdRecallTest {
   @Test
   public void testRecallFirstEntryOnLs(){
     // make some ls test
-    String paramsLs[] = new String[0];
-    CommandArgs lsargs = new CommandArgs("ls", paramsLs);
+    CommandArgs lsargs = Parser.parseUserInput("ls");
     CmdLs LsCall = new CmdLs(fs, cm);
     // end that
 
@@ -82,14 +82,16 @@ public class CmdRecallTest {
     params[0]="1";
     CommandArgs args = new CommandArgs("recall", params);
 
-    BufferedConsole<String> tc = new BufferedConsole<>();
-    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    BufferedConsole<String> tc = new BufferedConsole<String>();
+    BufferedConsole<String> tc_err = new BufferedConsole<String>();
     // manually populate history with commands
     ArrayList<String> hist = JShell.getHistory();
     hist.add("ls"); hist.add("mkdir one");
     // manually add the directory
-    Directory dir1 = new Directory("one", fs.getRoot());
-    Directory dir2 = new Directory("two", fs.getRoot());
+    Directory dir1 = new Directory("dir1", fs.getRoot());
+    fs.getRoot().addChild(dir1);
+    Directory dir2 = new Directory("dir2", fs.getRoot());
+    fs.getRoot().addChild(dir2);
     hist.add("bad command");
 
     // test to see if the recall command executed ls command
@@ -97,7 +99,7 @@ public class CmdRecallTest {
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
     assertEquals(0, tc_err.getAllWritesAsString().length());
     assertTrue(tc.getAllWrites().size() > 0);
-    assertEquals("one", tc.getAllWrites().get(0));
+    assertEquals("dir2\ndir1\n", tc.getAllWritesAsString());
 
 
   }
@@ -112,7 +114,10 @@ public class CmdRecallTest {
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
     // in the case that i want to change the error message wording,
     // only check for the general "Error:" statement.
-    assertTrue(tc_err.getAllWritesAsString().contains("Error:"));
+    assertTrue(tc_err.getAllWritesAsString().contains("error"));
+    assertEquals(0, tc.getAllWritesAsString().length());
   }
+
+
 
 }

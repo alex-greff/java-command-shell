@@ -9,15 +9,23 @@
 	<property name="src.unitTests.dir" value="src/unitTests"/>
 	<property name="src.utilities.dir" value="src/utilities"/>
 
-	<path id="classpath.base"/>
+	<property name="build.test.class" value="build/unitTests"/>
+
+
+	<path id="classpath">
+		<fileset dir="jars">
+			<include name="*.jar"/>
+		</fileset>
+		<pathelement location="build"/>
+	</path>
 
 	<path id="classpath.test">
-		<pathelement location = "jars/junit-4.12.jar"/>
-		<pathelement location = "${src.dir}"/>
-		<pathelement location = "bin/tests"/>
-		<path refid = "classpath.base"/>
+		<pathelement location="jars/junit-4.12.jar"/>
+		<pathelement location="jars/hamcrest-core-1.3.jar"/>
+		<pathelement location="${build.test.class}"/>
 	</path>
-	
+
+
 	<target name="clean">
 		<delete dir="build"/>
 		<delete dir="bin"/>
@@ -26,8 +34,7 @@
 	<target name = "compile" depends="clean">
 		<mkdir dir="build"/>
 		<mkdir dir="bin"/>
-		<mkdir dir="bin/tests"/>
-		<javac destdir="bin">
+		<javac destdir="bin" classpathref="classpath">
 			<src path="${src.commands.dir}"/>
 			<src path="${src.containers.dir}"/>
 			<src path="${src.driver.dir}"/>
@@ -35,11 +42,35 @@
 			<src path="${src.io.dir}"/>
 			<src path="${src.utilities.dir}"/>
 		</javac>
+		<!-- compile again into build folder for testing purposes -->
+		<javac destdir="build" includeantruntime="false">
+			<src location="${src.commands.dir}"/>
+			<src path="${src.containers.dir}"/>
+			<src path="${src.driver.dir}"/>
+			<src path="${src.filesystem.dir}"/>
+			<src path="${src.io.dir}"/>
+			<src path="${src.utilities.dir}"/>
+			<classpath refid="classpath"/>
+		</javac>
+
+		<!-- tester thingy -->
+		<javac srcdir="src" destdir="compileTest" includeantruntime="false" classpathref="classpath"/>
+
+
 	</target>
+
+
+	<target name="testCompile" depends="compile">
+		<javac srcdir ="src/unitTests" destdir="build" includeantruntime="false">
+			<classpath refid="classpath"/>
+			<classpath refid="classpath.test"/>
+		</javac>
+	</target>
+
 
 	<target name ="jar" depends="compile">
 		<mkdir dir="jars"/>
-		<jar destfile="jars/JShell.jar" basedir="bin">
+		<jar destfile="jars/Assignment2b.jar" basedir="bin">
 			<manifest>
 				<attribute name="Main-Class" value ="driver.JShell"/>
 			</manifest>
@@ -47,17 +78,42 @@
 	</target>
 	
 	<target name="run" depends="jar">
-		<java jar="jars/JShell.jar" fork="true"/>
+		<java jar="jars/Assignment2b.jar" fork="true"/>
 	</target>
 
+
+
 	<!--RUN JUNIT-->
-	<target name="junit" depends="compile">
+	<target name="junit" depends="testCompile, jar">
 		<delete dir="testReports"/>
 		<mkdir dir="testReports"/>
-		<junit printsummary="yes" haltonfailure="no">
-			<test name="src.unitTests.CmdHistoryTest"/>
+
+		<junit printsummary="yes" haltonfailure="no" fork="true">
+			<classpath>
+				<fileset dir="jars" includes="*.jar"/>
+				<path location="jars/Assignment2b.jar"/>
+				<pathelement location="build/unitTests"/>
+				<path refid="classpath.test"/>
+			</classpath>
+
+			<formatter type="plain"/>
+			<batchtest todir="testReports/">
+				<fileset dir="src/unitTests">
+					<include name="*Test*"/>
+				</fileset>
+			</batchtest>
 		</junit>
 	</target>
 
+
+	<target name="singleTest" depends="testCompile">
+		<junit printsummary="yes" haltonfailure="no" fork="true">
+			<classpath>
+				<path refid="classpath.test"/>
+			</classpath>
+			<formatter type="plain"/>
+			<test name="src.unitTests.ParserTest" outfile="testy"/>
+		</junit>
+	</target>
 
 </project>

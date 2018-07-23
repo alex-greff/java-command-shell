@@ -70,7 +70,7 @@ public class CmdLsTest {
     Directory dir2 = root.createAndAddNewDir("dir2");
     root.createAndAddNewFile("file1", "file1's contents\n");
     root.createAndAddNewFile("file2", "file2's contents\n");
-    root.createAndAddNewFile("file3", "file3's contents, dir2\n");
+    dir2.createAndAddNewFile("file3", "file3's contents, dir2\n");
   }
 
   @Test
@@ -82,7 +82,7 @@ public class CmdLsTest {
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("dir2\ndir1\nfile2\nfile3\nfile1\n", tc
+    assertEquals("dir2\ndir1\nfile2\nfile1\n", tc
         .getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
@@ -111,7 +111,7 @@ public class CmdLsTest {
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("dir2:\n", tc.getAllWritesAsString());
+    assertEquals("dir2:\nfile3\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -125,4 +125,55 @@ public class CmdLsTest {
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("file1\n", tc.getAllWritesAsString());
   }
+
+  @Test
+  public void testWithMultipleDirectoryParams() throws FSElementAlreadyExistsException {
+    CommandArgs args = Parser.parseUserInput("ls dir1 dir2");
+
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("dir1:\n\ndir2:\nfile3\n", tc.getAllWritesAsString());
+  }
+
+  @Test
+  public void testRecursiveFromRoot() throws FSElementAlreadyExistsException {
+    CommandArgs args = Parser.parseUserInput("ls -R");
+
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("dir2:\n\tfile3\n\ndir1:\n\nfile2\nfile1\n", tc.getAllWritesAsString());
+  }
+
+  @Test
+  public void testRecursiveFromSubdir() throws FSElementAlreadyExistsException {
+    CommandArgs args = Parser.parseUserInput("ls -R dir2");
+
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("dir2:\nfile3\n", tc.getAllWritesAsString());
+  }
+
+  @Test
+  public void testRecursiveMultipleDirs() throws FSElementAlreadyExistsException {
+    CommandArgs args = Parser.parseUserInput("ls -R dir2 dir1");
+
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("dir2:\nfile3\n\ndir1:\n", tc.getAllWritesAsString());
+  }
+
+  @Test
+  public void testRecursiveMultipleDirsAndFiles() throws FSElementAlreadyExistsException {
+    CommandArgs args = Parser.parseUserInput("ls -R dir2 file2 dir1 file1");
+
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("dir2:\nfile3\n\nfile2\n\ndir1:\n\nfile1\n", tc.getAllWritesAsString());
+  }
+
 }

@@ -137,4 +137,7 @@ public class JShell {
     // Execute the command
     cmdManager.executeCommand(parsedInput);
   }
+
+  public static boolean getRunning(){ return running;}
+
 }
