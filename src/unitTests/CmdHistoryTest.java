@@ -61,8 +61,8 @@ public class CmdHistoryTest {
   // Resets the file system for each test case
   public void reset() {
 
-    tc = new BufferedConsole<String>();
-    tc_err = new BufferedConsole<String>();
+    tc = new BufferedConsole<>();
+    tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdHistory(fs, cm);
@@ -79,8 +79,8 @@ public class CmdHistoryTest {
     params[0] = "1";
     CommandArgs args = new CommandArgs("history", params);
 
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
 
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
@@ -93,8 +93,8 @@ public class CmdHistoryTest {
     String[] params = new String[0];
     CommandArgs args = new CommandArgs("history", params);
 
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
     hist.add("first entry");
     hist.add("second entry");

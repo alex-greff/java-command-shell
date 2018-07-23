@@ -41,5 +41,5 @@ public interface Readable {
    *
    * @return Returns the input string.
    */
-  public String read();
+  String read();
 }

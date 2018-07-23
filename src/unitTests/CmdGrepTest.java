@@ -57,8 +57,8 @@ public class CmdGrepTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    testOut = new BufferedConsole<String>();
-    testErrOut = new BufferedConsole<String>();
+    testOut = new BufferedConsole<>();
+    testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut, fs);
     cmd = new CmdGrep(fs, cm);

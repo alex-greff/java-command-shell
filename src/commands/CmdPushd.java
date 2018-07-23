@@ -79,7 +79,7 @@ public class CmdPushd extends Command {
    * @param args The arguments for the command call.
    * @param out The standard output console.
    * @param in The standard input.
-   * @param errorOut The error console.
+   * @param errOut The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override

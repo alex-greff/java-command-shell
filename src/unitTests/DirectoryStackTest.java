@@ -28,14 +28,14 @@ public class DirectoryStackTest {
   @Test
   public void testReadAllItemsFromNonEmptyDirStack() {
     String[] items = {"/dir1", "/some/dir1/dir2", "/"};
-    ds.addAll(new ArrayList<String>(Arrays.asList(items)));
+    ds.addAll(new ArrayList<>(Arrays.asList(items)));
     assertArrayEquals(items, ds.toArray());
   }
 
   @Test
   public void testReadAllItemsFromEmptyDirStack() {
     String[] items = {};
-    ds.addAll(new ArrayList<String>(Arrays.asList(items)));
+    ds.addAll(new ArrayList<>(Arrays.asList(items)));
     assertArrayEquals(items, ds.toArray());
   }
 }

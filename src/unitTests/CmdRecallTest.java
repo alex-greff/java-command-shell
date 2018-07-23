@@ -63,8 +63,8 @@ public class CmdRecallTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    tc = new BufferedConsole<String>();
-    tc_err = new BufferedConsole<String>();
+    tc = new BufferedConsole<>();
+    tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdRecall(fs, cm);
@@ -82,8 +82,8 @@ public class CmdRecallTest {
     params[0]="1";
     CommandArgs args = new CommandArgs("recall", params);
 
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
     // manually populate history with commands
     ArrayList<String> hist = JShell.getHistory();
     hist.add("ls"); hist.add("mkdir one");

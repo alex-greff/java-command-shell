@@ -58,8 +58,8 @@ public class CmdLsTest {
   @Before
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
-    tc = new BufferedConsole<String>();
-    tc_err = new BufferedConsole<String>();
+    tc = new BufferedConsole<>();
+    tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdLs(fs, cm);
@@ -78,8 +78,8 @@ public class CmdLsTest {
   public void testDirsAndFiles() {
     CommandArgs args = new CommandArgs("ls");
 
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("dir2\ndir1\nfile2\nfile3\nfile1\n", tc
@@ -93,8 +93,8 @@ public class CmdLsTest {
     params[0] = "dir1";
     CommandArgs args = new CommandArgs("ls", params);
 
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("dir1:\n", tc.getAllWritesAsString());
@@ -107,8 +107,8 @@ public class CmdLsTest {
     params[0] = "/dir2";
     CommandArgs args = new CommandArgs("ls", params);
 
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("dir2:\n", tc.getAllWritesAsString());

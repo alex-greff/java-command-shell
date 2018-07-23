@@ -60,12 +60,12 @@ public class JShell {
   /**
    * The console that the JShell reads and writes from
    */
-  private static Console<String> console = new Console<String>();
+  private static Console<String> console = new Console<>();
 
   /**
    * The error console that JShell uses.
    */
-  private static ErrorConsole<String> errorConsole = new ErrorConsole<String>();
+  private static ErrorConsole<String> errorConsole = new ErrorConsole<>();
 
   /**
    * The command manager instance that JShell uses.

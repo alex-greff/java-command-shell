@@ -50,7 +50,7 @@ public class BufferedConsole<T> implements Writable<T>, Readable {
    */
   // private Stack<String> inputs = new Stack<>();
 
-  private List<List<T>> inputs = new ArrayList<List<T>>();
+  private List<List<T>> inputs = new ArrayList<>();
 
   /**
    * Writes the content input to a list with the most recent at the head.
@@ -62,7 +62,7 @@ public class BufferedConsole<T> implements Writable<T>, Readable {
   public void write(T contents) {
     // Add the contents to the most recent input line
     if (this.inputs.isEmpty())
-      this.inputs.add(new ArrayList<T>(Arrays.asList(contents)));
+      this.inputs.add(new ArrayList<>(Arrays.asList(contents)));
     else
       this.inputs.get(0).add(contents);
   }
@@ -75,7 +75,7 @@ public class BufferedConsole<T> implements Writable<T>, Readable {
    */
   @Override
   public void writeln(T contents) {
-    this.inputs.add(new LinkedList<T>(Arrays.asList(contents)));
+    this.inputs.add(new LinkedList<>(Arrays.asList(contents)));
   }
 
   /**
@@ -89,9 +89,8 @@ public class BufferedConsole<T> implements Writable<T>, Readable {
 
     if (!inputs.isEmpty()) {
       List<T> lastLine = inputs.get(inputs.size() - 1);
-      
-      for (int i=0; i < lastLine.size(); i++) {
-        T item = lastLine.get(i);
+
+      for (T item : lastLine) {
         ret_str.append(item);
       }
       
@@ -107,17 +106,14 @@ public class BufferedConsole<T> implements Writable<T>, Readable {
    * @return Returns the list of all writes to the console.
    */
   public ArrayList<String> getAllWrites() {
-    ArrayList<String> ret_arr = new ArrayList<String>();
-    
-    for (int i=0; i < inputs.size(); i++) {
-      List<T> line = inputs.get(i);
-      
+    ArrayList<String> ret_arr = new ArrayList<>();
+
+    for (List<T> line : inputs) {
       StringBuilder line_str = new StringBuilder();
-      for (int j=0; j < line.size(); j++) {
-        T item = line.get(j);
+      for (T item : line) {
         line_str.append(item);
       }
-      
+
       ret_arr.add(line_str.toString());
     }
     
@@ -133,12 +129,9 @@ public class BufferedConsole<T> implements Writable<T>, Readable {
     StringBuilder ret_str_bldr = new StringBuilder();
     
     // Iterate through each line
-    for (int i=0; i < inputs.size(); i++) {
-      List<T> line = inputs.get(i);
-      
+    for (List<T> line : inputs) {
       // Iterate through each item in the current line
-      for (int j=0; j < line.size(); j++) {
-        T item = line.get(j);
+      for (T item : line) {
         // Add the item to the return string
         ret_str_bldr.append(item);
       }

@@ -41,7 +41,7 @@ public interface Writable<T> {
    *
    * @param contents The contents string.
    */
-  public void write(T contents);
+  void write(T contents);
 
   /**
    * Writes the contents to a new line.

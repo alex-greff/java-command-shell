@@ -31,8 +31,8 @@ public class CmdMvTest {
   @Before
   // Resets the file system for each test case
   public void reset() {
-    tc = new BufferedConsole<String>();
-    tc_err = new BufferedConsole<String>();
+    tc = new BufferedConsole<>();
+    tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     mvCmd = new CmdMv(fs, cm);

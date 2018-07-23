@@ -66,7 +66,7 @@ public class DirectoryTest {
   public void testMoveIntoNull() throws FSElementAlreadyExistsException {
     Directory d = new Directory("myName", null);
     d.moveInto(null);
-    assertTrue(d.listAllChildrenNames().size() == 0);
+    assertEquals(0, d.listAllChildrenNames().size());
   }
 
   @Test
@@ -252,7 +252,7 @@ public class DirectoryTest {
   @Test
   public void testListAllChildNamesNoChildren() {
     Directory d = new Directory("myName", null);
-    assertTrue(d.listAllChildrenNames().size() == 0);
+    assertEquals(0, d.listAllChildrenNames().size());
   }
 
   @Test
@@ -261,13 +261,13 @@ public class DirectoryTest {
     d.addChild(new FSElement("childElement", d));
     d.addChild(new Directory("childDir", d));
     d.addChild(new File("childFile", d));
-    assertTrue(d.listAllChildrenNames().size() == 3);
+    assertEquals(3, d.listAllChildrenNames().size());
   }
 
   @Test
   public void testListDirNamesNoDirectories() {
     Directory d = new Directory("myName", null);
-    assertTrue(d.listDirNames().size() == 0);
+    assertEquals(0, d.listDirNames().size());
   }
 
   @Test
@@ -277,7 +277,7 @@ public class DirectoryTest {
     d.createAndAddNewDir("childDir1");
     d.createAndAddNewDir("childDir2");
     d.createAndAddNewFile("childFile");
-    assertTrue(d.listDirNames().size() == 2);
+    assertEquals(2, d.listDirNames().size());
   }
 
   @Test
@@ -285,7 +285,7 @@ public class DirectoryTest {
       throws FSElementAlreadyExistsException {
     Directory d = new Directory("myName", null);
     d.createAndAddNewDir("childDir");
-    assertTrue(d.listFileNames().size() == 0);
+    assertEquals(0, d.listFileNames().size());
   }
 
   @Test
@@ -295,7 +295,7 @@ public class DirectoryTest {
     d.createAndAddNewDir("childDir");
     d.createAndAddNewFile("childFile1");
     d.createAndAddNewFile("childFile2");
-    assertTrue(d.listFileNames().size() == 2);
+    assertEquals(2, d.listFileNames().size());
   }
 
   @Test
@@ -321,7 +321,7 @@ public class DirectoryTest {
     Directory dir = new Directory("myName", parent);
     Directory child1 = new Directory("myChild1", dir);
     File<String> child2 =
-        new File<String>("myChild2", "child file contents", dir);
+        new File<>("myChild2", "child file contents", dir);
     dir.addChild(child1);
     dir.addChild(child2);
     

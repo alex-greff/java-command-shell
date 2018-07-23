@@ -51,7 +51,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * following representation in the queue: The String: "First line Second line"
    * Contents: { { "First", "line" }, { "Second line" } }
    */
-  private List<List<T>> contents = new ArrayList<List<T>>();
+  private List<List<T>> contents = new ArrayList<>();
 
   /**
    * Create a new file given a name and the contents of the file
@@ -63,7 +63,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    */
   public File(String name, T contents, Directory parent) {
     super(name, parent);
-    this.contents.add(new LinkedList<T>(Arrays.asList(contents)));
+    this.contents.add(new LinkedList<>(Arrays.asList(contents)));
   }
 
   /**
@@ -98,7 +98,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   @Override
   public void write(T contents) {
     if (this.contents.isEmpty()) {
-      this.contents.add(new ArrayList<T>(Arrays.asList(contents)));
+      this.contents.add(new ArrayList<>(Arrays.asList(contents)));
     } else {
       this.contents.get(0).add(contents);
     }
@@ -112,7 +112,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    */
   @Override
   public void writeln(T contents) {
-    this.contents.add(new LinkedList<T>(Arrays.asList(contents)));
+    this.contents.add(new LinkedList<>(Arrays.asList(contents)));
   }
 
   /**
@@ -151,7 +151,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Empties the contents of the file.
    */
   public void clear() {
-    this.contents = new ArrayList<List<T>>();
+    this.contents = new ArrayList<>();
   }
 
   /**
@@ -172,6 +172,6 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   @Override
   public FSElement copy() {
     // Make the new instance of the file
-    return new File<T>(this.name, this.contents, this.parent);
+    return new File<>(this.name, this.contents, this.parent);
   }
 }

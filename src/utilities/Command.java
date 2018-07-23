@@ -108,7 +108,7 @@ public abstract class Command {
     }
 
     // Initialize the buffered output console
-    BufferedConsole<String> bufferedConsole = new BufferedConsole<String>();
+    BufferedConsole<String> bufferedConsole = new BufferedConsole<>();
 
     // Run the command and store the exit code
     ExitCode cmdExitCode =
@@ -196,7 +196,7 @@ public abstract class Command {
     } catch (FSElementNotFoundException e) {
       // Attempt to make the file
       try {
-        file = (File<String>) makeFile(targetDestination);
+        file = makeFile(targetDestination);
         // Catch if the directory is not found
       } catch (FSElementNotFoundException e1) {
         errOut.writeln("Error: No file/directory found");
@@ -285,10 +285,8 @@ public abstract class Command {
     Directory dirOfFile = fileSystem.getDirByPath(new Path(dirPathStr));
 
     // Add the file to the directory
-    File<?> file = dirOfFile.createAndAddNewFile(fileName);
-
     // Return the file
-    return file;
+    return dirOfFile.createAndAddNewFile(fileName);
   }
 
   /**

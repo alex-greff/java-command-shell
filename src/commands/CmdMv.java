@@ -128,7 +128,7 @@ public class CmdMv extends Command {
     Path fromPath, toPath;
     FSElement from, to;
     // rename flag for mv if the string is not empty a rename is required
-    String newName = "";
+    String newName;
     try {
       // get the paths given in the arguments
       fromPath = new Path(args.getCommandParameters()[0]);

@@ -41,7 +41,7 @@ public class BufferedConsoleTest {
 
   @Before
   public void setup() {
-    tc = new BufferedConsole<String>();
+    tc = new BufferedConsole<>();
   }
 
   @Test

@@ -47,7 +47,7 @@ public class CmdCurl extends Command {
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
    * @param in The standard input
-   * @param errOut The writable for any error output of the command.
+   * @param errorOut The writable for any error output of the command.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override

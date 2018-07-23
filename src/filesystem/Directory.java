@@ -235,7 +235,7 @@ public class Directory extends FSElement {
    * @return A list of all children names inside this directory
    */
   public ArrayList<String> listAllChildrenNames() {
-    return new ArrayList<String>(children.keySet());
+    return new ArrayList<>(children.keySet());
   }
 
   /**

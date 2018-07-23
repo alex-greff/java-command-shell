@@ -40,8 +40,8 @@ import utilities.CommandManager;
 
 public class CommandManagerTest {
 
-  BufferedConsole<String> testOut = new BufferedConsole<String>();
-  BufferedConsole<String> testErrOut = new BufferedConsole<String>();
+  BufferedConsole<String> testOut = new BufferedConsole<>();
+  BufferedConsole<String> testErrOut = new BufferedConsole<>();
   FileSystem fs = new InMemoryFileSystem();
   CommandManager cm =
       CommandManager.constructCommandManager(testOut, testOut, testErrOut, fs);

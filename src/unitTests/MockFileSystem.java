@@ -57,7 +57,7 @@ public class MockFileSystem implements FileSystem {
       throws MalformedPathException, FSElementNotFoundException {
     switch (path.removeFirst()) {
       case "validPath":
-        return new File<String>("someFile", "some file contents", null);
+        return new File<>("someFile", "some file contents", null);
       case "invalidPath":
         throw new MalformedPathException();
       case "nonExistentFilePath":
