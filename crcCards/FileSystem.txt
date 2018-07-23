@@ -1,0 +1,8 @@
+Class name: FileSystem
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Provides the framework of what a file system should do
+
+Collaborators:

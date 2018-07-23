@@ -1,0 +1,8 @@
+Class name: Readable
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Provides the framework of what a 'readable' object in the JShell should do.
+
+Collaborators:

@@ -1,0 +1,8 @@
+Class name: UserDecision
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Provides a clear and easy way of storing user answers to boolean prompts. 
+
+Collaborators:

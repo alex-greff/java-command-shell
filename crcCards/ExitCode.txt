@@ -1,0 +1,8 @@
+Class name: ExitCode
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Provides a clear and easy way of storing the completion condition of the JShell commands. 
+
+Collaborators:

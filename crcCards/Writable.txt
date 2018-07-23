@@ -1,0 +1,8 @@
+Class name: Writable
+Parent class:
+Subclasses:
+
+Responsibilities:
+* Provides the framework of what a 'writable' object in the JShell should do.
+
+Collaborators:
