@@ -42,6 +42,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import java.util.ArrayList;
+import java.util.Collections;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -193,7 +194,9 @@ public class CmdGrep extends Command {
     // Get the String ArrayLists for the names of all files and directories
     // contained in the given directory
     ArrayList<String> containedFiles = src.listFileNames();
+    Collections.sort(containedFiles);
     ArrayList<String> containedDirs = src.listDirNames();
+    Collections.sort(containedDirs);
 
     // Iterate through the names of all contained files
     for (String fileName : containedFiles) {

@@ -33,6 +33,7 @@ import static org.junit.Assert.assertEquals;
 
 import commands.CmdGrep;
 import containers.CommandArgs;
+import filesystem.Directory;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
@@ -200,15 +201,79 @@ public class CmdGrepTest {
   }
 
   @Test
-  public void testDirNoMatches() {
+  public void testDirNoMatches() throws FSElementAlreadyExistsException {
+    // Create a directory and add it to the root directory
+    Directory dir = fs.getRoot().createAndAddNewDir("testDir");
+
+    // Create files with some content in the directory previously created
+    dir.createAndAddNewFile("testFile1", "test line 1");
+    dir.createAndAddNewFile("testFile2", "test line 2");
+    dir.createAndAddNewFile("testFile3", "test line 3");
+
+    // Attempt to match a regex to the directory
+    String argParam[] = {"test line 4", "testDir"};
+    String argFlags[] = {"R"};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and no lines of content
+    // matched the regex
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("", testOut.getAllWritesAsString());
   }
 
   @Test
-  public void testDirOneMatch() {
+  public void testDirOneMatch() throws FSElementAlreadyExistsException {
+    // Create a directory and add it to the root directory
+    Directory dir = fs.getRoot().createAndAddNewDir("testDir");
+
+    // Create files with some content in the directory previously created
+    dir.createAndAddNewFile("testFile1", "test line 1");
+    dir.createAndAddNewFile("testFile2", "test line 2");
+    dir.createAndAddNewFile("testFile3", "test line 3");
+
+    // Attempt to match a regex to the directory
+    String argParam[] = {"(.*)1", "testDir"};
+    String argFlags[] = {"R"};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and one line of content
+    // matched the regex
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/testDir/testFile1: test line 1",
+        testOut.getAllWritesAsString());
   }
 
   @Test
-  public void testDirMultipleMatches() {
+  public void testDirMultipleMatches() throws FSElementAlreadyExistsException {
+    // Create a directory and add it to the root directory
+    Directory dir = fs.getRoot().createAndAddNewDir("testDir");
+
+    // Create files with some content in the directory previously created
+    dir.createAndAddNewFile("testFile1", "test line 1");
+    dir.createAndAddNewFile("testFile2", "test line 2");
+    dir.createAndAddNewFile("testFile3", "test line 3");
+
+    // Attempt to match a regex to the directory
+    String argParam[] = {"test line [0-9]", "testDir"};
+    String argFlags[] = {"R"};
+    HashMap<String, String> argNamedParam = new HashMap<>();
+    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
+        argNamedParam);
+    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+
+    // Assert that the command successfully executed, and multiple lines of
+    // content matched the regex
+    assertEquals(ExitCode.SUCCESS, exitVal);
+    assertEquals("/testDir/testFile1: test line 1\n"
+            + "/testDir/testFile2: test line 2\n"
+            + "/testDir/testFile3: test line 3",
+        testOut.getAllWritesAsString());
   }
 
 }
