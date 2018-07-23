@@ -64,7 +64,7 @@ public class CmdHistoryTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdHistory(fs, cm);
   }
 
@@ -82,7 +82,7 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<String>();
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
 
-    ExitCode exc = cmd.execute(args, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("", tc.getLastWrite());
     assertEquals(exc, ExitCode.SUCCESS);
@@ -99,7 +99,7 @@ public class CmdHistoryTest {
     hist.add("first entry");
     hist.add("second entry");
     hist.add("third entry");
-    ExitCode exc = cmd.execute(args, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
     assertTrue(tc.getAllWritesAsString().contains("1. first entry\n"
         + "2. second entry\n3. third entry"));

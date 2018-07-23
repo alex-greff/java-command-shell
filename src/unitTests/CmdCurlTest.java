@@ -28,7 +28,7 @@ public class CmdCurlTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new MockFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdCurl(fs, cm);
   }
 
@@ -36,7 +36,7 @@ public class CmdCurlTest {
   public void testValidTextURL() {
     CommandArgs args = Parser
         .parseUserInput("curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt");
-    ExitCode cmdExit = cmd.execute(args, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals(ExitCode.SUCCESS, cmdExit);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -46,7 +46,7 @@ public class CmdCurlTest {
   public void testValidHTMLURL() {
     CommandArgs args = Parser.parseUserInput(
         "curl https://www.w3.org/Style/Examples/011/firstcss.en.html");
-    ExitCode cmdExit = cmd.execute(args, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals(ExitCode.SUCCESS, cmdExit);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -56,7 +56,7 @@ public class CmdCurlTest {
   public void testNotFoundURL() {
     CommandArgs args = Parser
         .parseUserInput("curl http://www.ub.edu/gilcub/SIMPLE/simple.html");
-    ExitCode cmdExit = cmd.execute(args, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals(ExitCode.FAILURE, cmdExit);
   }
@@ -65,7 +65,7 @@ public class CmdCurlTest {
   public void testInvalidURL() {
     CommandArgs args =
         Parser.parseUserInput("curl some_randomInVaLiD_URL.html");
-    ExitCode cmdExit = cmd.execute(args, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals(ExitCode.FAILURE, cmdExit);
   }

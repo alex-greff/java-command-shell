@@ -59,7 +59,7 @@ public class CmdExitTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdExit(fs, cm);
   }
 
@@ -68,7 +68,7 @@ public class CmdExitTest {
   public void testExecuteExit() {
     CommandArgs args = Parser.parseUserInput("exit");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals(0, tc.getAllWritesAsString().length());

@@ -30,8 +30,8 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -105,11 +105,12 @@ public class CmdMv extends Command {
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
+   * @param in The standard input.
    * @param errorOut Writable for Error Output
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errorOut) {
     // save the error console to a field
     this.errorOut = errorOut;

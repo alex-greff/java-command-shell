@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+import io.Readable;
 
 public class CmdCurl extends Command {
 
@@ -45,11 +46,12 @@ public class CmdCurl extends Command {
    *
    * @param args The arguments for the command.
    * @param out The writable for any normal output of the command.
+   * @param in The standard input
    * @param errOut The writable for any error output of the command.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errorOut) {
     try {
       // Get the url

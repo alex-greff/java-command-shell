@@ -30,6 +30,7 @@
 package commands;
 
 import containers.CommandArgs;
+import io.Readable;
 import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FSElementNotFoundException;
@@ -91,11 +92,12 @@ public class CmdLs extends Command {
   /**
    * @param args The command Arguments.
    * @param out The writable for any normal output of the command.
+   * @param in The standard input.
    * @param errOut The writable for any error output of the command.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     StringBuilder result = new StringBuilder();
     Directory curr = fileSystem.getWorkingDir();

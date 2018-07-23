@@ -60,7 +60,7 @@ public class CmdManTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdMan(fs, cm);
 
     cm.initializeCommands();
@@ -70,7 +70,7 @@ public class CmdManTest {
   public void testExecuteGetManDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -81,7 +81,7 @@ public class CmdManTest {
   public void testExecuteGetEchoDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -92,7 +92,7 @@ public class CmdManTest {
   public void testExecuteGetNonExistentCommandDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"nonExistentCmd"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals(0, tc.getAllWritesAsString().length());

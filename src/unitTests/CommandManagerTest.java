@@ -44,7 +44,7 @@ public class CommandManagerTest {
   BufferedConsole<String> testErrOut = new BufferedConsole<String>();
   FileSystem fs = new InMemoryFileSystem();
   CommandManager cm =
-      CommandManager.constructCommandManager(testOut, testErrOut, fs);
+      CommandManager.constructCommandManager(testOut, testOut, testErrOut, fs);
 
   @Test
   public void testInitialization() {

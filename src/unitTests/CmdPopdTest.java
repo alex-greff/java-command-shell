@@ -28,7 +28,7 @@ public class CmdPopdTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     popdCmd = new CmdPopd(fs, cm);
     cm.initializeCommands();
   }
@@ -42,7 +42,7 @@ public class CmdPopdTest {
     ds.push("/test");
     // execute popd with no args
     CommandArgs cargs = new CommandArgs("popd");
-    popdCmd.execute(cargs, tc, tc_err);
+    popdCmd.execute(cargs, tc, tc, tc_err);
     // make sure the working dir has changed to the value in the stack
     assertEquals(fs.getWorkingDirPath(), "/test");
   }

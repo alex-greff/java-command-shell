@@ -42,6 +42,7 @@ import io.Writable;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import io.Readable;
 
 /**
  * The cat command class that inherits from command
@@ -82,11 +83,12 @@ public class CmdCat extends Command {
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
+   * @param in The standard input
    * @param errOut Writable for Error Output
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();

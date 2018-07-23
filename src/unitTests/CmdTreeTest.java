@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdTree;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -61,7 +60,8 @@ public class CmdTreeTest {
     testOut = new BufferedConsole<String>();
     testErrOut = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
+    cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut,
+        fs);
     cmd = new CmdTree(fs, cm);
 
     Directory root = fs.getRoot();
@@ -78,10 +78,10 @@ public class CmdTreeTest {
 
     BufferedConsole<String> tc = new BufferedConsole<String>();
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("/\n\tfile2\n\tfile1\n\tdir2\n\t\tfile3\n\tdir1\n\n",
-                 tc.getAllWritesAsString());
+        tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 }

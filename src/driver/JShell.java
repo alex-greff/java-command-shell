@@ -36,6 +36,7 @@ import io.ErrorConsole;
 import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
+import io.Readable;
 
 /**
  * the JShell terminal.
@@ -69,8 +70,8 @@ public class JShell {
   /**
    * The command manager instance that JShell uses.
    */
-  private static CommandManager cmdManager =
-      CommandManager.constructCommandManager(console, errorConsole, fs);
+  private static CommandManager cmdManager = CommandManager
+      .constructCommandManager(console, console, errorConsole, fs);
 
   /**
    * A record of all of the user input.

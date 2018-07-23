@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
 import containers.CommandArgs;
@@ -96,11 +97,12 @@ public class CmdGrep extends Command {
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
+   * @param in The standard input
    * @param errOut Writable for Error Output
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     // Obtain the String arrays for the Command Flags and Parameters
     String[] cmdFlags = args.getCommandFlags();

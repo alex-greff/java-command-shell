@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdPwd;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
@@ -62,7 +61,8 @@ public class CmdPwdTest {
     testOut = new BufferedConsole<String>();
     testErrOut = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
+    cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut,
+        fs);
     cmd = new CmdPwd(fs, cm);
   }
 
@@ -70,7 +70,7 @@ public class CmdPwdTest {
   public void testInvalidArgsNumberOfParameters() {
     String argParam[] = {"unwantedParam"};
     CommandArgs args = new CommandArgs("pwd", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
@@ -79,7 +79,7 @@ public class CmdPwdTest {
   public void testRootDir() {
     // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the path of the
     // root directory was printed
@@ -98,7 +98,7 @@ public class CmdPwdTest {
 
     // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that the path of the
     // directory created was printed

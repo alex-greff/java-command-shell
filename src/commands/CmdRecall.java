@@ -31,6 +31,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import driver.JShell;
 import containers.CommandArgs;
@@ -76,11 +77,12 @@ public class CmdRecall extends Command {
   /**
    * @param args The arguments for the command call.
    * @param out The writable for any normal output of the command.
+   * @param in The standard input.
    * @param errorOut The writable for any error output of the command.
    * @return the exitcode indicating success or failure of execution
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errorOut) {
     // Get JShell's command history
     ArrayList<String> history = JShell.getHistory();

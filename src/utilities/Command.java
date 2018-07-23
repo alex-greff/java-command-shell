@@ -41,6 +41,7 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.BufferedConsole;
 import io.Writable;
+import io.Readable;
 
 /**
  * The abstract command class that all commands inherit from.
@@ -94,11 +95,12 @@ public abstract class Command {
    *
    * @param args The arguments for the command call.
    * @param out The standard output console.
+   * @param in The standard input.
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
   public final ExitCode execute(CommandArgs args, Writable<String> out,
-      Writable<String> errorOut) {
+      Readable in, Writable<String> errorOut) {
     // Check if the arguments are invalid for the current command
     if (!isValidArgs(args)) {
       errorOut.writeln("Error: Invalid arguments");
@@ -106,14 +108,15 @@ public abstract class Command {
     }
 
     // Initialize the buffered output console
-    Writable<String> bufferedOut = new BufferedConsole<String>();
+    BufferedConsole<String> bufferedConsole = new BufferedConsole<String>();
 
     // Run the command and store the exit code
-    ExitCode cmdExitCode = run(args, bufferedOut, errorOut);
+    ExitCode cmdExitCode =
+        run(args, bufferedConsole, bufferedConsole, errorOut);
 
     // Construct a string of all the output of the command
     String resultStr =
-        ((BufferedConsole<String>) bufferedOut).getAllWritesAsString();
+        ((BufferedConsole<String>) bufferedConsole).getAllWritesAsString();
 
     // Run the redirect operator, if needed
     ExitCode writeExitCode = ExitCode.SUCCESS;
@@ -140,11 +143,12 @@ public abstract class Command {
    *
    * @param args The arguments for the command call.
    * @param out The standard output console.
+   * @param in The standard input.
    * @param errorOut The error output console.
    * @return Returns the exit condition of the command.
    */
   protected abstract ExitCode run(CommandArgs args, Writable<String> out,
-      Writable<String> errorOut);
+      Readable in, Writable<String> errorOut);
 
   /**
    * Checks if the given args are valid for this command.

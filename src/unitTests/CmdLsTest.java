@@ -61,7 +61,7 @@ public class CmdLsTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdLs(fs, cm);
 
     // Setup base file system
@@ -80,7 +80,7 @@ public class CmdLsTest {
 
     BufferedConsole<String> tc = new BufferedConsole<String>();
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("dir2\ndir1\nfile2\nfile1\n\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -94,7 +94,7 @@ public class CmdLsTest {
 
     BufferedConsole<String> tc = new BufferedConsole<String>();
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -108,7 +108,7 @@ public class CmdLsTest {
 
     BufferedConsole<String> tc = new BufferedConsole<String>();
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("file3\n\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
@@ -119,7 +119,7 @@ public class CmdLsTest {
   public void testWithFileAsParam() throws FSElementAlreadyExistsException {
     CommandArgs args = Parser.parseUserInput("ls file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("file1\n", tc.getAllWritesAsString());

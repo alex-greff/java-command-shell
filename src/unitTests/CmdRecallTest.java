@@ -66,7 +66,7 @@ public class CmdRecallTest {
     tc = new BufferedConsole<String>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdRecall(fs, cm);
   }
 
@@ -93,8 +93,8 @@ public class CmdRecallTest {
     hist.add("bad command");
 
     // test to see if the recall command executed ls command
-    ExitCode excLs = LsCall.execute(lsargs, tc, tc_err);
-    ExitCode exc = cmd.execute(args, tc, tc_err);
+    ExitCode excLs = LsCall.execute(lsargs, tc, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
     assertTrue(tc_err.getAllWritesAsString().length() == 0);
     assertTrue(tc.getAllWrites().size() > 0);
     assertTrue(tc.getAllWrites().get(0).equals("one"));
@@ -109,7 +109,7 @@ public class CmdRecallTest {
     CommandArgs args = new CommandArgs("recall",params);
     cmd = new CmdRecall(fs, cm);
 
-    ExitCode exc = cmd.execute(args, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
     // in the case that i want to change the error message wording,
     // only check for the general "Error:" statement.
     assertTrue(tc_err.getAllWritesAsString().contains("Error:"));

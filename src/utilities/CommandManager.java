@@ -51,6 +51,7 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
 import io.Writable;
+import io.Readable;
 import java.util.HashMap;
 
 /**
@@ -71,6 +72,10 @@ public class CommandManager {
    */
   private Writable<String> out;
   /**
+   * The standard input.
+   */
+  private Readable in;
+  /**
    * The standard error output console.
    */
   private Writable<String> errorOut;
@@ -84,11 +89,17 @@ public class CommandManager {
   private ExitCode lastExitCode = ExitCode.SUCCESS;
 
   /**
-   * Private constructor for singleton
+   * Private constructor for singleton.
+   * 
+   * @param out The standard output console.
+   * @param in The standard input.
+   * @param errorOut The standard error console.
+   * @param fileSystem The file system to be used.
    */
-  private CommandManager(Writable<String> out, Writable<String> errorOut,
-      FileSystem fileSystem) {
+  private CommandManager(Writable<String> out, Readable in,
+      Writable<String> errorOut, FileSystem fileSystem) {
     this.out = out;
+    this.in = in;
     this.errorOut = errorOut;
     this.fileSystem = fileSystem;
 
@@ -99,13 +110,14 @@ public class CommandManager {
    * Factory method constructing a new instance of a command manager.
    *
    * @param out The standard output console.
+   * @param in The standard input.
    * @param errorOut The standard error console.
    * @param fileSystem The file system to be used.
    * @return Returns a new instance of a command manager.
    */
   public static CommandManager constructCommandManager(Writable<String> out,
-      Writable<String> errorOut, FileSystem fileSystem) {
-    return new CommandManager(out, errorOut, fileSystem);
+      Readable in, Writable<String> errorOut, FileSystem fileSystem) {
+    return new CommandManager(out, in, errorOut, fileSystem);
   }
 
   /**
@@ -154,7 +166,7 @@ public class CommandManager {
         Command cmd = cmdMap.get(cmdName);
 
         // Execute the command with the given args, remembering the exit value
-        lastExitCode = cmd.execute(cArgs, out, errorOut);
+        lastExitCode = cmd.execute(cArgs, out, in, errorOut);
         // Does nothing with the exit value (perhaps a future update)
 
         return; // End here since we've done all we need to do
@@ -171,7 +183,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   * exists, or null
+   *         exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

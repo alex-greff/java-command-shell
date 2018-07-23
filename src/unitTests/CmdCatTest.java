@@ -58,7 +58,8 @@ public class CmdCatTest {
     testOut = new BufferedConsole<String>();
     testErrOut = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(testOut, testErrOut, fs);
+    cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut,
+        fs);
     cmd = new CmdCat(fs, cm);
   }
 
@@ -66,7 +67,7 @@ public class CmdCatTest {
   public void testInvalidArgsNumberOfParameters() {
     String argParam[] = {};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
@@ -75,7 +76,7 @@ public class CmdCatTest {
   public void testInvalidPath() {
     String argParam[] = {"invalid//path"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("Error: Invalid file path", testErrOut.getAllWritesAsString());
   }
@@ -84,7 +85,7 @@ public class CmdCatTest {
   public void testFileNotFound() {
     String argParam[] = {"file/does/not/exist"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("Error: File does not exist",
         testErrOut.getAllWritesAsString());
@@ -98,7 +99,7 @@ public class CmdCatTest {
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
 
     // Assert that the command successfully executed, and just the one line of
     // content was printed
@@ -117,7 +118,7 @@ public class CmdCatTest {
     // Attempt to display the contents of both files
     String argParam[] = {"testFile1", "testFile2"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that both lines of
     // content were printed, with 2 blank lines in between
@@ -136,7 +137,7 @@ public class CmdCatTest {
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
     CommandArgs args = new CommandArgs("cat", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
 
     // Assert that the command successfully executed, and that every line of
     // content was printed

@@ -41,6 +41,7 @@ import io.Writable;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import io.Readable;
 
 /**
  * The cd command class that inherits from command
@@ -81,11 +82,12 @@ public class CmdCd extends Command {
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
+   * @param in The standard input
    * @param errOut Writable for Error Output
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];

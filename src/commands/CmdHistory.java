@@ -30,6 +30,7 @@
 package commands;
 
 import containers.CommandArgs;
+import io.Readable;
 import containers.CommandDescription;
 import driver.JShell;
 import filesystem.FileSystem;
@@ -81,11 +82,12 @@ public class CmdHistory extends Command {
   /**
    * @param args The arguments for the command call.
    * @param out The writable for any normal output of the command.
+   * @param in The standard input.
    * @param errOut The writable for any error output of the command.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     String[] params = args.getCommandParameters();
     ArrayList<String> history = JShell.getHistory();

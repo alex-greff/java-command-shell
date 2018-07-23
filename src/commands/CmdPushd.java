@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
@@ -77,11 +78,12 @@ public class CmdPushd extends Command {
    *
    * @param args The arguments for the command call.
    * @param out The standard output console.
-   * @param errorOut The error console
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @param in The standard input.
+   * @param errorOut The error console.
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);

@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
 import containers.CommandDescription;
@@ -74,11 +75,12 @@ public class CmdPwd extends Command {
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
+   * @param in The standard input
    * @param errOut Writable for Error Output
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out,
+  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
       Writable<String> errOut) {
     // Set the result string as the working directory path
     String resultStr = fileSystem.getWorkingDirPath() + "\n";
