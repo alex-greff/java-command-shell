@@ -176,7 +176,7 @@ public class CmdGrepTest {
     // Assert that the command successfully executed, and one line of content
     // matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("test line 1", testOut.getAllWritesAsString());
+    assertEquals("test line 1\n", testOut.getAllWritesAsString());
   }
 
   @Test
@@ -196,7 +196,7 @@ public class CmdGrepTest {
     // Assert that the command successfully executed, and multiple lines of
     // content matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("test line 1\ntest line 2\ntest line 3",
+    assertEquals("test line 1\ntest line 2\ntest line 3\n",
         testOut.getAllWritesAsString());
   }
 
@@ -245,7 +245,7 @@ public class CmdGrepTest {
     // Assert that the command successfully executed, and one line of content
     // matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("/testDir/testFile1: test line 1",
+    assertEquals("/testDir/testFile1: test line 1\n",
         testOut.getAllWritesAsString());
   }
 
@@ -272,7 +272,7 @@ public class CmdGrepTest {
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("/testDir/testFile1: test line 1\n"
             + "/testDir/testFile2: test line 2\n"
-            + "/testDir/testFile3: test line 3",
+            + "/testDir/testFile3: test line 3\n",
         testOut.getAllWritesAsString());
   }
 

@@ -146,6 +146,7 @@ public class CmdGrep extends Command {
     for (String match : matches) {
       out.writeln(match);
     }
+    out.writeln("");
 
     // If this line is reached, nothing went wrong
     return ExitCode.SUCCESS;
