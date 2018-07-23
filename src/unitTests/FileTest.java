@@ -1,7 +1,10 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import filesystem.Directory;
+import filesystem.FSElement;
 import filesystem.File;
 
 public class FileTest {
@@ -77,5 +80,26 @@ public class FileTest {
     f.write("\nsome more content");
     f.clear();
     assertEquals("", f.read());
+  }
+
+  @Test
+  public void testCloneWithParent() {
+    Directory parent = new Directory("myParent", null);
+    File<String> file = new File<String>("myName", "my contents", parent);
+
+    File<String> new_file = (File<String>) file.clone();
+    assertEquals("myName", new_file.getName());
+    assertEquals("my contents", new_file.read());
+    assertEquals("myParent", new_file.getParent().getName());
+  }
+
+  @Test
+  public void testCloneNoParent() {
+    File<String> file = new File<String>("myName", "my contents", null);
+
+    File<String> new_file = (File<String>) file.clone();
+    assertEquals("myName", new_file.getName());
+    assertEquals("my contents", new_file.read());
+    assertNull(new_file.getParent());
   }
 }

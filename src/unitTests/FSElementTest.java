@@ -55,4 +55,23 @@ public class FSElementTest {
     fse.changeParent(newParent);
     assertEquals(newParent, fse.getParent());
   }
+  
+  @Test
+  public void testCloneWithParent() {
+    Directory parent = new Directory("myParent", null);
+    FSElement fse = new FSElement("myName", parent);
+    
+    FSElement new_fse = fse.clone();
+    assertEquals("myName", new_fse.getName());
+    assertEquals("myParent", new_fse.getParent().getName());
+  }
+  
+  @Test
+  public void testCloneNoParent() {
+    FSElement fse = new FSElement("myName", null);
+    
+    FSElement new_fse = fse.clone();
+    assertEquals("myName", new_fse.getName());
+    assertNull(new_fse.getParent());
+  }
 }

@@ -164,7 +164,8 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   }
 
   /**
-   * Clones the current file.
+   * Clones the current file. Warning: when cloning, the new instance is
+   * unlinked (ie the parent directory has no record of it as its child).
    * 
    * @return Returns the cloned instance.
    */

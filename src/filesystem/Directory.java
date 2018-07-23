@@ -72,7 +72,7 @@ public class Directory extends FSElement {
    *
    * @param newChild The child to move into this directory
    * @throws FSElementAlreadyExistsException if there is already a child with
-   * the same name
+   *         the same name
    */
   public void moveInto(FSElement newChild)
       throws FSElementAlreadyExistsException {
@@ -95,7 +95,7 @@ public class Directory extends FSElement {
    * @param name The name of the new child directory
    * @return Returns the new created directory
    * @throws FSElementAlreadyExistsException Thrown when there is already an
-   * element with this name
+   *         element with this name
    */
   public Directory createAndAddNewDir(String name)
       throws FSElementAlreadyExistsException {
@@ -114,8 +114,7 @@ public class Directory extends FSElement {
    *
    * @param name The name of the child file to create
    * @return The new file object that was created
-   * @throws FSElementAlreadyExistsException Thrown when the file already
-   * exists
+   * @throws FSElementAlreadyExistsException Thrown when the file already exists
    */
   public File<?> createAndAddNewFile(String name)
       throws FSElementAlreadyExistsException {
@@ -135,8 +134,7 @@ public class Directory extends FSElement {
    * @param name The name of the child file to create
    * @param contents The initial contents of the new file
    * @return The new file object that was created
-   * @throws FSElementAlreadyExistsException Thrown when the file already
-   * exists
+   * @throws FSElementAlreadyExistsException Thrown when the file already exists
    */
   public File<?> createAndAddNewFile(String name, String contents)
       throws FSElementAlreadyExistsException {
@@ -200,7 +198,7 @@ public class Directory extends FSElement {
    * Gets if an element with name is a child of the directory.
    * 
    * @param name The name of the child.
-   * @return Returns true iff a child element with name exists. 
+   * @return Returns true iff a child element with name exists.
    */
   public boolean containsChildElement(String name) {
     return children.containsKey(name);
@@ -234,7 +232,7 @@ public class Directory extends FSElement {
   public ArrayList<String> listAllChildrenNames() {
     return new ArrayList<String>(children.keySet());
   }
-  
+
   /**
    * Lists all the directory names inside of this directory
    *
@@ -285,24 +283,27 @@ public class Directory extends FSElement {
     FSElement child = this.children.remove(oldName);
     this.children.put(newName, child);
   }
-  
+
   /**
-   * Clones the current Directory as well as all its children elements.
+   * Clones the current Directory as well as all its children elements. Warning:
+   * when cloning, the new instance is unlinked (ie the parent directory has no
+   * record of it as its child).
    * 
    * @return Returns the cloned instance.
    */
   @Override
   public FSElement clone() {
     // Clone the directory
-    Directory newDir = new Directory(this.name, this.parent); 
-    
+    Directory newDir = new Directory(this.name, this.parent);
+
     // Clone each child and place it in the new directory
     for (String k : this.children.keySet()) {
       FSElement child = this.children.get(k);
       FSElement new_child = child.clone();
+      new_child.changeParent(newDir);
       newDir.addChild(new_child);
     }
-    
+
     // Return the new instance of the directory
     return newDir;
   }

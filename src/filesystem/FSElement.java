@@ -33,7 +33,7 @@ public class FSElement {
   public Directory getParent() {
     return parent;
   }
-  
+
   /**
    * Sets the current fselement's parent to newParent
    * 
@@ -64,7 +64,8 @@ public class FSElement {
   }
 
   /**
-   * Clones the current FSElement.
+   * Clones the current FSElement. Warning: when cloning, the new instance is
+   * unlinked (ie the parent directory has no record of it as its child).
    * 
    * @return Returns the cloned instance.
    */
