@@ -67,7 +67,7 @@ public class CmdHistoryTest {
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdHistory(fs, cm);
-    ArrayList<String> hist = JShell.getHistory();
+    JShell.clearHistory();
   }
 
   /*
@@ -98,7 +98,7 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
-    hist.add("history 1");
+    hist.add("some other entry"); hist.add("history 1");
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("2. history 1\n", tc.getAllWritesAsString());
@@ -117,11 +117,9 @@ public class CmdHistoryTest {
     hist.add("third entry");
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("1. history\n"
-        + "2. history 1\n"
-        + "3. first entry\n"
-        + "4. second entry\n"
-        + "5. third entry\n", tc.getAllWritesAsString());
+    assertEquals("1. first entry\n"
+        + "2. second entry\n"
+        + "3. third entry\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
@@ -132,15 +130,14 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
+    hist.add("first thing");hist.add("second thing");hist.add("third ting");
     hist.add("history 11");
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("1. history\n"
-        + "2. history 1\n"
-        + "3. first entry\n"
-        + "4. second entry\n"
-        + "5. third entry\n"
-        + "6. history 11\n", tc.getAllWritesAsString());
+    assertEquals("1. first thing\n"
+        + "2. second thing\n"
+        + "3. third ting\n"
+        + "4. history 11\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
@@ -154,6 +151,25 @@ public class CmdHistoryTest {
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("", tc.getAllWritesAsString());
+    assertEquals(exc, ExitCode.SUCCESS);
+  }
+
+  @Test
+  public void testAllButLastEntry() {
+    // number too big will simply return back all of the history anyways
+    CommandArgs args = Parser.parseUserInput("history 6");
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("one");hist.add("two");hist.add("ls -R");hist.add("four");
+    hist.add("mkdir heyo"); hist.add("six"); hist.add("history 6");
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+    assertEquals("2. two\n"
+        + "3. ls -R\n"
+        + "4. four\n"
+        + "5. mkdir heyo\n"
+        + "6. six\n"
+        + "7. history 6\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 

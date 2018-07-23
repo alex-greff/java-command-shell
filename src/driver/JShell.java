@@ -114,6 +114,7 @@ public class JShell {
    * This function works as a toggle for JShells exit condition
    */
   public static void exit() {
+    JShell.clearHistory();
     JShell.running = false;
   }
 
@@ -125,6 +126,11 @@ public class JShell {
   public static ArrayList<String> getHistory() {
     return history;
   }
+
+  /**
+   * Clears all of the entries in history. Used in testing and termination
+   */
+  public static void clearHistory() { history.clear(); }
 
   /**
    * given a command input, parses and executes the user command
