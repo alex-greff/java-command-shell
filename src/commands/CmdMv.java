@@ -43,6 +43,7 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
+import javafx.util.Pair;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -137,27 +138,15 @@ public class CmdMv extends Command {
       return ExitCode.FAILURE;
     }
     // we now have the from directory and so far are good to go
-    try {
-      to = fileSystem.getFSElementByPath(toPath);
-    } catch (MalformedPathException e) {
-      errorOut.writeln("Invalid destination path given");
+    // we will now try to get the destination element
+    Pair<FSElement, String> toPair = tryGetToEl(toPath);
+    to = toPair.getKey();
+    if (to == null) {
+      // if the fselement is null then there was an error getting it and the
+      // error has already been printed we just exit with failure
       return ExitCode.FAILURE;
-    } catch (FSElementNotFoundException e) {
-      // we assume that the user wishes to move and rename
-      // we will attempt to fetch one level up of the given path
-      // copy the path
-      Path levelUp = new Path(toPath);
-      // the non existing part of the path is the name the user
-      // wishes this element to have after it is moved
-      newName = levelUp.removeLast();
-      // we now attempt to get the element one level up
-      try {
-        to = fileSystem.getFSElementByPath(levelUp);
-      } catch (MalformedPathException | FSElementNotFoundException e1) {
-        errorOut.writeln("Destination path does not exist");
-        return ExitCode.FAILURE;
-      }
     }
+    newName = toPair.getValue();
     // set the rename flag depending on the value of the string
     boolean renaming = !newName.isEmpty();
     // we have now taken care of the to path and the from path
@@ -297,6 +286,42 @@ public class CmdMv extends Command {
       return null;
     }
     return from;
+  }
+
+  /**
+   * Tries to get the element we want to move to if it fails the first time
+   * remove the last segment of the path and try again
+   *
+   * @param toPath The path of the element moving to
+   * @return A pair fselement to String where element is the place we will be
+   * moving to and the string is the new name of the element if a rename is
+   * wanted by the user
+   */
+  private Pair<FSElement, String> tryGetToEl(Path toPath) {
+    FSElement to;
+    String newName = "";
+    try {
+      to = fileSystem.getFSElementByPath(toPath);
+    } catch (MalformedPathException e) {
+      errorOut.writeln("Invalid destination path given");
+      to = null;
+    } catch (FSElementNotFoundException e) {
+      // we assume that the user wishes to move and rename
+      // we will attempt to fetch one level up of the given path
+      // copy the path
+      Path levelUp = new Path(toPath);
+      // the non existing part of the path is the name the user
+      // wishes this element to have after it is moved
+      newName = levelUp.removeLast();
+      // we now attempt to get the element one level up
+      try {
+        to = fileSystem.getFSElementByPath(levelUp);
+      } catch (MalformedPathException | FSElementNotFoundException e1) {
+        errorOut.writeln("Destination path does not exist");
+        to = null;
+      }
+    }
+    return new Pair<>(to, newName);
   }
 
   //TODO: https://pre00.deviantart.net/5c4f/th/pre/i/2017/350/3/a/delet_this_by_islandofsodorfilms-dbwv8wk.png
