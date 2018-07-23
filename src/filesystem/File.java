@@ -168,7 +168,8 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * 
    * @return Returns the cloned instance.
    */
-  public File<T> clone() {
+  @Override
+  public FSElement clone() {
     // Make the new instance of the file
     return new File<T>(this.name, this.contents, this.parent);
   }

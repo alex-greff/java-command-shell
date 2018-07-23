@@ -291,7 +291,8 @@ public class Directory extends FSElement {
    * 
    * @return Returns the cloned instance.
    */
-  public Directory clone() {
+  @Override
+  public FSElement clone() {
     // Clone the directory
     Directory newDir = new Directory(this.name, this.parent); 
     
