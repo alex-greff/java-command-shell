@@ -2,12 +2,19 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import commands.CmdMv;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FSElementNotFoundException;
+import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
@@ -28,6 +35,7 @@ public class CmdMvTest {
   private FileSystem fs;
   private CommandManager cm;
   private Command mvCmd;
+  private OutputStream os;
 
   @Before
   // Resets the file system for each test case
@@ -38,6 +46,10 @@ public class CmdMvTest {
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     mvCmd = new CmdMv(fs, cm);
+
+    os = new ByteArrayOutputStream();
+    PrintStream ps = new PrintStream(os);
+    System.setOut(ps);
   }
 
   @Test
@@ -190,7 +202,45 @@ public class CmdMvTest {
   }
 
   @Test
-  public void testMovingFileWithUserPrompt() {
+  public void testMovingFileWithUserPromptYes()
+      throws FSElementAlreadyExistsException {
+    Directory root = fs.getRoot();
+    root.createAndAddNewFile("f1", "f1's contents");
+    root.createAndAddNewFile("f2", "f2's contents");
 
+    // buffer user input
+    InputStream in = new ByteArrayInputStream("y".getBytes());
+    System.setIn(in);
+
+    // mv f1 f2
+    CommandArgs args = Parser.parseUserInput("mv f1 f2");
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
+
+    assertEquals(ExitCode.SUCCESS, mvExit);
+    assertEquals("f1", root.getChildByName("f1").getName());
+    assertEquals("f1's contents", ((File) root.getChildByName("f1")).read());
+    assertNull(root.getChildByName("f2"));
+  }
+  
+  @Test
+  public void testMovingFileWithUserPromptNo()
+      throws FSElementAlreadyExistsException {
+    Directory root = fs.getRoot();
+    root.createAndAddNewFile("f1", "f1's contents");
+    root.createAndAddNewFile("f2", "f2's contents");
+
+    // buffer user input
+    InputStream in = new ByteArrayInputStream("n".getBytes());
+    System.setIn(in);
+
+    // mv f1 f2
+    CommandArgs args = Parser.parseUserInput("mv f1 f2");
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
+
+    assertEquals(ExitCode.FAILURE, mvExit);
+    assertEquals("f1", root.getChildByName("f1").getName());
+    assertEquals("f1's contents", ((File) root.getChildByName("f1")).read());
+    assertEquals("f2", root.getChildByName("f2").getName());
+    assertEquals("f2's contents", ((File) root.getChildByName("f2")).read());
   }
 }

@@ -23,7 +23,6 @@ public class ConsoleTest {
     System.setOut(ps);
   }
 
-
   @Test
   public void testWriteWithEmptyString() {
     console.write("");
@@ -54,7 +53,7 @@ public class ConsoleTest {
   }
 
   @Test
-  public void tesReadWithEmptyInput() {
+  public void testReadWithEmptyInput() {
     InputStream in = new ByteArrayInputStream("\0".getBytes());
     System.setIn(in);
 
@@ -62,7 +61,7 @@ public class ConsoleTest {
   }
 
   @Test
-  public void tesReadWithNonEmptyInput() {
+  public void testReadWithNonEmptyInput() {
     InputStream in = new ByteArrayInputStream("Some input".getBytes());
     System.setIn(in);
 
