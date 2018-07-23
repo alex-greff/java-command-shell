@@ -43,7 +43,7 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
-import javafx.util.Pair;
+import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -139,14 +139,14 @@ public class CmdMv extends Command {
     }
     // we now have the from directory and so far are good to go
     // we will now try to get the destination element
-    Pair<FSElement, String> toPair = tryGetToEl(toPath);
-    to = toPair.getKey();
+    ArrayList<Object> toPair = tryGetToEl(toPath);
+    to = (FSElement) toPair.get(0);
     if (to == null) {
       // if the fselement is null then there was an error getting it and the
       // error has already been printed we just exit with failure
       return ExitCode.FAILURE;
     }
-    newName = toPair.getValue();
+    newName = (String) toPair.get(1);
     // set the rename flag depending on the value of the string
     boolean renaming = !newName.isEmpty();
     // we have now taken care of the to path and the from path
@@ -297,7 +297,7 @@ public class CmdMv extends Command {
    * moving to and the string is the new name of the element if a rename is
    * wanted by the user
    */
-  private Pair<FSElement, String> tryGetToEl(Path toPath) {
+  private ArrayList<Object> tryGetToEl(Path toPath) {
     FSElement to;
     String newName = "";
     try {
@@ -321,7 +321,10 @@ public class CmdMv extends Command {
         to = null;
       }
     }
-    return new Pair<>(to, newName);
+    ArrayList<Object> pair = new ArrayList<>();
+    pair.add(to);
+    pair.add(newName);
+    return pair;
   }
 
   //TODO: https://pre00.deviantart.net/5c4f/th/pre/i/2017/350/3/a/delet_this_by_islandofsodorfilms-dbwv8wk.png
