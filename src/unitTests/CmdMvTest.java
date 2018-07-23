@@ -186,4 +186,9 @@ public class CmdMvTest {
     // You can't move the current working directory
     assertEquals(ExitCode.FAILURE, mvExit);
   }
+
+  @Test
+  public void testMovingFileWithUserPrompt() {
+
+  }
 }

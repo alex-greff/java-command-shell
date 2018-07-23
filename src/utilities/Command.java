@@ -196,7 +196,7 @@ public abstract class Command {
     } catch (FSElementNotFoundException e) {
       // Attempt to make the file
       try {
-        file = makeFile(targetDestination);
+        file = (File<String>) makeFile(targetDestination);
         // Catch if the directory is not found
       } catch (FSElementNotFoundException e1) {
         errOut.writeln("Error: No file/directory found");

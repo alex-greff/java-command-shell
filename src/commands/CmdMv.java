@@ -30,8 +30,8 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -41,6 +41,7 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.Readable;
 import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
@@ -72,16 +73,19 @@ public class CmdMv extends Command {
               "Paths of OLDPATH and NEWPATH can be relative or absolute.")
           .additionalComment("Element at OLDPATH must exist")
           .additionalComment("If moving any element to an existing dir deletes"
-              + " the source element from its parent and moves it to the dir.")
+                                 + " the source element from its parent and moves"
+                                 + " it to the dir.")
           .additionalComment(
               "If moving an element to a path that does not exist"
-                  + " takes the last segment off the path and moves the element to"
-                  + "the modified path if it exists and is a dir, and renames the"
+                  + " takes the last segment off the path and deletes "
+                  + "and moves the element to the modified path if it exists "
+                  + "and is a dir, and renames the"
                   + " element to the last segment of the original path")
           .additionalComment("If moving a dir to a file errors")
           .additionalComment("If at any point an element with the same name as"
-              + " the element being moved exists in the destination the user"
-              + " will be prompted if it should be overwritten")
+                                 + " the element being moved exists in the"
+                                 + " destination the user will be prompted if"
+                                 + " it should be overwritten")
           .build();
   /**
    * Storage of the error output.
@@ -107,10 +111,7 @@ public class CmdMv extends Command {
   }
 
   /**
-   * Executes the mv command with the given arguments. Mv moves the contents of
-   * one file to another, one file to a directory, or all contents of a
-   * directory to another. Error messages if the path of the old file/directory
-   * or new directory is invalid, or does not exist.
+   * Executes the mv command with the given arguments.
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
@@ -198,8 +199,9 @@ public class CmdMv extends Command {
    */
   private ExitCode maybeOverwriteElement(FSElement from, FSElement to) {
     // prompt the user if the element should be overwritten
-    out.writeln("Overwrite element at path "
-        + fileSystem.getAbsolutePathOfFSElement(to) + " [y/n]?");
+    System.out.println("Overwrite element at path "
+                           + fileSystem.getAbsolutePathOfFSElement(to)
+                           + " [y/n]?");
     String answer = in.read().trim();
     UserDecision overwrite;
     // get the users decision

@@ -30,15 +30,26 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
+import filesystem.Directory;
+import filesystem.FSElement;
+import filesystem.FSElementNotFoundException;
+import filesystem.File;
 import filesystem.FileSystem;
+import filesystem.MalformedPathException;
+import filesystem.Path;
+import io.Readable;
 import io.Writable;
+import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import utilities.InvalidBooleanInputException;
+import utilities.Parser;
+import utilities.UserDecision;
 
 /**
  * The cp command class that inherits from command
@@ -58,27 +69,27 @@ public class CmdCp extends Command {
       new CommandDescription.DescriptionBuilder(
           "Moves around files and directories keeping the original copies",
           "cp OLDPATH NEWPATH")
-              .additionalComment(
-                  "Paths of OLDPATH and NEWPATH can be relative or absolute.")
-              .additionalComment(
-                  "File(s) at OLDPATH is kept, and replaces the content at"
-                      + " NEWPATH.")
-              .additionalComment(
-                  "If both the old and new paths are files, the content of the old"
-                      + " file is copied to the new file. The old file must exist,"
-                      + " but the new file is created if it does not yet exist")
-              .additionalComment(
-                  "If the old path is a file, and the new path is a directory, the"
-                      + " file is copied into the directory. The file and directory"
-                      + " must exist")
-              .additionalComment(
-                  "If both the old and new paths are directories, all files in the"
-                      + " old directory are copied into the new directory. The"
-                      + " directories must exist")
-              .additionalComment(
-                  "No functionality if the old path is a directory and the new path"
-                      + " is a file at the same time")
-              .build();
+          .additionalComment(
+              "Paths of OLDPATH and NEWPATH can be relative or absolute.")
+          .additionalComment("Element at OLDPATH must exist")
+          .additionalComment("If cping any element to an existing dir keeps"
+                                 + " the source element in its parent and moves"
+                                 + " a copy to the dir.")
+          .additionalComment(
+              "If copying an element to a path that does not exist"
+                  + " takes the last segment off the path and copies the "
+                  + "element to the modified path if it exists and is a dir,"
+                  + " and renames the element to the last segment"
+                  + " of the original path")
+          .additionalComment("If copying a dir to a file errors")
+          .additionalComment("If at any point an element with the same name as"
+                                 + " the element being copied exists in the"
+                                 + " destination the user will be prompted if it"
+                                 + " should be overwritten")
+          .build();
+  private Writable<String> errorOut;
+  private Writable<String> out;
+  private Readable in;
 
   /**
    * Constructs a new command instance
@@ -91,21 +102,256 @@ public class CmdCp extends Command {
   }
 
   /**
-   * Executes the cp command with the given arguments. Cp copies the contents of
-   * one file to another, one file to a directory, or all contents of a
-   * directory to another. Error messages if the path of the old file/directory
-   * or new directory is invalid, or does not exist.
+   * Executes the cp command with the given arguments.
    *
    * @param args The command arguments container
    * @param out Writable for Standard Output
-   * @param in The standard input
-   * @param errOut Writable for Error Output
+   * @param in The standard input.
+   * @param errorOut Writable for Error Output
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
   protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+      Writable<String> errorOut) {
+    // save the error console to a field
+    this.errorOut = errorOut;
+    this.out = out;
+    this.in = in;
+    Path fromPath, toPath;
+    FSElement from, to;
+    // rename flag for cp if the string is not empty a rename is required
+    String newName;
+    try {
+      // get the paths given in the arguments
+      fromPath = new Path(args.getCommandParameters()[0]);
+      toPath = new Path(args.getCommandParameters()[1]);
+    } catch (MalformedPathException e) {
+      errorOut.writeln("Invalid path(s) given");
+      return ExitCode.FAILURE;
+    }
+    // try to get the from element
+    if ((from = tryGetFromEl(fromPath)) == null) {
+      // if from is null then the helper errored and printed a message
+      // time to return failure exit code
+      return ExitCode.FAILURE;
+    }
+    // we now have the from directory and so far are good to go
+    // we will now try to get the destination element
+    ArrayList<Object> toPair = tryGetToEl(toPath);
+    if ((to = (FSElement) toPair.get(0)) == null) {
+      // if the fselement is null then there was an error getting it and the
+      // error has already been printed we just exit with failure
+      return ExitCode.FAILURE;
+    }
+    newName = (String) toPair.get(1);
+    // set the rename flag depending on the value of the string
+    boolean renaming = !newName.isEmpty();
+    // we have now taken care of the to path and the from path
+    // we now need to do some validity checks
+    if (!isValidCopy(from, to, renaming)) {
+      // if any of them fail then we need to exit with failure
+      return ExitCode.FAILURE;
+    }
+    // exit code for mv determined by the helpers
+    ExitCode mvExit;
+    // now we have done all the preprocessing to make sure that the copy is valid
+    // we are ready to actually copy the elements
+    // if we are renaming we will call the appropriate helper
+    if (renaming) {
+      mvExit = copyElWithRename(from, (Directory) to, newName);
+    } else if (to instanceof File) {
+      mvExit = maybeOverwriteElement(from, to);
+    } else {
+      // check if the thing we are copying to already exist in the place we
+      // are copying it to for example cp file somedir but somedir already
+      // contains something named file
+      Directory dest = (Directory) to;
+      if (dest.containsChildElement(from.getName())) {
+        // then we will prompt the user for an overwrite
+        FSElement overwrite = dest.getChildByName(from.getName());
+        mvExit = maybeOverwriteElement(from, overwrite);
+      }
+      // otherwise we are moving an fselement to an existing directory where no
+      // element with the same name as from exists
+      else {
+        mvExit = copyElToDir(from, dest);
+      }
+    }
+    return mvExit;
+  }
+
+  /**
+   * Prompts the user if they wish to overwrite the file `to` with the file
+   * `from`
+   *
+   * @param from File to overwrite with
+   * @param to File to overwrite
+   * @return Exit code that cp should return success or failure
+   */
+  private ExitCode maybeOverwriteElement(FSElement from, FSElement to) {
+    // prompt the user if the element should be overwritten
+    System.out.println("Overwrite element at path "
+                           + fileSystem.getAbsolutePathOfFSElement(to)
+                           + " [y/n]?");
+    String answer = in.read().trim();
+    UserDecision overwrite;
+    // get the users decision
+    try {
+      overwrite = Parser.parseBooleanDecisionInput(answer, false);
+    } catch (InvalidBooleanInputException e) {
+      errorOut.writeln("Operation cancelled");
+      return ExitCode.FAILURE;
+    }
+    if (overwrite == UserDecision.YES) {
+      // remove the to from its parent
+      to.getParent().removeChildByName(to.getName());
+      // copy the element we are overwriting with
+      FSElement newFrom = from.copy();
+      // add the new child in
+      to.getParent().addChild(newFrom);
+      // all done
+      return ExitCode.SUCCESS;
+    } else {
+      // otherwise cancel
+      errorOut.writeln("Operation cancelled");
+      return ExitCode.FAILURE;
+    }
+  }
+
+  /**
+   * Copies the given fselement to the given dir
+   *
+   * @param from The fselement to copy
+   * @param to The dir to copy it to
+   * @return Exit code that cp should return success or failure
+   */
+  private ExitCode copyElToDir(FSElement from, Directory to) {
+    // copy the element being copied
+    FSElement newFrom = from.copy();
+    // add it to the destination
+    to.addChild(newFrom);
     return ExitCode.SUCCESS;
+  }
+
+  /**
+   * Copies the given fselement to the given dir and renames the source element
+   * to  the new name given
+   *
+   * @param from The fselement to copy
+   * @param to The dir to copy it to
+   * @param newName The name the copied file should have
+   * @return Exit code that cp should return success or failure
+   */
+  private ExitCode copyElWithRename(FSElement from, Directory to,
+      String newName) {
+    // copy the source file
+    FSElement newFrom = from.copy();
+    newFrom.rename(newName);
+    // add this element to the new location
+    // no overwrite prompt since this element cannot exist in to otherwise
+    // we would find it by path
+    to.addChild(newFrom);
+    return ExitCode.SUCCESS;
+  }
+
+  /**
+   * Validates the copy from given FSElement to given FSElement
+   *
+   * @param from The fselement to be copied
+   * @param to The destination fselement
+   * @param renaming Flag set true if renaming will occur false otherwise
+   * @return True iff not copying dir to file, not copying element to its parent
+   * (unless renaming), not copying to itself false otherwise
+   */
+  private boolean isValidCopy(FSElement from, FSElement to, boolean renaming) {
+    // make sure we aren't copying directory to file
+    if (from instanceof Directory && to instanceof File) {
+      errorOut.writeln("Cannot copy directory to file");
+      return false;
+    }
+    // second make sure we dont copy an element to itself
+    if (from == to) {
+      errorOut.writeln("Cannot copy element to itself");
+      return false;
+    }
+    // third make sure we aren't moving an element to its parent
+    // the only time this is permitted is if we are renaming
+    if (!renaming && to == from.getParent()) {
+      errorOut.writeln("The element copied is already in the destination");
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Tries to get the element we want to copy to if it fails the first time
+   * remove the last segment of the path and try again
+   *
+   * @param toPath The path of the element cping to
+   * @return A pair fselement to String where element is the place we will be
+   * moving to and the string is the new name of the element if a rename is
+   * wanted by the user
+   */
+  private ArrayList<Object> tryGetToEl(Path toPath) {
+    FSElement to;
+    String newName = "";
+    try {
+      to = fileSystem.getFSElementByPath(toPath);
+    } catch (MalformedPathException e) {
+      errorOut.writeln("Invalid destination path given");
+      to = null;
+    } catch (FSElementNotFoundException e) {
+      // we assume that the user wishes to move and rename
+      // we will attempt to fetch one level up of the given path
+      // copy the path
+      Path levelUp = new Path(toPath);
+      // the non existing part of the path is the name the user
+      // wishes this element to have after it is moved
+      newName = levelUp.removeLast();
+      // we now attempt to get the element one level up
+      try {
+        to = fileSystem.getFSElementByPath(levelUp);
+      } catch (MalformedPathException | FSElementNotFoundException e1) {
+        errorOut.writeln("Destination path does not exist");
+        to = null;
+      }
+    }
+    ArrayList<Object> pair = new ArrayList<>();
+    pair.add(to);
+    pair.add(newName);
+    return pair;
+  }
+
+  /**
+   * Helper to get the from FSElement returns null on error
+   *
+   * @param fromPath The path of the from FSElement we are trying to get
+   * @return The FSElement at this path if it exists or null if it does not
+   * exist, is root or is the current working directory
+   */
+  private FSElement tryGetFromEl(Path fromPath) {
+    FSElement from;
+    try {
+      // make sure that the element we are moving from exists
+      from = fileSystem.getFSElementByPath(fromPath);
+      // make sure we aren't moving root
+      if (from == fileSystem.getRoot()) {
+        errorOut.writeln("Cannot copy root directory");
+        return null;
+      }
+      // make sure we aren't moving current working dir
+      if (from == fileSystem.getWorkingDir()) {
+        errorOut.writeln("Cannot copy current working directory");
+        return null;
+      }
+    } catch (MalformedPathException e) {
+      errorOut.writeln("Invalid path(s) given");
+      return null;
+    } catch (FSElementNotFoundException e) {
+      errorOut.writeln("You can only move an existing element");
+      return null;
+    }
+    return from;
   }
 
   /**
@@ -123,8 +369,8 @@ public class CmdCp extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
