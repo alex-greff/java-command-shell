@@ -84,7 +84,7 @@ public class CmdMvTest {
     ExitCode mvExit = mvCmd.execute(args, tc, tc_err);
     // this should fail
     assertEquals(ExitCode.FAILURE, mvExit);
-    assertEquals("Cannot move element to its child or itself",
+    assertEquals("Cannot move element to itself or to its child",
         tc_err.getLastWrite());
     // nothing should happen to the directory
     assertTrue(root.containsChildElement("test"));
@@ -167,7 +167,7 @@ public class CmdMvTest {
     assertTrue(root.containsChildElement("hello"));
     // hello/hi should still exist
     assertTrue(hello.containsChildElement("hi"));
-    assertEquals("Cannot move element to its child or itself",
+    assertEquals("Cannot move element to itself or to its child",
         tc_err.getLastWrite());
   }
 

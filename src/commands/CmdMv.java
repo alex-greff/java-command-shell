@@ -36,7 +36,6 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FSElement;
-import filesystem.FSElementAlreadyExistsException;
 import filesystem.FSElementNotFoundException;
 import filesystem.File;
 import filesystem.FileSystem;
@@ -44,9 +43,13 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import java.util.ArrayList;
+import java.util.Scanner;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import utilities.InvalidBooleanInputException;
+import utilities.Parser;
+import utilities.UserDecision;
 
 /**
  * The mv command class that inherits from command
@@ -64,33 +67,25 @@ public class CmdMv extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Move contents of a file to another.", "mv OLDPATH NEWPATH")
+          "Move elements of the filesystem.",
+          "mv OLDPATH NEWPATH")
           .additionalComment(
               "Paths of OLDPATH and NEWPATH can be relative or absolute.")
+          .additionalComment("Element at OLDPATH must exist")
+          .additionalComment("If moving any element to an existing dir deletes"
+              + " the source element from its parent and moves it to the dir.")
           .additionalComment(
-              "File(s) at OLDPATH gets removed, and replaces the content at"
-                  + " NEWPATH.")
-          .additionalComment(
-              "If both the old and new paths are files, the content of the old"
-                  + " file overwrites the new file. The old file must exist,"
-                  + " but the new file is created if it does not yet exist")
-          .additionalComment(
-              "If the old path is a file, and the new path is a directory, the"
-                  + " file is moved into the directory. The file and directory"
-                  + " must exist")
-          .additionalComment(
-              "If both the old and new paths are directories, the"
-                  + " old directory is moved into the new directories parent "
-                  + "overwriting the directory that was there before. The"
-                  + " directories must exist")
-          .additionalComment(
-              "No functionality if the old path is a directory and the new path"
-                  + " is a file at the same time. This is undefined behaviour.")
-          .additionalComment(
-              "No functionality if the old path and new path "
-                  + "point to the same element")
+              "If moving an element to a path that does not exist"
+                  + " takes the last segment off the path and moves the element to"
+                  + "the modified path if it exists and is a dir, and renames the"
+                  + " element to the last segment of the original path")
+          .additionalComment("If moving a dir to a file errors")
+          .additionalComment("If at any point an element with the same name as"
+              + " the element being moved exists in the destination the user"
+              + " will be prompted if it should be overwritten")
           .build();
   private Writable<String> errorOut;
+  private Writable<String> out;
 
   /**
    * Constructs a new command instance.
@@ -118,6 +113,7 @@ public class CmdMv extends Command {
       Writable<String> errorOut) {
     // save the error console to a field
     this.errorOut = errorOut;
+    this.out = out;
     Path fromPath, toPath;
     FSElement from, to;
     // rename flag for mv if the string is not empty a rename is required
@@ -131,8 +127,7 @@ public class CmdMv extends Command {
       return ExitCode.FAILURE;
     }
     // try to get the from element
-    from = tryGetFromEl(fromPath);
-    if (from == null) {
+    if ((from = tryGetFromEl(fromPath)) == null) {
       // if from is null then the helper errored and printed a message
       // time to return failure exit code
       return ExitCode.FAILURE;
@@ -140,8 +135,7 @@ public class CmdMv extends Command {
     // we now have the from directory and so far are good to go
     // we will now try to get the destination element
     ArrayList<Object> toPair = tryGetToEl(toPath);
-    to = (FSElement) toPair.get(0);
-    if (to == null) {
+    if ((to = (FSElement) toPair.get(0)) == null) {
       // if the fselement is null then there was an error getting it and the
       // error has already been printed we just exit with failure
       return ExitCode.FAILURE;
@@ -160,15 +154,25 @@ public class CmdMv extends Command {
     // now we have done all the preprocessing to make sure that the move is valid
     // we are ready to actually move the elements
     // if we are renaming we will call the appropriate helper
-    if (renaming && from instanceof Directory) {
-      mvExit = moveDirWithRename((Directory) from, (Directory) to, newName);
-    } else if (renaming && from instanceof File) {
-      mvExit = moveFileWithRename((File) from, (Directory) to, newName);
-    } else if (from instanceof File && to instanceof File) {
-      mvExit = maybeOverwriteFile((File) from, (File) to);
+    if (renaming) {
+      mvExit = moveElWithRename(from, (Directory) to, newName);
+    } else if (to instanceof File) {
+      mvExit = maybeOverwriteElement(from, to);
     } else {
-      // otherwise we are moving an fselement to an existing directory
-      mvExit = moveElToDir(from, (Directory) to);
+      // check if the thing we are moving to already exist in the place we
+      // are moving it to for example mv file somedir but somedir already contains
+      // something named file
+      Directory dest = (Directory) to;
+      if (dest.containsChildElement(from.getName())) {
+        // then we will prompt the user for an overwrite
+        FSElement overwrite = dest.getChildByName(from.getName());
+        mvExit = maybeOverwriteElement(from, overwrite);
+      }
+      // otherwise we are moving an fselement to an existing directory where no
+      // element with the same name as from exists
+      else {
+        mvExit = moveElToDir(from, dest);
+      }
     }
     return mvExit;
   }
@@ -181,48 +185,78 @@ public class CmdMv extends Command {
    * @param to File to overwrite
    * @return Exit code that mv should return success or failure
    */
-  private ExitCode maybeOverwriteFile(File from, File to) {
-    return null;
+  private ExitCode maybeOverwriteElement(FSElement from, FSElement to) {
+    // prompt the user if the element should be overwritten
+    out.writeln("Overwrite element at path "
+        + fileSystem.getAbsolutePathOfFSElement(to) + " [y/n]?");
+    Scanner in = new Scanner(System.in);
+    String answer = in.nextLine().trim();
+    UserDecision overwrite;
+    // get the users decision
+    try {
+      overwrite = Parser.parseBooleanDecisionInput(answer, false);
+    } catch (InvalidBooleanInputException e) {
+      errorOut.writeln("Operation cancelled");
+      return ExitCode.FAILURE;
+    }
+    if (overwrite == UserDecision.YES) {
+      // remove the from from its parent
+      from.getParent().removeChildByName(from.getName());
+      // remove the to from its parent
+      to.getParent().removeChildByName(to.getName());
+      // add the new child in
+      to.getParent().addChild(from);
+      // all done
+      return ExitCode.SUCCESS;
+    } else {
+      // otherwise cancel
+      errorOut.writeln("Operation cancelled");
+      return ExitCode.FAILURE;
+    }
   }
 
   /**
-   * Moves the given fselement to the given dir and renames the source fselement
-   * to the new name given
+   * Moves the given fselement to the given dir
    *
    * @param from The fselement to move
    * @param to The dir to move it to
    * @return Exit code that mv should return success or failure
    */
   private ExitCode moveElToDir(FSElement from, Directory to) {
-    return null;
+    // remove the element from its parent
+    from.getParent().removeChildByName(from.getName());
+    // add it to the destination
+    to.addChild(from);
+    return ExitCode.SUCCESS;
   }
 
   /**
-   * Moves the given file to the given dir and renames the source file to the
-   * new name given
+   * Moves the given fselement to the given dir and renames the source element
+   * to  the new name given
    *
-   * @param from The file to move
+   * @param from The fselement to move
    * @param to The dir to move it to
    * @param newName The name the moved file should have
    * @return Exit code that mv should return success or failure
    */
-  private ExitCode moveFileWithRename(File from, Directory to,
+  private ExitCode moveElWithRename(FSElement from, Directory to,
       String newName) {
-    return null;
-  }
-
-  /**
-   * Moves the given dir to the given dir and renames the source dir to the new
-   * name given
-   *
-   * @param from The dir to move
-   * @param to The dir to move it to
-   * @param newName The name the moved dir should have
-   * @return Exit code that mv should return success or failure
-   */
-  private ExitCode moveDirWithRename(Directory from, Directory to,
-      String newName) {
-    return null;
+    // rename the source file
+    from.rename(newName);
+    // if we are moving the file to the same dir its in already we are
+    // done i.e. mv file newnameforfile
+    if (from.getParent() == to) {
+      return ExitCode.SUCCESS;
+    }
+    // otherwise we need to remove from from its parent and move
+    // to the to directory
+    // tell froms parent to get rid of the dir with the new name (we renamed)
+    from.getParent().removeChildByName(newName);
+    // add this element to the new location
+    // no overwrite prompt since this element cannot exist in to otherwise
+    // we would find it by path
+    to.addChild(from);
+    return ExitCode.SUCCESS;
   }
 
   /**
@@ -325,103 +359,6 @@ public class CmdMv extends Command {
     pair.add(to);
     pair.add(newName);
     return pair;
-  }
-
-  //TODO: https://pre00.deviantart.net/5c4f/th/pre/i/2017/350/3/a/delet_this_by_islandofsodorfilms-dbwv8wk.png
-  protected ExitCode oldrun(CommandArgs args, Writable<String> out,
-      Writable<String> errOut) {
-    // Get the elements by the given paths if they exist
-    Path oldPath, newPath;
-    FSElement from, to;
-    try {
-      // make sure the paths are good
-      oldPath = new Path(args.getCommandParameters()[0]);
-      newPath = new Path(args.getCommandParameters()[1]);
-      // make sure that the element we are moving from exists
-      from = fileSystem.getFSElementByPath(oldPath);
-      // make sure that we aren't trying to move the root directory
-      if (from == fileSystem.getRoot()) {
-        errOut.writeln("Cannot move the root directory");
-        return ExitCode.FAILURE;
-      }
-    } catch (MalformedPathException s) {
-      errOut.writeln("Invalid path(s) given");
-      return ExitCode.FAILURE;
-    } catch (FSElementNotFoundException s) {
-      errOut.writeln("You can only move an existing element");
-      return ExitCode.FAILURE;
-    }
-
-    // check if the element we are moving to exists
-    try {
-      to = fileSystem.getFSElementByPath(newPath);
-    } catch (MalformedPathException e) {
-      errOut.writeln("Invalid destination path given");
-      return ExitCode.FAILURE;
-    } catch (FSElementNotFoundException e) {
-      try {
-        String wantedName = newPath.removeLast();
-        to = fileSystem.getDirByPath(newPath);
-        // make sure that you are not moving to a child of itself
-        if (fileSystem.getAbsolutePathOfFSElement(to)
-            .startsWith(fileSystem.getAbsolutePathOfFSElement(from))) {
-          errOut.writeln("Cannot move element to its child or itself");
-          return ExitCode.FAILURE;
-        }
-        // rename the from item to the wanted name
-        from.rename(wantedName);
-      } catch (MalformedPathException e1) {
-        errOut.writeln("Invalid destination path given");
-        return ExitCode.FAILURE;
-      } catch (FSElementNotFoundException e1) {
-        errOut.writeln("Destination path does not exist.");
-        return ExitCode.FAILURE;
-      }
-    }
-    // make sure we aren't moving directory to a file
-    if (from instanceof Directory && to instanceof File) {
-      // can't do this write error and return failure
-      errOut.writeln("Cannot move directory to file");
-      return ExitCode.FAILURE;
-    }
-    // make sure we are not moving an element to itself or a child of itself
-    if (fileSystem.getAbsolutePathOfFSElement(to)
-        .startsWith(fileSystem.getAbsolutePathOfFSElement(from))) {
-      errOut.writeln("Cannot move element to its child or itself");
-      return ExitCode.FAILURE;
-    }
-    // initialize new and old parent
-    Directory newParent, oldParent = from.getParent();
-    if (to instanceof File) {
-      // if we moving to a file
-      // rename the file to the name of the file given as newpath
-      from.rename(to.getName());
-      // the new parent is the parent of the file given as newpath
-      newParent = to.getParent();
-      // delete the file given as newpath
-      to.getParent().removeChildByName(to.getName());
-    } else { // we are moving to a Directory so the new parent should be the
-      // directory we are moving to and no renaming is necessary
-      // new parent is the directory given as newpath
-      newParent = (Directory) to;
-    }
-    try {
-      // edge case if we are moving to same directory
-      if (oldParent != newParent) {
-        // try to move the element into its new parent
-        newParent.moveInto(from);
-      } else {
-        newParent.addChild(from);
-      }
-    } catch (FSElementAlreadyExistsException e) {
-      errOut.writeln("Element with given name already exists in NEWPATH");
-      return ExitCode.FAILURE;
-    }
-    // delete element being moved from its old parent
-    if (oldParent != newParent) {
-      oldParent.removeChildByName(from.getName());
-    }
-    return ExitCode.SUCCESS;
   }
 
   /**
