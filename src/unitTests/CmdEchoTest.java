@@ -94,7 +94,7 @@ public class CmdEchoTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("nice sentence you got there", tc.getAllWritesAsString());
+    assertEquals("nice sentence you got there\n", tc.getAllWritesAsString());
   }
 
   @Test
@@ -108,7 +108,7 @@ public class CmdEchoTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file4"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("some string", file.read());
+    assertEquals("some string\n", file.read());
   }
 
 
@@ -122,7 +122,7 @@ public class CmdEchoTest {
     File file = fs.getFileByPath(new Path("/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contents\nsome string", file.read());
+    assertEquals("file1's contents\nsome string\n", file.read());
   }
 
   @Test
@@ -136,7 +136,7 @@ public class CmdEchoTest {
     File file = fs.getFileByPath(new Path("/fileBlahBlahBlah"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("some string", file.read());
+    assertEquals("some string\n", file.read());
   }
 
   @Test

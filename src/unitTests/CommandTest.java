@@ -82,7 +82,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -98,7 +98,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contentshi", file.read());
+    assertEquals("file1's contentshi\n", file.read());
   }
 
   @Test
@@ -114,7 +114,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -130,7 +130,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contentshi", file.read());
+    assertEquals("file1's contentshi\n", file.read());
   }
 
   @Test
@@ -146,7 +146,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -162,7 +162,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -178,7 +178,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -194,7 +194,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -294,7 +294,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("hi", file.read());
+    assertEquals("hi\n", file.read());
   }
 
   @Test
@@ -311,7 +311,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir2/file2"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file2's contentshi", file.read());
+    assertEquals("file2's contentshi\n", file.read());
   }
 
   @Test
@@ -419,7 +419,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("   some\n\tcomplex string\n\n", file.read());
+    assertEquals("   some\n\tcomplex string\n\n\n", file.read());
   }
 
   @Test
@@ -435,7 +435,7 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contents   some\n\tcomplex string\n\n", file.read());
+    assertEquals("file1's contents   some\n\tcomplex string\n\n\n", file.read());
   }
 
   @Test

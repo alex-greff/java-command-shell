@@ -40,7 +40,4 @@ public class JShellTest {
     JShell.exit();
     assertFalse(JShell.getRunning());
   }
-
-
-
 }
