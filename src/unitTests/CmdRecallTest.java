@@ -77,13 +77,8 @@ public class CmdRecallTest {
     CommandArgs lsargs = Parser.parseUserInput("ls");
     CmdLs LsCall = new CmdLs(fs, cm);
     // end that
+    CommandArgs args = Parser.parseUserInput("!1");
 
-    String params[] = new String[1];
-    params[0]="1";
-    CommandArgs args = new CommandArgs("recall", params);
-
-    BufferedConsole<String> tc = new BufferedConsole<String>();
-    BufferedConsole<String> tc_err = new BufferedConsole<String>();
     // manually populate history with commands
     ArrayList<String> hist = JShell.getHistory();
     hist.add("ls"); hist.add("mkdir one");
@@ -118,6 +113,58 @@ public class CmdRecallTest {
     assertEquals(0, tc.getAllWritesAsString().length());
   }
 
+  @Test
+  public void testRecallDoubleDigitEntryHistoryWithParams(){
+    // make some ls test
+    CommandArgs histargs = Parser.parseUserInput("history 5");
+    CmdHistory histCall = new CmdHistory(fs, cm);
+    // end that
+    CommandArgs args = Parser.parseUserInput("!11");
 
+    // manually populate history with commands
+    ArrayList<String> hist = JShell.getHistory();
+    for (int i =1; i<10; i++){
+      String adder = "cmd" + String.valueOf(i);
+      hist.add(adder);
+    }
+    hist.add("history 5");
+
+    // test to see if the recall command executed history command
+    ExitCode excHist = histCall.execute(histargs, tc, tc, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+    assertTrue(tc.getAllWrites().size() > 0);
+    // the history carries over from previous tests
+    assertEquals("7. cmd6\n8. cmd7\n9. cmd8\n10. cmd9\n11. "
+        + "history 5\n", tc.getAllWritesAsString());
+  }
+
+  @Test
+  public void testRecallMkdirInDifferentDirectory(){
+    // make some ls test
+    CommandArgs mkdirArgs = Parser.parseUserInput("mkdir testingDir");
+    CmdMkdir mkdirCall = new CmdMkdir(fs, cm);
+    // end that
+    CommandArgs args = Parser.parseUserInput("!12");
+
+    ArrayList<String> hist = JShell.getHistory();
+    // execute the mkdir
+    ExitCode excMkdir = mkdirCall.execute(mkdirArgs, tc, tc, tc_err);
+    Directory d = new Directory("testingDir", fs.getRoot());
+    fs.getRoot().addChild(d);
+
+    // now change directory
+    CommandArgs cdArgs = Parser.parseUserInput("cd testingDir");
+    CmdCd change = new CmdCd(fs, cm);
+    ExitCode excCd = change.execute(cdArgs, tc, tc, tc_err);
+
+    // create another directory now using recall
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+
+    CommandArgs lsRArgs = Parser.parseUserInput("ls -R /");
+    CmdLs lscommand = new CmdLs(fs, cm);
+    ExitCode eh  = lscommand.execute(lsRArgs, tc,tc,tc_err);
+    assertEquals("/:\ntestingDir:\n", tc.getAllWritesAsString());
+
+  }
 
 }
