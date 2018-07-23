@@ -95,9 +95,9 @@ public class CmdRecallTest {
     // test to see if the recall command executed ls command
     ExitCode excLs = LsCall.execute(lsargs, tc, tc, tc_err);
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
-    assertTrue(tc_err.getAllWritesAsString().length() == 0);
+    assertEquals(0, tc_err.getAllWritesAsString().length());
     assertTrue(tc.getAllWrites().size() > 0);
-    assertTrue(tc.getAllWrites().get(0).equals("one"));
+    assertEquals("one", tc.getAllWrites().get(0));
 
 
   }

@@ -61,7 +61,7 @@ public class FSElementTest {
     Directory parent = new Directory("myParent", null);
     FSElement fse = new FSElement("myName", parent);
     
-    FSElement new_fse = fse.clone();
+    FSElement new_fse = fse.copy();
     assertEquals("myName", new_fse.getName());
     assertEquals("myParent", new_fse.getParent().getName());
   }
@@ -70,7 +70,7 @@ public class FSElementTest {
   public void testCloneNoParent() {
     FSElement fse = new FSElement("myName", null);
     
-    FSElement new_fse = fse.clone();
+    FSElement new_fse = fse.copy();
     assertEquals("myName", new_fse.getName());
     assertNull(new_fse.getParent());
   }

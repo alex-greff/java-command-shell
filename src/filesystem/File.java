@@ -68,7 +68,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
 
   /**
    * A private constructor initializing with the actual contents list array.
-   * Useful for the clone method.
+   * Useful for the copy method.
    * 
    * @param name The name of the file.
    * @param content The internal content list.
@@ -170,7 +170,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * @return Returns the cloned instance.
    */
   @Override
-  public FSElement clone() {
+  public FSElement copy() {
     // Make the new instance of the file
     return new File<T>(this.name, this.contents, this.parent);
   }

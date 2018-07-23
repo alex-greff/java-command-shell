@@ -30,10 +30,10 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.File;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
@@ -82,7 +82,8 @@ public class CmdLsTest {
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("dir2\ndir1\nfile2\nfile1\n\n", tc.getAllWritesAsString());
+    assertEquals("dir2\ndir1\nfile2\nfile3\nfile1\n", tc
+        .getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -96,7 +97,7 @@ public class CmdLsTest {
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("\n", tc.getAllWritesAsString());
+    assertEquals("dir1:\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
@@ -110,7 +111,7 @@ public class CmdLsTest {
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("file3\n\n", tc.getAllWritesAsString());
+    assertEquals("dir2:\n", tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 

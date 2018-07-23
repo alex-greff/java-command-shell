@@ -64,12 +64,12 @@ public class FSElement {
   }
 
   /**
-   * Clones the current FSElement. Warning: when cloning, the new instance is
+   * Copies the current FSElement. Warning: when copying, the new instance is
    * unlinked (ie the parent directory has no record of it as its child).
    * 
    * @return Returns the cloned instance.
    */
-  public FSElement clone() {
+  public FSElement copy() {
     return new FSElement(this.name, this.parent);
   }
 }

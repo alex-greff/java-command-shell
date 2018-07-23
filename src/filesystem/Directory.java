@@ -60,9 +60,11 @@ public class Directory extends FSElement {
    * same name existed before
    */
   public void addChild(FSElement child) {
-    if (child == null)
+    if (child == null) {
       return;
+    }
     this.children.put(child.getName(), child);
+    child.changeParent(this);
     child.parent = this;
   }
 
@@ -72,12 +74,13 @@ public class Directory extends FSElement {
    *
    * @param newChild The child to move into this directory
    * @throws FSElementAlreadyExistsException if there is already a child with
-   *         the same name
+   * the same name
    */
   public void moveInto(FSElement newChild)
       throws FSElementAlreadyExistsException {
-    if (newChild == null)
+    if (newChild == null) {
       return;
+    }
     if (!children.containsKey(newChild.getName())) {
       // Add the new child
       this.children.put(newChild.getName(), newChild);
@@ -95,7 +98,7 @@ public class Directory extends FSElement {
    * @param name The name of the new child directory
    * @return Returns the new created directory
    * @throws FSElementAlreadyExistsException Thrown when there is already an
-   *         element with this name
+   * element with this name
    */
   public Directory createAndAddNewDir(String name)
       throws FSElementAlreadyExistsException {
@@ -114,7 +117,8 @@ public class Directory extends FSElement {
    *
    * @param name The name of the child file to create
    * @return The new file object that was created
-   * @throws FSElementAlreadyExistsException Thrown when the file already exists
+   * @throws FSElementAlreadyExistsException Thrown when the file already
+   * exists
    */
   public File<?> createAndAddNewFile(String name)
       throws FSElementAlreadyExistsException {
@@ -134,7 +138,8 @@ public class Directory extends FSElement {
    * @param name The name of the child file to create
    * @param contents The initial contents of the new file
    * @return The new file object that was created
-   * @throws FSElementAlreadyExistsException Thrown when the file already exists
+   * @throws FSElementAlreadyExistsException Thrown when the file already
+   * exists
    */
   public File<?> createAndAddNewFile(String name, String contents)
       throws FSElementAlreadyExistsException {
@@ -196,7 +201,7 @@ public class Directory extends FSElement {
 
   /**
    * Gets if an element with name is a child of the directory.
-   * 
+   *
    * @param name The name of the child.
    * @return Returns true iff a child element with name exists.
    */
@@ -226,7 +231,7 @@ public class Directory extends FSElement {
 
   /**
    * Lists all children names (files and directories) inside of this directory
-   * 
+   *
    * @return A list of all children names inside this directory
    */
   public ArrayList<String> listAllChildrenNames() {
@@ -288,19 +293,18 @@ public class Directory extends FSElement {
    * Clones the current Directory as well as all its children elements. Warning:
    * when cloning, the new instance is unlinked (ie the parent directory has no
    * record of it as its child).
-   * 
+   *
    * @return Returns the cloned instance.
    */
   @Override
-  public FSElement clone() {
+  public FSElement copy() {
     // Clone the directory
     Directory newDir = new Directory(this.name, this.parent);
 
     // Clone each child and place it in the new directory
-    for (String k : this.children.keySet()) {
-      FSElement child = this.children.get(k);
-      FSElement new_child = child.clone();
-      new_child.changeParent(newDir);
+    for (String name : this.children.keySet()) {
+      FSElement child = this.children.get(name);
+      FSElement new_child = child.copy();
       newDir.addChild(new_child);
     }
 

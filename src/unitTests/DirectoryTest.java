@@ -325,7 +325,7 @@ public class DirectoryTest {
     dir.addChild(child1);
     dir.addChild(child2);
     
-    Directory newDir = (Directory) dir.clone();
+    Directory newDir = (Directory) dir.copy();
     assertEquals("myName", newDir.getName());
     assertEquals("myParent", newDir.getParent().getName());
     assertEquals("myChild1", newDir.getChildByName("myChild1").getName());

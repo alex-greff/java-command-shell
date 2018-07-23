@@ -80,7 +80,7 @@ public class CmdTreeTest {
     BufferedConsole<String> tc_err = new BufferedConsole<String>();
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("/\n\tfile2\n\tfile1\n\tdir2\n\t\tfile3\n\tdir1\n\n",
+    assertEquals("/\n\tfile2\n\tfile1\n\tdir2\n\t\tfile3\n\tdir1\n",
         tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
