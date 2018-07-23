@@ -45,6 +45,7 @@ import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import utilities.Parser;
 
 public class CmdHistoryTest {
 
@@ -66,25 +67,41 @@ public class CmdHistoryTest {
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
     cmd = new CmdHistory(fs, cm);
+    ArrayList<String> hist = JShell.getHistory();
   }
 
+  /*
   @BeforeClass
   public static void setup() {
     ArrayList<String> hist = JShell.getHistory();
   }
-
+  */
   @Test
   public void testHistory1SingleEntry() {
-    String[] params = new String[1];
-    params[0] = "1";
-    CommandArgs args = new CommandArgs("history", params);
+    CommandArgs args = Parser.parseUserInput("history");
 
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
 
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("history");
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
-    assertEquals("", tc.getLastWrite());
+    assertEquals("1. history\n", tc.getAllWritesAsString());
+    assertEquals(exc, ExitCode.SUCCESS);
+  }
+
+  @Test
+  public void testHistory1Param() {
+    CommandArgs args = Parser.parseUserInput("history 1");
+
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("history 1");
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals("2. history 1\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
@@ -92,7 +109,6 @@ public class CmdHistoryTest {
   public void testMultipleEntriesAllHistory() {
     String[] params = new String[0];
     CommandArgs args = new CommandArgs("history", params);
-
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
@@ -101,9 +117,44 @@ public class CmdHistoryTest {
     hist.add("third entry");
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
-    assertTrue(tc.getAllWritesAsString().contains("1. first entry\n"
-        + "2. second entry\n3. third entry"));
-    assertTrue(tc.getLastWrite().contains("3."));
+    assertEquals("1. history\n"
+        + "2. history 1\n"
+        + "3. first entry\n"
+        + "4. second entry\n"
+        + "5. third entry\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
+
+  @Test
+  public void testNumberTooBig() {
+    // number too big will simply return back all of the history anyways
+    CommandArgs args = Parser.parseUserInput("history 11");
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("history 11");
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals("1. history\n"
+        + "2. history 1\n"
+        + "3. first entry\n"
+        + "4. second entry\n"
+        + "5. third entry\n"
+        + "6. history 11\n", tc.getAllWritesAsString());
+    assertEquals(exc, ExitCode.SUCCESS);
+  }
+
+  @Test
+  public void testNumberZero() {
+    // number too big will simply return back all of the history anyways
+    CommandArgs args = Parser.parseUserInput("history 0");
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    ArrayList<String> hist = JShell.getHistory();
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals("", tc.getAllWritesAsString());
+    assertEquals(exc, ExitCode.SUCCESS);
+  }
+
 }

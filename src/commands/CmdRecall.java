@@ -58,10 +58,11 @@ public class CmdRecall extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "This command executes the n'th last command executed", "![num]")
+          "This command executes the n'th last command executed",
+          "![num]")
               .additionalComment("The history command itself will "
                   + "always take place as the latest entry in history "
-                  + "(i.e. history 1 prints: \"1. history 1\")")
+                  + "(i.e. history 1 prints: \"[int]. history 1\")")
               .build();
 
   /**
