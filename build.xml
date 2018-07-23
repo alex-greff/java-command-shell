@@ -10,6 +10,8 @@
 	<property name="src.utilities.dir" value="src/utilities"/>
 
 	<property name="build.test.class" value="build/unitTests"/>
+	<property name="build.class" value="build"/>
+
 
 
 	<path id="classpath">
@@ -22,7 +24,7 @@
 	<path id="classpath.test">
 		<pathelement location="jars/junit-4.12.jar"/>
 		<pathelement location="jars/hamcrest-core-1.3.jar"/>
-		<pathelement location="${build.test.class}"/>
+		<pathelement path="${build.class}"/>
 	</path>
 
 
@@ -84,7 +86,7 @@
 
 
 	<!--RUN JUNIT-->
-	<target name="junit" depends="testCompile, jar">
+	<target name="junit" depends="jar">
 		<delete dir="testReports"/>
 		<mkdir dir="testReports"/>
 
@@ -109,10 +111,11 @@
 	<target name="singleTest" depends="testCompile">
 		<junit printsummary="yes" haltonfailure="no" fork="true">
 			<classpath>
+				<pathelement location="${src.unitTests.dir}"/>
 				<path refid="classpath.test"/>
 			</classpath>
 			<formatter type="plain"/>
-			<test name="src.unitTests.ParserTest" outfile="testy"/>
+			<test name="unitTests.ParserTest" outfile="testy" haltonfailure="no"/>
 		</junit>
 	</target>
 

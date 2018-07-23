@@ -175,4 +175,36 @@ public class CmdHistoryTest {
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
+  @Test
+  public void testHistExactAmount() {
+    // number too big will simply return back all of the history anyways
+    CommandArgs args = Parser.parseUserInput("history 4");
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("One"); hist.add("Two"); hist.add("Three");
+    hist.add("history 4");
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals("1. One\n"
+        + "2. Two\n"
+        + "3. Three\n"
+        + "4. history 4\n", tc.getAllWritesAsString());
+    assertEquals(exc, ExitCode.SUCCESS);
+  }
+
+  @Test
+  public void testBadParam() {
+    // number too big will simply return back all of the history anyways
+    CommandArgs args = Parser.parseUserInput("history r");
+    BufferedConsole<String> tc = new BufferedConsole<>();
+    BufferedConsole<String> tc_err = new BufferedConsole<>();
+    ArrayList<String> hist = JShell.getHistory();
+    hist.add("history -1");
+    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+
+    assertEquals(exc, ExitCode.FAILURE);
+  }
+
+
 }
