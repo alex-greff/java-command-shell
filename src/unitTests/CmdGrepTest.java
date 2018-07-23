@@ -155,7 +155,7 @@ public class CmdGrepTest {
     // Assert that the command successfully executed, and no lines of content
     // matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("\n", testErrOut.getAllWritesAsString());
+    assertEquals("", testOut.getAllWritesAsString());
   }
 
   @Test
@@ -165,7 +165,7 @@ public class CmdGrepTest {
         "test line 1\ntest line 2\ntest line 3");
 
     // Attempt to match a regex to the file
-    String argParam[] = {"test line 1", "testFile"};
+    String argParam[] = {"(.*)1", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args = new CommandArgs("grep", argParam, argFlags,
@@ -175,7 +175,7 @@ public class CmdGrepTest {
     // Assert that the command successfully executed, and one line of content
     // matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("test line 1\n", testErrOut.getAllWritesAsString());
+    assertEquals("test line 1", testOut.getAllWritesAsString());
   }
 
   @Test
@@ -185,7 +185,7 @@ public class CmdGrepTest {
         "test line 1\ntest line 2\ntest line 3");
 
     // Attempt to match a regex to the file
-    String argParam[] = {"test line(.*)", "testFile"};
+    String argParam[] = {"test line [0-9]", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args = new CommandArgs("grep", argParam, argFlags,
@@ -195,8 +195,8 @@ public class CmdGrepTest {
     // Assert that the command successfully executed, and multiple lines of
     // content matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("test line 1\ntest line 2\ntest line 3\n",
-        testErrOut.getAllWritesAsString());
+    assertEquals("test line 1\ntest line 2\ntest line 3",
+        testOut.getAllWritesAsString());
   }
 
   @Test
