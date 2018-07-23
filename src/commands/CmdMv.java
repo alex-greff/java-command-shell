@@ -43,7 +43,6 @@ import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Writable;
 import java.util.ArrayList;
-import java.util.Scanner;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -84,8 +83,18 @@ public class CmdMv extends Command {
               + " the element being moved exists in the destination the user"
               + " will be prompted if it should be overwritten")
           .build();
+  /**
+   * Storage of the error output.
+   */
   private Writable<String> errorOut;
+  /**
+   * Storage of the standard output.
+   */
   private Writable<String> out;
+  /**
+   * Storage of the standard input
+   */
+  private Readable in;
 
   /**
    * Constructs a new command instance.
@@ -115,6 +124,7 @@ public class CmdMv extends Command {
     // save the error console to a field
     this.errorOut = errorOut;
     this.out = out;
+    this.in = in;
     Path fromPath, toPath;
     FSElement from, to;
     // rename flag for mv if the string is not empty a rename is required
@@ -190,8 +200,7 @@ public class CmdMv extends Command {
     // prompt the user if the element should be overwritten
     out.writeln("Overwrite element at path "
         + fileSystem.getAbsolutePathOfFSElement(to) + " [y/n]?");
-    Scanner in = new Scanner(System.in);
-    String answer = in.nextLine().trim();
+    String answer = in.read().trim();
     UserDecision overwrite;
     // get the users decision
     try {
