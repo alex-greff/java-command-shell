@@ -93,7 +93,7 @@ public class CmdEcho extends Command {
 
     // If there is any output for the standard out then write to it
     if (!output.isEmpty())
-      out.writeln(output);
+      out.writeln(output + "\n");
 
     // Return the success exit code
     return ExitCode.SUCCESS;
