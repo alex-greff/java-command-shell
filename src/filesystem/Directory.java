@@ -285,4 +285,24 @@ public class Directory extends FSElement {
     FSElement child = this.children.remove(oldName);
     this.children.put(newName, child);
   }
+  
+  /**
+   * Clones the current Directory as well as all its children elements.
+   * 
+   * @return Returns the cloned instance.
+   */
+  public Directory clone() {
+    // Clone the directory
+    Directory newDir = new Directory(this.name, this.parent); 
+    
+    // Clone each child and place it in the new directory
+    for (String k : this.children.keySet()) {
+      FSElement child = this.children.get(k);
+      FSElement new_child = child.clone();
+      newDir.addChild(new_child);
+    }
+    
+    // Return the new instance of the directory
+    return newDir;
+  }
 }

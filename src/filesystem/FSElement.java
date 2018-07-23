@@ -63,4 +63,12 @@ public class FSElement {
     this.name = name;
   }
 
+  /**
+   * Clones the current FSElement.
+   * 
+   * @return Returns the cloned instance.
+   */
+  public FSElement clone() {
+    return new FSElement(this.name, this.parent);
+  }
 }
