@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import commands.CmdCd;
 import commands.CmdEcho;
+import commands.CmdExit;
 import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -429,21 +430,24 @@ public class RedirectSystemTest {
   }
 
   @Test
-  public void testRedirectWithInvalidCommandCall() {
+  public void testRedirectWithInvalidCommandCall() throws MalformedPathException, FSElementNotFoundException {
     cmd = new CmdEcho(fs, cm);
     CommandArgs args = Parser.parseUserInput("invalidCommand > /dir1/dir4/file1");
     ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
     
-    assertSame(ExitCode.SUCCESS, exitVal);
+    assertSame(ExitCode.FAILURE, exitVal);
+    assertEquals("file1's contents", file.read());
   }
 
   @Test
-  public void testRedirectWithExitCommand() {
-
-  }
-
-  @Test
-  public void testRedirectWorksWithEveryCommand() {
-
+  public void testRedirectWithExitCommand() throws MalformedPathException, FSElementNotFoundException {
+    cmd = new CmdExit(fs, cm);
+    CommandArgs args = Parser.parseUserInput("exit > /dir1/dir4/file1");
+    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
+    
+    assertSame(ExitCode.FAILURE, exitVal);
+    assertEquals("file1's contents", file.read());
   }
 }
