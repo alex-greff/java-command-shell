@@ -2,7 +2,6 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
 import filesystem.Directory;
 import filesystem.File;
 import filesystem.FSElementNotFoundException;

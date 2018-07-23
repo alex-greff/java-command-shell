@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdCat;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
@@ -131,8 +130,8 @@ public class CmdCatTest {
       throws FSElementAlreadyExistsException {
     // Create a file with multiple lines of content, and add it to the root
     // directory
-    fs.getRoot()
-        .createAndAddNewFile("testFile", "hello\nworld\nthis\nis\na\ntest");
+    fs.getRoot().createAndAddNewFile("testFile",
+        "hello\nworld\nthis\nis\na\ntest");
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};

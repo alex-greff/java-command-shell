@@ -194,11 +194,12 @@ public class RedirectSystemTest {
     CommandArgs args = Parser.parseUserInput("echo \"hi\" > /dirWrong/fileNew");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: No file/directory found", tc_err.getAllWritesAsString());
+    assertEquals("Error: No file/directory found",
+        tc_err.getAllWritesAsString());
   }
-  
+
   @Test
   public void testWriteToDirectoryRelativePath()
       throws MalformedPathException, FSElementNotFoundException {
@@ -209,7 +210,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -223,7 +225,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -235,7 +238,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -247,7 +251,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -261,7 +266,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -310,7 +316,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -325,7 +332,8 @@ public class RedirectSystemTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
-    assertEquals("Error: File/directory already exists", tc_err.getAllWritesAsString());
+    assertEquals("Error: File/directory already exists",
+        tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -344,7 +352,8 @@ public class RedirectSystemTest {
   }
 
   @Test
-  public void testAppendToFileWithNoOutput() throws MalformedPathException, FSElementNotFoundException {
+  public void testAppendToFileWithNoOutput()
+      throws MalformedPathException, FSElementNotFoundException {
     cmd = new CmdCd(fs, cm);
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 >> file1");
@@ -358,7 +367,8 @@ public class RedirectSystemTest {
   }
 
   @Test
-  public void testWriteToNonExistentFileWithNoOutput() throws MalformedPathException, FSElementNotFoundException {
+  public void testWriteToNonExistentFileWithNoOutput()
+      throws MalformedPathException, FSElementNotFoundException {
     cmd = new CmdCd(fs, cm);
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 > fileNew");
@@ -370,9 +380,10 @@ public class RedirectSystemTest {
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("", file.read());
   }
-  
+
   @Test
-  public void testAppendToNonExistentFileWithNoOutput() throws MalformedPathException, FSElementNotFoundException {
+  public void testAppendToNonExistentFileWithNoOutput()
+      throws MalformedPathException, FSElementNotFoundException {
     cmd = new CmdCd(fs, cm);
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 >> fileNew");
@@ -384,7 +395,7 @@ public class RedirectSystemTest {
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("", file.read());
   }
-  
+
   @Test
   public void testWriteToFileComplexOutput() {
 

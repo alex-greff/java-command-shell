@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -115,13 +114,13 @@ public class CmdLsTest {
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 
-  
+
   @Test
   public void testWithFileAsParam() throws FSElementAlreadyExistsException {
     CommandArgs args = Parser.parseUserInput("ls file1");
-    
+
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
-    
+
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("file1\n", tc.getAllWritesAsString());
   }

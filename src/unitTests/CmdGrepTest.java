@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdGrep;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -70,8 +69,8 @@ public class CmdGrepTest {
     String argParam[] = {};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
@@ -82,8 +81,8 @@ public class CmdGrepTest {
     String argParam[] = {"regexArg", "pathArg", "unwantedArg"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
@@ -94,8 +93,8 @@ public class CmdGrepTest {
     String argParam[] = {"regexArg", "pathArg"};
     String argFlags[] = {"r"};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
@@ -106,8 +105,8 @@ public class CmdGrepTest {
     String argParam[] = {"regexArg", "invalid//path"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid file path", testErrOut.getAllWritesAsString());
@@ -118,8 +117,8 @@ public class CmdGrepTest {
     String argParam[] = {"regexArg", "file/does/not/exist"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: File does not exist",
@@ -131,8 +130,8 @@ public class CmdGrepTest {
     String argParam[] = {"regexArg", "dir/does/not/exist"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Directory does not exist",
@@ -149,8 +148,8 @@ public class CmdGrepTest {
     String argParam[] = {"test line 4", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and no lines of content
@@ -169,8 +168,8 @@ public class CmdGrepTest {
     String argParam[] = {"(.*)1", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and one line of content
@@ -189,8 +188,8 @@ public class CmdGrepTest {
     String argParam[] = {"test line [0-9]", "testFile"};
     String argFlags[] = {};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and multiple lines of
@@ -214,8 +213,8 @@ public class CmdGrepTest {
     String argParam[] = {"test line 4", "testDir"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and no lines of content
@@ -238,8 +237,8 @@ public class CmdGrepTest {
     String argParam[] = {"(.*)1", "testDir"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and one line of content
@@ -263,14 +262,15 @@ public class CmdGrepTest {
     String argParam[] = {"test line [0-9]", "testDir"};
     String argFlags[] = {"R"};
     HashMap<String, String> argNamedParam = new HashMap<>();
-    CommandArgs args = new CommandArgs("grep", argParam, argFlags,
-        argNamedParam);
+    CommandArgs args =
+        new CommandArgs("grep", argParam, argFlags, argNamedParam);
     ExitCode exitVal = cmd.execute(args, testOut, testErrOut);
 
     // Assert that the command successfully executed, and multiple lines of
     // content matched the regex
     assertEquals(ExitCode.SUCCESS, exitVal);
-    assertEquals("/testDir/testFile1: test line 1\n"
+    assertEquals(
+        "/testDir/testFile1: test line 1\n"
             + "/testDir/testFile2: test line 2\n"
             + "/testDir/testFile3: test line 3\n",
         testOut.getAllWritesAsString());

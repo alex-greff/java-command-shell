@@ -53,7 +53,8 @@ public class CmdMvTest {
     // there should no longer be inside_test as a child of root
     assertFalse(root.containsChildElement("inside_test"));
     // inside_test should now be inside test
-    assertTrue(root.getChildDirectoryByName("test").containsChildElement("inside_test"));
+    assertTrue(root.getChildDirectoryByName("test")
+        .containsChildElement("inside_test"));
   }
 
   @Test
@@ -104,7 +105,8 @@ public class CmdMvTest {
     // there should no longer be seeyalater as a child of root
     assertFalse(root.containsChildElement("seeyalater"));
     // there should now be heythere inside getinme
-    assertTrue(root.getChildDirectoryByName("getinme").containsChildElement("heythere"));
+    assertTrue(root.getChildDirectoryByName("getinme")
+        .containsChildElement("heythere"));
   }
 
   @Test
@@ -124,8 +126,10 @@ public class CmdMvTest {
     // there should now only be mommy inside of root
     assertTrue(root.containsChildElement("mommy"));
     // make sure the kids don't get aborted
-    assertTrue(root.getChildDirectoryByName("mommy").containsChildElement("kid1"));
-    assertTrue(root.getChildDirectoryByName("mommy").containsChildElement("kid2"));
+    assertTrue(
+        root.getChildDirectoryByName("mommy").containsChildElement("kid1"));
+    assertTrue(
+        root.getChildDirectoryByName("mommy").containsChildElement("kid2"));
   }
 
   @Test
@@ -143,7 +147,8 @@ public class CmdMvTest {
     // daddy kid 1 should no longer exist
     assertFalse(daddy.containsChildElement("kid1"));
     // kid2 should exist and contain kid 1
-    assertTrue(daddy.getChildDirectoryByName("kid2").containsChildElement("kid1"));
+    assertTrue(
+        daddy.getChildDirectoryByName("kid2").containsChildElement("kid1"));
   }
 
   @Test
@@ -170,7 +175,7 @@ public class CmdMvTest {
   public void testMovingDirectoryThatIsCurrWorkingDir()
       throws FSElementAlreadyExistsException, MalformedPathException,
       FSElementNotFoundException {
-    
+
     Directory root = fs.getRoot();
     root.createAndAddNewDir("d1_t");
     // Change working directory to the file

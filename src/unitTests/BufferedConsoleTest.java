@@ -31,8 +31,6 @@ package unitTests;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,13 +38,12 @@ import io.BufferedConsole;
 
 public class BufferedConsoleTest {
   BufferedConsole<String> tc;
-  
+
   @Before
   public void setup() {
     tc = new BufferedConsole<String>();
   }
-  
-  
+
   @Test
   public void testConsoleWriteln() {
     tc.writeln("some line 1");

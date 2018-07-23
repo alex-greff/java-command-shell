@@ -1,7 +1,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-
 import commands.CmdPopd;
 import containers.CommandArgs;
 import filesystem.Directory;

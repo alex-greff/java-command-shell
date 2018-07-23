@@ -1,7 +1,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertTrue;
-
 import commands.CmdMkdir;
 import containers.CommandArgs;
 import filesystem.FSElementNotFoundException;
@@ -34,7 +33,7 @@ public class CmdMkdirTest {
   @Test
   public void testWithOnePath() {
     // only creating the test directory
-    CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test"});
+    CommandArgs cargs = new CommandArgs("mkdir", new String[] {"test"});
     // execute mkdir
     mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directory exists
@@ -44,7 +43,8 @@ public class CmdMkdirTest {
   @Test
   public void testWithMultiplePaths() {
     // creating multiple directories
-    CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test", "test2"});
+    CommandArgs cargs =
+        new CommandArgs("mkdir", new String[] {"test", "test2"});
     // execute mkdir
     mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directories exist
@@ -55,12 +55,13 @@ public class CmdMkdirTest {
   @Test
   public void testMultipleNotInWorkingDir() throws FSElementNotFoundException {
     // creating parent
-    CommandArgs cargs = new CommandArgs("mkdir", new String[]{"test1",
-        "test1/test2"});
+    CommandArgs cargs =
+        new CommandArgs("mkdir", new String[] {"test1", "test1/test2"});
     // execute mkdir
     mkdirCmd.execute(cargs, tc, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsChildElement("test1"));
-    assertTrue(fs.getWorkingDir().getChildDirectoryByName("test1").containsChildElement("test2"));
+    assertTrue(fs.getWorkingDir().getChildDirectoryByName("test1")
+        .containsChildElement("test2"));
   }
 }

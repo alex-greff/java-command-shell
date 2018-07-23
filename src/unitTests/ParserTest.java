@@ -370,9 +370,10 @@ public class ParserTest {
         new CommandArgs("recall", new String[] {"567", "lol", "\"hi there\""});
     assertEquals(p, c_wanted);
   }
-  
+
   @Test
-  public void testBooleanDecisionInputWithTrueInput() throws InvalidBooleanInputException {
+  public void testBooleanDecisionInputWithTrueInput()
+      throws InvalidBooleanInputException {
     UserDecision ud = Parser.parseBooleanDecisionInput("yes", false);
     assertEquals(UserDecision.YES, ud);
     ud = Parser.parseBooleanDecisionInput("y", false);
@@ -386,9 +387,10 @@ public class ParserTest {
     ud = Parser.parseBooleanDecisionInput("positive", false);
     assertEquals(UserDecision.YES, ud);
   }
-  
+
   @Test
-  public void testBooleanDecisionInputWithFalseInput() throws InvalidBooleanInputException {
+  public void testBooleanDecisionInputWithFalseInput()
+      throws InvalidBooleanInputException {
     UserDecision ud = Parser.parseBooleanDecisionInput("no", false);
     assertEquals(UserDecision.NO, ud);
     ud = Parser.parseBooleanDecisionInput("n", false);
@@ -402,14 +404,16 @@ public class ParserTest {
     ud = Parser.parseBooleanDecisionInput("negative", false);
     assertEquals(UserDecision.NO, ud);
   }
-  
-  @Test (expected = InvalidBooleanInputException.class)
-  public void testBooleanDecisionInputWithCancelWithNotCancellableOptionSet() throws InvalidBooleanInputException {
+
+  @Test(expected = InvalidBooleanInputException.class)
+  public void testBooleanDecisionInputWithCancelWithNotCancellableOptionSet()
+      throws InvalidBooleanInputException {
     UserDecision ud = Parser.parseBooleanDecisionInput("cancel", false);
   }
-  
+
   @Test
-  public void testBooleanDecisionInputWithCancelWithCancellableOptionSet() throws InvalidBooleanInputException {
+  public void testBooleanDecisionInputWithCancelWithCancellableOptionSet()
+      throws InvalidBooleanInputException {
     UserDecision ud = Parser.parseBooleanDecisionInput("cancel", true);
     assertEquals(UserDecision.CANCEL, ud);
     ud = Parser.parseBooleanDecisionInput("c", true);

@@ -31,7 +31,6 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -87,7 +86,8 @@ public class CmdEchoTest {
 
   @Test
   public void testExecuteEchoToConsole() {
-    CommandArgs args = Parser.parseUserInput("echo \"nice sentence you got there\"");
+    CommandArgs args =
+        Parser.parseUserInput("echo \"nice sentence you got there\"");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_err);
 

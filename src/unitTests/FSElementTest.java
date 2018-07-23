@@ -13,40 +13,40 @@ public class FSElementTest {
     FSElement fse = new FSElement("myName", null);
     assertEquals("myName", fse.getName());
   }
-  
+
   @Test
   public void testGetParentNoParent() {
     FSElement fse = new FSElement("myName", null);
     assertNull(fse.getParent());
   }
-  
+
   @Test
   public void testGetParentWithParent() {
     Directory parent = new Directory("myParent", null);
     FSElement fse = new FSElement("myName", parent);
     parent.addChild(fse);
-    
+
     assertEquals("myParent", fse.getParent().getName());
   }
-  
+
   @Test
   public void testRenameWithParent() {
     Directory parent = new Directory("myParent", null);
     FSElement fse = new FSElement("myName", parent);
     parent.addChild(fse);
     fse.rename("myNewName");
-    
+
     assertNotNull(parent.getChildByName("myNewName"));
   }
-  
+
   @Test
   public void testRenameWithoutParent() {
     FSElement fse = new FSElement("myName", null);
     fse.rename("myNewName");
-    
+
     assertNull(fse.getParent());
   }
-  
+
   @Test
   public void testChangeParent() {
     FSElement fse = new FSElement("myName", null);
