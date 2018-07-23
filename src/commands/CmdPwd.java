@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
@@ -74,20 +75,20 @@ public class CmdPwd extends Command {
    * directory.
    *
    * @param args The command arguments container
-   * @param out Writable for Standard Output
-   * @param in The standard input
-   * @param errOut Writable for Error Output
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Set the result string as the working directory path
     String resultStr = fileSystem.getWorkingDirPath() + "\n";
 
     // If no redirect operator then...
     // Write all the contents read to the Console and return SUCCESS always
-    out.write(resultStr);
+    console.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

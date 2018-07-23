@@ -41,6 +41,7 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.Console;
 import io.Readable;
 import io.Writable;
 import java.util.ArrayList;
@@ -88,17 +89,17 @@ public class CmdMv extends Command {
                                  + " it should be overwritten")
           .build();
   /**
-   * Storage of the error output.
+   * Storage of the standard console.
    */
-  private Writable<String> errorOut;
+  private Console<String> console;
   /**
-   * Storage of the standard output.
+   * Storage of the query console.
    */
-  private Writable<String> out;
+  private Console<String> queryConsole;
   /**
-   * Storage of the standard input
+   * Storage of the error console.
    */
-  private Readable in;
+  private Console<String> errorConsole;
 
   /**
    * Constructs a new command instance.
@@ -114,18 +115,18 @@ public class CmdMv extends Command {
    * Executes the mv command with the given arguments.
    *
    * @param args The command arguments container
-   * @param out Writable for Standard Output
-   * @param in The standard input.
-   * @param errorOut Writable for Error Output
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errorOut) {
-    // save the error console to a field
-    this.errorOut = errorOut;
-    this.out = out;
-    this.in = in;
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
+    // save the consoles
+    this.console = console;
+    this.queryConsole = queryConsole;
+    this.errorConsole = errorConsole;
     Path fromPath, toPath;
     FSElement from, to;
     // rename flag for mv if the string is not empty a rename is required
@@ -135,7 +136,7 @@ public class CmdMv extends Command {
       fromPath = new Path(args.getCommandParameters()[0]);
       toPath = new Path(args.getCommandParameters()[1]);
     } catch (MalformedPathException e) {
-      errorOut.writeln("Invalid path(s) given");
+      errorConsole.writeln("Invalid path(s) given");
       return ExitCode.FAILURE;
     }
     // try to get the from element
@@ -199,16 +200,16 @@ public class CmdMv extends Command {
    */
   private ExitCode maybeOverwriteElement(FSElement from, FSElement to) {
     // prompt the user if the element should be overwritten
-    System.out.println("Overwrite element at path "
+    queryConsole.writeln("Overwrite element at path "
                            + fileSystem.getAbsolutePathOfFSElement(to)
                            + " [y/n]?");
-    String answer = in.read().trim();
+    String answer = queryConsole.read().trim();
     UserDecision overwrite;
     // get the users decision
     try {
       overwrite = Parser.parseBooleanDecisionInput(answer, false);
     } catch (InvalidBooleanInputException e) {
-      errorOut.writeln("Operation cancelled");
+      errorConsole.writeln("Operation cancelled");
       return ExitCode.FAILURE;
     }
     if (overwrite == UserDecision.YES) {
@@ -222,7 +223,7 @@ public class CmdMv extends Command {
       return ExitCode.SUCCESS;
     } else {
       // otherwise cancel
-      errorOut.writeln("Operation cancelled");
+      errorConsole.writeln("Operation cancelled");
       return ExitCode.FAILURE;
     }
   }
@@ -283,20 +284,20 @@ public class CmdMv extends Command {
   private boolean isValidMove(FSElement from, FSElement to, boolean renaming) {
     // make sure we aren't moving directory to file
     if (from instanceof Directory && to instanceof File) {
-      errorOut.writeln("Cannot move directory to file");
+      errorConsole.writeln("Cannot move directory to file");
       return false;
     }
     // second make sure we dont move an element to itself or its child
     String absFrom = fileSystem.getAbsolutePathOfFSElement(from);
     String absTo = fileSystem.getAbsolutePathOfFSElement(to);
     if (absTo.startsWith(absFrom)) {
-      errorOut.writeln("Cannot move element to itself or to its child");
+      errorConsole.writeln("Cannot move element to itself or to its child");
       return false;
     }
     // third make sure we aren't moving an element to its parent
     // the only time this is permitted is if we are renaming
     if (!renaming && to == from.getParent()) {
-      errorOut.writeln("The element being moved is already in the destination");
+      errorConsole.writeln("The element being moved is already in the destination");
       return false;
     }
     return true;
@@ -316,19 +317,19 @@ public class CmdMv extends Command {
       from = fileSystem.getFSElementByPath(fromPath);
       // make sure we aren't moving root
       if (from == fileSystem.getRoot()) {
-        errorOut.writeln("Cannot move root directory");
+        errorConsole.writeln("Cannot move root directory");
         return null;
       }
       // make sure we aren't moving current working dir
       if (from == fileSystem.getWorkingDir()) {
-        errorOut.writeln("Cannot move current working directory");
+        errorConsole.writeln("Cannot move current working directory");
         return null;
       }
     } catch (MalformedPathException e) {
-      errorOut.writeln("Invalid path(s) given");
+      errorConsole.writeln("Invalid path(s) given");
       return null;
     } catch (FSElementNotFoundException e) {
-      errorOut.writeln("You can only move an existing element");
+      errorConsole.writeln("You can only move an existing element");
       return null;
     }
     return from;
@@ -349,7 +350,7 @@ public class CmdMv extends Command {
     try {
       to = fileSystem.getFSElementByPath(toPath);
     } catch (MalformedPathException e) {
-      errorOut.writeln("Invalid destination path given");
+      errorConsole.writeln("Invalid destination path given");
       to = null;
     } catch (FSElementNotFoundException e) {
       // we assume that the user wishes to move and rename
@@ -363,7 +364,7 @@ public class CmdMv extends Command {
       try {
         to = fileSystem.getFSElementByPath(levelUp);
       } catch (MalformedPathException | FSElementNotFoundException e1) {
-        errorOut.writeln("Destination path does not exist");
+        errorConsole.writeln("Destination path does not exist");
         to = null;
       }
     }

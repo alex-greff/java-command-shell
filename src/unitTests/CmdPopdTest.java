@@ -17,6 +17,7 @@ import utilities.CommandManager;
 public class CmdPopdTest {
 
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -26,9 +27,10 @@ public class CmdPopdTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     popdCmd = new CmdPopd(fs, cm);
     cm.initializeCommands();
   }
@@ -42,7 +44,7 @@ public class CmdPopdTest {
     ds.push("/test");
     // execute popd with no args
     CommandArgs cargs = new CommandArgs("popd");
-    popdCmd.execute(cargs, tc, tc, tc_err);
+    popdCmd.execute(cargs, tc, tc_qry, tc_err);
     // make sure the working dir has changed to the value in the stack
     assertEquals(fs.getWorkingDirPath(), "/test");
   }

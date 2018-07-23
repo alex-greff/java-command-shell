@@ -30,6 +30,7 @@
 package commands;
 
 import containers.CommandArgs;
+import io.Console;
 import io.Readable;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -80,20 +81,20 @@ public class CmdEcho extends Command {
    * Executes the echo command.
    *
    * @param args The arguments for the command.
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input
-   * @param errOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Set the string parameter to the output
     String output = args.getCommandParameters()[0].replaceAll("\"", "");
 
     // If there is any output for the standard out then write to it
     if (!output.isEmpty())
-      out.writeln(output + "\n");
+      console.writeln(output + "\n");
 
     // Return the success exit code
     return ExitCode.SUCCESS;

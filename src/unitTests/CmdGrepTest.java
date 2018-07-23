@@ -49,6 +49,7 @@ public class CmdGrepTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> testOut;
+  private BufferedConsole<String> testQueryOut;
   private BufferedConsole<String> testErrOut;
   private FileSystem fs;
   private CommandManager cm;
@@ -58,9 +59,11 @@ public class CmdGrepTest {
   // Resets the file system for each test case
   public void reset() {
     testOut = new BufferedConsole<>();
+    testQueryOut = new BufferedConsole<>();
     testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut, fs);
+    cm = CommandManager.constructCommandManager(testOut, testQueryOut,
+        testErrOut, fs);
     cmd = new CmdGrep(fs, cm);
   }
 
@@ -71,7 +74,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
@@ -83,7 +86,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
@@ -95,7 +98,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
@@ -107,7 +110,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid file path", testErrOut.getAllWritesAsString());
   }
@@ -119,7 +122,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: File does not exist",
         testErrOut.getAllWritesAsString());
@@ -132,7 +135,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Directory does not exist",
         testErrOut.getAllWritesAsString());
@@ -150,7 +153,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and no lines of content
     // matched the regex
@@ -170,7 +173,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and one line of content
     // matched the regex
@@ -190,7 +193,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and multiple lines of
     // content matched the regex
@@ -215,7 +218,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and no lines of content
     // matched the regex
@@ -239,7 +242,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and one line of content
     // matched the regex
@@ -264,7 +267,7 @@ public class CmdGrepTest {
     HashMap<String, String> argNamedParam = new HashMap<>();
     CommandArgs args =
         new CommandArgs("grep", argParam, argFlags, argNamedParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and multiple lines of
     // content matched the regex

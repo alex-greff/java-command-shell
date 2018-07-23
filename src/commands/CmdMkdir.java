@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
@@ -80,14 +81,14 @@ public class CmdMkdir extends Command {
    * Executes the mkdir command
    *
    * @param args The arguments for the command call.
-   * @param out The standard output console.
-   * @param in The standard input.
-   * @param errorOut The error output console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errorOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // iterate over each given path
     for (String pathString : args.getCommandParameters()) {
       try {
@@ -103,13 +104,13 @@ public class CmdMkdir extends Command {
         parent.createAndAddNewDir(newDirName);
         // error handling
       } catch (MalformedPathException e) {
-        errorOut.writeln("Error: Invalid path " + pathString);
+        errorConsole.writeln("Error: Invalid path " + pathString);
         return ExitCode.SUCCESS;
       } catch (FSElementNotFoundException e) {
-        errorOut.writeln("Error: Parent directory not found");
+        errorConsole.writeln("Error: Parent directory not found");
         return ExitCode.FAILURE;
       } catch (FSElementAlreadyExistsException e) {
-        errorOut.writeln("Error: File already exists");
+        errorConsole.writeln("Error: File already exists");
         return ExitCode.FAILURE;
       }
     }

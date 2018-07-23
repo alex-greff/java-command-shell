@@ -56,6 +56,7 @@ public class CmdRecallTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -65,9 +66,10 @@ public class CmdRecallTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdRecall(fs, cm);
   }
 
@@ -90,8 +92,8 @@ public class CmdRecallTest {
     hist.add("bad command");
 
     // test to see if the recall command executed ls command
-    ExitCode excLs = LsCall.execute(lsargs, tc, tc, tc_err);
-    ExitCode exc = cmd.execute(args, tc, tc, tc_err);
+    ExitCode excLs = LsCall.execute(lsargs, tc, tc_qry, tc_err);
+    ExitCode exc = cmd.execute(args, tc, tc_qry, tc_err);
     assertEquals(0, tc_err.getAllWritesAsString().length());
     assertTrue(tc.getAllWrites().size() > 0);
     assertEquals("dir2\ndir1\n", tc.getAllWritesAsString());

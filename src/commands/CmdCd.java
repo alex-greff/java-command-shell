@@ -41,6 +41,7 @@ import io.Writable;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import io.Console;
 import io.Readable;
 
 /**
@@ -81,14 +82,14 @@ public class CmdCd extends Command {
    * directory does not exist.
    *
    * @param args The command arguments container
-   * @param out Writable for Standard Output
-   * @param in The standard input
-   * @param errOut Writable for Error Output
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Obtain the DIRECTORY argument passed
     String location = args.getCommandParameters()[0];
 
@@ -98,12 +99,12 @@ public class CmdCd extends Command {
 
     } catch (MalformedPathException e) {
       // Argument given is an improper Path, return FAILURE
-      errOut.writeln("Error: Invalid directory path");
+      errorConsole.writeln("Error: Invalid directory path");
       return ExitCode.FAILURE;
 
     } catch (FSElementNotFoundException e) {
       // No Directory at the Path of the argument given, return FAILURE
-      errOut.writeln("Error: Directory does not exist");
+      errorConsole.writeln("Error: Directory does not exist");
       return ExitCode.FAILURE;
     }
 

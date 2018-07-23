@@ -17,6 +17,7 @@ public class CmdCurlTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -26,9 +27,10 @@ public class CmdCurlTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new MockFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdCurl(fs, cm);
   }
 
@@ -36,7 +38,7 @@ public class CmdCurlTest {
   public void testValidTextURL() {
     CommandArgs args = Parser
         .parseUserInput("curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt");
-    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals(ExitCode.SUCCESS, cmdExit);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -46,7 +48,7 @@ public class CmdCurlTest {
   public void testValidHTMLURL() {
     CommandArgs args = Parser.parseUserInput(
         "curl https://www.w3.org/Style/Examples/011/firstcss.en.html");
-    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals(ExitCode.SUCCESS, cmdExit);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -56,7 +58,7 @@ public class CmdCurlTest {
   public void testNotFoundURL() {
     CommandArgs args = Parser
         .parseUserInput("curl http://www.ub.edu/gilcub/SIMPLE/simple.html");
-    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals(ExitCode.FAILURE, cmdExit);
   }
@@ -65,7 +67,7 @@ public class CmdCurlTest {
   public void testInvalidURL() {
     CommandArgs args =
         Parser.parseUserInput("curl some_randomInVaLiD_URL.html");
-    ExitCode cmdExit = cmd.execute(args, tc, tc, tc_err);
+    ExitCode cmdExit = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals(ExitCode.FAILURE, cmdExit);
   }

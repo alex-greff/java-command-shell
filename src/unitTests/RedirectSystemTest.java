@@ -27,6 +27,7 @@ public class RedirectSystemTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -36,9 +37,10 @@ public class RedirectSystemTest {
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdEcho(fs, cm);
 
     // Setup base file system
@@ -68,7 +70,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" > ./file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -84,7 +86,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> ./file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -100,7 +102,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" > /dir1/dir4/file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -116,7 +118,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> /dir1/dir4/file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -132,7 +134,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" > fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
@@ -148,7 +150,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
@@ -164,7 +166,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" > /dir2/fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
@@ -180,7 +182,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> /dir2/fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
@@ -194,7 +196,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" > /dirWrong/fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: No file/directory found",
@@ -208,7 +210,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> dir2/");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -223,7 +225,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> /dir2");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -236,7 +238,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> .");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -249,7 +251,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> /");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -264,7 +266,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> .");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -280,7 +282,7 @@ public class RedirectSystemTest {
     CommandArgs args =
         Parser.parseUserInput("echo \"hi\" > ./../../../dir2/fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir2/fileNew"));
 
@@ -297,7 +299,7 @@ public class RedirectSystemTest {
     CommandArgs args = Parser.parseUserInput(
         "echo \"hi\" >> ./../../../dir2/../dir1/dir4/./../../dir2/file2");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir2/file2"));
 
@@ -314,7 +316,7 @@ public class RedirectSystemTest {
     CommandArgs args = Parser.parseUserInput(
         "echo \"hi\" > ./../../../dir2/../dir1/dir4/./../../dir2");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -330,7 +332,7 @@ public class RedirectSystemTest {
     CommandArgs args =
         Parser.parseUserInput("echo \"hi\" > ././././../../dir2");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
@@ -344,7 +346,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 > file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -359,7 +361,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 >> file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -374,7 +376,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 > fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/fileNew"));
 
@@ -389,7 +391,7 @@ public class RedirectSystemTest {
 
     CommandArgs args = Parser.parseUserInput("cd /dir1/dir4 >> fileNew");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/fileNew"));
 
@@ -405,7 +407,7 @@ public class RedirectSystemTest {
     CommandArgs args = Parser.parseUserInput(
         "echo \"   some\n\tcomplex string\n\n\" > /dir1/dir4/file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -421,7 +423,7 @@ public class RedirectSystemTest {
     CommandArgs args = Parser.parseUserInput(
         "echo \"   some\n\tcomplex string\n\n\" >> /dir1/dir4/file1");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
@@ -430,23 +432,26 @@ public class RedirectSystemTest {
   }
 
   @Test
-  public void testRedirectWithInvalidCommandCall() throws MalformedPathException, FSElementNotFoundException {
+  public void testRedirectWithInvalidCommandCall()
+      throws MalformedPathException, FSElementNotFoundException {
     cmd = new CmdEcho(fs, cm);
-    CommandArgs args = Parser.parseUserInput("invalidCommand > /dir1/dir4/file1");
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    CommandArgs args =
+        Parser.parseUserInput("invalidCommand > /dir1/dir4/file1");
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
-    
+
     assertSame(ExitCode.FAILURE, exitVal);
     assertEquals("file1's contents", file.read());
   }
 
   @Test
-  public void testRedirectWithExitCommand() throws MalformedPathException, FSElementNotFoundException {
+  public void testRedirectWithExitCommand()
+      throws MalformedPathException, FSElementNotFoundException {
     cmd = new CmdExit(fs, cm);
     CommandArgs args = Parser.parseUserInput("exit > /dir1/dir4/file1");
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
-    
+
     assertSame(ExitCode.FAILURE, exitVal);
     assertEquals("file1's contents", file.read());
   }

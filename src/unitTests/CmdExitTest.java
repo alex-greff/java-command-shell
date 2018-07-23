@@ -48,6 +48,7 @@ public class CmdExitTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -57,9 +58,10 @@ public class CmdExitTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdExit(fs, cm);
   }
 
@@ -68,7 +70,7 @@ public class CmdExitTest {
   public void testExecuteExit() {
     CommandArgs args = Parser.parseUserInput("exit");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals(0, tc.getAllWritesAsString().length());

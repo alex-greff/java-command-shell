@@ -50,6 +50,7 @@ public class CmdPwdTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> testOut;
+  private BufferedConsole<String> testQueryOut;
   private BufferedConsole<String> testErrOut;
   private FileSystem fs;
   private CommandManager cm;
@@ -59,6 +60,7 @@ public class CmdPwdTest {
   // Resets the file system for each test case
   public void reset() {
     testOut = new BufferedConsole<>();
+    testQueryOut = new BufferedConsole<>();
     testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut,
@@ -70,7 +72,7 @@ public class CmdPwdTest {
   public void testInvalidArgsNumberOfParameters() {
     String argParam[] = {"unwantedParam"};
     CommandArgs args = new CommandArgs("pwd", argParam);
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid arguments", testErrOut.getAllWritesAsString());
   }
@@ -79,7 +81,7 @@ public class CmdPwdTest {
   public void testRootDir() {
     // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and that the path of the
     // root directory was printed
@@ -98,7 +100,7 @@ public class CmdPwdTest {
 
     // Attempt to display the current working directory
     CommandArgs args = new CommandArgs("pwd");
-    ExitCode exitVal = cmd.execute(args, testOut, testOut, testErrOut);
+    ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
 
     // Assert that the command successfully executed, and that the path of the
     // directory created was printed

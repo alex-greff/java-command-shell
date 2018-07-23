@@ -51,6 +51,7 @@ import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
 import io.Writable;
+import io.Console;
 import io.Readable;
 import java.util.HashMap;
 
@@ -68,17 +69,17 @@ public class CommandManager {
    */
   private HashMap<String, Command> cmdMap = new HashMap<>();
   /**
-   * The standard output console.
+   * The standard console.
    */
-  private Writable<String> out;
+  private Console<String> console;
   /**
-   * The standard input.
+   * The query console.
    */
-  private Readable in;
+  private Console<String> queryConsole;
   /**
-   * The standard error output console.
+   * The error console.
    */
-  private Writable<String> errorOut;
+  private Console<String> errorConsole;
   /**
    * The file system used.
    */
@@ -89,18 +90,18 @@ public class CommandManager {
   private ExitCode lastExitCode = ExitCode.SUCCESS;
 
   /**
-   * Private constructor for singleton.
+   * Private constructor.
    * 
-   * @param out The standard output console.
-   * @param in The standard input.
-   * @param errorOut The standard error console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @param fileSystem The file system to be used.
    */
-  private CommandManager(Writable<String> out, Readable in,
-      Writable<String> errorOut, FileSystem fileSystem) {
-    this.out = out;
-    this.in = in;
-    this.errorOut = errorOut;
+  private CommandManager(Console<String> console, Console<String> queryConsole,
+      Console<String> errorConsole, FileSystem fileSystem) {
+    this.console = console;
+    this.queryConsole = queryConsole;
+    this.errorConsole = errorConsole;
     this.fileSystem = fileSystem;
 
     initializeCommands();
@@ -109,15 +110,16 @@ public class CommandManager {
   /**
    * Factory method constructing a new instance of a command manager.
    *
-   * @param out The standard output console.
-   * @param in The standard input.
-   * @param errorOut The standard error console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @param fileSystem The file system to be used.
    * @return Returns a new instance of a command manager.
    */
-  public static CommandManager constructCommandManager(Writable<String> out,
-      Readable in, Writable<String> errorOut, FileSystem fileSystem) {
-    return new CommandManager(out, in, errorOut, fileSystem);
+  public static CommandManager constructCommandManager(Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole,
+      FileSystem fileSystem) {
+    return new CommandManager(console, queryConsole, errorConsole, fileSystem);
   }
 
   /**
@@ -166,7 +168,7 @@ public class CommandManager {
         Command cmd = cmdMap.get(cmdName);
 
         // Execute the command with the given args, remembering the exit value
-        lastExitCode = cmd.execute(cArgs, out, in, errorOut);
+        lastExitCode = cmd.execute(cArgs, console, queryConsole, errorConsole);
         // Does nothing with the exit value (perhaps a future update)
 
         return; // End here since we've done all we need to do
@@ -175,7 +177,7 @@ public class CommandManager {
 
     // If this line is reached the command failed to execute, so print the
     // corresponding error message
-    errorOut.writeln("Error: Invalid command, please try again");
+    errorConsole.writeln("Error: Invalid command, please try again");
   }
 
   /**

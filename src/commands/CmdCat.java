@@ -42,6 +42,7 @@ import io.Writable;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
+import io.Console;
 import io.Readable;
 
 /**
@@ -82,14 +83,14 @@ public class CmdCat extends Command {
    * exist.
    *
    * @param args The command arguments container
-   * @param out Writable for Standard Output
-   * @param in The standard input
-   * @param errOut Writable for Error Output
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, always SUCCESS
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Obtain the FILES arguments passed and initiate a StringBuilder
     String[] files = args.getCommandParameters();
     StringBuilder result = new StringBuilder();
@@ -104,11 +105,11 @@ public class CmdCat extends Command {
 
       } catch (MalformedPathException e) {
         // Argument given is an improper Path
-        errOut.writeln("Error: Invalid file path");
+        errorConsole.writeln("Error: Invalid file path");
 
       } catch (FSElementNotFoundException e) {
         // No File at the Path of the argument given
-        errOut.writeln("Error: File does not exist");
+        errorConsole.writeln("Error: File does not exist");
       }
     }
 
@@ -118,7 +119,7 @@ public class CmdCat extends Command {
       resultStr += "\n";
 
     // Write all the contents read to the Console and return SUCCESS always
-    out.write(resultStr);
+    console.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

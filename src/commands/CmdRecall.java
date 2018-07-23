@@ -31,6 +31,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import driver.JShell;
@@ -77,14 +78,14 @@ public class CmdRecall extends Command {
 
   /**
    * @param args The arguments for the command call.
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input.
-   * @param errorOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return the exitcode indicating success or failure of execution
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errorOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Get JShell's command history
     ArrayList<String> history = JShell.getHistory();
     history.remove(history.size() - 1); // erases the !num cmd
@@ -95,15 +96,15 @@ public class CmdRecall extends Command {
     if (isInt(strNum)) {
       num = Integer.parseInt(strNum);
     } else {
-      errorOut.writeln("error: argument must be integer");
+      errorConsole.writeln("error: argument must be integer");
       return ExitCode.FAILURE;
     }
     // get the command at the num's index. If the num is too big, exits on fail
     if (num > history.size()) {
-      errorOut.writeln("error: recalled too far");
+      errorConsole.writeln("error: recalled too far");
       return ExitCode.FAILURE;
     } else if (num <= 0) {
-      errorOut.writeln("error: recalled invalid number");
+      errorConsole.writeln("error: recalled invalid number");
       return ExitCode.FAILURE;
     }
     String cmd = history.get(num - 1); // minus one since the list starts at 1.

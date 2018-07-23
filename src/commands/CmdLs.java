@@ -30,6 +30,7 @@
 package commands;
 
 import containers.CommandArgs;
+import io.Console;
 import io.Readable;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -91,14 +92,14 @@ public class CmdLs extends Command {
 
   /**
    * @param args The command Arguments.
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input.
-   * @param errOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     StringBuilder result = new StringBuilder();
     Directory curr = fileSystem.getWorkingDir();
     Path path;
@@ -122,7 +123,7 @@ public class CmdLs extends Command {
             result.append(addFileName(file));
           } catch (FSElementNotFoundException | MalformedPathException e) {
             // only error out if the name was not found as either file or dir.
-            errOut.writeln("Error: File \"" + name + "\" was not found");
+            errorConsole.writeln("Error: File \"" + name + "\" was not found");
           } // end catch for FileNotFound
         } // end catch for bad/no existing path
       } // end for loop for all params
@@ -143,7 +144,7 @@ public class CmdLs extends Command {
     }
 
     // Write all the contents read to the Console and return SUCCESS always
-    out.write(resultStr);
+    console.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

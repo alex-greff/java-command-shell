@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+import io.Console;
 import io.Readable;
 
 public class CmdCurl extends Command {
@@ -45,14 +46,14 @@ public class CmdCurl extends Command {
    * Executes the curl command from the given URL location.
    *
    * @param args The arguments for the command.
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input
-   * @param errorOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errorOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     try {
       // Get the url
       URL url = new URL(args.getCommandParameters()[0]);
@@ -74,15 +75,15 @@ public class CmdCurl extends Command {
       String resultStr = contents.toString();
 
       // Write all the contents read to the Console and return SUCCESS always
-      out.write(resultStr);
+      console.write(resultStr);
       return ExitCode.SUCCESS;
 
     } catch (MalformedURLException e) {
       // Catch if the url is invalid
-      errorOut.writeln("Error: invalid URL given");
+      errorConsole.writeln("Error: invalid URL given");
     } catch (IOException e) {
       // Catch if there was an error opening the url file
-      errorOut.writeln("Error: unable to load URL given");
+      errorConsole.writeln("Error: unable to load URL given");
     }
     // If it gets down here then an error occured so return the failure exit
     // code

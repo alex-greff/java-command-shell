@@ -51,6 +51,7 @@ public class CmdFindTest {
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -60,9 +61,10 @@ public class CmdFindTest {
   // Resets the file system for each test case
   public void reset() throws FSElementAlreadyExistsException {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdFind(fs, cm);
 
     // Setup base file system
@@ -90,7 +92,7 @@ public class CmdFindTest {
     CommandArgs args =
         Parser.parseUserInput("find /dir1 -type f -name \"file4\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/file4\n", tc.getAllWritesAsString());
@@ -100,7 +102,7 @@ public class CmdFindTest {
   public void testExecuteFindMultipleFiles() {
     CommandArgs args = Parser.parseUserInput("find / -type f -name \"file1\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4/file1\n/file1\n", tc.getAllWritesAsString());
@@ -111,7 +113,7 @@ public class CmdFindTest {
     CommandArgs args =
         Parser.parseUserInput("find / -type f -name \"nonExistentFile\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("", tc.getAllWritesAsString());
@@ -122,7 +124,7 @@ public class CmdFindTest {
     CommandArgs args =
         Parser.parseUserInput("find /dir1 -type d -name \"dir4\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1/dir4\n", tc.getAllWritesAsString());
@@ -132,7 +134,7 @@ public class CmdFindTest {
   public void testExecuteFindMultipleDirectories() {
     CommandArgs args = Parser.parseUserInput("find / -type d -name \"dir1\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("/dir1\n/dir1/dir4/dir1\n", tc.getAllWritesAsString());
   }
@@ -142,7 +144,7 @@ public class CmdFindTest {
     CommandArgs args =
         Parser.parseUserInput("find / -type d -name \"nonExistentDir\"");
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertEquals("", tc.getAllWritesAsString());

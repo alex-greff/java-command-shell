@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
@@ -96,14 +97,14 @@ public class CmdGrep extends Command {
    * invalid, or the file or directory does not exist.
    *
    * @param args The command arguments container
-   * @param out Writable for Standard Output
-   * @param in The standard input
-   * @param errOut Writable for Error Output
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Obtain the String arrays for the Command Flags and Parameters
     String[] cmdFlags = args.getCommandFlags();
     String[] cmdParams = args.getCommandParameters();
@@ -115,7 +116,7 @@ public class CmdGrep extends Command {
     try { // Try to create a path object from the second parameter
       srcPath = new Path(cmdParams[1]);
     } catch (MalformedPathException e) { // Error if the path parses incorrectly
-      errOut.writeln("Error: Invalid file path");
+      errorConsole.writeln("Error: Invalid file path");
       return ExitCode.FAILURE; // Stop the function here
     }
 
@@ -127,7 +128,7 @@ public class CmdGrep extends Command {
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
         // Error message if file not found at the given path
-        errOut.writeln("Error: File does not exist");
+        errorConsole.writeln("Error: File does not exist");
         return ExitCode.FAILURE; // Stop the function here
       }
 
@@ -139,16 +140,16 @@ public class CmdGrep extends Command {
         matches = executeHelper(src, cmdParams[0]);
       } catch (MalformedPathException | FSElementNotFoundException e) {
         // Error message if directory not found at the given path
-        errOut.writeln("Error: Directory does not exist");
+        errorConsole.writeln("Error: Directory does not exist");
         return ExitCode.FAILURE; // Stop the function here
       }
     }
 
     // Print Strings from the matches ArrayList to standard output
     for (String match : matches) {
-      out.writeln(match);
+      console.writeln(match);
     }
-    out.writeln("");
+    console.writeln("");
 
     // If this line is reached, nothing went wrong
     return ExitCode.SUCCESS;

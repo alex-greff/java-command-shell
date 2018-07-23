@@ -33,6 +33,7 @@ import containers.CommandArgs;
 import filesystem.InMemoryFileSystem;
 import io.Console;
 import io.ErrorConsole;
+import io.QueryConsole;
 import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
@@ -63,15 +64,20 @@ public class JShell {
   private static Console<String> console = new Console<>();
 
   /**
+   * The console used for querying the user mid-command execution.
+   */
+  private static Console<String> queryConsole = new QueryConsole<>();
+  
+  /**
    * The error console that JShell uses.
    */
-  private static ErrorConsole<String> errorConsole = new ErrorConsole<>();
+  private static Console<String> errorConsole = new ErrorConsole<>();
 
   /**
    * The command manager instance that JShell uses.
    */
   private static CommandManager cmdManager = CommandManager
-      .constructCommandManager(console, console, errorConsole, fs);
+      .constructCommandManager(console, queryConsole, errorConsole, fs);
 
   /**
    * A record of all of the user input.

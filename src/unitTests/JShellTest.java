@@ -20,6 +20,7 @@ import static org.junit.Assert.assertFalse;
 public class JShellTest {
   JShell shelly;
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -28,9 +29,10 @@ public class JShellTest {
   public void setup(){
     shelly = new JShell();
     tc = new BufferedConsole<String>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<String>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
   }
 
   @Test

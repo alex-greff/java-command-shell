@@ -15,6 +15,7 @@ import utilities.CommandManager;
 public class CmdMkdirTest {
 
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -24,9 +25,10 @@ public class CmdMkdirTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     mkdirCmd = new CmdMkdir(fs, cm);
   }
 
@@ -35,7 +37,7 @@ public class CmdMkdirTest {
     // only creating the test directory
     CommandArgs cargs = new CommandArgs("mkdir", new String[] {"test"});
     // execute mkdir
-    mkdirCmd.execute(cargs, tc, tc, tc_err);
+    mkdirCmd.execute(cargs, tc, tc_qry, tc_err);
     // make sure the directory exists
     assertTrue(fs.getWorkingDir().containsChildElement("test"));
   }
@@ -46,7 +48,7 @@ public class CmdMkdirTest {
     CommandArgs cargs =
         new CommandArgs("mkdir", new String[] {"test", "test2"});
     // execute mkdir
-    mkdirCmd.execute(cargs, tc, tc, tc_err);
+    mkdirCmd.execute(cargs, tc, tc_qry, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsChildElement("test"));
     assertTrue(fs.getWorkingDir().containsChildElement("test2"));
@@ -58,7 +60,7 @@ public class CmdMkdirTest {
     CommandArgs cargs =
         new CommandArgs("mkdir", new String[] {"test1", "test1/test2"});
     // execute mkdir
-    mkdirCmd.execute(cargs, tc, tc, tc_err);
+    mkdirCmd.execute(cargs, tc, tc_qry, tc_err);
     // make sure the directories exist
     assertTrue(fs.getWorkingDir().containsChildElement("test1"));
     assertTrue(fs.getWorkingDir().getChildDirectoryByName("test1")

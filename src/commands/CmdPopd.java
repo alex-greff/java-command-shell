@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
@@ -74,14 +75,14 @@ public class CmdPopd extends Command {
    * Executes the popd command with the given arguments
    *
    * @param args The arguments for the command call.
-   * @param out The standard output console.
-   * @param in The standard input
-   * @param errorOut The error console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errorOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     DirectoryStack dirStack = DirectoryStack.getInstance();
     // get the most recently added directory off the stack
     if (!dirStack.empty()) {
@@ -98,7 +99,7 @@ public class CmdPopd extends Command {
       return ExitCode.SUCCESS;
     } else {
       // can't popd if there's nothing to pop
-      errorOut.writeln("Error: The directory stack is empty.");
+      errorConsole.writeln("Error: The directory stack is empty.");
       return ExitCode.FAILURE;
     }
   }

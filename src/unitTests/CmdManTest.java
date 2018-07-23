@@ -49,6 +49,7 @@ public class CmdManTest {
   //Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -58,9 +59,10 @@ public class CmdManTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdMan(fs, cm);
 
     cm.initializeCommands();
@@ -70,7 +72,7 @@ public class CmdManTest {
   public void testExecuteGetManDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"man"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -81,7 +83,7 @@ public class CmdManTest {
   public void testExecuteGetEchoDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"echo"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.SUCCESS);
     assertTrue(tc.getAllWritesAsString().length() > 0);
@@ -92,7 +94,7 @@ public class CmdManTest {
   public void testExecuteGetNonExistentCommandDoc() {
     CommandArgs args = new CommandArgs("man", new String[]{"nonExistentCmd"});
 
-    ExitCode exitVal = cmd.execute(args, tc, tc, tc_err);
+    ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals(0, tc.getAllWritesAsString().length());

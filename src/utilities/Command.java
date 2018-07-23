@@ -40,6 +40,7 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.BufferedConsole;
+import io.Console;
 import io.Writable;
 import io.Readable;
 
@@ -94,16 +95,16 @@ public abstract class Command {
    * file redirecting.
    *
    * @param args The arguments for the command call.
-   * @param out The standard output console.
-   * @param in The standard input.
-   * @param errorOut The error output console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the exit condition of the command.
    */
-  public final ExitCode execute(CommandArgs args, Writable<String> out,
-      Readable in, Writable<String> errorOut) {
+  public final ExitCode execute(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Check if the arguments are invalid for the current command
     if (!isValidArgs(args)) {
-      errorOut.writeln("Error: Invalid arguments");
+      errorConsole.writeln("Error: Invalid arguments");
       return ExitCode.FAILURE;
     }
 
@@ -112,7 +113,7 @@ public abstract class Command {
 
     // Run the command and store the exit code
     ExitCode cmdExitCode =
-        run(args, bufferedConsole, bufferedConsole, errorOut);
+        run(args, bufferedConsole, queryConsole, errorConsole);
 
     // Construct a string of all the output of the command
     String resultStr =
@@ -122,11 +123,11 @@ public abstract class Command {
     ExitCode writeExitCode = ExitCode.SUCCESS;
     if (!args.getRedirectOperator().isEmpty()) {
       writeExitCode = writeToFile(resultStr, args.getRedirectOperator(),
-          args.getTargetDestination(), errorOut);
+          args.getTargetDestination(), errorConsole);
     }
     // If no redirect operator then just write to the console
     else {
-      out.write(resultStr);
+      console.write(resultStr);
     }
 
     // If both the command and redirect succeeded then return a success
@@ -142,13 +143,13 @@ public abstract class Command {
    * Executes the command's function.
    *
    * @param args The arguments for the command call.
-   * @param out The standard output console.
-   * @param in The standard input.
-   * @param errorOut The error output console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the exit condition of the command.
    */
-  protected abstract ExitCode run(CommandArgs args, Writable<String> out,
-      Readable in, Writable<String> errorOut);
+  protected abstract ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole);
 
   /**
    * Checks if the given args are valid for this command.

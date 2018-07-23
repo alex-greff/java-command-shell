@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.*;
+import io.Console;
 import io.Readable;
 import containers.CommandArgs;
 import containers.CommandDescription;
@@ -75,14 +76,14 @@ public class CmdMan extends Command {
    * Executes the man command with the arguments args
    *
    * @param args The command arguments
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input.
-   * @param errOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Get the command name from the parameters
     String cmdName = args.getCommandParameters()[0];
     // Special case where "man !" is inputed change to "man recall" so the
@@ -95,7 +96,7 @@ public class CmdMan extends Command {
     // If the command does not have a command description object
     if (cmdDesc == null) {
       // Write to an error message
-      errOut.writeln(
+      errorConsole.writeln(
           "Error: No description found for command \"" + cmdName + "\"");
       // Return the failure exit code
       return ExitCode.FAILURE;
@@ -134,7 +135,7 @@ public class CmdMan extends Command {
       resultStr += "\n";
 
     // Write all the contents read to the Console and return SUCCESS always
-    out.write(resultStr);
+    console.write(resultStr);
     return ExitCode.SUCCESS;
   }
 

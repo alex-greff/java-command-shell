@@ -41,10 +41,11 @@ import utilities.CommandManager;
 public class CommandManagerTest {
 
   BufferedConsole<String> testOut = new BufferedConsole<>();
+  private BufferedConsole<String> testQueryOut = new BufferedConsole<>();
   BufferedConsole<String> testErrOut = new BufferedConsole<>();
   FileSystem fs = new InMemoryFileSystem();
-  CommandManager cm =
-      CommandManager.constructCommandManager(testOut, testOut, testErrOut, fs);
+  CommandManager cm = CommandManager.constructCommandManager(testOut,
+      testQueryOut, testErrOut, fs);
 
   @Test
   public void testInitialization() {

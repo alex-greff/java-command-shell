@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
@@ -109,14 +110,14 @@ public class CmdFind extends Command {
    * locations.
    *
    * @param args The arguments for the command.
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input.
-   * @param errOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     // Store the values of the named parameters
     String type = args.getNamedCommandParameter(TYPE_IDENTIFIER);
     String expr =
@@ -138,7 +139,7 @@ public class CmdFind extends Command {
 
         // Initialize the set of paths of the occurrences of <expression>
         TreeSet<String> outputPaths = findFSElementInDirectoryStructure(currDir,
-            dirStrPath, expr, errOut, type);
+            dirStrPath, expr, errorConsole, type);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -146,14 +147,14 @@ public class CmdFind extends Command {
         }
 
       } catch (MalformedPathException e1) {
-        errOut.writeln("Error: invalid path");
+        errorConsole.writeln("Error: invalid path");
       } catch (FSElementNotFoundException e2) {
-        errOut.writeln("Error: file/directory not found");
+        errorConsole.writeln("Error: file/directory not found");
       }
     }
 
     // Print the output
-    out.write(output.toString());
+    console.write(output.toString());
 
     return ExitCode.SUCCESS;
   }

@@ -23,6 +23,7 @@ import utilities.Parser;
 public class CmdMvTest {
 
   private BufferedConsole<String> tc;
+  private BufferedConsole<String> tc_qry;
   private BufferedConsole<String> tc_err;
   private FileSystem fs;
   private CommandManager cm;
@@ -32,9 +33,10 @@ public class CmdMvTest {
   // Resets the file system for each test case
   public void reset() {
     tc = new BufferedConsole<>();
+    tc_qry = new BufferedConsole<>();
     tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(tc, tc, tc_err, fs);
+    cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     mvCmd = new CmdMv(fs, cm);
   }
 
@@ -47,7 +49,7 @@ public class CmdMvTest {
     // mv inside_test test
     CommandArgs args =
         new CommandArgs("mv", new String[] {"inside_test", "test"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be inside_test as a child of root
@@ -65,7 +67,7 @@ public class CmdMvTest {
     // mv inside_test test
     CommandArgs args =
         new CommandArgs("mv", new String[] {"inside_test", "test"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be inside_test as a child of root
@@ -81,7 +83,7 @@ public class CmdMvTest {
     root.createAndAddNewDir("test");
     // mv inside_test test
     CommandArgs args = new CommandArgs("mv", new String[] {"test", "test"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should fail
     assertEquals(ExitCode.FAILURE, mvExit);
     assertEquals("Cannot move element to itself or to its child",
@@ -99,7 +101,7 @@ public class CmdMvTest {
     // mv inside_test test
     CommandArgs args =
         new CommandArgs("mv", new String[] {"seeyalater", "getinme/heythere"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be seeyalater as a child of root
@@ -118,7 +120,7 @@ public class CmdMvTest {
     daddy.createAndAddNewDir("kid2");
     // mv daddy mommy
     CommandArgs args = new CommandArgs("mv", new String[] {"daddy", "mommy"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
     // there should no longer be daddy as a child of root
@@ -141,7 +143,7 @@ public class CmdMvTest {
     // mv kid1 kid2
     CommandArgs args =
         new CommandArgs("mv", new String[] {"daddy/kid1", "daddy/kid2"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should succeed
     assertEquals(ExitCode.SUCCESS, mvExit);
     // daddy kid 1 should no longer exist
@@ -160,7 +162,7 @@ public class CmdMvTest {
     // mv hello hello/hi
     CommandArgs args =
         new CommandArgs("mv", new String[] {"hello", "hello/hi"});
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should fail
     assertEquals(ExitCode.FAILURE, mvExit);
     // hello should still exist
@@ -182,7 +184,7 @@ public class CmdMvTest {
     fs.changeWorkingDir(new Path("/d1_t"));
     // mv d1_t d1
     CommandArgs args = Parser.parseUserInput("mv /d1_t /d1");
-    ExitCode mvExit = mvCmd.execute(args, tc, tc, tc_err);
+    ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // You can't move the current working directory
     assertEquals(ExitCode.FAILURE, mvExit);
   }

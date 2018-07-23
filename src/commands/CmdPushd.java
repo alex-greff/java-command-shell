@@ -30,6 +30,7 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
+import io.Console;
 import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import containers.CommandArgs;
@@ -77,14 +78,14 @@ public class CmdPushd extends Command {
    * Executes the pushd command with the given arguments
    *
    * @param args The arguments for the command call.
-   * @param out The standard output console.
-   * @param in The standard input.
-   * @param errOut The error console.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     String curPath = fileSystem.getWorkingDirPath();
     dirStack.push(curPath);
     // make command args to call the cd command with

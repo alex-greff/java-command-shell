@@ -30,6 +30,7 @@
 package commands;
 
 import containers.CommandArgs;
+import io.Console;
 import io.Readable;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -76,14 +77,14 @@ public class CmdTree extends Command {
 
   /**
    * @param args The arguments for the command call.
-   * @param out The writable for any normal output of the command.
-   * @param in The standard input.
-   * @param errOut The writable for any error output of the command.
+   * @param console The standard console.
+   * @param queryConsole The query console.
+   * @param errorConsole The error console.
    * @return Returns the ExitCode of the command, SUCCESS or FAILURE
    */
   @Override
-  protected ExitCode run(CommandArgs args, Writable<String> out, Readable in,
-      Writable<String> errOut) {
+  protected ExitCode run(CommandArgs args, Console<String> console,
+      Console<String> queryConsole, Console<String> errorConsole) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
     try {
@@ -93,7 +94,7 @@ public class CmdTree extends Command {
     }
 
     // Write all the contents read to the Console and return SUCCESS always
-    out.write(result);
+    console.write(result);
 
     return ExitCode.SUCCESS;
   }
