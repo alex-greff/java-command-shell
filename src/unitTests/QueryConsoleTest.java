@@ -8,15 +8,16 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
-import io.ErrorConsole;
+import io.Console;
+import io.QueryConsole;
 
-public class ErrorConsoleTest {
-  ErrorConsole<String> console;
+public class QueryConsoleTest {
+  QueryConsole<String> console;
   OutputStream os;
 
   @Before
   public void setup() {
-    console = new ErrorConsole<>();
+    console = new QueryConsole<>();
 
     os = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(os);

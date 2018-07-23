@@ -32,17 +32,18 @@ package io;
 import java.util.Scanner;
 
 /**
- * Class representing the JShell console
+ * Class representing the standard output console.
  *
  * @author greff
+ * 
+ * @param <T> The object that are written/read by the console.
  */
 public class Console<T> implements Writable<T>, Readable {
 
   /**
    * The constructor, defaulted to public visibility.
    */
-  public Console() {
-  }
+  public Console() {}
 
   /**
    * Write text to the console
@@ -66,7 +67,7 @@ public class Console<T> implements Writable<T>, Readable {
    */
   @Override
   public String read() {
-    // Initialize new scanner object then read and return the input 
+    // Initialize new scanner object then read and return the input
     Scanner input = new Scanner(System.in);
     return input.nextLine();
   }

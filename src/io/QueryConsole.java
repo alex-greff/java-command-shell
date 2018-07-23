@@ -27,16 +27,18 @@
 // I have also read the plagiarism section in the course info
 // sheet of CSC B07 and understand the consequences.
 // *********************************************************
-package utilities;
+package io;
 
 /**
- * An exception class that is thrown if an invalid boolean string input is given
- * when prompted.
- * 
+ * The console for querying the user mid-command execution. 
  * 
  * @author greff
  *
+ * @param <T> The object that are written/read by the console.
  */
-public class InvalidBooleanInputException extends Exception {
-
+public class QueryConsole<T> extends Console<T> {
+  /**
+   * The constructor, defaulted to public visibility.
+   */
+  public QueryConsole() { }
 }

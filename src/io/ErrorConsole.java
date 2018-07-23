@@ -34,31 +34,10 @@ package io;
  *
  * @author greff
  */
-public class ErrorConsole<T> implements Writable<T> {
+public class ErrorConsole<T> extends Console<T> {
 
   /**
    * The constructor, defaulted to public visibility.
    */
-  public ErrorConsole() {
-  }
-
-  /**
-   * Writes a string to the error console
-   *
-   * @param contents The output contents
-   */
-  @Override
-  public void write(T contents) {
-    System.out.print(contents);
-  }
-
-  /**
-   * Writes a string + \n to the error console
-   * 
-   * @param contents The output contents
-   */
-  @Override
-  public void writeln(T contents) {
-    System.out.println(contents);
-  }
+  public ErrorConsole() {}
 }

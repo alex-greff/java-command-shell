@@ -33,17 +33,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
-import java.util.Stack;
 
 /**
  * A console for buffering input. Allows for easy lookup for the output of
  * commands.
  *
  * @author greff
+ * 
+ * @param <T> The object that are written/read by the console.
  */
-public class BufferedConsole<T> implements Writable<T>, Readable {
+public class BufferedConsole<T> extends Console<T> {
 
   /**
    * The queue storing all the write inputs.

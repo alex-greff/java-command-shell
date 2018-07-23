@@ -1,5 +1,5 @@
 Class name: BufferedConsole
-Parent class:
+Parent class: Console
 Subclasses:
 
 Responsibilities:

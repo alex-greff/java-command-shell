@@ -1,0 +1,9 @@
+Class name: QueryConsole
+Parent class: Console
+Subclasses:
+
+Responsibilities:
+* Writes queries to the user mid-command execution
+* Also reads input from the user
+
+Collaborators:

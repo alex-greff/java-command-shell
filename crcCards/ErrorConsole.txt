@@ -1,5 +1,5 @@
 Class name: ErrorConsole
-Parent class:
+Parent class: Console
 Subclasses:
 
 Responsibilities:
