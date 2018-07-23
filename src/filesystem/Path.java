@@ -26,7 +26,8 @@ public class Path implements Iterable<String> {
       pathString = pathString.substring(1);
     }
     for (String segment : pathString.split("/")) {
-      if (!segment.isEmpty()) {
+      // Make sure segment is not empty or is a bunch of dots (3 or more)
+      if (!segment.isEmpty() && !segment.matches("\\.{3,}")) {
         tokens.add(segment);
       } else {
         // can't have a slash after another slash or empty space
@@ -54,20 +55,24 @@ public class Path implements Iterable<String> {
   }
   
   /**
-   * Removes the last token from the path and returns it
+   * Removes the last token from the path and returns it.
    *
-   * @return The last token from the path
+   * @return Returns the last token from the path or null if path is empty.
    */
   public String removeLast() {
+    if (isEmpty())
+      return null;
     return this.tokens.remove(this.tokens.size() - 1);
   }
 
   /**
-   * Removes the first token from the path and returns it
+   * Removes the first token from the path and returns it.
    *
-   * @return The first token from the path
+   * @return Returns the first token from the path or null if path is empty.
    */
   public String removeFirst() {
+    if (isEmpty())
+      return null;
     return this.tokens.remove(0);
   }
 
