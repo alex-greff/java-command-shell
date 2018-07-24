@@ -101,4 +101,14 @@ public class FSElement {
   public FSElement copy() {
     return new FSElement(this.name, this.parent);
   }
+
+  /**
+   * Renames this fselement without notifying its parent
+   * Make sure you know what you are doing if you want to use this
+   * Most likely what you really need is rename
+   * @param newName The new name of this fselement
+   */
+  public void setName(String newName) {
+    this.name = newName;
+  }
 }

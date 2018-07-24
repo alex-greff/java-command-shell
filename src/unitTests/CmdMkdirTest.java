@@ -84,7 +84,7 @@ public class CmdMkdirTest {
   }
 
   @Test
-  public void testMultipleNotInWorkingDir() throws FSElementNotFoundException {
+  public void testMultipleNotInWorkingDir() {
     // creating parent
     CommandArgs cargs =
         new CommandArgs("mkdir", new String[] {"test1", "test1/test2"});

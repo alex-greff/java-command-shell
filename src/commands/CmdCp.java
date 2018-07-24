@@ -256,7 +256,7 @@ public class CmdCp extends Command {
       String newName) {
     // copy the source file
     FSElement newFrom = from.copy();
-    newFrom.rename(newName);
+    newFrom.setName(newName);
     // add this element to the new location
     // no overwrite prompt since this element cannot exist in to otherwise
     // we would find it by path
