@@ -29,10 +29,12 @@
 // *********************************************************
 package unitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import commands.CmdMkdir;
 import containers.CommandArgs;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
@@ -40,6 +42,7 @@ import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
+import utilities.ExitCode;
 
 public class CmdMkdirTest {
 
@@ -94,5 +97,17 @@ public class CmdMkdirTest {
     assertTrue(fs.getWorkingDir().containsChildElement("test1"));
     assertTrue(fs.getWorkingDir().getChildDirectoryByName("test1")
                    .containsChildElement("test2"));
+  }
+
+  @Test
+  public void testMakingExistingDir() throws FSElementAlreadyExistsException {
+    fs.getWorkingDir().createAndAddNewDir("test1");
+    // creating parent
+    CommandArgs cargs =
+        new CommandArgs("mkdir", new String[]{"test1", "test1/test2"});
+    // execute mkdir
+    ExitCode mkdirExit = mkdirCmd.execute(cargs, tc, tc_qry, tc_err);
+    // make sure the command fails
+    assertEquals(mkdirExit, ExitCode.FAILURE);
   }
 }

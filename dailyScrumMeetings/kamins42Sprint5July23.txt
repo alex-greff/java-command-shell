@@ -1,0 +1,16 @@
+What did I do last time?
+  - Finish mv command
+  - Finish cp command
+  - Test mv command
+  - Test cp command
+  - Clean up code do inspections
+  - Make sure everything is documented
+
+What do I plan to do now?
+  - The project is complete (Hooray!)
+
+Am I blocked on anything?
+    - Can't get good a job until I get a degree
+    - Can't get a good degree without money
+    - Can't get money without a job
+    - ... I mean no
