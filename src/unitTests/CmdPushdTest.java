@@ -29,13 +29,20 @@
 // *********************************************************
 package unitTests;
 
+import static org.junit.Assert.assertEquals;
+
 import commands.CmdPushd;
+import containers.CommandArgs;
+import filesystem.DirectoryStack;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
 import org.junit.Before;
+import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
+import utilities.Parser;
 
 public class CmdPushdTest {
 
@@ -57,5 +64,17 @@ public class CmdPushdTest {
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
     cmd = new CmdPushd(fs, cm);
+  }
+
+  @Test
+  public void testPushdWithDirectory() throws FSElementAlreadyExistsException {
+    DirectoryStack ds = DirectoryStack.getInstance();
+    // add a new directory for testing
+    fs.getWorkingDir().createAndAddNewDir("test");
+    CommandArgs cargs = Parser.parseUserInput("pushd test");
+    cmd.execute(cargs, tc, tc_qry, tc_err);
+    // make sure the working dir has changed to the value in the stack
+    assertEquals(fs.getWorkingDirPath(), "/test");
+    assertEquals(ds.peek(), "/");
   }
 }
