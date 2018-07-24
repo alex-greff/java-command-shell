@@ -241,8 +241,7 @@ public class CommandTest {
   }
 
   @Test
-  public void testWriteToDirectoryRelativePath()
-      throws MalformedPathException, FSElementNotFoundException {
+  public void testWriteToDirectoryRelativePath() {
     cmd = new CmdEcho(fs, cm);
 
     CommandArgs args = Parser.parseUserInput("echo \"hi\" >> dir2/");

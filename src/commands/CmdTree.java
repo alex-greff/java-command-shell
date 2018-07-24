@@ -86,11 +86,7 @@ public class CmdTree extends Command {
       Console<String> queryConsole, Console<String> errorConsole) {
     Directory root = fileSystem.getRoot();
     String result = (root.getName() + "\n");
-    try {
-      result += (addOn(root, 1));
-    } catch (FSElementNotFoundException e) {
-      // Do nothing
-    }
+    result += (addOn(root, 1));
 
     // Write all the contents read to the Console and return SUCCESS always
     console.write(result);
@@ -119,8 +115,7 @@ public class CmdTree extends Command {
    * @return a block of String which represents the filesystem from the curr
    * directory down.
    */
-  private String addOn(Directory curr, int tabs)
-      throws FSElementNotFoundException {
+  private String addOn(Directory curr, int tabs) {
     // get proper amount of tabs
     StringBuilder spacing = new StringBuilder();
     for (int i = 0; i < tabs; i++) {

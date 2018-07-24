@@ -147,7 +147,7 @@ public class InMemoryFileSystem implements FileSystem {
         else if (maybeFSE instanceof File) {
           // If it's the final token in the path then return it as the element
           if (path.isEmpty()) {
-            return (File<?>) maybeFSE;
+            return maybeFSE;
           }
           // If there are more tokens remaining then the path is invalid and
           // throw and exception

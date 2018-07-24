@@ -117,7 +117,7 @@ public abstract class Command {
 
     // Construct a string of all the output of the command
     String resultStr =
-        ((BufferedConsole<String>) bufferedConsole).getAllWritesAsString();
+        bufferedConsole.getAllWritesAsString();
 
     // Run the redirect operator, if needed
     ExitCode writeExitCode = ExitCode.SUCCESS;
@@ -197,7 +197,7 @@ public abstract class Command {
     } catch (FSElementNotFoundException e) {
       // Attempt to make the file
       try {
-        file = (File<String>) makeFile(targetDestination);
+        file = makeFile(targetDestination);
         // Catch if the directory is not found
       } catch (FSElementNotFoundException e1) {
         errOut.writeln("Error: No file/directory found");

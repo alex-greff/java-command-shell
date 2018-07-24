@@ -56,7 +56,7 @@ public class InMemoryFileSystemTest {
 
   @Test
   public void testGettingAbsolutePathOfDirectory()
-      throws FSElementNotFoundException, FSElementAlreadyExistsException {
+      throws FSElementAlreadyExistsException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");

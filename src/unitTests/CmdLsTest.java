@@ -118,7 +118,7 @@ public class CmdLsTest {
 
 
   @Test
-  public void testWithFileAsParam() throws FSElementAlreadyExistsException {
+  public void testWithFileAsParam() {
     CommandArgs args = Parser.parseUserInput("ls file1");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
@@ -128,8 +128,7 @@ public class CmdLsTest {
   }
 
   @Test
-  public void testWithMultipleDirectoryParams()
-      throws FSElementAlreadyExistsException {
+  public void testWithMultipleDirectoryParams() {
     CommandArgs args = Parser.parseUserInput("ls dir1 dir2");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
@@ -139,7 +138,7 @@ public class CmdLsTest {
   }
 
   @Test
-  public void testRecursiveFromRoot() throws FSElementAlreadyExistsException {
+  public void testRecursiveFromRoot() {
     CommandArgs args = Parser.parseUserInput("ls -R");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
@@ -150,7 +149,7 @@ public class CmdLsTest {
   }
 
   @Test
-  public void testRecursiveFromSubdir() throws FSElementAlreadyExistsException {
+  public void testRecursiveFromSubdir() {
     CommandArgs args = Parser.parseUserInput("ls -R dir2");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
@@ -160,8 +159,7 @@ public class CmdLsTest {
   }
 
   @Test
-  public void testRecursiveMultipleDirs()
-      throws FSElementAlreadyExistsException {
+  public void testRecursiveMultipleDirs() {
     CommandArgs args = Parser.parseUserInput("ls -R dir2 dir1");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
@@ -171,8 +169,7 @@ public class CmdLsTest {
   }
 
   @Test
-  public void testRecursiveMultipleDirsAndFiles()
-      throws FSElementAlreadyExistsException {
+  public void testRecursiveMultipleDirsAndFiles() {
     CommandArgs args = Parser.parseUserInput("ls -R dir2 file2 dir1 file1");
 
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);

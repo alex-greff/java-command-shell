@@ -52,9 +52,9 @@ public class JShellTest {
   @Before
   public void setup() {
     shelly = new JShell();
-    tc = new BufferedConsole<String>();
+    tc = new BufferedConsole<>();
     tc_qry = new BufferedConsole<>();
-    tc_err = new BufferedConsole<String>();
+    tc_err = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(tc, tc_qry, tc_err, fs);
   }
