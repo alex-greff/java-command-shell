@@ -30,7 +30,6 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import commands.CmdHistory;
 import containers.CommandArgs;
@@ -40,7 +39,6 @@ import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
 import java.util.ArrayList;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
@@ -100,7 +98,8 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
-    hist.add("some other entry"); hist.add("history 1");
+    hist.add("some other entry");
+    hist.add("history 1");
     ExitCode exc = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals("2. history 1\n", tc.getAllWritesAsString());
@@ -120,8 +119,8 @@ public class CmdHistoryTest {
     ExitCode exc = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals("1. first entry\n"
-        + "2. second entry\n"
-        + "3. third entry\n", tc.getAllWritesAsString());
+                     + "2. second entry\n"
+                     + "3. third entry\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
@@ -132,14 +131,16 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
-    hist.add("first thing");hist.add("second thing");hist.add("third ting");
+    hist.add("first thing");
+    hist.add("second thing");
+    hist.add("third ting");
     hist.add("history 11");
     ExitCode exc = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals("1. first thing\n"
-        + "2. second thing\n"
-        + "3. third ting\n"
-        + "4. history 11\n", tc.getAllWritesAsString());
+                     + "2. second thing\n"
+                     + "3. third ting\n"
+                     + "4. history 11\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
@@ -163,15 +164,20 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
-    hist.add("one");hist.add("two");hist.add("ls -R");hist.add("four");
-    hist.add("mkdir heyo"); hist.add("six"); hist.add("history 6");
+    hist.add("one");
+    hist.add("two");
+    hist.add("ls -R");
+    hist.add("four");
+    hist.add("mkdir heyo");
+    hist.add("six");
+    hist.add("history 6");
     ExitCode exc = cmd.execute(args, tc, tc_qry, tc_err);
     assertEquals("2. two\n"
-        + "3. ls -R\n"
-        + "4. four\n"
-        + "5. mkdir heyo\n"
-        + "6. six\n"
-        + "7. history 6\n", tc.getAllWritesAsString());
+                     + "3. ls -R\n"
+                     + "4. four\n"
+                     + "5. mkdir heyo\n"
+                     + "6. six\n"
+                     + "7. history 6\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 
@@ -182,14 +188,16 @@ public class CmdHistoryTest {
     BufferedConsole<String> tc = new BufferedConsole<>();
     BufferedConsole<String> tc_err = new BufferedConsole<>();
     ArrayList<String> hist = JShell.getHistory();
-    hist.add("One"); hist.add("Two"); hist.add("Three");
+    hist.add("One");
+    hist.add("Two");
+    hist.add("Three");
     hist.add("history 4");
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
 
     assertEquals("1. One\n"
-        + "2. Two\n"
-        + "3. Three\n"
-        + "4. history 4\n", tc.getAllWritesAsString());
+                     + "2. Two\n"
+                     + "3. Three\n"
+                     + "4. history 4\n", tc.getAllWritesAsString());
     assertEquals(exc, ExitCode.SUCCESS);
   }
 

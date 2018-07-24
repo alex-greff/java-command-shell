@@ -30,14 +30,13 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Console;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.DirectoryStack;
 import filesystem.FileSystem;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -112,8 +111,8 @@ public class CmdPushd extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

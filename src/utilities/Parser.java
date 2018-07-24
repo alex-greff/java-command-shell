@@ -29,11 +29,15 @@
 // *********************************************************
 package utilities;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.COMMAND_RECALL_CHAR;
+import static utilities.JShellConstants.COMMAND_RECALL_NAME;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import static utilities.JShellConstants.*;
 
 /**
  * The parser class.
@@ -41,6 +45,7 @@ import static utilities.JShellConstants.*;
  * @author greff
  */
 public class Parser {
+
   /**
    * The type argument indicator character.
    */
@@ -52,7 +57,7 @@ public class Parser {
    *
    * @param input The user input string
    * @return Returns a CommandArgs instance with the parsed user input or null
-   *         if the user input is incorrect
+   * if the user input is incorrect
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
@@ -140,8 +145,9 @@ public class Parser {
       // Get the suffix after "!"
       String param = cmdName.substring(1, cmdName.length());
       // If there is no string then the string is invalid
-      if (param.isEmpty())
+      if (param.isEmpty()) {
         return null;
+      }
       // Add the string to the params list
       paramsArrayList.add(param);
       // Set the command name to "!"
@@ -189,11 +195,13 @@ public class Parser {
         // If they key is a named parameter (ie lower case letters)
         else if (key.matches("[a-z]+")) {
           // If there is no item after i then return invalid
-          if (i + 1 >= inputSplit.size())
+          if (i + 1 >= inputSplit.size()) {
             return null;
+          }
           // If the item after is another type parameter then return invalid
-          if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR))
+          if (inputSplit.get(i + 1).startsWith(TYPE_ARG_OPERATOR)) {
             return null;
+          }
           // Remove any quoutes and set the value's value
           // String val = inputSplit.get(i + 1).replace("\"", ""); // TODO:
           // remove
@@ -222,7 +230,7 @@ public class Parser {
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, cmdFlags, namedParamsMap,
-        redirOperator, targetDest);
+                           redirOperator, targetDest);
   }
 
   private static final String[] trueOptions =
@@ -236,30 +244,36 @@ public class Parser {
    * Parses a user input to determine if the query was a true or false option.
    * Also handles a cancel option if needed.
    *
-   * 
    * @param input The user input.
    * @param cancellable The flag indicating if the query is cancellable.
    * @return Returns the decision of the user.
    * @throws InvalidBooleanInputException Throws if the user inputs an invalid
-   *         true/false (or cancel) string expression.
+   * true/false (or cancel) string expression.
    */
   public static UserDecision parseBooleanDecisionInput(String input,
       boolean cancellable) throws InvalidBooleanInputException {
     // Check for true expression
-    for (String s : trueOptions)
-      if (input.toLowerCase().equals(s))
+    for (String s : trueOptions) {
+      if (input.toLowerCase().equals(s)) {
         return UserDecision.YES;
+      }
+    }
 
     // Check for false expression
-    for (String s : falseOptions)
-      if (input.toLowerCase().equals(s))
+    for (String s : falseOptions) {
+      if (input.toLowerCase().equals(s)) {
         return UserDecision.NO;
+      }
+    }
 
     // Check if cancel option, if applicable
-    if (cancellable)
-      for (String s : cancelOptions)
-        if (input.toLowerCase().equals(s))
+    if (cancellable) {
+      for (String s : cancelOptions) {
+        if (input.toLowerCase().equals(s)) {
           return UserDecision.CANCEL;
+        }
+      }
+    }
 
     // No valid expression found so throw error
     throw new InvalidBooleanInputException();

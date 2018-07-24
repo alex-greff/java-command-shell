@@ -30,11 +30,12 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdTree;
 import containers.CommandArgs;
 import filesystem.Directory;
-import filesystem.File;
 import filesystem.FSElementAlreadyExistsException;
+import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.BufferedConsole;
@@ -62,8 +63,9 @@ public class CmdTreeTest {
     testQueryOut = new BufferedConsole<>();
     testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
-    cm = CommandManager.constructCommandManager(testOut, testQueryOut, testErrOut,
-        fs);
+    cm = CommandManager
+        .constructCommandManager(testOut, testQueryOut, testErrOut,
+                                 fs);
     cmd = new CmdTree(fs, cm);
 
     Directory root = fs.getRoot();
@@ -84,7 +86,7 @@ public class CmdTreeTest {
     ExitCode exitVal = cmd.execute(args, tc, tc_qry, tc_err);
 
     assertEquals("/\n\tfile2\n\tfile1\n\tdir2\n\t\tfile3\n\tdir1\n",
-        tc.getAllWritesAsString());
+                 tc.getAllWritesAsString());
     assertEquals(exitVal, ExitCode.SUCCESS);
   }
 }

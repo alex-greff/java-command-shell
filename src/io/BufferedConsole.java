@@ -39,9 +39,8 @@ import java.util.Scanner;
  * A console for buffering input. Allows for easy lookup for the output of
  * commands.
  *
- * @author greff
- * 
  * @param <T> The object that are written/read by the console.
+ * @author greff
  */
 public class BufferedConsole<T> extends Console<T> {
 
@@ -61,10 +60,11 @@ public class BufferedConsole<T> extends Console<T> {
   @Override
   public void write(T contents) {
     // Add the contents to the most recent input line
-    if (this.inputs.isEmpty())
+    if (this.inputs.isEmpty()) {
       this.inputs.add(new ArrayList<>(Arrays.asList(contents)));
-    else
+    } else {
       this.inputs.get(0).add(contents);
+    }
   }
 
   /**
@@ -82,7 +82,7 @@ public class BufferedConsole<T> extends Console<T> {
    * Gets the most recent write to the console.
    *
    * @return returns the most recent write to the console or an empty string if
-   *         no writes exist.
+   * no writes exist.
    */
   public String getLastWrite() {
     StringBuilder ret_str = new StringBuilder();
@@ -93,9 +93,9 @@ public class BufferedConsole<T> extends Console<T> {
       for (T item : lastLine) {
         ret_str.append(item);
       }
-      
+
     }
-    
+
     return ret_str.toString();
   }
 
@@ -116,7 +116,7 @@ public class BufferedConsole<T> extends Console<T> {
 
       ret_arr.add(line_str.toString());
     }
-    
+
     return ret_arr;
   }
 
@@ -127,7 +127,7 @@ public class BufferedConsole<T> extends Console<T> {
    */
   public String getAllWritesAsString() {
     StringBuilder ret_str_bldr = new StringBuilder();
-    
+
     // Iterate through each line
     for (List<T> line : inputs) {
       // Iterate through each item in the current line
@@ -138,13 +138,14 @@ public class BufferedConsole<T> extends Console<T> {
       // Add a newline to the return string
       ret_str_bldr.append("\n");
     }
-    
+
     String ret_str = ret_str_bldr.toString();
-    
+
     // Remove last newline if there is one
-    if (ret_str.length() > 0)
-      ret_str = ret_str.substring(0, ret_str.length()-1); 
-    
+    if (ret_str.length() > 0) {
+      ret_str = ret_str.substring(0, ret_str.length() - 1);
+    }
+
     // Return the string representation of the file data
     return ret_str;
   }

@@ -32,11 +32,13 @@ package unitTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import org.junit.Test;
+
 import filesystem.Directory;
 import filesystem.FSElement;
+import org.junit.Test;
 
 public class FSElementTest {
+
   @Test
   public void testGetName() {
     FSElement fse = new FSElement("myName", null);
@@ -84,21 +86,21 @@ public class FSElementTest {
     fse.changeParent(newParent);
     assertEquals(newParent, fse.getParent());
   }
-  
+
   @Test
   public void testCloneWithParent() {
     Directory parent = new Directory("myParent", null);
     FSElement fse = new FSElement("myName", parent);
-    
+
     FSElement new_fse = fse.copy();
     assertEquals("myName", new_fse.getName());
     assertEquals("myParent", new_fse.getParent().getName());
   }
-  
+
   @Test
   public void testCloneNoParent() {
     FSElement fse = new FSElement("myName", null);
-    
+
     FSElement new_fse = fse.copy();
     assertEquals("myName", new_fse.getName());
     assertNull(new_fse.getParent());

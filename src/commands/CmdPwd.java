@@ -30,13 +30,12 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Console;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -68,7 +67,7 @@ public class CmdPwd extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print working directory.",
-          "pwd").build();
+                                                "pwd").build();
 
   /**
    * Executes the pwd command with the given arguments. Pwd prints the working
@@ -107,7 +106,7 @@ public class CmdPwd extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
   }
 }

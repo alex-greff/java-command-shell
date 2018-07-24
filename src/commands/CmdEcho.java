@@ -29,16 +29,16 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
-import io.Console;
-import io.Readable;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
-import static utilities.JShellConstants.*;
 
 /**
  * The echo command.
@@ -69,13 +69,13 @@ public class CmdEcho extends Command {
       new CommandDescription.DescriptionBuilder(
           "Appends or writes a string to a file or prints directly to console.",
           "echo STRING").usage("echo STRING [> OUTFILE]")
-              .usage("echo STRING [>> OUTFILE]")
-              .additionalComment(
-                  "The \">\" character signals to overwrite the file "
-                      + "conents.")
-              .additionalComment(
-                  "The \">>\" character signals to append to the file conents.")
-              .build();
+          .usage("echo STRING [>> OUTFILE]")
+          .additionalComment(
+              "The \">\" character signals to overwrite the file "
+                  + "conents.")
+          .additionalComment(
+              "The \">>\" character signals to append to the file conents.")
+          .build();
 
   /**
    * Executes the echo command.
@@ -93,8 +93,9 @@ public class CmdEcho extends Command {
     String output = removeStringQuotes(args.getCommandParameters()[0]);
 
     // If there is any output for the standard out then write to it
-    if (!output.isEmpty())
+    if (!output.isEmpty()) {
       console.writeln(output + "\n");
+    }
 
     // Return the success exit code
     return ExitCode.SUCCESS;
@@ -114,8 +115,8 @@ public class CmdEcho extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

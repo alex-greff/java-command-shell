@@ -121,7 +121,7 @@ public class CommandArgs {
    */
   public CommandArgs(String cmdName, String redirOperator, String targetDest) {
     this(cmdName, new String[0], new String[0], new HashMap<>(), redirOperator,
-        targetDest);
+         targetDest);
   }
 
   /**
@@ -136,7 +136,7 @@ public class CommandArgs {
   public CommandArgs(String cmdName, String[] cmdParams, String redirOperator,
       String targetDest) {
     this(cmdName, cmdParams, new String[0], new HashMap<>(), redirOperator,
-        targetDest);
+         targetDest);
   }
 
   /**
@@ -151,18 +151,17 @@ public class CommandArgs {
   public CommandArgs(String cmdName, HashMap<String, String> namedCmdArgs,
       String redirOperator, String targetDest) {
     this(cmdName, new String[0], new String[0], namedCmdArgs, redirOperator,
-        targetDest);
+         targetDest);
   }
 
   /**
    * Constructor initializing with command name, named command arguments,
    * command flags and named command arguments.
-   * 
+   *
    * @param cmdName the command name
    * @param cmdParams the command arguments
    * @param cmdFlags the flags
    * @param namedCmdParams the parameters that are mapped by type
-   * 
    */
   public CommandArgs(String cmdName, String[] cmdParams, String[] cmdFlags,
       HashMap<String, String> namedCmdParams) {
@@ -205,7 +204,7 @@ public class CommandArgs {
    * Gets the command arguments or returns an empty array if there are none
    *
    * @return Returns the array of command arguments. Returns an empty array if
-   *         there are none
+   * there are none
    */
   public String[] getCommandParameters() {
     return cmdParams;
@@ -213,9 +212,9 @@ public class CommandArgs {
 
   /**
    * Gets the command flags or returns an empty array if there are none
-   * 
+   *
    * @return Returns the array of command flags. Retruns an empty array if there
-   *         are none
+   * are none
    */
   public String[] getCommandFlags() {
     return cmdFlags;
@@ -251,13 +250,13 @@ public class CommandArgs {
 
   /**
    * Gets the number of command parameters.
-   * 
+   *
    * @return Returns the number of command parameters.
    */
   public int getNumberOfCommandParameters() {
     return this.cmdParams.length;
   }
-  
+
   /**
    * Gets the number of named command parameters
    *
@@ -269,13 +268,13 @@ public class CommandArgs {
 
   /**
    * Gets the number of field parameters.
-   * 
+   *
    * @return Returns the number of field parameters.
    */
   public int getNumberOfCommandFieldParameters() {
     return this.cmdFlags.length;
   }
-  
+
   /**
    * Gets the redirect operator or returns "" if there is none
    *
@@ -289,7 +288,7 @@ public class CommandArgs {
    * Gets the target redirect destination or returns "" if there is none
    *
    * @return Returns the target redirect destination. Returns "" if there is
-   *         none
+   * none
    */
   public String getTargetDestination() {
     return targetDest;
@@ -357,7 +356,7 @@ public class CommandArgs {
           && Arrays.equals(this.cmdParams, cmdArgs_other.cmdParams)
           && Arrays.equals(this.cmdFlags, cmdArgs_other.cmdFlags)
           && this.namedCmdParams
-              .equals(((CommandArgs) other).getNamedCommandParametersMap())
+          .equals(((CommandArgs) other).getNamedCommandParametersMap())
           && this.redirOperator.equals(cmdArgs_other.getRedirectOperator())
           && this.targetDest.equals(cmdArgs_other.getTargetDestination());
     } else {

@@ -57,7 +57,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Create a new file given a name and the contents of the file
    *
    * @param name The name by which the file is to be referred, may or may not
-   *        contain an extension
+   * contain an extension
    * @param contents The text data stored inside the file
    * @param parent The parent directory of this file
    */
@@ -69,7 +69,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   /**
    * A private constructor initializing with the actual contents list array.
    * Useful for the copy method.
-   * 
+   *
    * @param name The name of the file.
    * @param content The internal content list.
    * @param parent The parent.
@@ -83,7 +83,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Create a new file with the given name, and empty contents
    *
    * @param name The name by which the file is to be referred, may or may not
-   *        contain an extension
+   * contain an extension
    * @param parent The parent directory of this file
    */
   public File(String name, Directory parent) {
@@ -119,7 +119,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
    * Allows for reading of the data as a string from the file.
    *
    * @return The full contents of the file. Returns an empty string if the file
-   *         is empty.
+   * is empty.
    */
   @Override
   public String read() {
@@ -166,7 +166,7 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   /**
    * Clones the current file. Warning: when cloning, the new instance is
    * unlinked (ie the parent directory has no record of it as its child).
-   * 
+   *
    * @return Returns the cloned instance.
    */
   @Override

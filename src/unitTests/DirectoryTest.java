@@ -34,13 +34,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
 import filesystem.Directory;
 import filesystem.FSElement;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.File;
+import org.junit.Test;
 
 public class DirectoryTest {
+
   @Test
   public void testGetName() {
     Directory d = new Directory("myName", null);
@@ -353,7 +355,7 @@ public class DirectoryTest {
         new File<>("myChild2", "child file contents", dir);
     dir.addChild(child1);
     dir.addChild(child2);
-    
+
     Directory newDir = (Directory) dir.copy();
     assertEquals("myName", newDir.getName());
     assertEquals("myParent", newDir.getParent().getName());
@@ -361,6 +363,6 @@ public class DirectoryTest {
     assertEquals(newDir, newDir.getChildByName("myChild1").getParent());
     assertEquals("myChild2", newDir.getChildByName("myChild2").getName());
     assertEquals("child file contents",
-        ((File<String>) newDir.getChildByName("myChild2")).read());
+                 ((File<String>) newDir.getChildByName("myChild2")).read());
   }
 }

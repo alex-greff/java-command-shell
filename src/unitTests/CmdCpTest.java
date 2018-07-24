@@ -31,7 +31,6 @@ package unitTests;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import commands.CmdCp;
 import containers.CommandArgs;

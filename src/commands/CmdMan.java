@@ -29,13 +29,15 @@
 // *********************************************************
 package commands;
 
-import static utilities.JShellConstants.*;
-import io.Console;
-import io.Readable;
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.COMMAND_RECALL_CHAR;
+import static utilities.JShellConstants.COMMAND_RECALL_NAME;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
@@ -68,9 +70,9 @@ public class CmdMan extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND").additionalComment(
-              "Fun fact: running \"man man\" is called man-ception... which you"
-                  + " just discovered.")
-              .build();
+          "Fun fact: running \"man man\" is called man-ception... which you"
+              + " just discovered.")
+          .build();
 
   /**
    * Executes the man command with the arguments args
@@ -88,8 +90,9 @@ public class CmdMan extends Command {
     String cmdName = args.getCommandParameters()[0];
     // Special case where "man !" is inputed change to "man recall" so the
     // documentation can be found
-    if (cmdName.equals(COMMAND_RECALL_CHAR))
+    if (cmdName.equals(COMMAND_RECALL_CHAR)) {
       cmdName = COMMAND_RECALL_NAME;
+    }
     // Get the description of the command
     CommandDescription cmdDesc = commandManager.getCommandDescription(cmdName);
 
@@ -109,11 +112,11 @@ public class CmdMan extends Command {
     // Build the header for the command documentation
     output.append("\"").append(cmdName).append("\" Command Documentation\n");
 
-
     // Build the description section
     output.append("Description:");
-    for (String description : cmdDesc.getDescription())
+    for (String description : cmdDesc.getDescription()) {
       output.append("\n\t- ").append(description);
+    }
 
     // Build the usage section
     output.append("\n").append("Usage:");
@@ -131,8 +134,9 @@ public class CmdMan extends Command {
 
     // Construct the result string
     String resultStr = output.toString();
-    if (!resultStr.isEmpty())
+    if (!resultStr.isEmpty()) {
       resultStr += "\n";
+    }
 
     // Write all the contents read to the Console and return SUCCESS always
     console.write(resultStr);
@@ -152,8 +156,8 @@ public class CmdMan extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

@@ -30,10 +30,9 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Console;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -42,7 +41,7 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.Writable;
+import io.Console;
 import java.util.ArrayList;
 import java.util.Collections;
 import utilities.Command;
@@ -78,15 +77,15 @@ public class CmdGrep extends Command {
       new CommandDescription.DescriptionBuilder(
           "Prints lines in a file containing the given regex.",
           "grep REGEX PATH").usage("grep -R REGEX PATH")
-              .additionalComment("The given PATH can be relative or absolute.")
-              .additionalComment(
-                  "Regular Usage: PATH is a file, any lines in the file that"
-                      + " contain the regex are printed.")
-              .additionalComment(
-                  "-R: PATH is a directory, any lines in any file in the directory,"
-                      + " and any subdirectories, that contain the regex are"
-                      + " printed.")
-              .build();
+          .additionalComment("The given PATH can be relative or absolute.")
+          .additionalComment(
+              "Regular Usage: PATH is a file, any lines in the file that"
+                  + " contain the regex are printed.")
+          .additionalComment(
+              "-R: PATH is a directory, any lines in any file in the directory,"
+                  + " and any subdirectories, that contain the regex are"
+                  + " printed.")
+          .build();
 
   /**
    * Executes the grep command with the given arguments. Grep prints all lines
@@ -246,21 +245,22 @@ public class CmdGrep extends Command {
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
         && ((args.getNumberOfCommandFieldParameters() == 1
-            && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
-            || args.getNumberOfCommandFieldParameters() == 0)
+        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+        || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
     int i = 0;
     for (String p : args.getCommandParameters()) {
-      if (i == 0)
+      if (i == 0) {
         stringParamsMatches = stringParamsMatches && isStringParam(p);
-      else
+      } else {
         stringParamsMatches = stringParamsMatches && !isStringParam(p);
+      }
       i++;
     }
 

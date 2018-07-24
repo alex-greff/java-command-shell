@@ -39,5 +39,6 @@ public class ErrorConsole<T> extends Console<T> {
   /**
    * The constructor, defaulted to public visibility.
    */
-  public ErrorConsole() {}
+  public ErrorConsole() {
+  }
 }

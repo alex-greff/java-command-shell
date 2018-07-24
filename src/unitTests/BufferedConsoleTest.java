@@ -31,12 +31,14 @@ package unitTests;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+
+import io.BufferedConsole;
 import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
-import io.BufferedConsole;
 
 public class BufferedConsoleTest {
+
   BufferedConsole<String> tc;
 
   @Before

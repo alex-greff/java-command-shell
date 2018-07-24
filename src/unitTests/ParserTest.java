@@ -31,6 +31,7 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
 import containers.CommandArgs;
 import java.util.HashMap;
 import org.junit.Test;
@@ -47,7 +48,7 @@ public class ParserTest {
   public void testUserInputMultipleArguments() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[] {"arg1", "arg2"});
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"});
     assertEquals(p, c_wanted);
   }
 
@@ -62,7 +63,7 @@ public class ParserTest {
   public void testUserInputMultipleArgumentsAndFileOverwrite() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2 > hi.txt");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -70,7 +71,7 @@ public class ParserTest {
   public void testUserInputMultipleArgumentsAndFileAppend() {
     CommandArgs p = Parser.parseUserInput("myCmd arg1 arg2 >> hi.txt");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">>", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -114,7 +115,7 @@ public class ParserTest {
   public void testUserInputMultipleArgsAndSpaces() {
     CommandArgs p = Parser.parseUserInput("myCmd    arg1   arg2\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[] {"arg1", "arg2"});
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"});
     assertEquals(p, c_wanted);
   }
 
@@ -129,7 +130,7 @@ public class ParserTest {
   public void testUserInputArgsAndRedirectWithMultipleSpacesTabs() {
     CommandArgs p = Parser.parseUserInput("  myCmd arg1 arg2 >   hi.txt\t\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -137,7 +138,7 @@ public class ParserTest {
   public void testUserInputOnlyTabSeparators() {
     CommandArgs p = Parser.parseUserInput("\tmyCmd\targ1\targ2\t>>\thi.txt\t");
     CommandArgs c_wanted =
-        new CommandArgs("myCmd", new String[] {"arg1", "arg2"}, ">>", "hi.txt");
+        new CommandArgs("myCmd", new String[]{"arg1", "arg2"}, ">>", "hi.txt");
     assertEquals(p, c_wanted);
   }
 
@@ -146,7 +147,7 @@ public class ParserTest {
     CommandArgs p = Parser.parseUserInput("echo \"this is a string\"");
 
     CommandArgs c_wanted =
-        new CommandArgs("echo", new String[] {"\"this is a string\""});
+        new CommandArgs("echo", new String[]{"\"this is a string\""});
     assertEquals(p, c_wanted);
   }
 
@@ -156,7 +157,8 @@ public class ParserTest {
         Parser.parseUserInput("echo \"this is a string\" > \"myFile.txt\"");
 
     CommandArgs c_wanted = new CommandArgs("echo",
-        new String[] {"\"this is a string\""}, ">", "\"myFile.txt\"");
+                                           new String[]{"\"this is a string\""},
+                                           ">", "\"myFile.txt\"");
     assertEquals(p, c_wanted);
   }
 
@@ -166,7 +168,9 @@ public class ParserTest {
         .parseUserInput("mkdir \"myFile1.txt\" \"myFile2.txt\" myFile3.txt");
 
     CommandArgs c_wanted = new CommandArgs("mkdir",
-        new String[] {"\"myFile1.txt\"", "\"myFile2.txt\"", "myFile3.txt"});
+                                           new String[]{"\"myFile1.txt\"",
+                                               "\"myFile2.txt\"",
+                                               "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
 
@@ -176,7 +180,9 @@ public class ParserTest {
         "mkdir    \"myFile1.txt\" \t \"myFile2.txt\" \tmyFile3.txt");
 
     CommandArgs c_wanted = new CommandArgs("mkdir",
-        new String[] {"\"myFile1.txt\"", "\"myFile2.txt\"", "myFile3.txt"});
+                                           new String[]{"\"myFile1.txt\"",
+                                               "\"myFile2.txt\"",
+                                               "myFile3.txt"});
     assertEquals(p, c_wanted);
   }
 
@@ -185,7 +191,7 @@ public class ParserTest {
     CommandArgs p = Parser.parseUserInput("echo myString \">\" ");
 
     CommandArgs c_wanted =
-        new CommandArgs("echo", new String[] {"myString", "\">\""});
+        new CommandArgs("echo", new String[]{"myString", "\">\""});
     assertEquals(p, c_wanted);
   }
 
@@ -198,7 +204,7 @@ public class ParserTest {
     map.put("name", "hi");
 
     CommandArgs c_wanted =
-        new CommandArgs("find", new String[] {"someDir"}, map);
+        new CommandArgs("find", new String[]{"someDir"}, map);
     assertEquals(p, c_wanted);
   }
 
@@ -232,7 +238,7 @@ public class ParserTest {
     map.put("name", "\"hi\"");
 
     CommandArgs c_wanted =
-        new CommandArgs("find", new String[] {"someDir"}, map);
+        new CommandArgs("find", new String[]{"someDir"}, map);
     assertEquals(p, c_wanted);
   }
 
@@ -240,8 +246,8 @@ public class ParserTest {
   public void testUserInputWithSringFeilds() {
     CommandArgs p = Parser.parseUserInput("ls -R");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {},
-        new String[] {"R"}, new HashMap());
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{},
+                                           new String[]{"R"}, new HashMap());
 
     assertEquals(p, c_wanted);
   }
@@ -250,8 +256,8 @@ public class ParserTest {
   public void testUserInputWithSringFeildsAndParams() {
     CommandArgs p = Parser.parseUserInput("ls -R something");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {"something"},
-        new String[] {"R"}, new HashMap());
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{"something"},
+                                           new String[]{"R"}, new HashMap());
 
     assertEquals(p, c_wanted);
   }
@@ -263,8 +269,8 @@ public class ParserTest {
     HashMap<String, String> map = new HashMap<>();
     map.put("f", "lol");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {"something"},
-        new String[] {"R"}, map);
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{"something"},
+                                           new String[]{"R"}, map);
 
     assertEquals(p, c_wanted);
   }
@@ -278,8 +284,8 @@ public class ParserTest {
     map.put("f", "lol");
     map.put("d", "\"cool\"");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {"something"},
-        new String[] {"P", "R"}, map);
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{"something"},
+                                           new String[]{"P", "R"}, map);
 
     assertEquals(p, c_wanted);
   }
@@ -288,8 +294,8 @@ public class ParserTest {
   public void testUserInputWithSringFeildsAndParamsWithMultipleSpaceTabs() {
     CommandArgs p = Parser.parseUserInput("ls   \t-R  something   ");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {"something"},
-        new String[] {"R"}, new HashMap());
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{"something"},
+                                           new String[]{"R"}, new HashMap());
 
     assertEquals(p, c_wanted);
   }
@@ -301,8 +307,8 @@ public class ParserTest {
     HashMap<String, String> map = new HashMap<>();
     map.put("f", "lol");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {"something"},
-        new String[] {"R"}, map);
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{"something"},
+                                           new String[]{"R"}, map);
 
     assertEquals(p, c_wanted);
   }
@@ -316,8 +322,8 @@ public class ParserTest {
     map.put("f", "lol");
     map.put("d", "\"cool\"");
 
-    CommandArgs c_wanted = new CommandArgs("ls", new String[] {"something"},
-        new String[] {"P", "R"}, map);
+    CommandArgs c_wanted = new CommandArgs("ls", new String[]{"something"},
+                                           new String[]{"P", "R"}, map);
 
     assertEquals(p, c_wanted);
   }
@@ -327,7 +333,7 @@ public class ParserTest {
     CommandArgs p = Parser.parseUserInput("echo \"some\ntext\"");
 
     CommandArgs c_wanted =
-        new CommandArgs("echo", new String[] {"\"some\ntext\""});
+        new CommandArgs("echo", new String[]{"\"some\ntext\""});
     assertEquals(p, c_wanted);
   }
 
@@ -335,7 +341,7 @@ public class ParserTest {
   public void testUserInputWithRecallCommandWithSmallNumber() {
     CommandArgs p = Parser.parseUserInput("!3");
 
-    CommandArgs c_wanted = new CommandArgs("recall", new String[] {"3"});
+    CommandArgs c_wanted = new CommandArgs("recall", new String[]{"3"});
     assertEquals(p, c_wanted);
   }
 
@@ -343,7 +349,7 @@ public class ParserTest {
   public void testUserInputWithRecallCommandWithLargeNumber() {
     CommandArgs p = Parser.parseUserInput("!567");
 
-    CommandArgs c_wanted = new CommandArgs("recall", new String[] {"567"});
+    CommandArgs c_wanted = new CommandArgs("recall", new String[]{"567"});
     assertEquals(p, c_wanted);
   }
 
@@ -358,7 +364,7 @@ public class ParserTest {
   public void testUserInputWithRecallCommandWithSmallNumberWithMultSpaces() {
     CommandArgs p = Parser.parseUserInput("\t  !3 \t \t    ");
 
-    CommandArgs c_wanted = new CommandArgs("recall", new String[] {"3"});
+    CommandArgs c_wanted = new CommandArgs("recall", new String[]{"3"});
     assertEquals(p, c_wanted);
   }
 
@@ -367,7 +373,7 @@ public class ParserTest {
     CommandArgs p = Parser.parseUserInput("!567 lol \"hi there\"");
 
     CommandArgs c_wanted =
-        new CommandArgs("recall", new String[] {"567", "lol", "\"hi there\""});
+        new CommandArgs("recall", new String[]{"567", "lol", "\"hi there\""});
     assertEquals(p, c_wanted);
   }
 

@@ -30,6 +30,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdCat;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
@@ -61,7 +62,7 @@ public class CmdCatTest {
     testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testQueryOut,
-        testErrOut, fs);
+                                                testErrOut, fs);
     cmd = new CmdCat(fs, cm);
   }
 
@@ -90,7 +91,7 @@ public class CmdCatTest {
     ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("Error: File does not exist",
-        testErrOut.getAllWritesAsString());
+                 testErrOut.getAllWritesAsString());
   }
 
   @Test
@@ -134,7 +135,7 @@ public class CmdCatTest {
     // Create a file with multiple lines of content, and add it to the root
     // directory
     fs.getRoot().createAndAddNewFile("testFile",
-        "hello\nworld\nthis\nis\na\ntest");
+                                     "hello\nworld\nthis\nis\na\ntest");
 
     // Attempt to display the contents of the file
     String argParam[] = {"testFile"};
@@ -145,7 +146,7 @@ public class CmdCatTest {
     // content was printed
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("hello\nworld\nthis\nis\na\ntest\n",
-        testOut.getAllWritesAsString());
+                 testOut.getAllWritesAsString());
   }
 
 }

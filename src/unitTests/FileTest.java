@@ -31,11 +31,13 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import org.junit.Test;
+
 import filesystem.Directory;
 import filesystem.File;
+import org.junit.Test;
 
 public class FileTest {
+
   @Test
   public void testConstructNoInitialContents() {
     File<String> f = new File<>("myFileName", null);
@@ -69,7 +71,7 @@ public class FileTest {
     File<String> f = new File<>("myFileName", null);
     f.write("this is some line\nthis is another line\nlast line");
     assertEquals("this is some line\nthis is another line\nlast line",
-        f.read());
+                 f.read());
   }
 
   @Test
@@ -91,7 +93,7 @@ public class FileTest {
         new File<>("myFileName", "some\ncomplex content\n\n\n", null);
     f.write("more complex\t\ncontent     ");
     assertEquals("some\ncomplex content\n\n\nmore complex\t\ncontent     ",
-        f.read());
+                 f.read());
   }
 
   @Test

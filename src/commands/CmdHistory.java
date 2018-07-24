@@ -29,15 +29,14 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
-import io.Console;
-import io.Readable;
 import containers.CommandDescription;
 import driver.JShell;
 import filesystem.FileSystem;
-import io.Writable;
-import static utilities.JShellConstants.APPEND_OPERATOR;
-import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+import io.Console;
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -74,11 +73,11 @@ public class CmdHistory extends Command {
               + "by default, but if given a positive integer "
               + "argument x, the last x user entries will be listed.",
           "history")
-              .usage("history [int]")
-              .additionalComment("The history command itself will "
-                  + "always take place as the latest entry in history "
-                  + "(i.e. history 1 prints: \"1. history 1\")")
-              .build();
+          .usage("history [int]")
+          .additionalComment("The history command itself will "
+                                 + "always take place as the latest entry in history "
+                                 + "(i.e. history 1 prints: \"1. history 1\")")
+          .build();
 
   /**
    * @param args The arguments for the command call.
@@ -127,8 +126,9 @@ public class CmdHistory extends Command {
 
     // Get the result string
     String resultStr = result.toString().trim();
-    if (!resultStr.isEmpty())
+    if (!resultStr.isEmpty()) {
       resultStr += "\n";
+    }
 
     // Write all the contents read to the Console and return SUCCESS always
     console.write(resultStr);
@@ -136,7 +136,6 @@ public class CmdHistory extends Command {
   }
 
   /**
-   *
    * @param arg the string of the supposed number
    * @return true if the string represents a positive integer, false otherwise
    */
@@ -163,8 +162,8 @@ public class CmdHistory extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

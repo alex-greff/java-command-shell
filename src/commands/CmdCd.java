@@ -31,18 +31,17 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
-import io.Console;
-import io.Readable;
 
 /**
  * The cd command class that inherits from command
@@ -71,10 +70,10 @@ public class CmdCd extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Change directory.",
-          "cd DIRECTORY")
-              .additionalComment(
-                  "Path of DIRECTORY can be relative or absolute.")
-              .build();
+                                                "cd DIRECTORY")
+          .additionalComment(
+              "Path of DIRECTORY can be relative or absolute.")
+          .build();
 
   /**
    * Executes the cd command with the given arguments. Cd changes the working
@@ -127,8 +126,8 @@ public class CmdCd extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

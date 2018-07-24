@@ -32,26 +32,27 @@ package unitTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import commands.*;
+import commands.CmdCd;
+import commands.CmdHistory;
+import commands.CmdLs;
+import commands.CmdMkdir;
+import commands.CmdRecall;
 import containers.CommandArgs;
 import driver.JShell;
 import filesystem.Directory;
-import filesystem.FSElementNotFoundException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
-import filesystem.MalformedPathException;
 import io.BufferedConsole;
 import java.util.ArrayList;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
 import utilities.Parser;
-import filesystem.Path;
 
 public class CmdRecallTest {
+
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
@@ -73,7 +74,7 @@ public class CmdRecallTest {
   }
 
   @Test
-  public void testRecallFirstEntryOnLs(){
+  public void testRecallFirstEntryOnLs() {
     // make some ls test
     CommandArgs lsargs = Parser.parseUserInput("ls");
     CmdLs LsCall = new CmdLs(fs, cm);
@@ -82,7 +83,8 @@ public class CmdRecallTest {
 
     // manually populate history with commands
     ArrayList<String> hist = JShell.getHistory();
-    hist.add("ls"); hist.add("mkdir one");
+    hist.add("ls");
+    hist.add("mkdir one");
     // manually add the directory
     Directory dir1 = new Directory("dir1", fs.getRoot());
     fs.getRoot().addChild(dir1);
@@ -101,10 +103,10 @@ public class CmdRecallTest {
   }
 
   @Test
-  public void TestRecallOnNumberTooBig(){
+  public void TestRecallOnNumberTooBig() {
     String params[] = new String[1];
     params[0] = "4";
-    CommandArgs args = new CommandArgs("recall",params);
+    CommandArgs args = new CommandArgs("recall", params);
     cmd = new CmdRecall(fs, cm);
 
     ExitCode exc = cmd.execute(args, tc, tc, tc_err);
@@ -115,7 +117,7 @@ public class CmdRecallTest {
   }
 
   @Test
-  public void testRecallDoubleDigitEntryHistoryWithParams(){
+  public void testRecallDoubleDigitEntryHistoryWithParams() {
     // make some ls test
     CommandArgs histargs = Parser.parseUserInput("history 5");
     CmdHistory histCall = new CmdHistory(fs, cm);
@@ -124,7 +126,7 @@ public class CmdRecallTest {
 
     // manually populate history with commands
     ArrayList<String> hist = JShell.getHistory();
-    for (int i =1; i<10; i++){
+    for (int i = 1; i < 10; i++) {
       String adder = "cmd" + String.valueOf(i);
       hist.add(adder);
     }
@@ -136,11 +138,11 @@ public class CmdRecallTest {
     assertTrue(tc.getAllWrites().size() > 0);
     // the history carries over from previous tests
     assertEquals("7. cmd6\n8. cmd7\n9. cmd8\n10. cmd9\n11. "
-        + "history 5\n", tc.getAllWritesAsString());
+                     + "history 5\n", tc.getAllWritesAsString());
   }
 
   @Test
-  public void testRecallMkdirInDifferentDirectory(){
+  public void testRecallMkdirInDifferentDirectory() {
     // make some ls test
     CommandArgs mkdirArgs = Parser.parseUserInput("mkdir testingDir");
     CmdMkdir mkdirCall = new CmdMkdir(fs, cm);
@@ -163,7 +165,7 @@ public class CmdRecallTest {
 
     CommandArgs lsRArgs = Parser.parseUserInput("ls -R /");
     CmdLs lscommand = new CmdLs(fs, cm);
-    ExitCode eh  = lscommand.execute(lsRArgs, tc,tc,tc_err);
+    ExitCode eh = lscommand.execute(lsRArgs, tc, tc, tc_err);
     assertEquals("/:\ntestingDir:\n", tc.getAllWritesAsString());
 
   }

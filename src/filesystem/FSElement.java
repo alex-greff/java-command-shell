@@ -65,7 +65,7 @@ public class FSElement {
 
   /**
    * Sets the current fselement's parent to newParent
-   * 
+   *
    * @param newParent The new parent.
    */
   public void changeParent(Directory newParent) {
@@ -87,15 +87,16 @@ public class FSElement {
    * @param name The new name of this element
    */
   public void rename(String name) {
-    if (this.parent != null)
+    if (this.parent != null) {
       this.parent.notifyRename(this.name, name);
+    }
     this.name = name;
   }
 
   /**
    * Copies the current FSElement. Warning: when copying, the new instance is
    * unlinked (ie the parent directory has no record of it as its child).
-   * 
+   *
    * @return Returns the cloned instance.
    */
   public FSElement copy() {
@@ -103,9 +104,10 @@ public class FSElement {
   }
 
   /**
-   * Renames this fselement without notifying its parent
-   * Make sure you know what you are doing if you want to use this
-   * Most likely what you really need is rename
+   * Renames this fselement without notifying its parent Make sure you know what
+   * you are doing if you want to use this Most likely what you really need is
+   * rename
+   *
    * @param newName The new name of this fselement
    */
   public void setName(String newName) {

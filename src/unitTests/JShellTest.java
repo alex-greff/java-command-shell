@@ -29,24 +29,19 @@
 // *********************************************************
 package unitTests;
 
-import filesystem.*;
-import io.*;
-import utilities.*;
-import containers.*;
-import commands.*;
+import static org.junit.Assert.assertFalse;
+
+import driver.JShell;
+import filesystem.FileSystem;
+import filesystem.InMemoryFileSystem;
+import io.BufferedConsole;
 import org.junit.Before;
 import org.junit.Test;
-import driver.JShell;
-
-import java.util.ArrayList.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import utilities.CommandManager;
 
 
 public class JShellTest {
+
   JShell shelly;
   private BufferedConsole<String> tc;
   private BufferedConsole<String> tc_qry;
@@ -55,7 +50,7 @@ public class JShellTest {
   private CommandManager cm;
 
   @Before
-  public void setup(){
+  public void setup() {
     shelly = new JShell();
     tc = new BufferedConsole<String>();
     tc_qry = new BufferedConsole<>();
@@ -65,7 +60,7 @@ public class JShellTest {
   }
 
   @Test
-  public void testStopRunning(){
+  public void testStopRunning() {
     JShell.exit();
     assertFalse(JShell.getRunning());
   }

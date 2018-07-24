@@ -50,9 +50,7 @@ import commands.CmdTree;
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import io.Writable;
 import io.Console;
-import io.Readable;
 import java.util.HashMap;
 
 /**
@@ -91,7 +89,7 @@ public class CommandManager {
 
   /**
    * Private constructor.
-   * 
+   *
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
@@ -185,7 +183,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   *         exists, or null
+   * exists, or null
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String

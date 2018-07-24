@@ -42,8 +42,6 @@ import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.Console;
-import io.Readable;
-import io.Writable;
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -201,8 +199,8 @@ public class CmdCp extends Command {
   private ExitCode maybeOverwriteElement(FSElement from, FSElement to) {
     // prompt the user if the element should be overwritten
     queryConsole.writeln("Overwrite element at path "
-                           + fileSystem.getAbsolutePathOfFSElement(to)
-                           + " [y/n]?");
+                             + fileSystem.getAbsolutePathOfFSElement(to)
+                             + " [y/n]?");
     String answer = queryConsole.read().trim();
     UserDecision overwrite;
     // get the users decision

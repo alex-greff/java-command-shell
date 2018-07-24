@@ -30,6 +30,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdPwd;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
@@ -64,7 +65,7 @@ public class CmdPwdTest {
     testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testOut, testErrOut,
-        fs);
+                                                fs);
     cmd = new CmdPwd(fs, cm);
   }
 
@@ -91,7 +92,7 @@ public class CmdPwdTest {
 
   @Test
   public void testChildDir() throws FSElementAlreadyExistsException,
-      MalformedPathException, FSElementNotFoundException {
+                                    MalformedPathException, FSElementNotFoundException {
     // Create a directory, add it to the root directory, and make it the working
     // directory
     fs.getRoot().createAndAddNewDir("testDir");

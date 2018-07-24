@@ -31,6 +31,7 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FSElementNotFoundException;
@@ -38,12 +39,10 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
-import io.Console;
-import io.Readable;
 
 /**
  * The cat command class that inherits from command
@@ -72,10 +71,10 @@ public class CmdCat extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print contents of file(s).",
-          "cat FILES")
-              .additionalComment("Path of FILE can be relative or absolute.")
-              .additionalComment("Can take more than one FILE as arguments.")
-              .build();
+                                                "cat FILES")
+          .additionalComment("Path of FILE can be relative or absolute.")
+          .additionalComment("Can take more than one FILE as arguments.")
+          .build();
 
   /**
    * Executes the cat command with the given arguments. Cat prints the contents
@@ -115,8 +114,9 @@ public class CmdCat extends Command {
 
     // Get the result string
     String resultStr = result.toString().trim();
-    if (!resultStr.isEmpty())
+    if (!resultStr.isEmpty()) {
       resultStr += "\n";
+    }
 
     // Write all the contents read to the Console and return SUCCESS always
     console.write(resultStr);
@@ -138,8 +138,8 @@ public class CmdCat extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

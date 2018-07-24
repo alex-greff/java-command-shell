@@ -30,6 +30,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdCd;
 import containers.CommandArgs;
 import filesystem.FSElementAlreadyExistsException;
@@ -61,7 +62,7 @@ public class CmdCdTest {
     testErrOut = new BufferedConsole<>();
     fs = new InMemoryFileSystem();
     cm = CommandManager.constructCommandManager(testOut, testQueryOut,
-        testErrOut, fs);
+                                                testErrOut, fs);
     cmd = new CmdCd(fs, cm);
   }
 
@@ -90,7 +91,7 @@ public class CmdCdTest {
     ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Invalid directory path",
-        testErrOut.getAllWritesAsString());
+                 testErrOut.getAllWritesAsString());
   }
 
   @Test
@@ -100,7 +101,7 @@ public class CmdCdTest {
     ExitCode exitVal = cmd.execute(args, testOut, testQueryOut, testErrOut);
     assertEquals(ExitCode.FAILURE, exitVal);
     assertEquals("Error: Directory does not exist",
-        testErrOut.getAllWritesAsString());
+                 testErrOut.getAllWritesAsString());
   }
 
   @Test

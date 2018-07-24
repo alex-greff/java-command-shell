@@ -37,7 +37,6 @@ import io.QueryConsole;
 import java.util.ArrayList;
 import utilities.CommandManager;
 import utilities.Parser;
-import io.Readable;
 
 /**
  * the JShell terminal.
@@ -67,7 +66,7 @@ public class JShell {
    * The console used for querying the user mid-command execution.
    */
   private static Console<String> queryConsole = new QueryConsole<>();
-  
+
   /**
    * The error console that JShell uses.
    */
@@ -136,7 +135,9 @@ public class JShell {
   /**
    * Clears all of the entries in history. Used in testing and termination
    */
-  public static void clearHistory() { history.clear(); }
+  public static void clearHistory() {
+    history.clear();
+  }
 
   /**
    * given a command input, parses and executes the user command
@@ -150,6 +151,8 @@ public class JShell {
     cmdManager.executeCommand(parsedInput);
   }
 
-  public static boolean getRunning(){ return running;}
+  public static boolean getRunning() {
+    return running;
+  }
 
 }

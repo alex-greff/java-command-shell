@@ -31,12 +31,10 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import org.junit.Test;
+
 import commands.CmdCd;
 import commands.CmdEcho;
 import commands.CmdExit;
-import commands.CmdFind;
 import containers.CommandArgs;
 import filesystem.Directory;
 import filesystem.FSElementAlreadyExistsException;
@@ -47,12 +45,15 @@ import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.BufferedConsole;
+import org.junit.Before;
+import org.junit.Test;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;
 import utilities.Parser;
 
 public class CommandTest {
+
   // Create Testing Consoles, a command manager instance, an instance of the
   // mock file system and an instance of the command
   private BufferedConsole<String> tc;
@@ -92,12 +93,12 @@ public class CommandTest {
   }
 
   /*
-   * 
+   *
    * Test redirect system
-   * 
-   * 
+   *
+   *
    */
-  
+
   @Test
   public void testWriteToExistingFileRelativePath()
       throws MalformedPathException, FSElementNotFoundException {
@@ -236,7 +237,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: No file/directory found",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -250,7 +251,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -265,7 +266,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -278,7 +279,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -291,7 +292,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -306,7 +307,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -356,7 +357,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -372,7 +373,7 @@ public class CommandTest {
 
     assertSame(exitVal, ExitCode.FAILURE);
     assertEquals("Error: File/directory already exists",
-        tc_err.getAllWritesAsString());
+                 tc_err.getAllWritesAsString());
   }
 
   @Test
@@ -464,7 +465,8 @@ public class CommandTest {
     File file = fs.getFileByPath(new Path("/dir1/dir4/file1"));
 
     assertSame(exitVal, ExitCode.SUCCESS);
-    assertEquals("file1's contents   some\n\tcomplex string\n\n\n", file.read());
+    assertEquals("file1's contents   some\n\tcomplex string\n\n\n",
+                 file.read());
   }
 
   @Test

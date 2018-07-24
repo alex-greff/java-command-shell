@@ -30,15 +30,16 @@
 package io;
 
 /**
- * The console for querying the user mid-command execution. 
- * 
- * @author greff
+ * The console for querying the user mid-command execution.
  *
  * @param <T> The object that are written/read by the console.
+ * @author greff
  */
 public class QueryConsole<T> extends Console<T> {
+
   /**
    * The constructor, defaulted to public visibility.
    */
-  public QueryConsole() { }
+  public QueryConsole() {
+  }
 }

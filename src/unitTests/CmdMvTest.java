@@ -33,11 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+
 import commands.CmdMv;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -49,6 +45,11 @@ import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
 import io.BufferedConsole;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 import utilities.Command;
@@ -89,7 +90,7 @@ public class CmdMvTest {
     root.createAndAddNewDir("inside_test");
     // mv inside_test test
     CommandArgs args =
-        new CommandArgs("mv", new String[] {"inside_test", "test"});
+        new CommandArgs("mv", new String[]{"inside_test", "test"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
@@ -97,7 +98,7 @@ public class CmdMvTest {
     assertFalse(root.containsChildElement("inside_test"));
     // inside_test should now be inside test
     assertTrue(root.getChildDirectoryByName("test")
-        .containsChildElement("inside_test"));
+                   .containsChildElement("inside_test"));
   }
 
   @Test
@@ -107,7 +108,7 @@ public class CmdMvTest {
     root.createAndAddNewDir("inside_test");
     // mv inside_test test
     CommandArgs args =
-        new CommandArgs("mv", new String[] {"inside_test", "test"});
+        new CommandArgs("mv", new String[]{"inside_test", "test"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
@@ -123,12 +124,12 @@ public class CmdMvTest {
     Directory root = fs.getRoot();
     root.createAndAddNewDir("test");
     // mv inside_test test
-    CommandArgs args = new CommandArgs("mv", new String[] {"test", "test"});
+    CommandArgs args = new CommandArgs("mv", new String[]{"test", "test"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should fail
     assertEquals(ExitCode.FAILURE, mvExit);
     assertEquals("Cannot move element to itself or to its child",
-        tc_err.getLastWrite());
+                 tc_err.getLastWrite());
     // nothing should happen to the directory
     assertTrue(root.containsChildElement("test"));
   }
@@ -141,7 +142,7 @@ public class CmdMvTest {
     root.createAndAddNewDir("seeyalater");
     // mv inside_test test
     CommandArgs args =
-        new CommandArgs("mv", new String[] {"seeyalater", "getinme/heythere"});
+        new CommandArgs("mv", new String[]{"seeyalater", "getinme/heythere"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
@@ -149,7 +150,7 @@ public class CmdMvTest {
     assertFalse(root.containsChildElement("seeyalater"));
     // there should now be heythere inside getinme
     assertTrue(root.getChildDirectoryByName("getinme")
-        .containsChildElement("heythere"));
+                   .containsChildElement("heythere"));
   }
 
   @Test
@@ -160,7 +161,7 @@ public class CmdMvTest {
     daddy.createAndAddNewDir("kid1");
     daddy.createAndAddNewDir("kid2");
     // mv daddy mommy
-    CommandArgs args = new CommandArgs("mv", new String[] {"daddy", "mommy"});
+    CommandArgs args = new CommandArgs("mv", new String[]{"daddy", "mommy"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should run successfully
     assertEquals(ExitCode.SUCCESS, mvExit);
@@ -183,7 +184,7 @@ public class CmdMvTest {
     daddy.createAndAddNewDir("kid2");
     // mv kid1 kid2
     CommandArgs args =
-        new CommandArgs("mv", new String[] {"daddy/kid1", "daddy/kid2"});
+        new CommandArgs("mv", new String[]{"daddy/kid1", "daddy/kid2"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should succeed
     assertEquals(ExitCode.SUCCESS, mvExit);
@@ -202,7 +203,7 @@ public class CmdMvTest {
     hello.createAndAddNewDir("hi");
     // mv hello hello/hi
     CommandArgs args =
-        new CommandArgs("mv", new String[] {"hello", "hello/hi"});
+        new CommandArgs("mv", new String[]{"hello", "hello/hi"});
     ExitCode mvExit = mvCmd.execute(args, tc, tc_qry, tc_err);
     // this should fail
     assertEquals(ExitCode.FAILURE, mvExit);
@@ -211,13 +212,13 @@ public class CmdMvTest {
     // hello/hi should still exist
     assertTrue(hello.containsChildElement("hi"));
     assertEquals("Cannot move element to itself or to its child",
-        tc_err.getLastWrite());
+                 tc_err.getLastWrite());
   }
 
   @Test
   public void testMovingDirectoryThatIsCurrWorkingDir()
       throws FSElementAlreadyExistsException, MalformedPathException,
-      FSElementNotFoundException {
+             FSElementNotFoundException {
 
     Directory root = fs.getRoot();
     root.createAndAddNewDir("d1_t");
@@ -250,7 +251,7 @@ public class CmdMvTest {
     assertEquals("f1's contents", ((File) root.getChildByName("f1")).read());
     assertNull(root.getChildByName("f2"));
   }
-  
+
   @Test
   public void testMovingFileWithUserPromptNo()
       throws FSElementAlreadyExistsException {

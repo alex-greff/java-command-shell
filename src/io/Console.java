@@ -34,16 +34,16 @@ import java.util.Scanner;
 /**
  * Class representing the standard output console.
  *
- * @author greff
- * 
  * @param <T> The object that are written/read by the console.
+ * @author greff
  */
 public class Console<T> implements Writable<T>, Readable {
 
   /**
    * The constructor, defaulted to public visibility.
    */
-  public Console() {}
+  public Console() {
+  }
 
   /**
    * Write text to the console

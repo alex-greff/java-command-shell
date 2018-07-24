@@ -31,6 +31,7 @@ package unitTests;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+
 import containers.CommandDescription;
 import java.util.Collections;
 import org.junit.Test;
@@ -41,7 +42,8 @@ public class CommandDescriptionTest {
   public void testGettersContainerWithDescriptionAndUsages() {
     CommandDescription cd =
         new CommandDescription.DescriptionBuilder("some basic description",
-            "usage 1").usage("usage 2").build();
+                                                  "usage 1").usage("usage 2")
+            .build();
 
     assertEquals(asList("some basic description"), cd.getDescription());
     assertEquals(asList("usage 1", "usage 2"), cd.getUsages());
@@ -52,12 +54,13 @@ public class CommandDescriptionTest {
   public void testGettersContainerWithAdditionalComments() {
     CommandDescription cd =
         new CommandDescription.DescriptionBuilder("some basic description",
-            "usage 1").usage("usage 2").additionalComment("some cool thing")
-                .build();
+                                                  "usage 1").usage("usage 2")
+            .additionalComment("some cool thing")
+            .build();
 
     assertEquals(asList("some basic description"), cd.getDescription());
     assertEquals(asList("usage 1", "usage 2"), cd.getUsages());
     assertEquals(Collections.singletonList("some cool thing"),
-        cd.getAdditionalComments());
+                 cd.getAdditionalComments());
   }
 }

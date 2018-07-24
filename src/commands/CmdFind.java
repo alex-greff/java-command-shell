@@ -30,9 +30,8 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Console;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -42,10 +41,9 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import io.Console;
 import io.Writable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.TreeSet;
 import utilities.Command;
 import utilities.CommandManager;
@@ -71,11 +69,11 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-              .additionalComment("Nothing is printed if no files are found")
-              .additionalComment(
-                  "If an invalid path is found, it will print an error and "
+          .additionalComment("Nothing is printed if no files are found")
+          .additionalComment(
+              "If an invalid path is found, it will print an error and "
                   + "continue running.")
-              .build();
+          .build();
   /**
    * The identifier for the type flag.
    */
@@ -139,7 +137,10 @@ public class CmdFind extends Command {
 
         // Initialize the set of paths of the occurrences of <expression>
         TreeSet<String> outputPaths = findFSElementInDirectoryStructure(currDir,
-            dirStrPath, expr, errorConsole, type);
+                                                                        dirStrPath,
+                                                                        expr,
+                                                                        errorConsole,
+                                                                        type);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -168,7 +169,7 @@ public class CmdFind extends Command {
    * @param name The wanted file name
    * @param errOut The error console
    * @param TYPE the type of the search (either "d" for directory or "f" for
-   *        file)
+   * file)
    * @return Returns the set
    */
   private TreeSet<String> findFSElementInDirectoryStructure(Directory dir,
@@ -187,8 +188,9 @@ public class CmdFind extends Command {
 
       // If the directory is the root directory
       // Then remove the extra "/" character
-      if (fseAbsPath.equals("/"))
+      if (fseAbsPath.equals("/")) {
         fseAbsPath = "";
+      }
 
       // Add the file's path to the return set
       ret_set.add(fseAbsPath + "/" + name);
@@ -204,7 +206,8 @@ public class CmdFind extends Command {
         // Call the function recursively again on the child directory and add
         // any instances of the file to the current return set
         ret_set.addAll(findFSElementInDirectoryStructure((Directory) child_fse,
-            childDirStrPath, name, errOut, TYPE));
+                                                         childDirStrPath, name,
+                                                         errOut, TYPE));
       }
 
       if (child_fse == null) {
@@ -231,10 +234,10 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

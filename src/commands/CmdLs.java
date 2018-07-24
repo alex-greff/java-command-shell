@@ -29,9 +29,11 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+import static utilities.JShellConstants.RECURSIVE_FLAG;
+
 import containers.CommandArgs;
-import io.Console;
-import io.Readable;
 import containers.CommandDescription;
 import filesystem.Directory;
 import filesystem.FSElementNotFoundException;
@@ -39,10 +41,7 @@ import filesystem.File;
 import filesystem.FileSystem;
 import filesystem.MalformedPathException;
 import filesystem.Path;
-import io.Writable;
-import static utilities.JShellConstants.APPEND_OPERATOR;
-import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-import static utilities.JShellConstants.RECURSIVE_FLAG;
+import io.Console;
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -76,19 +75,19 @@ public class CmdLs extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Lists all of the files and directories in "
-          + "the current working directory.",
+              + "the current working directory.",
           "ls [-R]")
-              .description(
-                  "Can take multiple filenames/directory names as arguments.")
-              .usage("ls [-R] [Directory]...").usage("ls [-R] [File]...")
-              .usage("ls [-R] [Directory or File]...")
-              .additionalComment(
-                  "If given a filename, ls will simply print back that "
-                      + "name")
-              .additionalComment(
-                  "ls separates multiple argument's content with an "
-                      + "extra newline")
-              .build();
+          .description(
+              "Can take multiple filenames/directory names as arguments.")
+          .usage("ls [-R] [Directory]...").usage("ls [-R] [File]...")
+          .usage("ls [-R] [Directory or File]...")
+          .additionalComment(
+              "If given a filename, ls will simply print back that "
+                  + "name")
+          .additionalComment(
+              "ls separates multiple argument's content with an "
+                  + "extra newline")
+          .build();
 
   /**
    * @param args The command Arguments.
@@ -105,8 +104,9 @@ public class CmdLs extends Command {
     Path path;
     boolean rec = false;
 
-    if (args.getNumberOfCommandFieldParameters() > 0)
+    if (args.getNumberOfCommandFieldParameters() > 0) {
       rec = args.getCommandFlags()[0].equals("R");
+    }
     // check parameters
 
     String[] params = args.getCommandParameters();
@@ -167,8 +167,9 @@ public class CmdLs extends Command {
     for (String name : dirs) {
       if (recursive) {
         Directory d = dir.getChildDirectoryByName(name);
-        if (d == null)
+        if (d == null) {
           return "";
+        }
         result.append(tabs).append(name).append(":\n");
         result.append(addOn(d, true, tabNum + 1));
       } else {
@@ -177,8 +178,9 @@ public class CmdLs extends Command {
       }
     }
     for (String name : files) {
-      if (recursive)
+      if (recursive) {
         result.append(tabs);
+      }
 
       result.append(name).append("\n");
     }
@@ -186,7 +188,6 @@ public class CmdLs extends Command {
   }
 
   /**
-   *
    * @param file that will get printed by ls
    * @return the string of the filename followed by newlines
    */
@@ -221,12 +222,12 @@ public class CmdLs extends Command {
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() >= 0
         && ((args.getNumberOfCommandFieldParameters() == 1
-            && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
-            || args.getNumberOfCommandFieldParameters() == 0)
+        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+        || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

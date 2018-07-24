@@ -79,7 +79,7 @@ public class MockFileSystem implements FileSystem {
    *
    * @param path The path.
    * @return Returns a file with the name "someFile" and the contents "some file
-   *         contents".
+   * contents".
    */
   @Override
   public File<?> getFileByPath(Path path)
@@ -105,7 +105,7 @@ public class MockFileSystem implements FileSystem {
    *
    * @param path The path.
    * @return Returns a directory with the name "someDirectory" with no parent or
-   *         children.
+   * children.
    */
   @Override
   public Directory getDirByPath(Path path)
@@ -151,7 +151,7 @@ public class MockFileSystem implements FileSystem {
    * Simulates getting the working directory.
    *
    * @return Returns a directory with name "myWorkingDirectory" with no parent
-   *         or children.
+   * or children.
    */
   @Override
   public Directory getWorkingDir() {

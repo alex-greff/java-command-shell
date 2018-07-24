@@ -30,6 +30,8 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
+import io.QueryConsole;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -37,10 +39,9 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
-import io.Console;
-import io.QueryConsole;
 
 public class QueryConsoleTest {
+
   QueryConsole<String> console;
   OutputStream os;
 
@@ -80,7 +81,7 @@ public class QueryConsoleTest {
     console.writeln("Some output");
 
     assertEquals("Some output" + System.getProperty("line.separator"),
-        os.toString());
+                 os.toString());
   }
 
   @Test

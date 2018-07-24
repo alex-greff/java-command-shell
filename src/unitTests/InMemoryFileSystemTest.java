@@ -31,6 +31,7 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import filesystem.Directory;
 import filesystem.FSElementAlreadyExistsException;
 import filesystem.FSElementNotFoundException;
@@ -87,7 +88,7 @@ public class InMemoryFileSystemTest {
 
   @Test
   public void testGettingNonRootDirectoryByPath() throws MalformedPathException,
-      FSElementNotFoundException, FSElementAlreadyExistsException {
+                                                         FSElementNotFoundException, FSElementAlreadyExistsException {
     InMemoryFileSystem fs = new InMemoryFileSystem();
     // add a new directory to the working directory
     fs.getWorkingDir().createAndAddNewDir("test");

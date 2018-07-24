@@ -33,12 +33,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import java.util.Iterator;
-import org.junit.Test;
+
 import filesystem.MalformedPathException;
 import filesystem.Path;
+import java.util.Iterator;
+import org.junit.Test;
 
 public class PathTest {
+
   @Test
   public void testInitializePathWithValidString()
       throws MalformedPathException {

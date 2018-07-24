@@ -38,6 +38,7 @@ import java.util.Iterator;
  * @author anton
  */
 public class Path implements Iterable<String> {
+
   /**
    * The storage for all the tokens.
    */
@@ -78,21 +79,22 @@ public class Path implements Iterable<String> {
 
   /**
    * Gets the number of tokens in the path
-   * 
+   *
    * @return Returns the number of tokens in the path
    */
   public int getNumberOfTokens() {
     return this.tokens.size();
   }
-  
+
   /**
    * Removes the last token from the path and returns it.
    *
    * @return Returns the last token from the path or null if path is empty.
    */
   public String removeLast() {
-    if (isEmpty())
+    if (isEmpty()) {
       return null;
+    }
     return this.tokens.remove(this.tokens.size() - 1);
   }
 
@@ -102,8 +104,9 @@ public class Path implements Iterable<String> {
    * @return Returns the first token from the path or null if path is empty.
    */
   public String removeFirst() {
-    if (isEmpty())
+    if (isEmpty()) {
       return null;
+    }
     return this.tokens.remove(0);
   }
 

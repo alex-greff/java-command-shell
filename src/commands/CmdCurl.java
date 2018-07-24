@@ -29,23 +29,21 @@
 // *********************************************************
 package commands;
 
+import static utilities.JShellConstants.APPEND_OPERATOR;
+import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
-import io.Writable;
-import utilities.Command;
-import utilities.CommandManager;
-import utilities.ExitCode;
-import static utilities.JShellConstants.*;
+import io.Console;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
-import io.Console;
-import io.Readable;
+import utilities.Command;
+import utilities.CommandManager;
+import utilities.ExitCode;
 
 public class CmdCurl extends Command {
 
@@ -69,7 +67,8 @@ public class CmdCurl extends Command {
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Loads and displays the contents of a file from a URL", "curl URL").build();
+          "Loads and displays the contents of a file from a URL", "curl URL")
+          .build();
 
   /**
    * Executes the curl command from the given URL location.
@@ -94,8 +93,9 @@ public class CmdCurl extends Command {
       // Write the contents of the url file to the contents string
       StringBuilder contents = new StringBuilder();
       String curr;
-      while ((curr = br.readLine()) != null)
+      while ((curr = br.readLine()) != null) {
         contents.append(curr).append("\n");
+      }
 
       // Close the buffered reader
       br.close();
@@ -133,8 +133,8 @@ public class CmdCurl extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

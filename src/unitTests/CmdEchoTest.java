@@ -31,12 +31,13 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+
 import commands.CmdEcho;
 import containers.CommandArgs;
 import filesystem.Directory;
+import filesystem.FSElementAlreadyExistsException;
 import filesystem.FSElementNotFoundException;
 import filesystem.File;
-import filesystem.FSElementAlreadyExistsException;
 import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import filesystem.MalformedPathException;

@@ -30,14 +30,13 @@
 package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
-import io.Console;
-import io.Readable;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-import driver.JShell;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
+import driver.JShell;
 import filesystem.FileSystem;
-import io.Writable;
+import io.Console;
 import java.util.ArrayList;
 import utilities.Command;
 import utilities.CommandManager;
@@ -45,10 +44,11 @@ import utilities.ExitCode;
 
 /**
  * the !number command, otherwise known as ExclamPoint..
- * 
+ *
  * @author chedy
  */
 public class CmdRecall extends Command {
+
   /**
    * The name of this command
    */
@@ -60,10 +60,10 @@ public class CmdRecall extends Command {
       new CommandDescription.DescriptionBuilder(
           "This command executes the n'th last command executed",
           "![num]")
-              .additionalComment("The history command itself will "
-                  + "always take place as the latest entry in history "
-                  + "(i.e. history 1 prints: \"[int]. history 1\")")
-              .build();
+          .additionalComment("The history command itself will "
+                                 + "always take place as the latest entry in history "
+                                 + "(i.e. history 1 prints: \"[int]. history 1\")")
+          .build();
 
   /**
    * Constructs a new CmdRecall instance
@@ -114,7 +114,6 @@ public class CmdRecall extends Command {
   }
 
   /**
-   *
    * @param word the string to be checked if its a valid number
    * @return true iff word can be parsed into an int
    */
@@ -128,7 +127,6 @@ public class CmdRecall extends Command {
   }
 
   /**
-   *
    * @param args The command arguments.
    * @return true if the arguments are valid for this command
    */
@@ -140,8 +138,8 @@ public class CmdRecall extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-            || args.getRedirectOperator().equals(APPEND_OPERATOR));
+        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+        || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

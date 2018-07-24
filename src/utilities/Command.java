@@ -30,6 +30,7 @@
 package utilities;
 
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
+
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -42,7 +43,6 @@ import filesystem.Path;
 import io.BufferedConsole;
 import io.Console;
 import io.Writable;
-import io.Readable;
 
 /**
  * The abstract command class that all commands inherit from.
@@ -123,7 +123,7 @@ public abstract class Command {
     ExitCode writeExitCode = ExitCode.SUCCESS;
     if (!args.getRedirectOperator().isEmpty()) {
       writeExitCode = writeToFile(resultStr, args.getRedirectOperator(),
-          args.getTargetDestination(), errorConsole);
+                                  args.getTargetDestination(), errorConsole);
     }
     // If no redirect operator then just write to the console
     else {
@@ -238,7 +238,7 @@ public abstract class Command {
    * @return Returns the created file.
    */
   private File<?> makeFile(String filePathStr) throws MalformedPathException,
-      FSElementNotFoundException, FSElementAlreadyExistsException {
+                                                      FSElementNotFoundException, FSElementAlreadyExistsException {
 
     boolean pathIsADirectory = true;
     try {
@@ -303,19 +303,20 @@ public abstract class Command {
     }
     return s.startsWith("\"") && s.endsWith("\"");
   }
-  
+
   /**
    * Removes the surrounding quotes to a parameter.
-   * 
+   *
    * @param s The original parameter string.
    * @return Returns a string without the string quoutes.
    */
   protected String removeStringQuotes(String s) {
     // If an already non-string string is given then just return the string
-    if (!isStringParam(s))
+    if (!isStringParam(s)) {
       return s;
-   
+    }
+
     // cut the first and last characters out (ie the "<string>" qoutes)
-    return s.substring(0, s.length()-1).substring(1);
+    return s.substring(0, s.length() - 1).substring(1);
   }
 }

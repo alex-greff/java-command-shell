@@ -30,12 +30,10 @@
 package commands;
 
 import containers.CommandArgs;
-import io.Console;
-import io.Readable;
 import containers.CommandDescription;
 import driver.JShell;
 import filesystem.FileSystem;
-import io.Writable;
+import io.Console;
 import utilities.Command;
 import utilities.CommandManager;
 import utilities.ExitCode;

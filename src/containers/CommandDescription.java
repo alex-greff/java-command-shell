@@ -58,8 +58,9 @@ public class CommandDescription {
    * @param usages The usages for the command.
    * @param additionalComments Any additional comments.
    */
-  private CommandDescription(ArrayList<String> description, ArrayList<String> usages,
-                             ArrayList<String> additionalComments) {
+  private CommandDescription(ArrayList<String> description,
+      ArrayList<String> usages,
+      ArrayList<String> additionalComments) {
     this.description = description;
     this.usages = usages;
     this.additionalComments = additionalComments;
@@ -129,7 +130,7 @@ public class CommandDescription {
       this.description.add(description);
       return this;
     }
-    
+
     /**
      * Adds additional usage info
      *

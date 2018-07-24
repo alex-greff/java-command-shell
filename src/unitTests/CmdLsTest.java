@@ -30,6 +30,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import commands.CmdLs;
 import containers.CommandArgs;
 import filesystem.Directory;
@@ -145,7 +146,7 @@ public class CmdLsTest {
 
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("dir2:\n\tfile3\n\ndir1:\n\nfile2\nfile1\n",
-        tc.getAllWritesAsString());
+                 tc.getAllWritesAsString());
   }
 
   @Test
@@ -178,7 +179,7 @@ public class CmdLsTest {
 
     assertEquals(ExitCode.SUCCESS, exitVal);
     assertEquals("dir2:\nfile3\n\nfile2\n\ndir1:\n\nfile1\n",
-        tc.getAllWritesAsString());
+                 tc.getAllWritesAsString());
   }
 
 }
