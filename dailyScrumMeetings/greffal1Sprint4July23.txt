@@ -1,0 +1,11 @@
+What did I do last time?
+    - Bug fixes
+    - Making unit tests
+    - Finalizing unit tests and docstrings
+    - Small tweaks to overall structure and design of code 
+
+What do I plan to do now?
+    - Nothing 
+
+Am I blocked on anything?
+    - Nope
