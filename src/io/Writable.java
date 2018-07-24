@@ -32,6 +32,7 @@ package io;
 /**
  * The writable interface.
  *
+ * @param <T> The object type that is to be written.
  * @author anton
  */
 public interface Writable<T> {

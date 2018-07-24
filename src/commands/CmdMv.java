@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -51,41 +50,42 @@ import utilities.Parser;
 import utilities.UserDecision;
 
 /**
- * The mv command class that inherits from command
+ * The mv command class that inherits from command.
  *
  * @author anton, ursu
  */
 public class CmdMv extends Command {
 
   /**
-   * Constant instance variable for the command name
+   * Constant instance variable for the command name.
    */
   private static final String NAME = "mv";
   /**
-   * Container built for the command's description
+   * Container built for the command's description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "Move elements of the filesystem.",
-          "mv OLDPATH NEWPATH")
-          .additionalComment(
-              "Paths of OLDPATH and NEWPATH can be relative or absolute.")
-          .additionalComment("Element at OLDPATH must exist")
-          .additionalComment("If moving any element to an existing dir deletes"
-                                 + " the source element from its parent and moves"
-                                 + " it to the dir.")
-          .additionalComment(
-              "If moving an element to a path that does not exist"
-                  + " takes the last segment off the path and deletes "
-                  + "and moves the element to the modified path if it exists "
-                  + "and is a dir, and renames the"
-                  + " element to the last segment of the original path")
-          .additionalComment("If moving a dir to a file errors")
-          .additionalComment("If at any point an element with the same name as"
-                                 + " the element being moved exists in the"
-                                 + " destination the user will be prompted if"
-                                 + " it should be overwritten")
-          .build();
+          "Move elements of the filesystem.", "mv OLDPATH NEWPATH")
+              .additionalComment(
+                  "Paths of OLDPATH and NEWPATH can be relative or absolute.")
+              .additionalComment("Element at OLDPATH must exist")
+              .additionalComment(
+                  "If moving any element to an existing dir deletes"
+                      + " the source element from its parent and moves"
+                      + " it to the dir.")
+              .additionalComment(
+                  "If moving an element to a path that does not exist"
+                      + " takes the last segment off the path and deletes "
+                      + "and moves the element to the modified path if it exists "
+                      + "and is a dir, and renames the"
+                      + " element to the last segment of the original path")
+              .additionalComment("If moving a dir to a file errors")
+              .additionalComment(
+                  "If at any point an element with the same name as"
+                      + " the element being moved exists in the"
+                      + " destination the user will be prompted if"
+                      + " it should be overwritten")
+              .build();
   /**
    * Storage of the standard console.
    */
@@ -116,7 +116,7 @@ public class CmdMv extends Command {
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -162,7 +162,8 @@ public class CmdMv extends Command {
     }
     // exit code for mv determined by the helpers
     ExitCode mvExit;
-    // now we have done all the preprocessing to make sure that the move is valid
+    // now we have done all the preprocessing to make sure that the move is
+    // valid
     // we are ready to actually move the elements
     // if we are renaming we will call the appropriate helper
     if (renaming) {
@@ -171,7 +172,8 @@ public class CmdMv extends Command {
       mvExit = maybeOverwriteElement(from, to);
     } else {
       // check if the thing we are moving to already exist in the place we
-      // are moving it to for example mv file somedir but somedir already contains
+      // are moving it to for example mv file somedir but somedir already
+      // contains
       // something named file
       Directory dest = (Directory) to;
       if (dest.containsChildElement(from.getName())) {
@@ -190,17 +192,16 @@ public class CmdMv extends Command {
 
   /**
    * Prompts the user if they wish to overwrite the file `to` with the file
-   * `from`
+   * `from`.
    *
-   * @param from File to overwrite with
-   * @param to File to overwrite
-   * @return Exit code that mv should return success or failure
+   * @param from File to overwrite with.
+   * @param to File to overwrite.
+   * @return Exit code that mv should return success or failure.
    */
   private ExitCode maybeOverwriteElement(FSElement from, FSElement to) {
     // prompt the user if the element should be overwritten
     queryConsole.writeln("Overwrite element at path "
-                             + fileSystem.getAbsolutePathOfFSElement(to)
-                             + " [y/n]?");
+        + fileSystem.getAbsolutePathOfFSElement(to) + " [y/n]?");
     String answer = queryConsole.read().trim();
     UserDecision overwrite;
     // get the users decision
@@ -227,11 +228,11 @@ public class CmdMv extends Command {
   }
 
   /**
-   * Moves the given fselement to the given dir
+   * Moves the given fselement to the given dir.
    *
-   * @param from The fselement to move
-   * @param to The dir to move it to
-   * @return Exit code that mv should return success or failure
+   * @param from The fselement to move.
+   * @param to The dir to move it to.
+   * @return Exit code that mv should return success or failure.
    */
   private ExitCode moveElToDir(FSElement from, Directory to) {
     // remove the element from its parent
@@ -243,12 +244,12 @@ public class CmdMv extends Command {
 
   /**
    * Moves the given fselement to the given dir and renames the source element
-   * to  the new name given
+   * to the new name given.
    *
-   * @param from The fselement to move
-   * @param to The dir to move it to
-   * @param newName The name the moved file should have
-   * @return Exit code that mv should return success or failure
+   * @param from The fselement to move.
+   * @param to The dir to move it to.
+   * @param newName The name the moved file should have.
+   * @return Exit code that mv should return success or failure.
    */
   private ExitCode moveElWithRename(FSElement from, Directory to,
       String newName) {
@@ -271,13 +272,13 @@ public class CmdMv extends Command {
   }
 
   /**
-   * Validates the move from given FSElement to given FSElement
+   * Validates the move from given FSElement to given FSElement.
    *
-   * @param from The fselement to be moved
-   * @param to The destination fselement
-   * @param renaming Flag set true if renaming will occur false otherwise
+   * @param from The fselement to be moved.
+   * @param to The destination fselement.
+   * @param renaming Flag set true if renaming will occur false otherwise.
    * @return True iff not moving dir to file not moving parent to child not
-   * moving element to its parent (unless renaming) false otherwise
+   *         moving element to its parent (unless renaming) false otherwise.
    */
   private boolean isValidMove(FSElement from, FSElement to, boolean renaming) {
     // make sure we aren't moving directory to file
@@ -303,11 +304,11 @@ public class CmdMv extends Command {
   }
 
   /**
-   * Helper to get the from FSElement returns null on error
+   * Helper to get the from FSElement returns null on error.
    *
-   * @param fromPath The path of the from FSElement we are trying to get
+   * @param fromPath The path of the from FSElement we are trying to get.
    * @return The FSElement at this path if it exists or null if it does not
-   * exist, is root or is the current working directory
+   *         exist, is root or is the current working directory.
    */
   private FSElement tryGetFromEl(Path fromPath) {
     FSElement from;
@@ -336,12 +337,12 @@ public class CmdMv extends Command {
 
   /**
    * Tries to get the element we want to move to if it fails the first time
-   * remove the last segment of the path and try again
+   * remove the last segment of the path and try again.
    *
-   * @param toPath The path of the element moving to
+   * @param toPath The path of the element moving to.
    * @return A pair fselement to String where element is the place we will be
-   * moving to and the string is the new name of the element if a rename is
-   * wanted by the user
+   *         moving to and the string is the new name of the element if a rename
+   *         is wanted by the user.
    */
   private ArrayList<Object> tryGetToEl(Path toPath) {
     FSElement to;
@@ -375,10 +376,10 @@ public class CmdMv extends Command {
 
   /**
    * Helper function to check if the arguments passed are valid for this
-   * command. Mv expects exactly 2 arguments
+   * command. Mv expects exactly 2 arguments.
    *
-   * @param args The command arguments container
-   * @return Returns true iff the arguments are valid, false otherwise
+   * @param args The command arguments container.
+   * @return Returns true iff the arguments are valid, false otherwise.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -388,8 +389,8 @@ public class CmdMv extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

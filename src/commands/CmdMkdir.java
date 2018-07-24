@@ -46,7 +46,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The mkdir command
+ * The mkdir command.
  *
  * @author anton
  */
@@ -63,9 +63,12 @@ public class CmdMkdir extends Command {
   }
 
   /**
-   * Command info constants
+   * The name of the command.
    */
   private static final String NAME = "mkdir";
+  /**
+   * The description of the command.
+   */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Make a new directory given one or more paths to an "
@@ -77,13 +80,13 @@ public class CmdMkdir extends Command {
           .build();
 
   /**
-   * Executes the mkdir command
+   * Executes the mkdir command.
    *
    * @param args The arguments for the command call.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -120,7 +123,7 @@ public class CmdMkdir extends Command {
   }
 
   /**
-   * Verifies the validity of the args with respect to the mkdir command
+   * Verifies the validity of the args with respect to the mkdir command.
    *
    * @param args The command arguments.
    * @return true iff the arguments are valid, false otherwise

@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -69,11 +68,11 @@ public class CmdFind extends Command {
       new CommandDescription.DescriptionBuilder(
           "Finds and lists all found files/directories of a given expression.",
           "find PATH... -type [f|d] -name EXPRESSION")
-          .additionalComment("Nothing is printed if no files are found")
-          .additionalComment(
-              "If an invalid path is found, it will print an error and "
-                  + "continue running.")
-          .build();
+              .additionalComment("Nothing is printed if no files are found")
+              .additionalComment(
+                  "If an invalid path is found, it will print an error and "
+                      + "continue running.")
+              .build();
   /**
    * The identifier for the type flag.
    */
@@ -111,7 +110,7 @@ public class CmdFind extends Command {
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -137,10 +136,7 @@ public class CmdFind extends Command {
 
         // Initialize the set of paths of the occurrences of <expression>
         TreeSet<String> outputPaths = findFSElementInDirectoryStructure(currDir,
-                                                                        dirStrPath,
-                                                                        expr,
-                                                                        errorConsole,
-                                                                        type);
+            dirStrPath, expr, errorConsole, type);
 
         // Print out the set as a string with each entry on a new line
         for (String outputPath : outputPaths) {
@@ -162,15 +158,15 @@ public class CmdFind extends Command {
 
   /**
    * Gets a set of all absolute paths to instances of files or directories with
-   * the name "name"
+   * the name "name".
    *
-   * @param dir The current directory
-   * @param fseStrPath The path of the current fsElement
-   * @param name The wanted file name
-   * @param errOut The error console
+   * @param dir The current directory.
+   * @param fseStrPath The path of the current fsElement.
+   * @param name The wanted file name.
+   * @param errOut The error console.
    * @param TYPE the type of the search (either "d" for directory or "f" for
-   * file)
-   * @return Returns the set
+   *        file).
+   * @return Returns the set.
    */
   private TreeSet<String> findFSElementInDirectoryStructure(Directory dir,
       String fseStrPath, String name, Writable errOut, final String TYPE) {
@@ -206,8 +202,7 @@ public class CmdFind extends Command {
         // Call the function recursively again on the child directory and add
         // any instances of the file to the current return set
         ret_set.addAll(findFSElementInDirectoryStructure((Directory) child_fse,
-                                                         childDirStrPath, name,
-                                                         errOut, TYPE));
+            childDirStrPath, name, errOut, TYPE));
       }
 
       if (child_fse == null) {
@@ -220,10 +215,10 @@ public class CmdFind extends Command {
   }
 
   /**
-   * Checks if args is a valid CommandArgs instance for this command
+   * Checks if args is a valid CommandArgs instance for this command.
    *
-   * @param args The command arguments
-   * @return Returns true iff args is a valid for this command
+   * @param args The command arguments.
+   * @return Returns true iff args is a valid for this command.
    */
   public boolean isValidArgs(CommandArgs args) {
     // Check that the form matches for the args
@@ -234,10 +229,10 @@ public class CmdFind extends Command {
         && args.getNamedCommandParameter(TYPE_IDENTIFIER) != null
         && args.getNamedCommandParameter(NAME_IDENTIFIER) != null
         && (args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_FILE)
-        || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
+            || args.getNamedCommandParameter(TYPE_IDENTIFIER).equals(TYPE_DIR))
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

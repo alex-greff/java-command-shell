@@ -42,7 +42,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The pushd command
+ * The pushd command.
  *
  * @author anton
  */
@@ -60,9 +60,12 @@ public class CmdPushd extends Command {
 
 
   /**
-   * Command info constants
+   * The name of the command.
    */
   private static final String NAME = "pushd";
+  /**
+   * The description of the command.
+   */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Pushes the current directory to the top of the directory"
@@ -70,11 +73,14 @@ public class CmdPushd extends Command {
               + " given directory",
           "pushd DIRECTORY").build();
 
+  /**
+   * The reference to the directory stack.
+   */
   private DirectoryStack dirStack = DirectoryStack.getInstance();
 
 
   /**
-   * Executes the pushd command with the given arguments
+   * Executes the pushd command with the given arguments.
    *
    * @param args The arguments for the command call.
    * @param console The standard console.
@@ -98,10 +104,10 @@ public class CmdPushd extends Command {
   }
 
   /**
-   * Validates the args with respect to the pushd command
+   * Validates the args with respect to the pushd command.
    *
    * @param args The command arguments.
-   * @return True iff the args are valid with respect to the pushd command
+   * @return True iff the args are valid with respect to the pushd command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {

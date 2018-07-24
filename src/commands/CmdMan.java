@@ -33,7 +33,6 @@ import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.COMMAND_RECALL_CHAR;
 import static utilities.JShellConstants.COMMAND_RECALL_NAME;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -70,18 +69,18 @@ public class CmdMan extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Gets documentation for commands.", "man COMMAND").additionalComment(
-          "Fun fact: running \"man man\" is called man-ception... which you"
-              + " just discovered.")
-          .build();
+              "Fun fact: running \"man man\" is called man-ception... which you"
+                  + " just discovered.")
+              .build();
 
   /**
-   * Executes the man command with the arguments args
+   * Executes the man command with the arguments args.
    *
-   * @param args The command arguments
+   * @param args The command arguments.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -144,10 +143,10 @@ public class CmdMan extends Command {
   }
 
   /**
-   * Checks if args is a valid CommandArgs instance for this command
+   * Checks if args is a valid CommandArgs instance for this command.
    *
-   * @param args The command arguments
-   * @return Returns true iff args is a valid for this command
+   * @param args The command arguments.
+   * @return Returns true iff args is a valid for this command.
    */
   public boolean isValidArgs(CommandArgs args) {
     // Check that the form matches for the args
@@ -156,8 +155,8 @@ public class CmdMan extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

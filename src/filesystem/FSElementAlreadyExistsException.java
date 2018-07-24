@@ -30,7 +30,7 @@
 package filesystem;
 
 /**
- * Exception raised when a file or directory already exists
+ * Exception raised when a file or directory already exists.
  *
  * @author anton
  */

@@ -32,7 +32,6 @@ package commands;
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -49,7 +48,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The grep command class that inherits from command
+ * The grep command class that inherits from command.
  *
  * @author ursu
  */
@@ -66,26 +65,26 @@ public class CmdGrep extends Command {
   }
 
   /**
-   * Constant instance variable for the command name
+   * Constant instance variable for the command name.
    */
   private static final String NAME = "grep";
 
   /**
-   * Container built for the command's description
+   * Container built for the command's description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Prints lines in a file containing the given regex.",
           "grep REGEX PATH").usage("grep -R REGEX PATH")
-          .additionalComment("The given PATH can be relative or absolute.")
-          .additionalComment(
-              "Regular Usage: PATH is a file, any lines in the file that"
-                  + " contain the regex are printed.")
-          .additionalComment(
-              "-R: PATH is a directory, any lines in any file in the directory,"
-                  + " and any subdirectories, that contain the regex are"
-                  + " printed.")
-          .build();
+              .additionalComment("The given PATH can be relative or absolute.")
+              .additionalComment(
+                  "Regular Usage: PATH is a file, any lines in the file that"
+                      + " contain the regex are printed.")
+              .additionalComment(
+                  "-R: PATH is a directory, any lines in any file in the directory,"
+                      + " and any subdirectories, that contain the regex are"
+                      + " printed.")
+              .build();
 
   /**
    * Executes the grep command with the given arguments. Grep prints all lines
@@ -99,7 +98,7 @@ public class CmdGrep extends Command {
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -158,9 +157,9 @@ public class CmdGrep extends Command {
    * Helper function for grep's execute. Given a file and a regex, executeHelper
    * finds all lines in a file that match the regex.
    *
-   * @param src The source file
-   * @param regex The regex to compare against
-   * @return String ArrayList of all matching lines
+   * @param src The source file.
+   * @param regex The regex to compare against.
+   * @return String ArrayList of all matching lines.
    */
   private ArrayList<String> executeHelper(File src, String regex) {
     // Create an empty ArrayList of Strings to hold matching lines
@@ -187,9 +186,9 @@ public class CmdGrep extends Command {
    * every subdirectory. Matches found in files have their path added before the
    * matching line.
    *
-   * @param src The source directory
-   * @param regex The regex to compare against
-   * @return String ArrayList of paths to each file and their matching line(s)
+   * @param src The source directory.
+   * @param regex The regex to compare against.
+   * @return String ArrayList of paths to each file and their matching line(s).
    */
   private ArrayList<String> executeHelper(Directory src, String regex) {
     // Create an empty ArrayList of Strings to hold matching lines
@@ -236,8 +235,8 @@ public class CmdGrep extends Command {
    * command. Grep expects exactly 2 arguments, and at most 1 optional
    * parameter.
    *
-   * @param args The command arguments container
-   * @return Returns true iff the arguments are valid, false otherwise
+   * @param args The command arguments container.
+   * @return Returns true iff the arguments are valid, false otherwise.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -245,12 +244,12 @@ public class CmdGrep extends Command {
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() == 2
         && ((args.getNumberOfCommandFieldParameters() == 1
-        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
-        || args.getNumberOfCommandFieldParameters() == 0)
+            && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+            || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

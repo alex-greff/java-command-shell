@@ -30,7 +30,7 @@
 package filesystem;
 
 /**
- * Thrown when a bad path is given
+ * Thrown when a bad path is given.
  *
  * @author anton
  */

@@ -54,12 +54,12 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   private List<List<T>> contents = new ArrayList<>();
 
   /**
-   * Create a new file given a name and the contents of the file
+   * Create a new file given a name and the contents of the file.
    *
    * @param name The name by which the file is to be referred, may or may not
-   * contain an extension
-   * @param contents The text data stored inside the file
-   * @param parent The parent directory of this file
+   * contain an extension.
+   * @param contents The text data stored inside the file.
+   * @param parent The parent directory of this file.
    */
   public File(String name, T contents, Directory parent) {
     super(name, parent);
@@ -80,11 +80,11 @@ public class File<T> extends FSElement implements Writable<T>, Readable {
   }
 
   /**
-   * Create a new file with the given name, and empty contents
+   * Create a new file with the given name, and empty contents.
    *
    * @param name The name by which the file is to be referred, may or may not
-   * contain an extension
-   * @param parent The parent directory of this file
+   * contain an extension.
+   * @param parent The parent directory of this file.
    */
   public File(String name, Directory parent) {
     super(name, parent);

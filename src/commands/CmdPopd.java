@@ -42,7 +42,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The popd command
+ * The popd command.
  *
  * @author anton
  */
@@ -59,9 +59,12 @@ public class CmdPopd extends Command {
   }
 
   /**
-   * Command info constants
+   * The name of the command.
    */
   private static final String NAME = "popd";
+  /**
+   * The description of the command.
+   */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Removes the directory at the top of the "
@@ -69,9 +72,8 @@ public class CmdPopd extends Command {
               + "directory to the removed directory.",
           "popd").build();
 
-
   /**
-   * Executes the popd command with the given arguments
+   * Executes the popd command with the given arguments.
    *
    * @param args The arguments for the command call.
    * @param console The standard console.
@@ -104,10 +106,10 @@ public class CmdPopd extends Command {
   }
 
   /**
-   * Validates the args with respect to the popd command
+   * Validates the args with respect to the popd command.
    *
    * @param args The command arguments.
-   * @return True iff the command arguments are valid false otherwise
+   * @return True iff the command arguments are valid false otherwise.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {

@@ -55,7 +55,7 @@ public class BufferedConsole<T> extends Console<T> {
    * Writes the content input to a list with the most recent at the head.
    * Newlines at the end of the content string are trimmed.
    *
-   * @param contents The contents to be written
+   * @param contents The contents to be written.
    */
   @Override
   public void write(T contents) {
@@ -71,7 +71,7 @@ public class BufferedConsole<T> extends Console<T> {
    * Writes the content input to a list with the most recent at the head.
    * Newlines at the end of the content string are trimmed.
    *
-   * @param contents The contents to be written
+   * @param contents The contents to be written.
    */
   @Override
   public void writeln(T contents) {
@@ -82,7 +82,7 @@ public class BufferedConsole<T> extends Console<T> {
    * Gets the most recent write to the console.
    *
    * @return returns the most recent write to the console or an empty string if
-   * no writes exist.
+   *         no writes exist.
    */
   public String getLastWrite() {
     StringBuilder ret_str = new StringBuilder();
@@ -90,12 +90,10 @@ public class BufferedConsole<T> extends Console<T> {
     if (!inputs.isEmpty()) {
       List<T> lastLine = inputs.get(inputs.size() - 1);
 
-      for (T item : lastLine) {
+      for (T item : lastLine)
         ret_str.append(item);
-      }
-
     }
-
+    
     return ret_str.toString();
   }
 
@@ -110,9 +108,8 @@ public class BufferedConsole<T> extends Console<T> {
 
     for (List<T> line : inputs) {
       StringBuilder line_str = new StringBuilder();
-      for (T item : line) {
+      for (T item : line) 
         line_str.append(item);
-      }
 
       ret_arr.add(line_str.toString());
     }
@@ -151,13 +148,13 @@ public class BufferedConsole<T> extends Console<T> {
   }
 
   /**
-   * Read text from the console
+   * Read text from the console.
    *
-   * @return The text read from the console
+   * @return The text read from the console.
    */
   @Override
   public String read() {
-    // Initialize new scanner object then read and return the input 
+    // Initialize new scanner object then read and return the input
     Scanner input = new Scanner(System.in);
     return input.nextLine();
   }

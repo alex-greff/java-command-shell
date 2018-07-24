@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FSElementNotFoundException;
@@ -45,7 +44,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The cat command class that inherits from command
+ * The cat command class that inherits from command.
  *
  * @author ursu
  */
@@ -62,30 +61,30 @@ public class CmdCat extends Command {
   }
 
   /**
-   * Constant instance variable for the command name
+   * Constant instance variable for the command name.
    */
   private static final String NAME = "cat";
 
   /**
-   * Container built for the command's description
+   * Container built for the command's description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print contents of file(s).",
-                                                "cat FILES")
-          .additionalComment("Path of FILE can be relative or absolute.")
-          .additionalComment("Can take more than one FILE as arguments.")
-          .build();
+          "cat FILES")
+              .additionalComment("Path of FILE can be relative or absolute.")
+              .additionalComment("Can take more than one FILE as arguments.")
+              .build();
 
   /**
    * Executes the cat command with the given arguments. Cat prints the contents
    * of files. Error messages if a file path is invalid, or a file does not
    * exist.
    *
-   * @param args The command arguments container
+   * @param args The command arguments container.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, always SUCCESS
+   * @return Returns the ExitCode of the command, always SUCCESS.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -125,10 +124,10 @@ public class CmdCat extends Command {
 
   /**
    * Helper function to check if the arguments passed are valid for this
-   * command. Cat expects at least 1 argument
+   * command. Cat expects at least 1 argument.
    *
-   * @param args The command arguments container
-   * @return Returns true iff the arguments are valid, false otherwise
+   * @param args The command arguments container.
+   * @return Returns true iff the arguments are valid, false otherwise.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -138,8 +137,8 @@ public class CmdCat extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

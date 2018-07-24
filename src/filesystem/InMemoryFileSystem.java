@@ -52,16 +52,15 @@ public class InMemoryFileSystem implements FileSystem {
   /**
    * Public default constructor.
    */
-  public InMemoryFileSystem() {
-  }
+  public InMemoryFileSystem() {}
 
   /**
-   * Change the working dir to the dir given by the path
+   * Change the working dir to the dir given by the path.
    *
-   * @param path A path to the dir to change to
-   * @throws FSElementNotFoundException Thrown when the directory does not
-   * exist
-   * @throws MalformedPathException Thrown when the path is invalid
+   * @param path A path to the dir to change to.
+   * @throws FSElementNotFoundException Thrown when the directory does not.
+   *         exist
+   * @throws MalformedPathException Thrown when the path is invalid.
    */
   public void changeWorkingDir(Path path)
       throws MalformedPathException, FSElementNotFoundException {
@@ -74,10 +73,10 @@ public class InMemoryFileSystem implements FileSystem {
   }
 
   /**
-   * Given an fselement returns its absolute path in the filesystem
+   * Given an fselement returns its absolute path in the filesystem.
    *
-   * @param theElement The fselement for which the path is wanted
-   * @return The absolute path to the directory
+   * @param theElement The fselement for which the path is wanted.
+   * @return The absolute path to the directory.
    */
   public String getAbsolutePathOfFSElement(FSElement theElement) {
     String result = "";
@@ -91,13 +90,13 @@ public class InMemoryFileSystem implements FileSystem {
   }
 
   /**
-   * Provides file located at given path to the caller
+   * Provides file located at given path to the caller.
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
-   * @return The file located at the path
-   * @throws FSElementNotFoundException Thrown when the file does not exist
-   * @throws MalformedPathException Thrown when the path is invalid
+   *        Absolute path must start with / indicating root directory.
+   * @return The file located at the path.
+   * @throws FSElementNotFoundException Thrown when the file does not exist.
+   * @throws MalformedPathException Thrown when the path is invalid.
    */
   public File<?> getFileByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
@@ -112,14 +111,14 @@ public class InMemoryFileSystem implements FileSystem {
   }
 
   /**
-   * Provides directory located at given path to the caller
+   * Provides directory located at given path to the caller.
    *
    * @param thePath The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
-   * @return The directory located at the path
+   *        Absolute path must start with / indicating root directory.
+   * @return The directory located at the path.
    * @throws FSElementNotFoundException Thrown when the directory does not
-   * exist
-   * @throws MalformedPathException Thrown when the path is invalid
+   *         exist.
+   * @throws MalformedPathException Thrown when the path is invalid.
    */
   public FSElement getFSElementByPath(Path thePath)
       throws MalformedPathException, FSElementNotFoundException {
@@ -165,14 +164,14 @@ public class InMemoryFileSystem implements FileSystem {
   }
 
   /**
-   * Provides directory located at given path to the caller
+   * Provides directory located at given path to the caller.
    *
    * @param path The path of the wanted file, can be absolute or relative.
-   * Absolute path must start with / indicating root directory.
-   * @return The directory located at the path
+   *        Absolute path must start with / indicating root directory.
+   * @return The directory located at the path.
    * @throws FSElementNotFoundException Thrown when the directory does not
-   * exist
-   * @throws MalformedPathException Thrown when the path is invalid
+   *         exist.
+   * @throws MalformedPathException Thrown when the path is invalid.
    */
   public Directory getDirByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException {
@@ -184,30 +183,29 @@ public class InMemoryFileSystem implements FileSystem {
   }
 
   /**
-   * Getter for the working directory
+   * Getter for the working directory.
    *
-   * @return the working directory object
+   * @return the working directory object.
    */
   public Directory getWorkingDir() {
     return workingDir;
   }
 
   /**
-   * Get the path of the current working directory
+   * Get the path of the current working directory.
    *
-   * @return Absolute path of the current working directory
+   * @return Absolute path of the current working directory.
    */
   public String getWorkingDirPath() {
     return workingDirPath;
   }
 
   /**
-   * Getter for the root directory
+   * Getter for the root directory.
    *
-   * @return the root directory object
+   * @return the root directory object.
    */
   public Directory getRoot() {
     return root;
   }
-
 }

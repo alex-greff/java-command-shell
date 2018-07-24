@@ -30,6 +30,7 @@
 package driver;
 
 import containers.CommandArgs;
+import filesystem.FileSystem;
 import filesystem.InMemoryFileSystem;
 import io.Console;
 import io.ErrorConsole;
@@ -47,18 +48,18 @@ public class JShell {
 
   // the exit condition can be toggled by a toggle function
   /**
-   * the condition which keeps the JShell running
+   * The condition which keeps the JShell running.
    */
   private static boolean running = true;
 
   // this filesystem (singleton) is used by the JShell
   /**
-   * the filesystem that the JShell operates on
+   * The filesystem that the JShell operates on.
    */
-  private static InMemoryFileSystem fs = new InMemoryFileSystem();
+  private static FileSystem fs = new InMemoryFileSystem();
 
   /**
-   * The console that the JShell reads and writes from
+   * The console that the JShell reads and writes from.
    */
   private static Console<String> console = new Console<>();
 
@@ -86,9 +87,9 @@ public class JShell {
 
   /**
    * The main function which makes the appropriate calls for JShell to operate
-   * and that loops continually until exited
+   * and that loops continually until exited.
    *
-   * @param args the arguments that are passed in after running the JShell
+   * @param args The arguments that are passed in after running the JShell.
    */
   public static void main(String[] args) {
     String rawInput;
@@ -116,7 +117,7 @@ public class JShell {
   }
 
   /**
-   * This function works as a toggle for JShells exit condition
+   * This function works as a toggle for JShells exit condition.
    */
   public static void exit() {
     JShell.clearHistory();
@@ -126,23 +127,23 @@ public class JShell {
   /**
    * Gets the user input history.
    *
-   * @return the user input history
+   * @return the user input history.
    */
   public static ArrayList<String> getHistory() {
     return history;
   }
 
   /**
-   * Clears all of the entries in history. Used in testing and termination
+   * Clears all of the entries in history. Used in testing and termination.
    */
   public static void clearHistory() {
     history.clear();
   }
 
   /**
-   * given a command input, parses and executes the user command
+   * given a command input, parses and executes the user command.
    *
-   * @param input the raw string that is to be parsed and executed
+   * @param input the raw string that is to be parsed and executed.
    */
   public static void parseAndExecute(String input) {
     // parse the input
@@ -151,6 +152,11 @@ public class JShell {
     cmdManager.executeCommand(parsedInput);
   }
 
+  /**
+   * Gets if the JShell is running.
+   * 
+   * @return Returns true iff the JShell is running.
+   */
   public static boolean getRunning() {
     return running;
   }

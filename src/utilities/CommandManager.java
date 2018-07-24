@@ -55,7 +55,7 @@ import java.util.HashMap;
 
 /**
  * The CommandManager class that stores all known commands, and is in charge of
- * command execution and obtaining command descriptions
+ * command execution and obtaining command descriptions.
  *
  * @author ursu
  */
@@ -63,7 +63,7 @@ public class CommandManager {
 
   /**
    * HashMap container for command names mapped to command instances, initially
-   * empty
+   * empty.
    */
   private HashMap<String, Command> cmdMap = new HashMap<>();
   /**
@@ -83,7 +83,7 @@ public class CommandManager {
    */
   private FileSystem fileSystem;
   /**
-   * The exit code of the last command run
+   * The exit code of the last command run.
    */
   private ExitCode lastExitCode = ExitCode.SUCCESS;
 
@@ -122,7 +122,7 @@ public class CommandManager {
 
   /**
    * Populates cmdMap with all known commands as they are expected to be typed
-   * in String format, mapped to an instance of the respective command
+   * in String format, mapped to an instance of the respective command.
    */
   public void initializeCommands() {
     cmdMap.put("cat", new CmdCat(fileSystem, this));
@@ -152,7 +152,7 @@ public class CommandManager {
    * if the command name in cArgs does not exist, or the command is given
    * invalid arguments.
    *
-   * @param cArgs The command arguments container
+   * @param cArgs The command arguments container.
    */
   public void executeCommand(CommandArgs cArgs) {
     if (cArgs != null) { // Make sure the command args parsed properly
@@ -183,7 +183,7 @@ public class CommandManager {
    *
    * @param commandName The command name, as it expected to be seen
    * @return Returns the CommandDescription container for the command, if it
-   * exists, or null
+   *         exists, or null.
    */
   public CommandDescription getCommandDescription(String commandName) {
     // Get the command from the HashMap, given the command name as a String
@@ -204,18 +204,18 @@ public class CommandManager {
   }
 
   /**
-   * Shows if the cmdMap is empty
+   * Shows if the cmdMap is empty.
    *
-   * @return Returns true if empty, false otherwise
+   * @return Returns true if empty, false otherwise.
    */
   public boolean isCmdMapEmpty() {
     return cmdMap.isEmpty();
   }
 
   /**
-   * Getter for the exit code of the last command run
+   * Getter for the exit code of the last command run.
    *
-   * @return The exit code of the last run command
+   * @return The exit code of the last run command.
    */
   public ExitCode getLastExitCode() {
     return lastExitCode;

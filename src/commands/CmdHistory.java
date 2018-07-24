@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import driver.JShell;
@@ -43,7 +42,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * the history command
+ * the history command.
  *
  * @author chedy
  */
@@ -60,12 +59,12 @@ public class CmdHistory extends Command {
   }
 
   /**
-   * the name of the command
+   * The name of the command.
    */
   private static final String NAME = "history";
 
   /**
-   * command description
+   * Command description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
@@ -73,18 +72,20 @@ public class CmdHistory extends Command {
               + "by default, but if given a positive integer "
               + "argument x, the last x user entries will be listed.",
           "history")
-          .usage("history [int]")
-          .additionalComment("The history command itself will "
-                                 + "always take place as the latest entry in history "
-                                 + "(i.e. history 1 prints: \"1. history 1\")")
-          .build();
+              .usage("history [int]")
+              .additionalComment("The history command itself will "
+                  + "always take place as the latest entry in history "
+                  + "(i.e. history 1 prints: \"1. history 1\")")
+              .build();
 
   /**
+   * Executes the history command.
+   * 
    * @param args The arguments for the command call.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -136,8 +137,11 @@ public class CmdHistory extends Command {
   }
 
   /**
-   * @param arg the string of the supposed number
-   * @return true if the string represents a positive integer, false otherwise
+   * Checks if the string is a number.
+   * 
+   * @param arg The string of the supposed number.
+   * @return Returns true if the string represents a positive integer, false
+   *         otherwise.
    */
   private boolean checkNumber(String arg) {
     // check if arg is a valid string for an int
@@ -151,8 +155,10 @@ public class CmdHistory extends Command {
 
 
   /**
+   * Checks if the arguments are valid for this command.
+   * 
    * @param args The command arguments.
-   * @return whether or not the arguments are valid for the command
+   * @return whether or not the arguments are valid for the command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -162,8 +168,8 @@ public class CmdHistory extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

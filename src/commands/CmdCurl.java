@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -68,7 +67,7 @@ public class CmdCurl extends Command {
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Loads and displays the contents of a file from a URL", "curl URL")
-          .build();
+              .build();
 
   /**
    * Executes the curl command from the given URL location.
@@ -77,7 +76,7 @@ public class CmdCurl extends Command {
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -120,10 +119,10 @@ public class CmdCurl extends Command {
   }
 
   /**
-   * Checks if args is a valid CommandArgs instance for this command
+   * Checks if args is a valid CommandArgs instance for this command.
    *
-   * @param args The command arguments
-   * @return Returns true iff args is a valid for this command
+   * @param args The command arguments.
+   * @return Returns true iff args is a valid for this command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -133,8 +132,8 @@ public class CmdCurl extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
@@ -145,5 +144,4 @@ public class CmdCurl extends Command {
     // Return the result
     return paramsMatches && stringParamsMatches;
   }
-
 }

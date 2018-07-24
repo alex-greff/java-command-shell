@@ -33,7 +33,6 @@ import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.COMMAND_RECALL_CHAR;
 import static utilities.JShellConstants.COMMAND_RECALL_NAME;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,11 +52,11 @@ public class Parser {
 
   /**
    * Parses the given input and returns a CommandArgs instance with the parsed
-   * information
+   * information.
    *
-   * @param input The user input string
-   * @return Returns a CommandArgs instance with the parsed user input or null
-   * if the user input is incorrect
+   * @param input The user input string.
+   * @return Returns a CommandArgs instance with the parsed user input or null.
+   *         if the user input is incorrect.
    */
   public static CommandArgs parseUserInput(String input) {
     // Trim any leading/trailing whitespaces/tabs from the input
@@ -230,13 +229,22 @@ public class Parser {
     // Instantiate a CommandArgs instance with the parsed user input and return
     // the CommandArgs instance
     return new CommandArgs(cmdName, cmdParams, cmdFlags, namedParamsMap,
-                           redirOperator, targetDest);
+        redirOperator, targetDest);
   }
 
+  /**
+   * All the accepted true options.
+   */
   private static final String[] trueOptions =
       {"yes", "true", "y", "t", "1", "positive"};
+  /**
+   * All the accepted false options.
+   */
   private static final String[] falseOptions =
       {"no", "false", "n", "f", "0", "negative"};
+  /**
+   * All the accepted cancel options.
+   */
   private static final String[] cancelOptions =
       {"cancel", "c", "2", "-1", "belay"};
 
@@ -248,7 +256,7 @@ public class Parser {
    * @param cancellable The flag indicating if the query is cancellable.
    * @return Returns the decision of the user.
    * @throws InvalidBooleanInputException Throws if the user inputs an invalid
-   * true/false (or cancel) string expression.
+   *         true/false (or cancel) string expression.
    */
   public static UserDecision parseBooleanDecisionInput(String input,
       boolean cancellable) throws InvalidBooleanInputException {

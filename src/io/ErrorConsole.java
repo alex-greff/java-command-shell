@@ -30,8 +30,9 @@
 package io;
 
 /**
- * A class representing the JShell error console
- *
+ * A class representing the JShell error console.
+ * 
+ * @param <T> The object that are written/read by the console.
  * @author greff
  */
 public class ErrorConsole<T> extends Console<T> {
@@ -39,6 +40,5 @@ public class ErrorConsole<T> extends Console<T> {
   /**
    * The constructor, defaulted to public visibility.
    */
-  public ErrorConsole() {
-  }
+  public ErrorConsole() {}
 }

@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 /**
- * Represents a directory which can contain files and directories
+ * Represents a directory which can contain files and directories.
  *
  * @author anton
  */
@@ -46,10 +46,10 @@ public class Directory extends FSElement {
   private HashMap<String, FSElement> children = new HashMap<>();
 
   /**
-   * Creates a new directory given the name of the directory and its parent
+   * Creates a new directory given the name of the directory and its parent.
    *
-   * @param name The name of the new directory
-   * @param parent The parent of this directory
+   * @param name The name of the new directory.
+   * @param parent The parent of this directory.
    */
   public Directory(String name, Directory parent) {
     super(name, parent);
@@ -57,7 +57,7 @@ public class Directory extends FSElement {
 
   /**
    * Adds the given fselement child to itself overwriting if something with the
-   * same name existed before
+   * same name existed before.
    */
   public void addChild(FSElement child) {
     if (child == null) {
@@ -70,11 +70,11 @@ public class Directory extends FSElement {
 
   /**
    * Moves the given fselement into the current directory as long as nothing
-   * with the same name already exists
+   * with the same name already exists.
    *
-   * @param newChild The child to move into this directory
+   * @param newChild The child to move into this directory.
    * @throws FSElementAlreadyExistsException if there is already a child with
-   * the same name
+   *         the same name.
    */
   public void moveInto(FSElement newChild)
       throws FSElementAlreadyExistsException {
@@ -93,12 +93,12 @@ public class Directory extends FSElement {
 
   /**
    * Adds a given directory as a child of this directory if the directory does
-   * not already exist
+   * not already exist.
    *
-   * @param name The name of the new child directory
-   * @return Returns the new created directory
+   * @param name The name of the new child directory.
+   * @return Returns the new created directory.
    * @throws FSElementAlreadyExistsException Thrown when there is already an
-   * element with this name
+   *         element with this name.
    */
   public Directory createAndAddNewDir(String name)
       throws FSElementAlreadyExistsException {
@@ -113,12 +113,12 @@ public class Directory extends FSElement {
 
   /**
    * Adds a given file as a child of this directory if the file does not already
-   * exist otherwise raises error
+   * exist otherwise raises error.
    *
-   * @param name The name of the child file to create
-   * @return The new file object that was created
+   * @param name The name of the child file to create.
+   * @return The new file object that was created.
    * @throws FSElementAlreadyExistsException Thrown when the file already
-   * exists
+   *         exists.
    */
   public File<?> createAndAddNewFile(String name)
       throws FSElementAlreadyExistsException {
@@ -133,13 +133,13 @@ public class Directory extends FSElement {
 
   /**
    * Adds a given file as a child of this directory if the file does not already
-   * exist otherwise raises error
+   * exist otherwise raises error.
    *
-   * @param name The name of the child file to create
-   * @param contents The initial contents of the new file
-   * @return The new file object that was created
+   * @param name The name of the child file to create.
+   * @param contents The initial contents of the new file.
+   * @return The new file object that was created.
    * @throws FSElementAlreadyExistsException Thrown when the file already
-   * exists
+   *         exists.
    */
   public File<?> createAndAddNewFile(String name, String contents)
       throws FSElementAlreadyExistsException {
@@ -151,29 +151,29 @@ public class Directory extends FSElement {
   }
 
   /**
-   * Removes a child directory with the given name if it exists
+   * Removes a child directory with the given name if it exists.
    *
-   * @param name The name of the child to remove
+   * @param name The name of the child to remove.
    */
   public void removeChildByName(String name) {
     children.remove(name);
   }
 
   /**
-   * Returns a child FS element by name
+   * Returns a child FS element by name.
    *
-   * @param name The name of the child wanted
-   * @return The child with the given name or null if it does not exist
+   * @param name The name of the child wanted.
+   * @return The child with the given name or null if it does not exist.
    */
   public FSElement getChildByName(String name) {
     return children.get(name);
   }
 
   /**
-   * Returns a child directory by name
+   * Returns a child directory by name.
    *
-   * @param name The name of the child directory wanted
-   * @return The child directory with the given name or null if it does not exit
+   * @param name The name of the child directory wanted.
+   * @return The child directory with the given name or null if it does not exit.
    */
   public Directory getChildDirectoryByName(String name) {
     FSElement child = children.get(name);
@@ -185,10 +185,10 @@ public class Directory extends FSElement {
   }
 
   /**
-   * Returns a child file by name
+   * Returns a child file by name.
    *
-   * @param name The name of the child file wanted
-   * @return The child file with the given name or null if it does not exist
+   * @param name The name of the child file wanted.
+   * @return The child file with the given name or null if it does not exist.
    */
   public File getChildFileByName(String name) {
     FSElement child = children.get(name);
@@ -230,18 +230,18 @@ public class Directory extends FSElement {
   }
 
   /**
-   * Lists all children names (files and directories) inside of this directory
+   * Lists all children names (files and directories) inside of this directory.
    *
-   * @return A list of all children names inside this directory
+   * @return A list of all children names inside this directory.
    */
   public ArrayList<String> listAllChildrenNames() {
     return new ArrayList<>(children.keySet());
   }
 
   /**
-   * Lists all the directory names inside of this directory
+   * Lists all the directory names inside of this directory.
    *
-   * @return A list of all the directory names inside this directory
+   * @return A list of all the directory names inside this directory.
    */
   public ArrayList<String> listDirNames() {
     return children.keySet().stream()
@@ -250,9 +250,9 @@ public class Directory extends FSElement {
   }
 
   /**
-   * Lists all the file names inside of this directory
+   * Lists all the file names inside of this directory.
    *
-   * @return A list of all the file names inside this directory
+   * @return A list of all the file names inside this directory.
    */
   public ArrayList<String> listFileNames() {
     return children.keySet().stream()
@@ -261,28 +261,28 @@ public class Directory extends FSElement {
   }
 
   /**
-   * Provides the name of this directory
+   * Provides the name of this directory.
    *
-   * @return The name of this directory
+   * @return The name of this directory.
    */
   public String getName() {
     return name;
   }
 
   /**
-   * Gets the parent of this directory
+   * Gets the parent of this directory.
    *
-   * @return The parent of this directory
+   * @return The parent of this directory.
    */
   public Directory getParent() {
     return parent;
   }
 
   /**
-   * Changes the key for an FSElement when it is renamed
+   * Changes the key for an FSElement when it is renamed.
    *
-   * @param oldName The old name of the child
-   * @param newName The new name of the child
+   * @param oldName The old name of the child.
+   * @param newName The new name of the child.
    */
   public void notifyRename(String oldName, String newName) {
     FSElement child = this.children.remove(oldName);

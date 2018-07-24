@@ -32,7 +32,6 @@ package commands;
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
 import static utilities.JShellConstants.RECURSIVE_FLAG;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -48,7 +47,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * the ls command
+ * The ls command.
  *
  * @author chedy
  */
@@ -65,36 +64,38 @@ public class CmdLs extends Command {
   }
 
   /**
-   * name of the command
+   * Name of the command.
    */
   private static final String NAME = "ls";
 
   /**
-   * the documentation of the command
+   * The documentation of the command.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Lists all of the files and directories in "
               + "the current working directory.",
           "ls [-R]")
-          .description(
-              "Can take multiple filenames/directory names as arguments.")
-          .usage("ls [-R] [Directory]...").usage("ls [-R] [File]...")
-          .usage("ls [-R] [Directory or File]...")
-          .additionalComment(
-              "If given a filename, ls will simply print back that "
-                  + "name")
-          .additionalComment(
-              "ls separates multiple argument's content with an "
-                  + "extra newline")
-          .build();
+              .description(
+                  "Can take multiple filenames/directory names as arguments.")
+              .usage("ls [-R] [Directory]...").usage("ls [-R] [File]...")
+              .usage("ls [-R] [Directory or File]...")
+              .additionalComment(
+                  "If given a filename, ls will simply print back that "
+                      + "name")
+              .additionalComment(
+                  "ls separates multiple argument's content with an "
+                      + "extra newline")
+              .build();
 
   /**
+   * Executes the ls command.
+   * 
    * @param args The command Arguments.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -149,9 +150,13 @@ public class CmdLs extends Command {
   }
 
   /**
-   * @param dir The directory whose contents will be represented by a string
-   * @param tabNum the amount of tabs needed for spacing in recursive calls
-   * @return The string representation of the directories contents
+   * Adds on the current directory to get the string representation of the
+   * directories contents.
+   * 
+   * @param dir The directory whose contents will be represented by a string.
+   * @param recursive A flag indicating if it is recursive.
+   * @param tabNum the amount of tabs needed for spacing in recursive calls.
+   * @return The string representation of the directories contents.
    */
   private String addOn(Directory dir, boolean recursive, int tabNum) {
     StringBuilder result = new StringBuilder();
@@ -188,8 +193,10 @@ public class CmdLs extends Command {
   }
 
   /**
-   * @param file that will get printed by ls
-   * @return the string of the filename followed by newlines
+   * Adds the file name.
+   * 
+   * @param file The file that will get printed by ls
+   * @return Returns the string of the filename followed by newlines.
    */
   private String addFileName(File file) {
     String res;
@@ -199,7 +206,9 @@ public class CmdLs extends Command {
   }
 
   /**
-   * @param in the stringbuilder input
+   * Trims the all but one new lines.
+   * 
+   * @param in The stringbuilder input
    */
   private void trimNewlinesLeaveOne(StringBuilder in) {
     in.reverse();
@@ -212,22 +221,22 @@ public class CmdLs extends Command {
   }
 
   /**
-   * A helper checking if args is a valid CommandArgs instance for this command
+   * A helper checking if args is a valid CommandArgs instance for this command.
    *
-   * @param args The command arguments
-   * @return Returns true iff args is a valid for this command
+   * @param args The command arguments.
+   * @return Returns true iff args is a valid for this command.
    */
   public boolean isValidArgs(CommandArgs args) {
     // Check that the form matches for the args
     boolean paramsMatches = args.getCommandName().equals(NAME)
         && args.getNumberOfCommandParameters() >= 0
         && ((args.getNumberOfCommandFieldParameters() == 1
-        && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
-        || args.getNumberOfCommandFieldParameters() == 0)
+            && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
+            || args.getNumberOfCommandFieldParameters() == 0)
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

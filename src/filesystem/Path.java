@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Represents a path in the filesystem
+ * Represents a path in the filesystem.
  *
  * @author anton
  */
@@ -45,9 +45,9 @@ public class Path implements Iterable<String> {
   private ArrayList<String> tokens = new ArrayList<>();
 
   /**
-   * Creates a new path given a path string
+   * Creates a new path given a path string.
    *
-   * @param pathString A string representing a path
+   * @param pathString A string representing a path.
    */
   public Path(String pathString) throws MalformedPathException {
     // if it's an absolute path add the root dir to the token list
@@ -69,18 +69,18 @@ public class Path implements Iterable<String> {
   }
 
   /**
-   * Copy constructor for path objects
+   * Copy constructor for path objects.
    *
-   * @param basePath The path to copy
+   * @param basePath The path to copy.
    */
   public Path(Path basePath) {
     this.tokens = new ArrayList<>(basePath.tokens);
   }
 
   /**
-   * Gets the number of tokens in the path
+   * Gets the number of tokens in the path.
    *
-   * @return Returns the number of tokens in the path
+   * @return Returns the number of tokens in the path.
    */
   public int getNumberOfTokens() {
     return this.tokens.size();
@@ -111,9 +111,9 @@ public class Path implements Iterable<String> {
   }
 
   /**
-   * Get the element at index n in the path
+   * Get the element at index n in the path.
    *
-   * @return the nth element of the path
+   * @return the nth element of the path.
    */
   public String get(int n) {
     return this.tokens.get(n);
@@ -127,6 +127,11 @@ public class Path implements Iterable<String> {
     return this.tokens.iterator();
   }
 
+  /**
+   * Gets if the path is empty.
+   * 
+   * @return Returns true iff the path is empty.
+   */
   public boolean isEmpty() {
     return this.tokens.isEmpty();
   }

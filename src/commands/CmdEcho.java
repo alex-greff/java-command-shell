@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FileSystem;
@@ -69,13 +68,13 @@ public class CmdEcho extends Command {
       new CommandDescription.DescriptionBuilder(
           "Appends or writes a string to a file or prints directly to console.",
           "echo STRING").usage("echo STRING [> OUTFILE]")
-          .usage("echo STRING [>> OUTFILE]")
-          .additionalComment(
-              "The \">\" character signals to overwrite the file "
-                  + "conents.")
-          .additionalComment(
-              "The \">>\" character signals to append to the file conents.")
-          .build();
+              .usage("echo STRING [>> OUTFILE]")
+              .additionalComment(
+                  "The \">\" character signals to overwrite the file "
+                      + "conents.")
+              .additionalComment(
+                  "The \">>\" character signals to append to the file conents.")
+              .build();
 
   /**
    * Executes the echo command.
@@ -102,10 +101,10 @@ public class CmdEcho extends Command {
   }
 
   /**
-   * Checks if args is a valid CommandArgs instance for this command
+   * Checks if args is a valid CommandArgs instance for this command.
    *
-   * @param args The command arguments
-   * @return Returns true iff args is a valid for this command
+   * @param args The command arguments.
+   * @return Returns true iff args is a valid for this command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -115,8 +114,8 @@ public class CmdEcho extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

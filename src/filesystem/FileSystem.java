@@ -37,14 +37,14 @@ package filesystem;
 public interface FileSystem {
 
   /**
-   * Changes the current working directory to the location at path
+   * Changes the current working directory to the location at path.
    *
    * @param path The path of the new working directory.
    * @throws MalformedPathException Throws if the path is invalid.
    * @throws FSElementNotFoundException Throws if the file/directory is not
-   * found.
+   *         found.
    */
-  void changeWorkingDir(Path path)
+  public void changeWorkingDir(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
   /**
@@ -53,20 +53,58 @@ public interface FileSystem {
    * @param theElement The target fselement.
    * @return Returns a string with the absolute path.
    */
-  String getAbsolutePathOfFSElement(FSElement theElement);
+  public String getAbsolutePathOfFSElement(FSElement theElement);
 
-  File<?> getFileByPath(Path path)
+  /**
+   * Gets a file by the given path.
+   * 
+   * @param path The path.
+   * @return Returns the found file.
+   * @throws MalformedPathException Thrown if the path is invalid.
+   * @throws FSElementNotFoundException Thrown if no file is found.
+   */
+  public File<?> getFileByPath(Path path)
+      throws MalformedPathException, FSElementNotFoundException;
+  /**
+   * Gets a directory by the given path.
+   * 
+   * @param path The path.
+   * @return Returns the found directory.
+   * @throws MalformedPathException Thrown if the path is invalid.
+   * @throws FSElementNotFoundException Thrown if no directory is found.
+   */
+  public Directory getDirByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 
-  Directory getDirByPath(Path path)
-      throws MalformedPathException, FSElementNotFoundException;
+  /**
+   * Gets the current working directory.
+   * 
+   * @return Returns the currently working directory.
+   */
+  public Directory getWorkingDir();
 
-  Directory getWorkingDir();
+  /**
+   * Gets the absolute path of the current working directory.
+   * 
+   * @return Returns the absolute path of the current working directory.
+   */
+  public String getWorkingDirPath();
 
-  String getWorkingDirPath();
+  /**
+   * Gets the root directory of the file system.
+   * 
+   * @return Returns the root directory.
+   */
+  public Directory getRoot();
 
-  Directory getRoot();
-
-  FSElement getFSElementByPath(Path path)
+  /**
+   * Gets a FS element by the given path.
+   * 
+   * @param path The path.
+   * @return Returns the found FS element.
+   * @throws MalformedPathException Thrown if the path is invalid.
+   * @throws FSElementNotFoundException Thrown if no FS element is found.
+   */
+  public FSElement getFSElementByPath(Path path)
       throws MalformedPathException, FSElementNotFoundException;
 }

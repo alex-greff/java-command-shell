@@ -30,7 +30,6 @@
 package utilities;
 
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.Directory;
@@ -52,23 +51,30 @@ import io.Writable;
 public abstract class Command {
 
   /**
-   * The command's name
+   * The command's name.
    */
   protected String NAME;
 
   /**
-   * The command's description
+   * The command's description.
    */
   protected CommandDescription DESCRIPTION;
 
+  /**
+   * The file system reference.
+   */
   protected FileSystem fileSystem;
 
+  /**
+   * The command manager reference.
+   */
   protected CommandManager commandManager;
 
   /**
-   * Constructs a new command instance
+   * Constructs a new command instance.
    *
-   * @param fileSystem The file system the command uses
+   * @param fileSystem The file system the command uses.
+   * @param commandManager The command manager the command uses.
    */
   public Command(FileSystem fileSystem, CommandManager commandManager) {
     this.fileSystem = fileSystem;
@@ -76,11 +82,12 @@ public abstract class Command {
   }
 
   /**
-   * Constructs a new command instance
+   * Constructs a new command instance.
    *
-   * @param name The name of the command
-   * @param description The description of the command
-   * @param fileSystem The file system the command uses
+   * @param name The name of the command.
+   * @param description The description of the command.
+   * @param fileSystem The file system the command uses.
+   * @param commandManager The command manaeger the command uses.
    */
   public Command(String name, CommandDescription description,
       FileSystem fileSystem, CommandManager commandManager) {
@@ -116,14 +123,13 @@ public abstract class Command {
         run(args, bufferedConsole, queryConsole, errorConsole);
 
     // Construct a string of all the output of the command
-    String resultStr =
-        bufferedConsole.getAllWritesAsString();
+    String resultStr = bufferedConsole.getAllWritesAsString();
 
     // Run the redirect operator, if needed
     ExitCode writeExitCode = ExitCode.SUCCESS;
     if (!args.getRedirectOperator().isEmpty()) {
       writeExitCode = writeToFile(resultStr, args.getRedirectOperator(),
-                                  args.getTargetDestination(), errorConsole);
+          args.getTargetDestination(), errorConsole);
     }
     // If no redirect operator then just write to the console
     else {
@@ -238,7 +244,7 @@ public abstract class Command {
    * @return Returns the created file.
    */
   private File<?> makeFile(String filePathStr) throws MalformedPathException,
-                                                      FSElementNotFoundException, FSElementAlreadyExistsException {
+      FSElementNotFoundException, FSElementAlreadyExistsException {
 
     boolean pathIsADirectory = true;
     try {

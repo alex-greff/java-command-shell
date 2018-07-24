@@ -41,7 +41,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The pwd command class that inherits from command
+ * The pwd command class that inherits from command.
  *
  * @author ursu
  */
@@ -58,12 +58,12 @@ public class CmdPwd extends Command {
   }
 
   /**
-   * Constant instance variable for the command name
+   * Constant instance variable for the command name.
    */
   private static final String NAME = "pwd";
 
   /**
-   * Container built for the command's description
+   * Container built for the command's description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Print working directory.",
@@ -73,11 +73,11 @@ public class CmdPwd extends Command {
    * Executes the pwd command with the given arguments. Pwd prints the working
    * directory.
    *
-   * @param args The command arguments container
+   * @param args The command arguments container.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, always SUCCESS
+   * @return Returns the ExitCode of the command, always SUCCESS.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -93,10 +93,10 @@ public class CmdPwd extends Command {
 
   /**
    * Helper function to check if the arguments passed are valid for this
-   * command. Pwd expects no arguments
+   * command. Pwd expects no arguments.
    *
-   * @param args The command arguments container
-   * @return Returns true iff the arguments are valid, false otherwise
+   * @param args The command arguments container.
+   * @return Returns true iff the arguments are valid, false otherwise.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {

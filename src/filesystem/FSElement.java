@@ -30,24 +30,26 @@
 package filesystem;
 
 /**
- * Represents an element that can be stored in the filesystem
+ * Represents an element that can be stored in the filesystem.
+ * 
+ * @author greff
  */
 public class FSElement {
 
   /**
-   * The parent of this element in the filesystem
+   * The parent of this element in the filesystem.
    */
   protected Directory parent;
   /**
-   * The name of this element in the filesystem
+   * The name of this element in the filesystem.
    */
   protected String name;
 
   /**
-   * Constructs a new element
+   * Constructs a new element.
    *
-   * @param name The name of this element
-   * @param parent The parent directory of this element
+   * @param name The name of this element.
+   * @param parent The parent directory of this element.
    */
   public FSElement(String name, Directory parent) {
     this.parent = parent;
@@ -55,16 +57,16 @@ public class FSElement {
   }
 
   /**
-   * Provides the parent of this element
+   * Provides the parent of this element.
    *
-   * @return The parent of the fselement
+   * @return The parent of the fselement.
    */
   public Directory getParent() {
     return parent;
   }
 
   /**
-   * Sets the current fselement's parent to newParent
+   * Sets the current fselement's parent to newParent.
    *
    * @param newParent The new parent.
    */
@@ -73,18 +75,18 @@ public class FSElement {
   }
 
   /**
-   * Provides the name of this element
+   * Provides the name of this element.
    *
-   * @return The name of the fselement
+   * @return The name of the fselement.
    */
   public String getName() {
     return name;
   }
 
   /**
-   * Renames this element
+   * Renames this element.
    *
-   * @param name The new name of this element
+   * @param name The new name of this element.
    */
   public void rename(String name) {
     if (this.parent != null) {
@@ -106,9 +108,9 @@ public class FSElement {
   /**
    * Renames this fselement without notifying its parent Make sure you know what
    * you are doing if you want to use this Most likely what you really need is
-   * rename
+   * rename.
    *
-   * @param newName The new name of this fselement
+   * @param newName The new name of this fselement.
    */
   public void setName(String newName) {
     this.name = newName;

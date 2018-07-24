@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /***
- * A container for storing parsed user input
+ * A container for storing parsed user input.
  *
  * @author greff
  *
@@ -43,7 +43,7 @@ public class CommandArgs {
 
   // Storage variables
   /**
-   * The name of the command.
+   * The name of the command..
    */
   private String cmdName;
   /**
@@ -56,7 +56,7 @@ public class CommandArgs {
   private HashMap<String, String> namedCmdParams;
 
   /**
-   * The array of flags for the command, if any
+   * The array of flags for the command, if any.
    */
   private String[] cmdFlags;
 
@@ -70,29 +70,29 @@ public class CommandArgs {
   private String targetDest;
 
   /**
-   * Constructor initializing with only a command name
+   * Constructor initializing with only a command name.
    *
-   * @param cmdName the name of the command
+   * @param cmdName the name of the command.
    */
   public CommandArgs(String cmdName) {
     this(cmdName, new String[0], new String[0], new HashMap<>(), "", "");
   }
 
   /**
-   * Constructor initializing with command name and command arguments
+   * Constructor initializing with command name and command arguments.
    *
-   * @param cmdName the name of the command
-   * @param cmdParams the array of command parameters
+   * @param cmdName The name of the command.
+   * @param cmdParams The array of command parameters.
    */
   public CommandArgs(String cmdName, String[] cmdParams) {
     this(cmdName, cmdParams, new String[0], new HashMap<>(), "", "");
   }
 
   /**
-   * Constructor initializing with command name and named command arguments
+   * Constructor initializing with command name and named command arguments.
    *
-   * @param cmdName the name of the command
-   * @param namedCmdParams the parameters that are mapped by type
+   * @param cmdName The name of the command.
+   * @param namedCmdParams The parameters that are mapped by type.
    */
   public CommandArgs(String cmdName, HashMap<String, String> namedCmdParams) {
     this(cmdName, new String[0], new String[0], namedCmdParams, "", "");
@@ -100,11 +100,11 @@ public class CommandArgs {
 
   /**
    * Constructor initializing with command name, command arguments and named
-   * command arguments
+   * command arguments.
    *
-   * @param cmdName the command name
-   * @param cmdParams the command arguments
-   * @param namedCmdParams the parameters that are mapped by type
+   * @param cmdName The command name.
+   * @param cmdParams The command arguments.
+   * @param namedCmdParams The parameters that are mapped by type.
    */
   public CommandArgs(String cmdName, String[] cmdParams,
       HashMap<String, String> namedCmdParams) {
@@ -113,11 +113,11 @@ public class CommandArgs {
 
   /**
    * Constructor initializing with command name, redirect operator and target
-   * destination
+   * destination.
    *
-   * @param cmdName the name of the command
-   * @param redirOperator the redirect operator
-   * @param targetDest the target destination of the redirect
+   * @param cmdName The name of the command.
+   * @param redirOperator The redirect operator.
+   * @param targetDest The target destination of the redirect.
    */
   public CommandArgs(String cmdName, String redirOperator, String targetDest) {
     this(cmdName, new String[0], new String[0], new HashMap<>(), redirOperator,
@@ -126,12 +126,12 @@ public class CommandArgs {
 
   /**
    * Constructor initializing with command name, command arguments, redirect
-   * operator and target destination
+   * operator and target destination.
    *
-   * @param cmdName the name of the command
-   * @param cmdParams the command arguments
-   * @param redirOperator the redirect operator
-   * @param targetDest the target destination of the redirect
+   * @param cmdName The name of the command.
+   * @param cmdParams The command arguments.
+   * @param redirOperator The redirect operator.
+   * @param targetDest The target destination of the redirect.
    */
   public CommandArgs(String cmdName, String[] cmdParams, String redirOperator,
       String targetDest) {
@@ -141,12 +141,12 @@ public class CommandArgs {
 
   /**
    * Constructor initializing with command name, named command arguments,
-   * redirect operator and target destination
+   * redirect operator and target destination.
    *
-   * @param cmdName the name of the command
-   * @param namedCmdArgs the parameters that are mapped by type
-   * @param redirOperator the redirect operator
-   * @param targetDest the target destination of the redirect
+   * @param cmdName The name of the command.
+   * @param namedCmdArgs The parameters that are mapped by type.
+   * @param redirOperator The redirect operator.
+   * @param targetDest The target destination of the redirect
    */
   public CommandArgs(String cmdName, HashMap<String, String> namedCmdArgs,
       String redirOperator, String targetDest) {
@@ -158,10 +158,10 @@ public class CommandArgs {
    * Constructor initializing with command name, named command arguments,
    * command flags and named command arguments.
    *
-   * @param cmdName the command name
-   * @param cmdParams the command arguments
-   * @param cmdFlags the flags
-   * @param namedCmdParams the parameters that are mapped by type
+   * @param cmdName The command name.
+   * @param cmdParams The command arguments.
+   * @param cmdFlags The flags.
+   * @param namedCmdParams The parameters that are mapped by type.
    */
   public CommandArgs(String cmdName, String[] cmdParams, String[] cmdFlags,
       HashMap<String, String> namedCmdParams) {
@@ -171,14 +171,14 @@ public class CommandArgs {
   /**
    * Constructor initializing with command name, command arguments, command
    * flags, named command arguments, the redirect operator and the target
-   * destination
+   * destination.
    *
-   * @param cmdName the command name
-   * @param cmdParams the command arguments
-   * @param cmdFlags the flags
-   * @param namedCmdParams the parameters that are mapped by type
-   * @param redirOperator the redirect operator
-   * @param targetDest the target destination of the redirect
+   * @param cmdName The command name.
+   * @param cmdParams The command arguments.
+   * @param cmdFlags The flags.
+   * @param namedCmdParams The parameters that are mapped by type.
+   * @param redirOperator The redirect operator.
+   * @param targetDest The target destination of the redirect.
    */
   public CommandArgs(String cmdName, String[] cmdParams, String[] cmdFlags,
       HashMap<String, String> namedCmdParams, String redirOperator,
@@ -192,29 +192,29 @@ public class CommandArgs {
   }
 
   /**
-   * Gets the command name or returns "" if there is none
+   * Gets the command name or returns "" if there is none.
    *
-   * @return Returns the command name. Returns "" if there are none
+   * @return Returns the command name. Returns "" if there are none.
    */
   public String getCommandName() {
     return cmdName;
   }
 
   /**
-   * Gets the command arguments or returns an empty array if there are none
+   * Gets the command arguments or returns an empty array if there are none.
    *
    * @return Returns the array of command arguments. Returns an empty array if
-   * there are none
+   * there are none.
    */
   public String[] getCommandParameters() {
     return cmdParams;
   }
 
   /**
-   * Gets the command flags or returns an empty array if there are none
+   * Gets the command flags or returns an empty array if there are none.
    *
    * @return Returns the array of command flags. Retruns an empty array if there
-   * are none
+   * are none.
    */
   public String[] getCommandFlags() {
     return cmdFlags;
@@ -231,18 +231,18 @@ public class CommandArgs {
   }
 
   /**
-   * Gets a copy of the hash map for the named command parameters
+   * Gets a copy of the hash map for the named command parameters.
    *
-   * @return Returns a copy of the hash map for the named command parameters
+   * @return Returns a copy of the hash map for the named command parameters.
    */
   public HashMap<String, String> getNamedCommandParametersMap() {
     return new HashMap<>(this.namedCmdParams);
   }
 
   /**
-   * Gets the set of keys for the named command parameters
+   * Gets the set of keys for the named command parameters.
    *
-   * @return Returns the set of keys for the named command parameters
+   * @return Returns the set of keys for the named command parameters.
    */
   public Set<String> getSetOfNamesCommandParameterKeys() {
     return this.namedCmdParams.keySet();
@@ -258,9 +258,9 @@ public class CommandArgs {
   }
 
   /**
-   * Gets the number of named command parameters
+   * Gets the number of named command parameters.
    *
-   * @return Returns the number of named command parameters
+   * @return Returns the number of named command parameters.
    */
   public int getNumberOfNamedCommandParameters() {
     return this.namedCmdParams.keySet().size();
@@ -276,28 +276,28 @@ public class CommandArgs {
   }
 
   /**
-   * Gets the redirect operator or returns "" if there is none
+   * Gets the redirect operator or returns "" if there is none.
    *
-   * @return Returns the redirect operator. Returns "" if there is none
+   * @return Returns the redirect operator. Returns "" if there is none.
    */
   public String getRedirectOperator() {
     return redirOperator;
   }
 
   /**
-   * Gets the target redirect destination or returns "" if there is none
+   * Gets the target redirect destination or returns "" if there is none.
    *
    * @return Returns the target redirect destination. Returns "" if there is
-   * none
+   * none.
    */
   public String getTargetDestination() {
     return targetDest;
   }
 
   /**
-   * Gets the string representation of self
+   * Gets the string representation of self.
    *
-   * @return Returns the string representation of self
+   * @return Returns the string representation of self.
    */
   @Override
   public String toString() {
@@ -339,10 +339,10 @@ public class CommandArgs {
   }
 
   /**
-   * Returns true iff other is equal to self
+   * Returns true iff other is equal to self.
    *
-   * @param other The other CommandArgs being compared
-   * @return Returns if the other object is equal to self
+   * @param other The other CommandArgs being compared.
+   * @return Returns if the other object is equal to self.
    */
   @Override
   public boolean equals(Object other) {

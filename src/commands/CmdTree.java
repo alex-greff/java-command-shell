@@ -44,7 +44,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * the tree command
+ * The tree command.
  *
  * @author chedy
  */
@@ -61,9 +61,12 @@ public class CmdTree extends Command {
   }
 
   /**
-   * name of the command
+   * The name of the command.
    */
   private static final String NAME = "tree";
+  /**
+   * The description of the command.
+   */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
           "Prints a tree representation of the entire filesystem, "
@@ -75,11 +78,13 @@ public class CmdTree extends Command {
           .build();
 
   /**
+   * Executes the command.
+   * 
    * @param args The arguments for the command call.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -95,8 +100,10 @@ public class CmdTree extends Command {
   }
 
   /**
+   * Checks if the arguments are valid for this command.
+   * 
    * @param args The command arguments.
-   * @return whether or not the arguments are valid for this command
+   * @return whether or not the arguments are valid for this command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -110,9 +117,11 @@ public class CmdTree extends Command {
   }
 
   /**
-   * @param curr The current directory to get names from
-   * @param tabs The amount of tabs to indent the newlines
-   * @return a block of String which represents the filesystem from the curr
+   * Adds on the directory and returns the string represenation.
+   * 
+   * @param curr The current directory to get names from.
+   * @param tabs The amount of tabs to indent the newlines.
+   * @return Returns a block of String which represents the filesystem from the curr
    * directory down.
    */
   private String addOn(Directory curr, int tabs) {

@@ -116,10 +116,10 @@ public class CommandDescription {
     private ArrayList<String> comments = new ArrayList<>();
 
     /**
-     * Creates a new description builder with required params
+     * Creates a new description builder with required params.
      *
-     * @param description The description of the command
-     * @param usage Usage info for the command
+     * @param description The description of the command.
+     * @param usage Usage info for the command.
      */
     public DescriptionBuilder(String description, String usage) {
       this.description.add(description);
@@ -132,10 +132,10 @@ public class CommandDescription {
     }
 
     /**
-     * Adds additional usage info
+     * Adds additional usage info.
      *
-     * @param usage A string with some usage info
-     * @return The current description builder for chaining
+     * @param usage A string with some usage info.
+     * @return The current description builder for chaining.
      */
     public DescriptionBuilder usage(String usage) {
       usages.add(usage);
@@ -143,10 +143,10 @@ public class CommandDescription {
     }
 
     /**
-     * add additiona
+     * Add additional comments.
      *
-     * @param comment An additional comment
-     * @return Current description builder for chaining
+     * @param comment An additional comment.
+     * @return Current description builder for chaining.
      */
     public DescriptionBuilder additionalComment(String comment) {
       comments.add(comment);
@@ -155,9 +155,9 @@ public class CommandDescription {
 
     /**
      * Builds an instance of a CommandDescription with the currently set
-     * parameters
+     * parameters.
      *
-     * @return A new CommandDescription instance with all the configuration set
+     * @return A new CommandDescription instance with all the configuration set.
      */
     public CommandDescription build() {
       return new CommandDescription(description, usages, comments);

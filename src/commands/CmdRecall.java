@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import driver.JShell;
@@ -43,33 +42,32 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * the !number command, otherwise known as ExclamPoint..
+ * The !number command, otherwise known as Recall.
  *
  * @author chedy
  */
 public class CmdRecall extends Command {
 
   /**
-   * The name of this command
+   * The name of this command.
    */
   private static final String NAME = "recall";
   /**
-   * command description
+   * The command description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder(
-          "This command executes the n'th last command executed",
-          "![num]")
-          .additionalComment("The history command itself will "
-                                 + "always take place as the latest entry in history "
-                                 + "(i.e. history 1 prints: \"[int]. history 1\")")
-          .build();
+          "This command executes the n'th last command executed", "![num]")
+              .additionalComment("The history command itself will "
+                  + "always take place as the latest entry in history "
+                  + "(i.e. history 1 prints: \"[int]. history 1\")")
+              .build();
 
   /**
-   * Constructs a new CmdRecall instance
+   * Constructs a new CmdRecall instance.
    *
-   * @param fileSystem the filesystem that the command uses
-   * @param commandManager the commandManager that the command uses
+   * @param fileSystem the filesystem that the command uses.
+   * @param commandManager the commandManager that the command uses.
    */
   public CmdRecall(FileSystem fileSystem, CommandManager commandManager) {
     super(NAME, DESCRIPTION, fileSystem, commandManager);
@@ -80,7 +78,7 @@ public class CmdRecall extends Command {
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return the exitcode indicating success or failure of execution
+   * @return the exitcode indicating success or failure of execution.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -114,8 +112,10 @@ public class CmdRecall extends Command {
   }
 
   /**
-   * @param word the string to be checked if its a valid number
-   * @return true iff word can be parsed into an int
+   * Indicates if the string word is an integer.
+   * 
+   * @param word the string to be checked if its a valid number.
+   * @return true iff word can be parsed into an int.
    */
   private boolean isInt(String word) {
     try {
@@ -127,8 +127,10 @@ public class CmdRecall extends Command {
   }
 
   /**
+   * Validates that the arguments are valid for this command.
+   * 
    * @param args The command arguments.
-   * @return true if the arguments are valid for this command
+   * @return true if the arguments are valid for this command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -138,8 +140,8 @@ public class CmdRecall extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;
@@ -149,6 +151,5 @@ public class CmdRecall extends Command {
 
     // Return the result
     return paramsMatches && stringParamsMatches;
-
   }
 }

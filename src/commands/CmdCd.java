@@ -31,7 +31,6 @@ package commands;
 
 import static utilities.JShellConstants.APPEND_OPERATOR;
 import static utilities.JShellConstants.OVERWRITE_OPERATOR;
-
 import containers.CommandArgs;
 import containers.CommandDescription;
 import filesystem.FSElementNotFoundException;
@@ -44,7 +43,7 @@ import utilities.CommandManager;
 import utilities.ExitCode;
 
 /**
- * The cd command class that inherits from command
+ * The cd command class that inherits from command.
  *
  * @author ursu
  */
@@ -61,30 +60,30 @@ public class CmdCd extends Command {
   }
 
   /**
-   * Constant instance variable for the command name
+   * Constant instance variable for the command name.
    */
   private static final String NAME = "cd";
 
   /**
-   * Container built for the command's description
+   * Container built for the command's description.
    */
   private static final CommandDescription DESCRIPTION =
       new CommandDescription.DescriptionBuilder("Change directory.",
-                                                "cd DIRECTORY")
-          .additionalComment(
-              "Path of DIRECTORY can be relative or absolute.")
-          .build();
+          "cd DIRECTORY")
+              .additionalComment(
+                  "Path of DIRECTORY can be relative or absolute.")
+              .build();
 
   /**
    * Executes the cd command with the given arguments. Cd changes the working
    * directory. Error messages if the directory path is invalid, or the
    * directory does not exist.
    *
-   * @param args The command arguments container
+   * @param args The command arguments container.
    * @param console The standard console.
    * @param queryConsole The query console.
    * @param errorConsole The error console.
-   * @return Returns the ExitCode of the command, SUCCESS or FAILURE
+   * @return Returns the ExitCode of the command, SUCCESS or FAILURE.
    */
   @Override
   protected ExitCode run(CommandArgs args, Console<String> console,
@@ -113,10 +112,10 @@ public class CmdCd extends Command {
 
   /**
    * Helper function to check if the arguments passed are valid for this
-   * command. Cd expects only 1 argument
+   * command. Cd expects only 1 argument.
    *
-   * @param args The command arguments container
-   * @return Returns true iff the arguments are valid, false otherwise
+   * @param args The command arguments container.
+   * @return Returns true iff the arguments are valid, false otherwise.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
@@ -126,8 +125,8 @@ public class CmdCd extends Command {
         && args.getNumberOfCommandFieldParameters() == 0
         && args.getNumberOfNamedCommandParameters() == 0
         && (args.getRedirectOperator().equals("")
-        || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
-        || args.getRedirectOperator().equals(APPEND_OPERATOR));
+            || args.getRedirectOperator().equals(OVERWRITE_OPERATOR)
+            || args.getRedirectOperator().equals(APPEND_OPERATOR));
 
     // Check that the parameters are not strings
     boolean stringParamsMatches = true;

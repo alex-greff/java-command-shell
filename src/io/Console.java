@@ -46,15 +46,20 @@ public class Console<T> implements Writable<T>, Readable {
   }
 
   /**
-   * Write text to the console
+   * Write text to the console.
    *
-   * @param contents The text to be written
+   * @param contents The contents to be written.
    */
   @Override
   public void write(T contents) {
     System.out.print(contents);
   }
 
+  /**
+   * Writes a new text line to the console.
+   * 
+   * @param contents The contents to be written.
+   */
   @Override
   public void writeln(T contents) {
     System.out.println(contents);
@@ -63,7 +68,7 @@ public class Console<T> implements Writable<T>, Readable {
   /**
    * Read text from the console
    *
-   * @return The text read from the console
+   * @return The text read from the console.
    */
   @Override
   public String read() {

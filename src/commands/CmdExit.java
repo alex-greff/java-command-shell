@@ -85,10 +85,10 @@ public class CmdExit extends Command {
   }
 
   /**
-   * Checks if args is a valid CommandArgs instance for this command
+   * Checks if args is a valid CommandArgs instance for this command.
    *
-   * @param args The command arguments
-   * @return Returns true iff args is a valid for this command
+   * @param args The command arguments.
+   * @return Returns true iff args is a valid for this command.
    */
   @Override
   public boolean isValidArgs(CommandArgs args) {
