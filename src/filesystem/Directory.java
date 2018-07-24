@@ -58,6 +58,8 @@ public class Directory extends FSElement {
   /**
    * Adds the given fselement child to itself overwriting if something with the
    * same name existed before.
+   * 
+   * @param child The child to be added.
    */
   public void addChild(FSElement child) {
     if (child == null) {
