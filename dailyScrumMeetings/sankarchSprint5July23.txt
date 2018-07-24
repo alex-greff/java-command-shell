@@ -1,0 +1,13 @@
+What did I do last time?
+    - created full ant builder xml file, with junit testing capabilities
+    - finalized test cases for my commands
+    - ensured project completion
+    - added some small features to JShell for ease of testing (clearHistory)
+
+
+What do I plan to do now?
+    - submit assignment
+
+
+Am I blocked on anything?
+    - nope
