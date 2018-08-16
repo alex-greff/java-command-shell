@@ -106,49 +106,65 @@ public class CmdGrep extends Command {
     // Obtain the String arrays for the Command Flags and Parameters
     String[] cmdFlags = args.getCommandFlags();
     String[] cmdParams = args.getCommandParameters();
-    // Create a null path object for the source
-    Path srcPath;
-    // Create an empty ArrayList of Strings to hold matching lines
-    ArrayList<String> matches = new ArrayList<>();
 
-    try { // Try to create a path object from the second parameter
-      srcPath = new Path(cmdParams[1]);
-    } catch (MalformedPathException e) { // Error if the path parses incorrectly
-      errorConsole.writeln("Error: Invalid file path");
-      return ExitCode.FAILURE; // Stop the function here
-    }
+    // The return string
+    StringBuilder ret_str = new StringBuilder();
 
-    if (cmdFlags.length == 0) {
-      // If there is no recursive flag
-      try { // Try to obtain a file with the given path
-        File src = fileSystem.getFileByPath(srcPath);
-        // matches is the result of the helper function on the file
-        matches = executeHelper(src, removeStringQuotes(cmdParams[0]));
-      } catch (MalformedPathException | FSElementNotFoundException e) {
-        // Error message if file not found at the given path
-        errorConsole.writeln("Error: File does not exist");
+    // Iterate through each given file
+    for (int i = 1; i < cmdParams.length; i++) {
+      String srcPathStr = cmdParams[i];
+      
+      // Create a null path object for the source
+      Path srcPath;
+      try { // Try to create a path object from the second parameter
+        srcPath = new Path(srcPathStr);
+      } catch (MalformedPathException e) { // Error if the path parses incorrectly
+        errorConsole.writeln("Error: Invalid file path");
         return ExitCode.FAILURE; // Stop the function here
+      }      
+      
+      // Create an empty ArrayList of Strings to hold matching lines
+      ArrayList<String> matches = new ArrayList<>();
+      
+      if (cmdFlags.length == 0) {
+        // If there is no recursive flag
+        try { // Try to obtain a file with the given path
+          File src = fileSystem.getFileByPath(srcPath);
+          // matches is the result of the helper function on the file
+          matches = executeHelper(src, removeStringQuotes(cmdParams[0]));
+        } catch (MalformedPathException | FSElementNotFoundException e) {
+          // Error message if file not found at the given path
+          errorConsole.writeln("Error: File does not exist");
+          return ExitCode.FAILURE; // Stop the function here
+        }
+  
+      } else if (cmdFlags.length == 1 && cmdFlags[0].equals(RECURSIVE_FLAG)) {
+        // If there is a recursive flag
+        try { // Try to obtain a directory with the given path
+          Directory src = fileSystem.getDirByPath(srcPath);
+          // matches is the result of the helper function on the directory
+          matches = executeHelper(src, removeStringQuotes(cmdParams[0]));
+        } catch (MalformedPathException | FSElementNotFoundException e) {
+          // Error message if directory not found at the given path
+          errorConsole.writeln("Error: Directory does not exist");
+          return ExitCode.FAILURE; // Stop the function here
+        }
       }
-
-    } else if (cmdFlags.length == 1 && cmdFlags[0].equals(RECURSIVE_FLAG)) {
-      // If there is a recursive flag
-      try { // Try to obtain a directory with the given path
-        Directory src = fileSystem.getDirByPath(srcPath);
-        // matches is the result of the helper function on the directory
-        matches = executeHelper(src, removeStringQuotes(cmdParams[0]));
-      } catch (MalformedPathException | FSElementNotFoundException e) {
-        // Error message if directory not found at the given path
-        errorConsole.writeln("Error: Directory does not exist");
-        return ExitCode.FAILURE; // Stop the function here
+      
+      // If no matches are found
+      if (matches.size() == 0)
+        continue;
+      
+      // Print the source path with the matches follow afterwards
+      for (String match : matches) {
+        ret_str.append(match + "\n");
       }
+      ret_str.append("\n");
     }
 
-    // Print Strings from the matches ArrayList to standard output
-    for (String match : matches) {
-      console.writeln(match);
-    }
-    console.writeln("");
-
+    // Write the output to the console
+    console.write(ret_str.toString());
+    
     // If this line is reached, nothing went wrong
     return ExitCode.SUCCESS;
   }
@@ -172,7 +188,7 @@ public class CmdGrep extends Command {
     // the given regex, add the line to the matches String ArrayList
     for (String line : fileLines) {
       if (line.matches(regex)) {
-        matches.add(line);
+        matches.add(fileSystem.getAbsolutePathOfFSElement(src) + ": " + line);
       }
     }
 
@@ -242,7 +258,7 @@ public class CmdGrep extends Command {
   public boolean isValidArgs(CommandArgs args) {
     // Check that the form matches for the args
     boolean paramsMatches = args.getCommandName().equals(NAME)
-        && args.getNumberOfCommandParameters() == 2
+        && args.getNumberOfCommandParameters() >= 2
         && ((args.getNumberOfCommandFieldParameters() == 1
             && args.getCommandFlags()[0].equals(RECURSIVE_FLAG))
             || args.getNumberOfCommandFieldParameters() == 0)
