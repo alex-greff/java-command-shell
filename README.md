@@ -13,35 +13,35 @@ Import the repository into an IDE such as Eclipse or IntelliJ to run and compile
 
 **exit** - Exits the shell.
 
-**mkdir DIR...** - Creates all directory parameters.
+**mkdir DIR...** - Creates directories in all given directory locations.
 
-**cd DIR** - Changes the current working directory.
+**cd DIR** - Changes the current working directory to the given directory.
 
 **ls [-R] [PATH]** - Lists the files/directories in the given paths. -R lists recursively.
 
-**pwd** - Prints the current working directory.
+**pwd** - Prints the current working directory path.
 
-**mv OLD_PATH NEW_PATH** - moves the file/directory to a new location.
+**mv OLD_PATH NEW_PATH** - Moves the file/directory to a new location.
 
-**cp OLD_PATH NEW_PATH** - copies the file/directory to a new location
+**cp OLD_PATH NEW_PATH** - Copies the file/directory to a new location
 
-**cat FILE** - prints the contents of the file.
+**cat FILE** - Prints the contents of the file.
 
-**curl URL** - prints the contents of a web URL.
+**curl URL** - Prints the contents of a web URL.
 
-**echo STRING** - prints the string.
+**echo STRING** - Prints the string.
 
-**man CMD_NAME** - displays a brief documentation for the given command.
+**man CMD_NAME** - Displays a brief documentation for the given command.
 
-**pushd DIR** - pushes the current working directory to a stack and sets the directory as the new working directory.
+**pushd DIR** - Pushes the current working directory to a stack and sets the directory as the new working directory.
 
-**popd** - pops the latest directory off the stack and sets it to be the working directory.
+**popd** - Pops the latest directory off the stack and sets it to be the working directory.
 
-**history [NUMBER]** - displays NUMBERth most recent console inputs or 10 if NUMBER is not specified.
+**history [NUMBER]** - Displays NUMBERth most recent console inputs or 10 if NUMBER is not specified.
 
-**!NUMBER** - attempts to execute the NUMBERth most recent command.
+**!NUMBER** - Attempts to execute the NUMBERth most recent console input.
 
-**grep [-R] REGEX PATH...** - searches the given file(s) for the given regular expression. -R searches the given directories recursively.
+**grep [-R] REGEX PATH...** - Searches the given file(s) contents for the given regular expression. -R searches any given directories recursively.
 
 
 ## Command Redirection
@@ -49,21 +49,21 @@ Alongside the implemented commands, a redirection system was also implemented al
 
 Note: if a non-existent file location is specified then a new file will be created.
 
-**Writing to Files:**
+### Writing to Files
 
 * **COMMAND > FILE**
 
 Example:
 ```
-echo "Hello World" > myFile // Writes "Hello World"
+echo "Hello World" > myFile // Writes "Hello World" to myFile
 ```
 
-**Appending to Files:**
+### Appending to Files
 
 * **COMMAND >> FILE**
 
 Example:
 ```
-mkdir myFile
-ls >> myFile // Appends "myFile"
+mkdir myFile // Creates myFile
+ls >> myFile // Appends "myFile" to myFile
 ```
